@@ -1,0 +1,16 @@
+mutation {
+  createUser(
+    authProvider: {
+      email: {
+        email: $email,
+        password:$password
+      }
+    }
+  ) {
+    id
+    email
+    _webhooksMeta {
+      count
+    }
+  }
+}

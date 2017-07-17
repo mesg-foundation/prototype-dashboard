@@ -1,0 +1,16 @@
+subscription(
+  $projectId: ID!
+) {
+  Webhook(filter: {
+    mutation_in: DELETED,
+    node: {
+      project: {
+        id: $projectId
+      }
+    }
+  }) {
+    previousValues {
+      id
+    }
+  }
+}

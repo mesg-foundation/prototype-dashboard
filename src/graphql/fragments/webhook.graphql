@@ -1,0 +1,17 @@
+fragment webhookFields on Webhook {
+  id
+  endpoint
+  eventName
+  authorizationType
+  authorizationValue
+  secret
+  enable,
+  createdAt
+  contract {
+    id
+    address
+    abi
+    public
+    createdAt
+  }
+}

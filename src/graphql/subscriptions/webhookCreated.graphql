@@ -1,0 +1,18 @@
+#import "@/graphql/fragments/webhook.graphql"
+
+subscription(
+  $projectId: ID!
+) {
+  Webhook(filter: {
+    mutation_in: CREATED,
+    node: {
+      project: {
+        id: $projectId
+      }
+    }
+  }) {
+    node {
+      ...webhookFields
+    }
+  }
+}

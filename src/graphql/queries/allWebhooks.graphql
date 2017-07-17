@@ -1,0 +1,15 @@
+#import "@/graphql/fragments/webhook.graphql"
+
+query(
+  $projectId: ID!
+) {
+  allWebhooks(
+    filter: {
+      project: {
+        id: $projectId
+      }
+    }
+  ) {
+    ...webhookFields
+  }
+}

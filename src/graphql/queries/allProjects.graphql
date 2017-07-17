@@ -1,0 +1,15 @@
+#import "@/graphql/fragments/project.graphql"
+
+query(
+  $currentUserId: ID!
+) {
+  allProjects(
+    filter: {
+      users_some: {
+        id: $currentUserId
+      }
+    }
+  ) {
+    ...projectFields
+  }
+}

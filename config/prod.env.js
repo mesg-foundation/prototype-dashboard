@@ -1,0 +1,6 @@
+module.exports = {
+  NODE_ENV: '"production"',
+  AUTH_COOKIE_NAME_TOKEN: '"AUTH_TOKEN"',
+  AUTH_COOKIE_NAME_USER: '"USER_ID"',
+  AUTH_COOKIE_NAME_PROJECT: '"PROJECT_ID"'
+}

@@ -1,0 +1,30 @@
+#import "@/graphql/fragments/webhook.graphql"
+
+mutation(
+  $projectId: ID!,
+  $endpoint: String!
+  $eventName: String!
+  $contractAddress: String!
+  $contractAbi: Json!
+  $authorizationType: WEBHOOK_AUTHORIZATION_TYPE
+  $authorizationValue: String,
+  $secret: String
+  $contractPublic: Boolean
+) {
+  createWebhook(
+    authorizationType: $authorizationType
+    authorizationValue:$authorizationValue
+    endpoint: $endpoint
+    eventName: $eventName
+    secret: $secret
+    projectId: $projectId,
+    contract: {
+      projectId: $projectId,
+      address: $contractAddress
+      abi: $contractAbi
+      public: $contractPublic
+    }
+	) {
+    ...webhookFields
+  }
+}
