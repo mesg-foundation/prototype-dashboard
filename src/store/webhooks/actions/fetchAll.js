@@ -1,5 +1,5 @@
 import client from '@/graphql'
-import query from '@/graphql/queries/allWebhooks.graphql'
+import query from '@/graphql/webhooks/queries/allWebhooks.graphql'
 
 export default ({ commit, rootGetters }, { projectId }) => client()
   .query({

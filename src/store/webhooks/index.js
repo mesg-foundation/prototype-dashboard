@@ -1,13 +1,13 @@
-import webhookCreated from '@/graphql/subscriptions/webhookCreated.graphql'
-import webhookUpdated from '@/graphql/subscriptions/webhookUpdated.graphql'
-import webhookDeleted from '@/graphql/subscriptions/webhookDeleted.graphql'
+import created from '@/graphql/webhooks/subscriptions/created.graphql'
+import updated from '@/graphql/webhooks/subscriptions/updated.graphql'
+import removed from '@/graphql/webhooks/subscriptions/deleted.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
 import actions from './actions'
 
 const subscriptionsQueries = {
-  created: webhookCreated,
-  updated: webhookUpdated,
-  removed: webhookDeleted
+  created,
+  updated,
+  removed
 }
 
 const subscriptionsVariables = getter => ({

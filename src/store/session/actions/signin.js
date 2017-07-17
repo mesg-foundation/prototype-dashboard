@@ -1,5 +1,5 @@
 import client from '@/graphql'
-import mutation from '@/graphql/mutations/signin.graphql'
+import mutation from '@/graphql/users/mutations/signin.graphql'
 
 export default ({ commit, dispatch }, { email, password }) => client()
   .mutate({

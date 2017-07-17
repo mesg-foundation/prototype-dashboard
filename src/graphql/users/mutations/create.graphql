@@ -1,3 +1,5 @@
+#import "@/graphql/users/schema.graphql"
+
 mutation {
   createUser(
     authProvider: {
@@ -7,10 +9,6 @@ mutation {
       }
     }
   ) {
-    id
-    email
-    _webhooksMeta {
-      count
-    }
+    ...userFields
   }
 }

@@ -1,5 +1,5 @@
 import client from '@/graphql'
-import query from '@/graphql/queries/allProjects.graphql'
+import query from '@/graphql/projects/queries/allProjects.graphql'
 
 export default ({ commit, dispatch, rootGetters }, { userId }) => client()
   .query({

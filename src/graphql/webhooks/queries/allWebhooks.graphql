@@ -1,4 +1,4 @@
-#import "@/graphql/fragments/webhook.graphql"
+#import "@/graphql/webhooks/schema.graphql"
 
 query(
   $projectId: ID!

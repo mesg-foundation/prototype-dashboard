@@ -1,4 +1,4 @@
-#import "@/graphql/fragments/project.graphql"
+#import "@/graphql/projects/schema.graphql"
 
 query(
   $currentUserId: ID!

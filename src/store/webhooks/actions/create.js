@@ -1,5 +1,5 @@
 import client from '@/graphql'
-import mutation from '@/graphql/mutations/createWebhook.graphql'
+import mutation from '@/graphql/webhooks/mutations/create.graphql'
 
 export default ({ commit, rootGetters }, data) => client()
   .mutate({
@@ -9,6 +9,5 @@ export default ({ commit, rootGetters }, data) => client()
       projectId: rootGetters['session/currentProjectId']
     }
   })
-  .then(result => {
-    debugger
-  })
+  // TODO: Not sure of the result.data.createWebhook
+  .then(result => commit('updateItem', result.data.createWebhook))
