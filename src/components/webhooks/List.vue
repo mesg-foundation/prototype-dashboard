@@ -25,7 +25,7 @@
         </td>
         <td>{{ props.item.eventName }}</td>
         <td class="text-xs-right">
-          <time-formatter :value="props.item.createdAt"></time-formatter>
+          <TimeFormatter :value="props.item.createdAt"></TimeFormatter>
         </td>
       </template>
     </v-data-table>

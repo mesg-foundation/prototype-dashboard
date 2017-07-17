@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer permanent dark>
     <v-list class="pa-1">
-      <v-list-tile avatar tag="div">
+      <v-list-tile avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
           <img class="primary" src="/static/img/logo-light.svg">
         </v-list-tile-avatar>

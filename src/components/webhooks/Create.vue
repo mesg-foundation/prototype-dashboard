@@ -1,6 +1,6 @@
 <template>
   <div>
-    <webhook-form></webhook-form>
+    <WebhookForm></WebhookForm>
   </div>
 </template>
 

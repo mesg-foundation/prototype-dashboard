@@ -22,12 +22,12 @@
           required>
         </v-text-field>
 
-        <event-selector
+        <EventSelector
           :label="$t('labels.event')"
           v-model="event"
           :abi="abiObject"
           required>
-        </event-selector>
+        </EventSelector>
 
         <v-text-field
           :label="$t('labels.endpoint')"
