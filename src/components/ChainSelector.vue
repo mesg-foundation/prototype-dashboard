@@ -19,7 +19,7 @@
     props: {
       chains: {
         type: Array,
-        default: () => [...process.env.CHAINS, { key: 'PUTE', name: 'pute' }]
+        default: () => process.env.CHAINS
       }
     },
     data () {
