@@ -26,7 +26,7 @@ export default {
         .reduce((sum, x) => sum + this.errors[x].length, 0)
     },
     isValid () {
-      return this.errorsCount === 0
+      return this.errorsCount === 0 && !this.$v.$error
     }
   },
   methods: {
