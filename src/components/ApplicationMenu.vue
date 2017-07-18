@@ -37,7 +37,10 @@
             <v-icon dark>{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title>
+              {{ item.title }}
+              <small v-if="item.count">({{ item.count }})</small>
+            </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -68,8 +71,8 @@
       }),
       items () {
         return [
-          { key: 'webhooks', to: { name: 'Webhooks' }, icon: 'http' },
-          { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions' }
+          { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },
+          { key: 'webhooks', to: { name: 'Webhooks' }, icon: 'http', count: this.currentProject._webhooksMeta.count }
         ].map(e => ({
           ...e,
           title: this.$t(`menu.${e.key}`)
