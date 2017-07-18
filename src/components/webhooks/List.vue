@@ -3,9 +3,9 @@
     :headers="headers"
     :items="webhooks"
     :title="$t('title')"
-    :loading="loading">
+    :loading="loading"
+    searchable>
     <template slot="toolbar">
-      <v-spacer></v-spacer>
       <v-btn
         success class="white--text"
         router :to="{ name: 'NewWebhook' }">

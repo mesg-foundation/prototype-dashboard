@@ -3,7 +3,8 @@
     :headers="headers"
     :items="contracts"
     :title="$t('title')"
-    :loading="loading">
+    :loading="loading"
+    searchable>
     <template scope="contract">
       <td>
         <router-link :to="{ name: 'Contract', params: { id: contract.id } }">
