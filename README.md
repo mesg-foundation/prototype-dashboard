@@ -1,12 +1,15 @@
-# ethhook
 
-> A Vue.js project
+https://dashboard-etherstellar.netlify.com/
+
+# Dashboard
+
+> Dashboard to manage your contracts, webhooks, and everything else
 
 ## Build Setup
 
 ``` bash
 # install dependencies
-npm install
+yarn
 
 # serve with hot reload at localhost:8080
 npm run dev
