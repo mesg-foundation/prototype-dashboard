@@ -1,0 +1,17 @@
+#import "@/graphql/contracts/schema.graphql"
+
+mutation(
+  $projectId: ID!,
+  $address: String!
+  $abi: Json!
+  $public: Boolean
+) {
+  createContract(
+    projectId: $projectId,
+    address: $address
+    abi: $abi
+    public: $public
+	) {
+    ...contractFields
+  }
+}

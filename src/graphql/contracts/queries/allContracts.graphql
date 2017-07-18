@@ -1,0 +1,15 @@
+#import "@/graphql/contracts/schema.graphql"
+
+query(
+  $projectId: ID!
+) {
+  allContracts(
+    filter: {
+      project: {
+        id: $projectId
+      }
+    }
+  ) {
+    ...contractFields
+  }
+}

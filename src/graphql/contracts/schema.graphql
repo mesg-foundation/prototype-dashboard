@@ -1,0 +1,7 @@
+fragment contractFields on Contract {
+  id
+  address
+  abi
+  public
+  createdAt
+}
