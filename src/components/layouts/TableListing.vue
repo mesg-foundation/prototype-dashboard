@@ -7,6 +7,7 @@
     <v-data-table
       :headers="headers"
       :items="items"
+      :loading="loading"
       hide-actions>
       <template slot="items" scope="props">
         <slot v-bind="props.item"></slot>
@@ -29,6 +30,10 @@
       title: {
         type: String,
         required: true
+      },
+      loading: {
+        type: Boolean,
+        default: false
       }
     }
   }

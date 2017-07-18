@@ -2,7 +2,8 @@
   <table-listing
     :headers="headers"
     :items="webhooks"
-    :title="$t('title')">
+    :title="$t('title')"
+    :loading="loading">
     <template slot="toolbar">
       <v-spacer></v-spacer>
       <v-btn
@@ -41,20 +42,20 @@
 </i18n>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import collection from '@/mixins/collection'
+  import withProjectId from '@/mixins/withProjectId'
   import TableListing from '@/components/layouts/TableListing.vue'
   export default {
     components: {
       TableListing
     },
-    methods: mapActions({
-      fetchWebhooks: 'webhooks/fetchAll'
-    }),
+    mixins: [
+      withProjectId,
+      collection('webhooks', component => ({
+        projectId: component.projectId
+      }))
+    ],
     computed: {
-      ...mapGetters({
-        webhooks: 'webhooks/collectionList',
-        projectId: 'session/currentProjectId'
-      }),
       headers () {
         return [
           { text: this.$t('header.enable'), align: 'left', sortable: false },
@@ -63,9 +64,6 @@
           { text: this.$t('header.createdAt'), align: 'right', sortable: true, value: 'createdAt' }
         ]
       }
-    },
-    mounted () {
-      this.fetchWebhooks({ projectId: this.projectId })
     }
   }
 </script>

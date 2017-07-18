@@ -2,7 +2,8 @@
   <table-listing
     :headers="headers"
     :items="contracts"
-    :title="$t('title')">
+    :title="$t('title')"
+    :loading="loading">
     <template scope="contract">
       <td>
         <router-link :to="{ name: 'Contract', params: { id: contract.id } }">
@@ -25,37 +26,26 @@
 </i18n>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import collection from '@/mixins/collection'
+  import withProjectId from '@/mixins/withProjectId'
   import TableListing from '@/components/layouts/TableListing.vue'
   export default {
     components: {
       TableListing
     },
-    methods: mapActions({
-      fetchContracts: 'contracts/fetchAll'
-    }),
+    mixins: [
+      withProjectId,
+      collection('contracts', component => ({
+        projectId: component.projectId
+      }))
+    ],
     computed: {
-      ...mapGetters({
-        contracts: 'contracts/collectionList',
-        projectId: 'session/currentProjectId'
-      }),
       headers () {
         return [
           { text: this.$t('header.address'), align: 'left', sortable: true, value: 'address' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: true, value: 'createdAt' }
         ]
       }
-    },
-    mounted () {
-      this.fetchContracts({ projectId: this.projectId })
     }
   }
 </script>
-
-<style lang="stylus">
-  @import "../../variables"
-
-  nav.grey.lighten-3 + .table__overflow thead {
-    background: $grey.lighten-3;
-  }
-</style>
