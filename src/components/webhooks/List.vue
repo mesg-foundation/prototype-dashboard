@@ -1,7 +1,9 @@
 <template>
-  <v-card flat>
-    <v-toolbar card class="grey lighten-3">
-      <v-toolbar-title>{{ $t('title') }}</v-toolbar-title>
+  <table-listing
+    :headers="headers"
+    :items="webhooks"
+    :title="$t('title')">
+    <template slot="toolbar">
       <v-spacer></v-spacer>
       <v-btn
         success class="white--text"
@@ -9,27 +11,22 @@
         <v-icon class="white--text">add</v-icon>
         {{ $t('create') }}
       </v-btn>
-    </v-toolbar>
-    <v-data-table
-      :headers="headers"
-      :items="webhooks"
-      hide-actions>
-      <template slot="items" scope="props">
-        <td>
-          <v-switch v-model="props.item.enable"></v-switch>
-        </td>
-        <td>
-          <router-link :to="{ name: 'Webhook', params: { id: props.item.id } }">
-            {{ props.item.endpoint }}
-          </router-link>
-        </td>
-        <td>{{ props.item.eventName }}</td>
-        <td class="text-xs-right">
-          <TimeFormatter :value="props.item.createdAt"></TimeFormatter>
-        </td>
-      </template>
-    </v-data-table>
-  </v-card>
+    </template>
+    <template scope="webhook">
+      <td>
+        <v-switch v-model="webhook.enable"></v-switch>
+      </td>
+      <td>
+        <router-link :to="{ name: 'Webhook', params: { id: webhook.id } }">
+          {{ webhook.endpoint }}
+        </router-link>
+      </td>
+      <td>{{ webhook.eventName }}</td>
+      <td class="text-xs-right">
+        <timeago :since="webhook.createdAt"></timeago>
+      </td>
+    </template>
+  </table-listing>
 </template>
 
 <i18n>
@@ -45,10 +42,10 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import TimeFormatter from '@/components/formatters/Time.vue'
+  import TableListing from '@/components/layouts/TableListing.vue'
   export default {
     components: {
-      TimeFormatter
+      TableListing
     },
     methods: mapActions({
       fetchWebhooks: 'webhooks/fetchAll'
@@ -72,11 +69,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import "../../variables"
-
-  nav.grey.lighten-3 + .table__overflow thead {
-    background: $grey.lighten-3;
-  }
-</style>
