@@ -7,6 +7,7 @@
     searchable>
     <template scope="contract">
       <td>
+        <v-icon class="mr-2">{{ contract.public ? 'public' : 'vpn_lock' }}</v-icon>
         <router-link :to="{ name: 'Contract', params: { id: contract.id } }">
           {{ contract.address }}
         </router-link>
