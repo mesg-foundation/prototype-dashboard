@@ -15,7 +15,7 @@
           {{ data.item.name }}
         </v-list-tile-title>
         <v-list-tile-sub-title>
-          {{ data.item.inputs }}
+          {{ inputs(data.item) }}
         </v-list-tile-sub-title>
       </v-list-tile-content>
     </template>
@@ -25,9 +25,9 @@
 <script>
   export default {
     props: {
-      abi: {
-        type: Array,
-        default: () => []
+      contract: {
+        type: Object,
+        required: true
       },
       input: {
         type: String,
@@ -49,12 +49,8 @@
     },
     computed: {
       events () {
-        return this.abi
-          .filter(e => e.type === 'event')
-          .map(event => ({
-            ...event,
-            inputs: this.inputs(event)
-          }))
+        return this.contract.abi
+          .filter(event => event.type === 'event')
       }
     },
     methods: {
