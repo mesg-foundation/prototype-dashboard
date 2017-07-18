@@ -4,5 +4,9 @@ module.exports = {
   AUTH_COOKIE_NAME_USER: '"USER_ID"',
   AUTH_COOKIE_NAME_PROJECT: '"PROJECT_ID"',
   GRAPHQL_ENDPOINT: '"https://api.graph.cool/simple/v1/eth-hook"',
-  GRAPHQL_SOCKET: '"wss://subscriptions.graph.cool/v1/eth-hook"'
+  GRAPHQL_SOCKET: '"wss://subscriptions.graph.cool/v1/eth-hook"',
+  CONTRACT_ADDRESS_LENGTH: '42',
+  CHAINS: JSON.stringify([
+    { key: 'KOVAN', name: 'Kovan' }
+  ])
 }
