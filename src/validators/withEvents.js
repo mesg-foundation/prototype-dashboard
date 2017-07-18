@@ -5,7 +5,7 @@ export default withParams(
   value => {
     try {
       return (JSON.parse(value) || [])
-        .map(x => x.type === 'event')
+        .filter(x => x.type === 'event')
         .length > 0
     } catch (e) {
       return false
