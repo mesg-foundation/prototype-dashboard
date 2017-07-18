@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
 import App from './App'
 import router from './router'
 import i18n from './i18n'
@@ -8,6 +9,7 @@ import store from './store'
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
+Vue.use(Vuelidate)
 
 router.beforeEach((to, from, next) => {
   const loggedIn = store.getters['session/connected']
