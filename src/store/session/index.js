@@ -8,13 +8,13 @@ export default {
   actions,
   state: {
     currentUser: null,
-    currentProject: null,
+    currentProjectId: null,
     token: Cookie.get(process.env.AUTH_COOKIE_NAME_TOKEN)
   },
   mutations: {
-    setCurrentProject: (state, project) => {
-      Cookie.set(process.env.AUTH_COOKIE_NAME_PROJECT, id(project))
-      state.currentProject = project
+    setCurrentProjectId: (state, projectId) => {
+      Cookie.set(process.env.AUTH_COOKIE_NAME_PROJECT, projectId)
+      state.currentProjectId = projectId
     },
     setCurrentUser: (state, user) => {
       Cookie.set(process.env.AUTH_COOKIE_NAME_USER, id(user))
@@ -28,7 +28,6 @@ export default {
   getters: {
     connected: (state, getters) => !!getters.currentUserId && !!state.token,
     currentUserId: state => id(state.currentUser),
-    currentProjectId: state => id(state.currentProject),
-    currentProject: state => state.currentProject
+    currentProjectId: state => state.currentProjectId
   }
 }

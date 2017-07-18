@@ -67,8 +67,11 @@
     computed: {
       ...mapGetters({
         projects: 'projects/collection',
-        currentProject: 'session/currentProject'
+        currentProjectId: 'session/currentProjectId'
       }),
+      currentProject () {
+        return this.projects[this.currentProjectId]
+      },
       items () {
         return [
           { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },

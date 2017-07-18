@@ -9,5 +9,9 @@ export default ({ commit, rootGetters }, data) => client()
       projectId: rootGetters['session/currentProjectId']
     }
   })
-  // TODO: Not sure of the result.data.createWebhook
-  .then(result => commit('updateItem', result.data.createContract))
+  .then(result => result.data.createContract)
+  .then(contract => {
+    commit('updateItem', { item: contract })
+    commit('projects/replaceItem', { item: contract.project }, { root: true })
+    return contract
+  })

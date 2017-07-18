@@ -1,15 +1,14 @@
 #import "@/graphql/webhooks/schema.graphql"
+#import "@/graphql/projects/schema.graphql"
 
 mutation(
   $projectId: ID!,
   $endpoint: String!
   $eventName: String!
-  $contractAddress: String!
-  $contractAbi: Json!
+  $contractId: ID!
   $authorizationType: WEBHOOK_AUTHORIZATION_TYPE
   $authorizationValue: String,
   $secret: String
-  $contractPublic: Boolean
 ) {
   createWebhook(
     authorizationType: $authorizationType
@@ -18,13 +17,11 @@ mutation(
     eventName: $eventName
     secret: $secret
     projectId: $projectId,
-    contract: {
-      projectId: $projectId,
-      address: $contractAddress
-      abi: $contractAbi
-      public: $contractPublic
-    }
+    contractId: $contractId
 	) {
     ...webhookFields
+    project {
+      ...projectFields
+    }
   }
 }
