@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-toolbar card class="grey lighten-3">
+    <v-toolbar card class="secondary">
       <v-toolbar-title class="headline">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <template v-if="searchable">
@@ -68,7 +68,7 @@
 <style lang="stylus">
   @import "../../variables"
 
-  nav.grey.lighten-3 + .table__overflow thead {
-    background: $grey.lighten-3;
+  nav.secondary + .table__overflow thead {
+    background: $theme.secondary;
   }
 </style>

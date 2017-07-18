@@ -4,6 +4,7 @@
     :label="label"
     :items="events"
     :required="required"
+    :error-messages="errorMessages"
     :input="event"
     @input="e => $emit('input', e)"
     item-text="name"
@@ -23,23 +24,13 @@
 </template>
 
 <script>
+  import input from '@/mixins/input'
   export default {
+    mixins: [input],
     props: {
       contract: {
         type: Object,
         required: true
-      },
-      input: {
-        type: String,
-        default: ''
-      },
-      required: {
-        type: Boolean,
-        default: false
-      },
-      label: {
-        type: String,
-        default: ''
       }
     },
     data () {
