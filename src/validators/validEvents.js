@@ -9,7 +9,7 @@ export default withParams(
       return (JSON.parse(value) || [])
         .filter(x => x.type === 'event')
         .filter(x => !isValidEvent(x))
-        .length > 0
+        .length === 0
     } catch (e) {
       return false
     }
