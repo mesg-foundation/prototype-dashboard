@@ -20,6 +20,7 @@
       :headers="headers"
       :items="items"
       :loading="loading"
+      :custom-sort="a => a"
       hide-actions>
       <template slot="items" scope="props">
         <slot v-bind="props.item"></slot>

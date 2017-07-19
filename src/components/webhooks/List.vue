@@ -59,9 +59,9 @@
       headers () {
         return [
           { text: this.$t('header.enable'), align: 'left', sortable: false },
-          { text: this.$t('header.endpoint'), align: 'left', sortable: true, value: 'endpoint' },
-          { text: this.$t('header.eventName'), align: 'left', sortable: true, value: 'eventName' },
-          { text: this.$t('header.createdAt'), align: 'right', sortable: true, value: 'createdAt' }
+          { text: this.$t('header.endpoint'), align: 'left', sortable: false, value: 'endpoint' },
+          { text: this.$t('header.eventName'), align: 'left', sortable: false, value: 'eventName' },
+          { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
         ]
       }
     }

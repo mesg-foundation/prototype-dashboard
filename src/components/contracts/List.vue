@@ -44,8 +44,8 @@
     computed: {
       headers () {
         return [
-          { text: this.$t('header.address'), align: 'left', sortable: true, value: 'address' },
-          { text: this.$t('header.createdAt'), align: 'right', sortable: true, value: 'createdAt' }
+          { text: this.$t('header.address'), align: 'left', sortable: false, value: 'address' },
+          { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
         ]
       }
     }

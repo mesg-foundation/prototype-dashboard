@@ -32,7 +32,10 @@ export const state = {
 export const getters = {
   collection: state => state.collectionById,
   collectionList: state => Object.keys(state.collectionById)
-    .map(e => state.collectionById[e])
+    .map(id => state.collectionById[id])
+    .sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt)
+    })
 }
 
 export const mutations = {
