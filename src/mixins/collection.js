@@ -2,7 +2,7 @@ import { mapGetters, mapActions } from 'vuex'
 import loading from '@/mixins/loading'
 
 export default (collection, payloadFunction = component => ({})) => ({
-  mixins: [loading],
+  mixins: [loading(collection)],
   computed: {
     ...mapGetters({
       [collection]: `${collection}/collectionList`

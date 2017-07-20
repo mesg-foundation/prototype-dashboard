@@ -3,7 +3,7 @@
     :headers="headers"
     :items="contracts"
     :title="$t('title')"
-    :loading="loading"
+    :loading="loadingContracts"
     searchable>
     <template scope="contract">
       <td>

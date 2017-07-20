@@ -3,7 +3,7 @@
     :headers="headers"
     :items="webhooks"
     :title="$t('title')"
-    :loading="loading"
+    :loading="loadingWebhooks"
     searchable>
     <template slot="toolbar">
       <v-btn
