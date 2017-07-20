@@ -3,7 +3,28 @@
     :headers="headers"
     :items="events"
     :title="title"
-    :loading="loadingEvents">
+    :loading="loadingEvents"
+    extended>
+    <template slot="toolbar">
+      <v-dialog
+        width="480"
+        v-if="webhook"
+        v-model="testModal">
+        <v-btn slot="activator" primary outline>
+          {{ $t('test') }}
+        </v-btn>
+        <EventForm
+          :webhook="webhook"
+          @saved="closeTestModal()">
+        </EventForm>
+      </v-dialog>
+    </template>
+    <WebhookDetailList
+      slot="extension"
+      class="secondary"
+      v-if="webhook"
+      :webhook="webhook">
+    </WebhookDetailList>
     <template scope="event">
       <td>
         <router-link :to="{ name: 'Event', params: { id: event.id } }">
@@ -25,6 +46,7 @@
 
 <i18n>
   en:
+    test: "Test"
     header:
       createdAt: "Created At"
       transactionId: "Transaction ID"
@@ -36,9 +58,13 @@
   import item from '@/mixins/item'
   import collection from '@/mixins/collection'
   import TableListing from '@/components/layouts/TableListing.vue'
+  import EventForm from '@/components/events/Form.vue'
+  import WebhookDetailList from '@/components/webhooks/DetailList.vue'
   export default {
     components: {
-      TableListing
+      TableListing,
+      EventForm,
+      WebhookDetailList
     },
     mixins: [
       item('webhook'),
@@ -50,6 +76,11 @@
       id: {
         type: String,
         required: true
+      }
+    },
+    data () {
+      return {
+        testModal: false
       }
     },
     computed: {
@@ -67,6 +98,12 @@
           { text: this.$t('header.payload'), align: 'left', sortable: false, value: 'payload' },
           { text: this.$t('header.attempts'), align: 'left', sortable: false, value: '_webhookResultsMeta' }
         ]
+      }
+    },
+    methods: {
+      closeTestModal () {
+        this.testModal = false
+        this.reloadevents()
       }
     }
   }

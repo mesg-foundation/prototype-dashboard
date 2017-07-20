@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import RouteDelegate from './RouteDelegate'
 import Webhooks from '@/components/webhooks/List'
 import NewWebhook from '@/components/webhooks/Create'
-import Webhook from '@/components/webhooks/Item'
+import Events from '@/components/events/List'
 import Contracts from '@/components/contracts/List'
 import Login from '@/components/Login'
 
@@ -41,7 +41,7 @@ export default new Router({
         {
           path: ':id',
           name: 'Webhook',
-          component: Webhook,
+          component: Events,
           props: true
         }
       ]
