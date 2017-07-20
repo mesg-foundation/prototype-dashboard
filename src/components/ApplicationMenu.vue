@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer permanent dark :class="{ 'alternate': showProjects }">
-    <v-list class="pa-1">
+    <v-list class="pa-1 header">
       <v-list-tile avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
           <img class="primary" src="/static/img/logo-light.svg">
@@ -99,7 +99,9 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+  @import "../variables"
+
   img {
     position: fixed;
     top: 0;
@@ -131,6 +133,10 @@
       background-color: $theme.primary;
       width: 0px;
     }
+  }
+
+  .application .navigation-drawer .list.header {
+    background: $material-dark.app-bar;
   }
 
   .navigation-drawer .list__tile--active {
