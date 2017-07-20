@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer permanent dark>
+  <v-navigation-drawer permanent dark :class="{ primary: showProjects }">
     <v-list class="pa-1">
       <v-list-tile avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
@@ -36,12 +36,14 @@
           <v-list-tile-action>
             <v-icon dark>{{ item.icon }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>
+          <v-list-tile-content v-ripple="{ class: 'primary--text' }">
             <v-list-tile-title>
               {{ item.title }}
-              <small v-if="item.count">({{ item.count }})</small>
             </v-list-tile-title>
           </v-list-tile-content>
+          <v-list-tile-action v-if="item.count">
+            {{ item.count }}
+          </v-list-tile-action>
         </v-list-tile>
       </v-list>
     </div>
@@ -98,3 +100,35 @@
     text-transform: uppercase;
   }
 </style>
+
+<style lang="stylus">
+  @import "../variables"
+
+  .navigation-drawer .list__tile {
+    position: relative;
+
+    &::before {
+      transition: width 300ms;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: $theme.primary;
+      width: 0px;
+    }
+  }
+
+  .navigation-drawer .list__tile--active {
+    background: $material-dark.app-bar;
+
+    &::before {
+      width: 6px;
+    }
+  }
+
+  .application .theme--dark.navigation-drawer.primary .list {
+    background-color: $theme.primary;
+  }
+</style>
+
