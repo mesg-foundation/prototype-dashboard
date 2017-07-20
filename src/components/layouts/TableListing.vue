@@ -15,7 +15,9 @@
       </template>
       <slot name="toolbar"></slot>
     </v-toolbar>
+    <slot name="extension"></slot>
     <v-data-table
+      class="secondary--header"
       :search="search"
       :headers="headers"
       :items="items"
@@ -69,7 +71,7 @@
 <style lang="stylus">
   @import "../../variables"
 
-  nav.secondary + .table__overflow thead {
+  .table__overflow.secondary--header thead {
     background: $theme.secondary;
   }
 </style>
