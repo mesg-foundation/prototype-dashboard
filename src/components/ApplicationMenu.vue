@@ -3,7 +3,7 @@
     <v-list class="pa-1 header">
       <v-list-tile avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
-          <img class="primary" src="/static/img/logo-light.svg">
+          <img class="blue darken-2" src="/static/img/logo-light.svg">
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title>
@@ -118,8 +118,6 @@
 <style lang="stylus">
   @import "../variables"
 
-  $alternate-color := $blue.darken-3;
-
   .navigation-drawer .list__tile {
     position: relative;
 
@@ -140,7 +138,7 @@
   }
 
   .navigation-drawer .list__tile--active {
-    background: $material-dark.app-bar;
+    background-color: $material-dark.app-bar;
 
     &::before {
       width: 6px;
@@ -149,7 +147,10 @@
 
   .application .theme--dark.navigation-drawer.alternate {
     &, .list, .divider {
-      background-color: $alternate-color;
+      background-color: $blue.darken-3;
+    }
+    .header {
+      background-color: $blue.darken-2;
     }
   }
 </style>
