@@ -3,7 +3,7 @@
 mutation(
   $webhookId: ID!,
   $payload: Json!,
-  $transactionId: String
+  $transactionId: String!
 ) {
   createEvent(
     webhookId: $webhookId,

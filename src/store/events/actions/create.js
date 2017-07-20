@@ -1,5 +1,5 @@
 import client from '@/graphql'
-import mutation from '@/graphql/events/mutations/event.graphql'
+import mutation from '@/graphql/events/mutations/create.graphql'
 
 export default ({ commit, rootGetters }, data) => client()
   .mutate({
