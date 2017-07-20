@@ -53,7 +53,7 @@
     labels:
       address: "Address"
       abi: "ABI"
-      chain: "Chain"
+      chain: "Blockchain"
 </i18n>
 
 <script>
