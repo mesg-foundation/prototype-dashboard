@@ -1,12 +1,21 @@
 <template>
-  <v-navigation-drawer permanent dark :class="{ primary: showProjects }">
+  <v-navigation-drawer permanent dark :class="{ 'alternate': showProjects }">
     <v-list class="pa-1">
       <v-list-tile avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
           <img class="primary" src="/static/img/logo-light.svg">
         </v-list-tile-avatar>
         <v-list-tile-content>
-          <v-list-tile-title>{{ currentProject.name }}</v-list-tile-title>
+          <v-list-tile-title>
+            {{ currentProject.name }}
+          </v-list-tile-title>
+          <v-list-tile-sub-title class="grey--text">
+            <v-icon class="grey--text">supervisor_account</v-icon>
+            <span class="caption">
+              {{ currentProject._usersMeta.count }}
+              {{ $t('members') }}
+            </span>
+          </v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action>
           <v-btn icon dark @click.native.stop="showProjects = !showProjects">
@@ -23,7 +32,9 @@
         <v-list-tile
           v-for="project in projects" :key="project.id">
           <v-list-tile-content>
-            <v-list-tile-title>{{ project.name }}</v-list-tile-title>
+            <v-list-tile-title>
+              {{ project.name }}
+            </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -53,6 +64,7 @@
 <i18n>
   en:
     projects: "Projects"
+    members: "Members"
     menu:
       webhooks: "Webhooks"
       contracts: "Contracts"
@@ -104,6 +116,8 @@
 <style lang="stylus">
   @import "../variables"
 
+  $alternate-color := $blue.darken-3;
+
   .navigation-drawer .list__tile {
     position: relative;
 
@@ -127,8 +141,10 @@
     }
   }
 
-  .application .theme--dark.navigation-drawer.primary .list {
-    background-color: $theme.primary;
+  .application .theme--dark.navigation-drawer.alternate {
+    &, .list, .divider {
+      background-color: $alternate-color;
+    }
   }
 </style>
 
