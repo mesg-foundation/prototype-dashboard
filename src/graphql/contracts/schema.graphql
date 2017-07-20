@@ -2,6 +2,7 @@ fragment contractFields on Contract {
   id
   address
   abi
+  chain
   public
   createdAt
 }

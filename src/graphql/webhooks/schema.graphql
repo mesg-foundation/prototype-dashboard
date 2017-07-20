@@ -1,3 +1,5 @@
+#import "@/graphql/contracts/schema.graphql"
+
 fragment webhookFields on Webhook {
   id
   endpoint
@@ -8,10 +10,6 @@ fragment webhookFields on Webhook {
   enable,
   createdAt
   contract {
-    id
-    address
-    abi
-    public
-    createdAt
+    ...contractFields
   }
 }
