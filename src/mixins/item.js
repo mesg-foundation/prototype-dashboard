@@ -3,6 +3,8 @@ import loading from '@/mixins/loading'
 
 export default item => {
   const collection = `${item}s`
+  const reloadFunc = `reload${item}`
+  const fetchFunc = `fetch${item}`
   return {
     mixins: [loading(item)],
     computed: {
@@ -15,14 +17,14 @@ export default item => {
     },
     methods: {
       ...mapActions({
-        fetch: `${collection}/fetch`
+        [fetchFunc]: `${collection}/fetch`
       }),
-      reload () {
-        return this.commitLoading(_ => this.fetch({ id: this.id }))
+      [reloadFunc] () {
+        return this.commitLoading(() => this[fetchFunc]({ id: this.id }))
       }
     },
     mounted () {
-      this.reload()
+      this[reloadFunc]()
     }
   }
 }
