@@ -1,0 +1,13 @@
+#import "@/graphql/events/schema.graphql"
+
+query(
+  $id: ID!
+) {
+  allEvents(
+    filter: {
+      id: $id
+    }
+  ) {
+    ...eventFields
+  }
+}

@@ -1,0 +1,13 @@
+#import "@/graphql/webhooks/schema.graphql"
+
+query(
+  $id: ID!
+) {
+  allWebhooks(
+    filter: {
+      id: $id
+    }
+  ) {
+    ...webhookFields
+  }
+}

@@ -1,0 +1,9 @@
+fragment eventFields on Event {
+  id
+  createdAt
+  payload
+  transactionId
+  _webhookResultsMeta {
+    count
+  }
+}
