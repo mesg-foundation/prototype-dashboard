@@ -9,20 +9,11 @@
         :webhook="webhook">
       </WebhookDetailList>
       <v-divider></v-divider>
-      <v-card-text>
-        <v-text-field
-          :label="$t('labels.payload')"
-          :error-messages="errors.payload"
-          v-model="payload"
-          @input="$v.payload.$touch()"
-          multi-line
-          :hint="$t('hint')"
-          persistent-hint
-          hide-details
-          :rows="6"
-          required>
-        </v-text-field>
-      </v-card-text>
+      <PayloadCreator
+        :signature="eventInputs()"
+        @input="$v.payload.$touch()"
+        v-model="payload">
+      </PayloadCreator>
       <v-card-actions>
         <v-btn
           primary dark block
@@ -39,19 +30,18 @@
   en:
     title: "Test the webhook"
     submit: "Send test event"
-    hint: "A JSON with the data from your Ethereum contract's event"
-    labels:
-      payload: "Parameters"
 </i18n>
 
 <script>
   import withValidation from '@/mixins/withValidation'
   import { mapActions } from 'vuex'
-  import { required, jsonValid } from '@/validators'
+  import { required } from '@/validators'
   import WebhookDetailList from '@/components/webhooks/DetailList.vue'
+  import PayloadCreator from '@/components/PayloadCreator.vue'
   export default {
     components: {
-      WebhookDetailList
+      WebhookDetailList,
+      PayloadCreator
     },
     mixins: [
       withValidation
@@ -64,34 +54,29 @@
     },
     data () {
       return {
-        payload: this.defaultPayload() ? JSON.stringify(this.defaultPayload(), null, 2) : null
+        payload: null
       }
     },
     validations: {
       payload: {
-        required,
-        jsonValid
+        required
       }
     },
     methods: {
       ...mapActions({
         createEvent: 'events/create'
       }),
-      defaultPayload () {
+      eventInputs () {
         const event = this.webhook.contract.abi
           .filter(e => e.type === 'event')
           .filter(e => e.name === this.webhook.eventName)[0]
-        if (!event) { return null }
+        if (!event) { return [] }
         return event.inputs
-          .reduce((acc, e) => ({
-            ...acc,
-            [e.name]: ''
-          }), {})
       },
       submit () {
         this.createEvent({
           webhookId: this.webhook.id,
-          payload: JSON.parse(this.payload),
+          payload: this.payload,
           transactionId: '0x0000000000000000000000000000000000000000'
         })
           .then(event => this.$emit('saved', event))
