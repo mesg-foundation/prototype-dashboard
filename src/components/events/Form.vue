@@ -91,7 +91,7 @@
       submit () {
         this.createEvent({
           webhookId: this.webhook.id,
-          payload: this.payload,
+          payload: JSON.parse(this.payload),
           transactionId: '0x0000000000000000000000000000000000000000'
         })
           .then(event => this.$emit('saved', event))
