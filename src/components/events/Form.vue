@@ -64,7 +64,7 @@
     },
     data () {
       return {
-        payload: null
+        payload: this.defaultPayload() ? JSON.stringify(this.defaultPayload(), null, 2) : null
       }
     },
     validations: {
@@ -77,6 +77,17 @@
       ...mapActions({
         createEvent: 'events/create'
       }),
+      defaultPayload () {
+        const event = this.webhook.contract.abi
+          .filter(e => e.type === 'event')
+          .filter(e => e.name === this.webhook.eventName)[0]
+        if (!event) { return null }
+        return event.inputs
+          .reduce((acc, e) => ({
+            ...acc,
+            [e.name]: ''
+          }), {})
+      },
       submit () {
         this.createEvent({
           webhookId: this.webhook.id,
