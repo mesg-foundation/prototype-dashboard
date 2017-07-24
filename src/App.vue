@@ -1,23 +1,33 @@
 <template>
   <v-app>
-    <application-menu v-if="connected"></application-menu>
-    <main>
-      <v-container fluid class="pa-0">
+    <template v-if="connected && currentProjectId">
+      <application-menu></application-menu>
+      <main>
+        <v-container fluid class="pa-0">
+          <router-view></router-view>
+        </v-container>
+      </main>
+    </template>
+    <template v-else>
+      <FullHeightCenter class="primary">
         <router-view></router-view>
-      </v-container>
-    </main>
+      </FullHeightCenter>
+    </template>
   </v-app>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import ApplicationMenu from '@/components/ApplicationMenu.vue'
+  import FullHeightCenter from '@/components/layouts/FullHeightCenter.vue'
   export default {
     components: {
-      ApplicationMenu
+      ApplicationMenu,
+      FullHeightCenter
     },
     computed: mapGetters({
-      connected: 'session/connected'
+      connected: 'session/connected',
+      currentProjectId: 'session/currentProjectId'
     })
   }
 </script>
