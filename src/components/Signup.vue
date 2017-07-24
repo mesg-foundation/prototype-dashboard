@@ -1,5 +1,5 @@
 <template>
-  <FullHeightCenter class="primary">
+  <div>
     <v-card>
       <form @submit.prevent="submit()">
         <v-card-title class="headline">
@@ -36,7 +36,7 @@
       router :to="{ name: 'Login' }">
       {{ $t('login') }}
     </v-btn>
-  </FullHeightCenter>
+  </div>
 </template>
 
 <i18n>
@@ -51,11 +51,7 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import FullHeightCenter from '@/components/layouts/FullHeightCenter.vue'
   export default {
-    components: {
-      FullHeightCenter
-    },
     data () {
       return {
         email: null,
