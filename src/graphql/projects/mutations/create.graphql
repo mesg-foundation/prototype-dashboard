@@ -1,0 +1,15 @@
+#import "@/graphql/projects/schema.graphql"
+
+mutation(
+  $userId: ID!,
+  $name: String!
+) {
+  createProject(
+    name: $name,
+    usersIds: [
+      $userId
+    ]
+	) {
+    ...projectFields
+  }
+}
