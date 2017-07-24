@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import RouteDelegate from './RouteDelegate'
 import Webhooks from '@/components/webhooks/List'
 import NewWebhook from '@/components/webhooks/Create'
+import Projects from '@/components/projects/List'
+import NewProject from '@/components/projects/Create'
 import Events from '@/components/events/List'
 import Contracts from '@/components/contracts/List'
 import Login from '@/components/Login'
@@ -27,7 +29,7 @@ export default new Router({
     {
       path: '/webhooks',
       component: RouteDelegate,
-      meta: { auth: true },
+      meta: { auth: true, project: true },
       children: [
         {
           path: '',
@@ -50,12 +52,30 @@ export default new Router({
     {
       path: '/contracts',
       component: RouteDelegate,
-      meta: { auth: true },
+      meta: { auth: true, project: true },
       children: [
         {
           path: '',
           name: 'Contracts',
           component: Contracts
+        }
+      ]
+    },
+    {
+      path: '/projects',
+      component: RouteDelegate,
+      meta: { auth: true },
+      children: [
+        {
+          path: '',
+          name: 'Projects',
+          component: Projects,
+          meta: { project: true }
+        },
+        {
+          path: 'create',
+          name: 'NewProject',
+          component: NewProject
         }
       ]
     },
