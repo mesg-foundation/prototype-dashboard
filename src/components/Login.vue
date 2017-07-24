@@ -2,7 +2,7 @@
   <FullHeightCenter class="primary">
     <v-card>
       <form @submit.prevent="submit()">
-        <v-card-title>
+        <v-card-title class="headline">
           {{ $t('title') }}
         </v-card-title>
         <v-card-text>
@@ -23,13 +23,19 @@
         </v-card-text>
         <v-card-actions>
           <v-btn
-            primary dark
+            primary dark block
             type="submit">
             {{ $t('submit') }}
           </v-btn>
         </v-card-actions>
       </form>
     </v-card>
+    <v-btn
+      class="ma-0 mt-2"
+      secondary flat dark block
+      router :to="{ name: 'Signup' }">
+      {{ $t('signup') }}
+    </v-btn>
   </FullHeightCenter>
 </template>
 
@@ -37,6 +43,7 @@
   en:
     title: "Signin"
     submit: "Signin"
+    signup: "Signup"
     labels:
       email: "Email"
       password: "Password"

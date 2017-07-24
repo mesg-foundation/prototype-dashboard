@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center align-center class="full-height-center">
-    <v-flex xs12 md6 lg4>
+    <v-flex xs12 sm7 md4 lg3>
       <slot></slot>
     </v-flex>
   </v-layout>
