@@ -87,6 +87,7 @@
         return this.projects[this.currentProjectId]
       },
       items () {
+        if (!this.currentProject) { return [] }
         return [
           { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },
           { key: 'webhooks', to: { name: 'Webhooks' }, icon: 'http', count: this.currentProject._webhooksMeta.count }

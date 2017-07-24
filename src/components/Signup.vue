@@ -33,17 +33,17 @@
     <v-btn
       class="ma-0 mt-2"
       secondary flat dark block
-      router :to="{ name: 'Signup' }">
-      {{ $t('signup') }}
+      router :to="{ name: 'Login' }">
+      {{ $t('login') }}
     </v-btn>
   </FullHeightCenter>
 </template>
 
 <i18n>
   en:
-    title: "Signin"
-    submit: "Signin"
-    signup: "I don't have account"
+    title: "Signup"
+    submit: "Signup now"
+    login: "I already have an account"
     labels:
       email: "Email"
       password: "Password"
@@ -64,10 +64,10 @@
     },
     methods: {
       ...mapActions({
-        login: 'session/signin'
+        createUser: 'session/createUser'
       }),
       submit () {
-        this.login({
+        this.createUser({
           email: this.email,
           password: this.password
         })

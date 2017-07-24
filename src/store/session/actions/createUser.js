@@ -1,7 +1,7 @@
 import client from '@/graphql'
 import mutation from '@/graphql/users/mutations/create.graphql'
 
-export default ({ commit }, { email, password }) => client()
+export default ({ commit, dispatch, rootGetters }, { email, password }) => client()
   .mutate({
     mutation,
     variables: {
@@ -9,4 +9,4 @@ export default ({ commit }, { email, password }) => client()
       password
     }
   })
-  .then(({ data }) => commit('updateCollection', { collection: data.allWebhooks }))
+  .then(({ data }) => dispatch('signin', { email, password }))

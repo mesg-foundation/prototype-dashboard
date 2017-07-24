@@ -6,6 +6,7 @@ import NewWebhook from '@/components/webhooks/Create'
 import Events from '@/components/events/List'
 import Contracts from '@/components/contracts/List'
 import Login from '@/components/Login'
+import Signup from '@/components/Signup'
 
 Vue.use(Router)
 
@@ -62,6 +63,12 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      meta: { auth: false }
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup,
       meta: { auth: false }
     }
   ]

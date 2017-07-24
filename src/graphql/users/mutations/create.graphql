@@ -1,14 +1,15 @@
-#import "@/graphql/users/schema.graphql"
-
-mutation {
+mutation(
+  $email: String!
+  $password: String!,
+) {
   createUser(
     authProvider: {
       email: {
         email: $email,
-        password:$password
+        password: $password
       }
     }
   ) {
-    ...userFields
+    id
   }
 }
