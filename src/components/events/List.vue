@@ -27,7 +27,7 @@
     </WebhookDetailList>
     <template scope="event">
       <td>
-        <router-link :to="{ name: 'Event', params: { id: event.id } }">
+        <router-link :to="{ name: 'Event', params: { id: event.id, webhookId: webhook.id } }">
           <timeago :since="event.createdAt"></timeago>
         </router-link>
       </td>

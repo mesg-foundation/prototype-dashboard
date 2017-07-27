@@ -47,16 +47,9 @@ export default new Router({
           name: 'Webhook',
           component: Events,
           props: true
-        }
-      ]
-    },
-    {
-      path: '/events',
-      component: RouteDelegate,
-      meta: { auth: true, project: true },
-      children: [
+        },
         {
-          path: ':id',
+          path: ':webhookId/:id',
           name: 'Event',
           component: WebhookResults,
           props: true

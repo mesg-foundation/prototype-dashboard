@@ -6,6 +6,13 @@
       :title="$t('title')"
       :loading="loadingWebhookResults"
       searchable>
+      <template slot="toolbar">
+        <v-btn
+          primary outline
+          router :to="{ name: 'Webhook', params: { id: event.webhook.id } }">
+          {{ $t('action') }}
+        </v-btn>
+      </template>
       <template scope="result">
         <td>{{ result.code }}</td>
         <td>{{ result.body }}</td>
@@ -20,6 +27,7 @@
 <i18n>
   en:
     title: "Webhook Event Results"
+    action: "Go to webhook"
     header:
       code: "HTTP Status Code"
       body: "Body Result"
@@ -28,20 +36,24 @@
 
 <script>
   import collection from '@/mixins/collection'
-  import withProjectId from '@/mixins/withProjectId'
+  import item from '@/mixins/item'
   import TableListing from '@/components/layouts/TableListing.vue'
   export default {
     components: {
       TableListing
     },
     props: {
+      webhookId: {
+        type: String,
+        required: true
+      },
       id: {
         type: String,
         required: true
       }
     },
     mixins: [
-      withProjectId,
+      item('event'),
       collection('webhookResults', component => ({
         eventId: component.id
       }))
