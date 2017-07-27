@@ -1,9 +1,10 @@
+import Utils from '@/utils'
+
 export default (loaderName = null) => {
   const loaderAttribute = [
     'loading',
-    loaderName ? loaderName[0].toUpperCase() : null,
-    loaderName ? loaderName.substr(1) : null
-  ].join('')
+    loaderName ? Utils.toHuman(loaderName) : null
+  ].filter(x => x).join('')
   return {
     data () {
       return {

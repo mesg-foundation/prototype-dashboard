@@ -1,0 +1,13 @@
+#import "@/graphql/contracts/schema.graphql"
+
+query(
+  $id: ID!
+) {
+  allContracts(
+    filter: {
+      id: $id
+    }
+  ) {
+    ...contractFields
+  }
+}

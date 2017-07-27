@@ -1,5 +1,7 @@
+import allEvents from '@/graphql/events/queries/allEvents.graphql'
+import event from '@/graphql/events/queries/event.graphql'
+import createEvent from '@/graphql/events/mutations/create.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
-import actions from './actions'
 
 const subscriptionsQueries = {
 }
@@ -9,10 +11,13 @@ const subscriptionsVariables = getter => ({
 })
 
 export default merge({},
-  collection(),
+  collection({
+    fetchAll: { allEvents },
+    fetch: { event },
+    create: { createEvent }
+  }),
   subscription('Event', subscriptionsQueries, subscriptionsVariables),
   {
-    namespaced: true,
-    actions
+    namespaced: true
   }
 )

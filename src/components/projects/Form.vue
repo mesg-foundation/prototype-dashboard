@@ -37,7 +37,7 @@
 
 <script>
   import withValidation from '@/mixins/withValidation'
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import { required, alphaNum } from '@/validators'
   export default {
     mixins: [
@@ -48,6 +48,9 @@
         name: 'Test project'
       }
     },
+    computed: mapGetters({
+      currentUserId: 'session/currentUserId'
+    }),
     validations: {
       name: {
         required,
@@ -60,7 +63,8 @@
       }),
       submit () {
         this.createProject({
-          name: this.name
+          name: this.name,
+          userId: this.currentUserId
         })
           .then(project => this.$emit('saved', project))
       }

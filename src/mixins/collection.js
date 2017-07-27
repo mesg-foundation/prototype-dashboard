@@ -1,15 +1,24 @@
 import { mapGetters, mapActions } from 'vuex'
+import Utils from '@/utils'
 import loading from '@/mixins/loading'
 
 export default (collection, payloadFunction = component => ({})) => {
   const fetchFunction = `fetchAll${collection}`
   const reloadFunction = `reload${collection}`
+  const ids = `${collection}Ids`
+  const list = `${collection}List`
   return {
     mixins: [loading(collection)],
     computed: {
       ...mapGetters({
-        [collection]: `${collection}/collectionList`
-      })
+        [ids]: `${collection}/collection`,
+        [list]: `${collection}/collectionList`
+      }),
+      [collection] () {
+        return (this[list][Utils.dataToUrlString(payloadFunction(this))] || [])
+          .map(x => this[ids][x])
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      }
     },
     methods: {
       ...mapActions({

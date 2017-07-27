@@ -1,3 +1,5 @@
+import Utils from '@/utils'
+
 const updateItem = (state, item) => replaceItem(state, {
   ...state.collectionById[(item.id || item._id)],
   ...item
@@ -25,29 +27,19 @@ const updateCollection = (state, collection) => (state.collectionById = {
   }, {})
 })
 
-export const state = {
-  collectionById: {}
+const updateCollectionList = (state, key, collection) => {
+  state.collectionList = {
+    ...state.collectionList,
+    [key]: collection
+      .map(x => x.id)
+  }
 }
 
-export const getters = {
-  collection: state => state.collectionById,
-  collectionList: state => Object.keys(state.collectionById)
-    .map(id => state.collectionById[id])
-    .sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt)
-    })
-}
-
-export const mutations = {
+export default {
   createItem: (state, { item }) => createItem(state, item),
   updateItem: (state, { item }) => updateItem(state, item),
   replaceItem: (state, { item }) => replaceItem(state, item),
   deleteItem: (state, { id }) => deleteItem(state, id),
-  updateCollection: (state, { collection }) => updateCollection(state, collection)
+  updateCollection: (state, { collection }) => updateCollection(state, collection),
+  updateCollectionList: (state, { variables, data }) => updateCollectionList(state, Utils.dataToUrlString(variables), data)
 }
-
-export default () => ({
-  state,
-  getters,
-  mutations
-})

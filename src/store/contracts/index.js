@@ -1,5 +1,7 @@
+import allContracts from '@/graphql/contracts/queries/allContracts.graphql'
+import createContract from '@/graphql/contracts/mutations/create.graphql'
+import contract from '@/graphql/contracts/queries/contract.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
-import actions from './actions'
 
 const subscriptionsQueries = {
 }
@@ -9,10 +11,13 @@ const subscriptionsVariables = getter => ({
 })
 
 export default merge({},
-  collection(),
+  collection({
+    fetchAll: { allContracts },
+    fetch: { contract },
+    create: { createContract }
+  }),
   subscription('Contract', subscriptionsQueries, subscriptionsVariables),
   {
-    namespaced: true,
-    actions
+    namespaced: true
   }
 )

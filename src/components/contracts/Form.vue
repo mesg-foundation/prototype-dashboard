@@ -58,7 +58,7 @@
 
 <script>
   import withValidation from '@/mixins/withValidation'
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import {
     required,
     includedIn,
@@ -96,6 +96,9 @@
         chain: null
       }
     },
+    computed: mapGetters({
+      currentProjectId: 'session/currentProjectId'
+    }),
     validations: {
       address: {
         required,
@@ -120,8 +123,10 @@
       }),
       submit () {
         this.createContract({
+          projectId: this.currentProjectId,
           address: this.address,
-          abi: this.abiObject
+          abi: this.abiObject,
+          public: false
         })
           .then(contract => this.$emit('saved', contract))
       }

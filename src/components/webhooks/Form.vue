@@ -39,7 +39,7 @@
       endpoint: "Endpoint"
 </i18n>
 <script>
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import EventSelector from '@/components/EventSelector.vue'
 
   export default {
@@ -58,6 +58,9 @@
         endpoint: 'http://webhook.site/8d7a21c2-8a05-4331-b213-514a5770096b'
       }
     },
+    computed: mapGetters({
+      currentProjectId: 'session/currentProjectId'
+    }),
     methods: {
       ...mapActions({
         createWebhook: 'webhooks/create'
@@ -66,7 +69,8 @@
         this.createWebhook({
           endpoint: this.endpoint,
           eventName: this.event,
-          contractId: this.contract.id
+          contractId: this.contract.id,
+          projectId: this.currentProjectId
         })
           .then(webhook => this.$emit('saved', webhook))
       }
