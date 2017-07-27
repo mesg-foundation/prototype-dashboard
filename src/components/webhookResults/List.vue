@@ -1,33 +1,35 @@
 <template>
-  <div>
-    <table-listing
-      :headers="headers"
-      :items="webhookResults"
-      :title="$t('title')"
-      :loading="loadingWebhookResults"
-      searchable>
-      <template slot="toolbar">
-        <v-btn
-          primary outline
-          router :to="{ name: 'Webhook', params: { id: event.webhook.id } }">
-          {{ $t('action') }}
-        </v-btn>
-      </template>
-      <template scope="result">
-        <td>{{ result.code }}</td>
-        <td>{{ result.body }}</td>
-        <td class="text-xs-right">
-          <timeago :since="result.createdAt"></timeago>
-        </td>
-      </template>
-    </table-listing>
-  </div>
+  <table-listing
+    :headers="headers"
+    :items="webhookResults"
+    :title="$t('title')"
+    :loading="loadingWebhookResults"
+    searchable>
+    <template slot="toolbar">
+      <v-btn
+        v-if="event"
+        primary outline
+        router :to="{ name: 'Webhook', params: { id: event.webhook.id } }">
+        {{ $t('action') }}
+      </v-btn>
+    </template>
+    <template scope="result">
+      <td>
+        <StatusCode :code="result.code"></StatusCode>
+      </td>
+      <td>{{ result.body || $t('empty') }}</td>
+      <td class="text-xs-right">
+        <timeago :since="result.createdAt"></timeago>
+      </td>
+    </template>
+  </table-listing>
 </template>
 
 <i18n>
   en:
     title: "Webhook Event Results"
     action: "Go to webhook"
+    empty: "Empty"
     header:
       code: "HTTP Status Code"
       body: "Body Result"
@@ -38,9 +40,11 @@
   import collection from '@/mixins/collection'
   import item from '@/mixins/item'
   import TableListing from '@/components/layouts/TableListing.vue'
+  import StatusCode from '@/components/StatusCode.vue'
   export default {
     components: {
-      TableListing
+      TableListing,
+      StatusCode
     },
     props: {
       webhookId: {
