@@ -1,0 +1,12 @@
+fragment webhookResultFields on WebhookResult {
+  id
+  createdAt
+  body
+  code
+  webhook {
+    id
+  }
+  event {
+    id
+  }
+}

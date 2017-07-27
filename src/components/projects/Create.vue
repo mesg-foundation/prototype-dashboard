@@ -16,10 +16,10 @@
         changeProject: 'session/changeProject'
       }),
       projectSaved (project) {
-        this.changeProject(project)
-        .then(_ => {
-          this.$router.push({ name: 'Webhooks' })
-        })
+        // this.changeProject({ project })
+        // .then(_ => {
+        //   this.$router.push({ name: 'Webhooks' })
+        // })
       }
     }
   }

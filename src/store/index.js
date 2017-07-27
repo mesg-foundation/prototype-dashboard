@@ -5,6 +5,7 @@ import webhooks from './webhooks'
 import contracts from './contracts'
 import projects from './projects'
 import events from './events'
+import webhookResults from './webhookResults'
 import session from './session'
 
 Vue.use(Vuex)
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     contracts,
     projects,
     events,
+    webhookResults,
     session
   },
   plugins: [

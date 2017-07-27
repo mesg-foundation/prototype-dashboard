@@ -1,0 +1,15 @@
+#import "@/graphql/webhookResults/schema.graphql"
+
+query(
+  $eventId: ID!
+) {
+  allWebhookResults(
+    filter: {
+      event: {
+        id: $eventId
+      }
+    }
+  ) {
+    ...webhookResultFields
+  }
+}

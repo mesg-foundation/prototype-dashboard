@@ -6,6 +6,7 @@ import NewWebhook from '@/components/webhooks/Create'
 import Projects from '@/components/projects/List'
 import NewProject from '@/components/projects/Create'
 import Events from '@/components/events/List'
+import WebhookResults from '@/components/webhookResults/List'
 import Contracts from '@/components/contracts/List'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
@@ -45,6 +46,19 @@ export default new Router({
           path: ':id',
           name: 'Webhook',
           component: Events,
+          props: true
+        }
+      ]
+    },
+    {
+      path: '/events',
+      component: RouteDelegate,
+      meta: { auth: true, project: true },
+      children: [
+        {
+          path: ':id',
+          name: 'Event',
+          component: WebhookResults,
           props: true
         }
       ]
