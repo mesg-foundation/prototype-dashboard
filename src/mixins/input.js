@@ -1,7 +1,7 @@
 
 export default {
   props: {
-    input: {
+    value: {
       type: String,
       default: ''
     },
