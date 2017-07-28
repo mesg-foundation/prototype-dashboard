@@ -5,10 +5,21 @@
     :title="title"
     :loading="loadingEvents"
     extended>
-    <template slot="toolbar">
+    <template v-if="webhook" slot="toolbar">
       <v-dialog
         width="480"
-        v-if="webhook"
+        v-model="formModal">
+        <v-btn slot="activator" primary outline>
+          {{ $t('update') }}
+        </v-btn>
+        <WebhookForm
+          :webhook="webhook"
+          :contract="webhook.contract"
+          :saved="closeFormModal()">
+        </WebhookForm>
+      </v-dialog>
+      <v-dialog
+        width="480"
         v-model="testModal">
         <v-btn slot="activator" primary outline>
           {{ $t('test') }}
@@ -47,6 +58,7 @@
 <i18n>
   en:
     test: "Test"
+    update: "Update"
     header:
       createdAt: "Created At"
       transactionId: "Transaction ID"
@@ -59,11 +71,13 @@
   import collection from '@/mixins/collection'
   import TableListing from '@/components/layouts/TableListing.vue'
   import EventForm from '@/components/events/Form.vue'
+  import WebhookForm from '@/components/webhooks/Form.vue'
   import WebhookDetailList from '@/components/webhooks/DetailList.vue'
   export default {
     components: {
       TableListing,
       EventForm,
+      WebhookForm,
       WebhookDetailList
     },
     mixins: [
@@ -80,6 +94,7 @@
     },
     data () {
       return {
+        formModal: false,
         testModal: false
       }
     },
@@ -104,6 +119,9 @@
       closeTestModal () {
         this.testModal = false
         this.reloadevents()
+      },
+      closeFormModal () {
+        this.formModal = false
       }
     }
   }

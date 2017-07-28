@@ -8,5 +8,6 @@ module.exports = {
   CONTRACT_ADDRESS_LENGTH: '42',
   CHAINS: JSON.stringify([
     { key: 'KOVAN', name: 'Kovan' }
-  ])
+  ]),
+  HEADER_SECRET_KEY: '"X-ETHHOOK-SECRET"'
 }
