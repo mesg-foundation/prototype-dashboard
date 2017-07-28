@@ -23,6 +23,7 @@
 </i18n>
 
 <script>
+  import { mapActions } from 'vuex'
   export default {
     props: {
       webhook: {
@@ -34,6 +35,17 @@
       return {
         enable: this.webhook.enable
       }
-    }
+    },
+    watch: {
+      enable () {
+        this.updateWebhook({
+          id: this.webhook.id,
+          enable: this.enable
+        })
+      }
+    },
+    methods: mapActions({
+      updateWebhook: 'webhooks/update'
+    })
   }
 </script>

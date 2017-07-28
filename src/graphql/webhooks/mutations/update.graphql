@@ -2,8 +2,8 @@
 
 mutation(
   $id: ID!
-  $endpoint: String!
-  $eventName: String!
+  $endpoint: String
+  $eventName: String
   $enable: Boolean,
   $authorizationType: WEBHOOK_AUTHORIZATION_TYPE
   $authorizationValue: String,

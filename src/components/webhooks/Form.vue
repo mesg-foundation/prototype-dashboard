@@ -101,7 +101,7 @@
         advanced: webhook.authorizationValue && webhook.secret,
         eventName: webhook.eventName,
         endpoint: webhook.endpoint,
-        authorizationType: webhook.authorizationType,
+        authorizationType: webhook.authorizationType || 'NONE',
         authorizationValue: webhook.authorizationValue,
         secret: webhook.secret
       }
@@ -121,14 +121,20 @@
     },
     methods: {
       ...mapActions({
-        createWebhook: 'webhooks/create'
+        createWebhook: 'webhooks/create',
+        updateWebhook: 'webhooks/update'
       }),
       submit () {
-        this.createWebhook({
+        const method = this.webhook.id ? 'updateWebhook' : 'createWebhook'
+        this[method]({
+          id: this.webhook.id,
           endpoint: this.endpoint,
           eventName: this.eventName,
           contractId: this.contract.id,
-          projectId: this.currentProjectId
+          projectId: this.currentProjectId,
+          authorizationType: this.authorizationType,
+          authorizationValue: this.authorizationValue,
+          secret: this.secret
         })
           .then(webhook => this.$emit('saved', webhook))
       }

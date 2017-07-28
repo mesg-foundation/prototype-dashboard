@@ -15,7 +15,7 @@
         <WebhookForm
           :webhook="webhook"
           :contract="webhook.contract"
-          :saved="closeFormModal()">
+          @saved="closeFormModal()">
         </WebhookForm>
       </v-dialog>
       <v-dialog
