@@ -1,36 +1,24 @@
 import client from '@/graphql'
 
-const generateGraphQlMethod = name => {
-  const methodName = {
-    create: 'mutate',
-    update: 'mutate'
-  }[name] || 'query'
-  return client()[methodName]
-}
+const isMutation = name => ['create', 'update'].indexOf(name) >= 0
 
-const generateGraphQlMethodParams = (name, query) => {
-  const methodQueryName = {
-    create: 'mutation',
-    update: 'mutation'
-  }[name] || 'query'
-  return {
-    [methodQueryName]: query
-  }
-}
+const generateGraphQlMethod = name => client()[isMutation(name) ? 'mutate' : 'query']
 
-const extractResultFunction = resource => ({ data }) => data[resource]
+const generateGraphQlMethodParams = (name, query) => ({
+  [isMutation(name) ? 'mutation' : 'query']: query
+})
 
 const generateAction = (name, queries) => {
   if (Object.keys(queries).length !== 1) { throw new Error('queries need to contains 1 query') }
   const resource = Object.keys(queries)[0]
   const method = generateGraphQlMethod(name)
   const methodQuery = generateGraphQlMethodParams(name, queries[resource])
-  const extractResult = extractResultFunction(resource)
-  return ({ commit }, variables) => method({
+  return ({ commit }, variables, config = {}) => method({
     ...methodQuery,
+    ...config,
     variables
   })
-    .then(extractResult)
+    .then(({ data }) => data[resource])
     .then(data => {
       if (Array.isArray(data)) {
         commit('updateCollection', { collection: data })
