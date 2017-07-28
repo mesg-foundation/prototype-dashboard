@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <ContractForm
-      v-if="!contract"
-      submitLabel="Next ->"
-      @saved="contractSaved">
-    </ContractForm>
-    <WebhookForm
-      v-else
-      :contract="contract"
-      @saved="webhookSaved">
-    </WebhookForm>
-  </div>
+  <ContractForm
+    v-if="!contract"
+    submitLabel="Next ->"
+    @saved="contractSaved">
+  </ContractForm>
+  <WebhookForm
+    v-else
+    :contract="contract"
+    @saved="webhookSaved">
+  </WebhookForm>
 </template>
 
 <script>
