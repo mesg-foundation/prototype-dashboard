@@ -1,4 +1,3 @@
-import Utils from '@/utils'
 import client from '@/graphql'
 
 const generateGraphQlMethod = name => {
@@ -19,18 +18,14 @@ const generateGraphQlMethodParams = (name, query) => {
   }
 }
 
-const isSingleResource = name => ['fetch'].indexOf(name) >= 0
-
-const extractResultFunction = (singleResource, resource) => ({ data }) => singleResource
-  ? data[`all${Utils.toHuman(resource)}s`]
-  : data[resource]
+const extractResultFunction = resource => ({ data }) => data[resource]
 
 const generateAction = (name, queries) => {
   if (Object.keys(queries).length !== 1) { throw new Error('queries need to contains 1 query') }
   const resource = Object.keys(queries)[0]
   const method = generateGraphQlMethod(name)
   const methodQuery = generateGraphQlMethodParams(name, queries[resource])
-  const extractResult = extractResultFunction(isSingleResource(name), resource)
+  const extractResult = extractResultFunction(resource)
   return ({ commit }, variables) => method({
     ...methodQuery,
     variables

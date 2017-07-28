@@ -3,11 +3,7 @@
 query(
   $id: ID!
 ) {
-  allContracts(
-    filter: {
-      id: $id
-    }
-  ) {
+  Contract(id: $id) {
     ...contractFields
   }
 }

@@ -3,11 +3,7 @@
 query(
   $id: ID!
 ) {
-  allEvents(
-    filter: {
-      id: $id
-    }
-  ) {
+  Event(id: $id) {
     ...eventFields
   }
 }

@@ -3,11 +3,7 @@
 query(
   $id: ID!
 ) {
-  allWebhooks(
-    filter: {
-      id: $id
-    }
-  ) {
+  Webhook(id: $id) {
     ...webhookFields
   }
 }

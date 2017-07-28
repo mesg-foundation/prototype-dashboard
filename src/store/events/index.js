@@ -1,5 +1,5 @@
 import allEvents from '@/graphql/events/queries/allEvents.graphql'
-import event from '@/graphql/events/queries/event.graphql'
+import Event from '@/graphql/events/queries/event.graphql'
 import createEvent from '@/graphql/events/mutations/create.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
 
@@ -13,7 +13,7 @@ const subscriptionsVariables = getter => ({
 export default merge({},
   collection({
     fetchAll: { allEvents },
-    fetch: { event },
+    fetch: { Event },
     create: { createEvent }
   }),
   subscription('Event', subscriptionsQueries, subscriptionsVariables),
