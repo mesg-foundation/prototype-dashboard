@@ -5,7 +5,7 @@
     :items="events"
     :required="required"
     :error-messages="errorMessages"
-    :input="event"
+    :value="event"
     @input="e => $emit('input', e)"
     item-text="name"
     item-value="name"
@@ -35,7 +35,7 @@
     },
     data () {
       return {
-        event: this.input
+        event: this.value
       }
     },
     computed: {

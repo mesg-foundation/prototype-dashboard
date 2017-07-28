@@ -4,7 +4,7 @@
     :items="chains"
     :required="required"
     :error-messages="errorMessages"
-    :input="chain"
+    :value="chain"
     @input="e => $emit('input', e)"
     item-text="name"
     item-value="key"
@@ -24,7 +24,7 @@
     },
     data () {
       return {
-        chain: this.input
+        chain: this.value
       }
     }
   }
