@@ -39,7 +39,7 @@
     <template scope="event">
       <td>
         <router-link :to="{ name: 'Event', params: { id: event.id, webhookId: webhook.id } }">
-          <timeago :since="event.createdAt"></timeago>
+          <timeago :since="event.createdAt" :auto-update="10"></timeago>
         </router-link>
       </td>
       <td>

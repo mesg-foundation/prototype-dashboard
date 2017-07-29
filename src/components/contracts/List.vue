@@ -13,7 +13,7 @@
         </router-link>
       </td>
       <td class="text-xs-right">
-        <timeago :since="contract.createdAt"></timeago>
+        <timeago :since="contract.createdAt" :auto-update="10"></timeago>
       </td>
     </template>
   </table-listing>

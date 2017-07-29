@@ -24,7 +24,7 @@
       </td>
       <td>{{ webhook.eventName }}</td>
       <td class="text-xs-right">
-        <timeago :since="webhook.createdAt"></timeago>
+        <timeago :since="webhook.createdAt" :auto-update="10"></timeago>
       </td>
     </template>
   </table-listing>

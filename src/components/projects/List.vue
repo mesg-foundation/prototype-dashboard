@@ -9,7 +9,7 @@
         {{ project.name }}
       </td>
       <td class="text-xs-right">
-        <timeago :since="project.createdAt"></timeago>
+        <timeago :since="project.createdAt" :auto-update="10"></timeago>
       </td>
     </template>
   </table-listing>

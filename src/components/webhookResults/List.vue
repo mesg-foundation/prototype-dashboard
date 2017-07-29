@@ -19,7 +19,7 @@
       </td>
       <td>{{ result.body || $t('empty') }}</td>
       <td class="text-xs-right">
-        <timeago :since="result.createdAt"></timeago>
+        <timeago :since="result.createdAt" :auto-update="10"></timeago>
       </td>
     </template>
   </table-listing>
