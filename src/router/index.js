@@ -10,6 +10,10 @@ import WebhookResults from '@/components/webhookResults/List'
 import Contracts from '@/components/contracts/List'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
+import Settings from '@/components/settings/Menu'
+import SettingsGeneral from '@/components/settings/General'
+import SettingsTeam from '@/components/settings/Team'
+import SettingsBilling from '@/components/settings/Billing'
 
 Vue.use(Router)
 
@@ -83,6 +87,33 @@ export default new Router({
           path: 'create',
           name: 'NewProject',
           component: NewProject
+        }
+      ]
+    },
+    {
+      path: '/settings',
+      component: Settings,
+      meta: { auth: true, project: true },
+      children: [
+        {
+          path: '',
+          name: 'Settings',
+          redirect: 'general'
+        },
+        {
+          path: 'general',
+          name: 'SettingsGeneral',
+          component: SettingsGeneral
+        },
+        {
+          path: 'team',
+          name: 'SettingsTeam',
+          component: SettingsTeam
+        },
+        {
+          path: 'billing',
+          name: 'SettingsBilling',
+          component: SettingsBilling
         }
       ]
     },
