@@ -43,16 +43,16 @@
 
 <script>
   import collection from '@/mixins/collection'
-  import withProjectId from '@/mixins/withProjectId'
+  import withCurrentProject from '@/mixins/withCurrentProject'
   import TableListing from '@/components/layouts/TableListing.vue'
   export default {
     components: {
       TableListing
     },
     mixins: [
-      withProjectId,
+      withCurrentProject,
       collection('webhooks', component => ({
-        projectId: component.projectId
+        projectId: component.currentProjectId
       }))
     ],
     computed: {

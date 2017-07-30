@@ -85,21 +85,15 @@
 </i18n>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import withCurrentProject from '@/mixins/withCurrentProject'
   export default {
+    mixins: [withCurrentProject],
     data () {
       return {
         showProjects: false
       }
     },
     computed: {
-      ...mapGetters({
-        projects: 'projects/collection',
-        currentProjectId: 'session/currentProjectId'
-      }),
-      currentProject () {
-        return this.projects[this.currentProjectId]
-      },
       items () {
         return [
           { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },

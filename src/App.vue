@@ -18,6 +18,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import withCurrentProject from '@/mixins/withCurrentProject'
   import ApplicationMenu from '@/components/ApplicationMenu.vue'
   import FullHeightCenter from '@/components/layouts/FullHeightCenter.vue'
   export default {
@@ -25,9 +26,9 @@
       ApplicationMenu,
       FullHeightCenter
     },
+    mixins: [withCurrentProject],
     computed: mapGetters({
-      connected: 'session/connected',
-      currentProjectId: 'session/currentProjectId'
+      connected: 'session/connected'
     })
   }
 </script>

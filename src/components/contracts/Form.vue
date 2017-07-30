@@ -57,8 +57,9 @@
 </i18n>
 
 <script>
+  import { mapActions } from 'vuex'
   import withValidation from '@/mixins/withValidation'
-  import { mapGetters, mapActions } from 'vuex'
+  import withCurrentProject from '@/mixins/withCurrentProject'
   import {
     required,
     includedIn,
@@ -76,6 +77,7 @@
       ChainSelector
     },
     mixins: [
+      withCurrentProject,
       abi,
       withValidation
     ],
@@ -96,9 +98,6 @@
         chain: null
       }
     },
-    computed: mapGetters({
-      currentProjectId: 'session/currentProjectId'
-    }),
     validations: {
       address: {
         required,

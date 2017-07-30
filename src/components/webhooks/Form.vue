@@ -76,7 +76,8 @@
       authorizationValue: "Authorization value"
 </i18n>
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
+  import withCurrentProject from '@/mixins/withCurrentProject'
   import EventSelector from '@/components/EventSelector.vue'
   import WebhookFormHeader from '@/components/webhooks/FormHeader.vue'
 
@@ -85,6 +86,7 @@
       EventSelector,
       WebhookFormHeader
     },
+    mixins: [withCurrentProject],
     props: {
       contract: {
         type: Object,
@@ -107,9 +109,6 @@
       }
     },
     computed: {
-      ...mapGetters({
-        currentProjectId: 'session/currentProjectId'
-      }),
       authorizations () {
         return [
           'NONE',
