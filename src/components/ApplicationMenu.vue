@@ -9,8 +9,8 @@
           <v-list-tile-title>
             {{ currentProject.name }}
           </v-list-tile-title>
-          <v-list-tile-sub-title class="grey--text">
-            <v-icon class="grey--text">supervisor_account</v-icon>
+          <v-list-tile-sub-title :class="{ 'grey--text': !showProjects }">
+            <v-icon :class="{ 'grey--text': !showProjects }">supervisor_account</v-icon>
             <span class="caption">
               {{ currentProject._usersMeta.count }}
               {{ $t('members') }}
@@ -24,13 +24,26 @@
           </v-btn>
         </v-list-tile-action>
       </v-list-tile>
+      <v-list-tile
+        router :to="{ name: 'Settings' }"
+        v-if="showProjects">
+        <v-list-tile-action>
+          <v-icon dark>settings</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>
+            {{ $t('settings') }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
     <v-divider></v-divider>
     <div v-if="showProjects">
       <v-list>
         <v-subheader class="grey--text">{{ $t('projects') }}</v-subheader>
         <v-list-tile
-          v-for="project in projects" :key="project.id">
+          v-for="project in projects" :key="project.id"
+          :class="{ 'active': project.id === currentProjectId }">
           <v-list-tile-content>
             <v-list-tile-title>
               {{ project.name }}
@@ -65,6 +78,7 @@
   en:
     projects: "Projects"
     members: "Members"
+    settings: "Settings"
     menu:
       webhooks: "Webhooks"
       contracts: "Contracts"
@@ -128,7 +142,6 @@
       top: 0;
       left: 0;
       bottom: 0;
-      background-color: $theme.primary;
       width: 0px;
     }
   }
@@ -137,12 +150,17 @@
     background: $material-dark.app-bar;
   }
 
-  .navigation-drawer .list__tile--active {
+  .navigation-drawer:not(.alternate) .list__tile--active {
     background-color: $material-dark.app-bar;
 
-    &::before {
+    &::before  {
       width: 6px;
+      background-color: $theme.primary;
     }
+  }
+  .navigation-drawer li.active > .list__tile::before {
+    width: 6px;
+    background-color: white;
   }
 
   .application .theme--dark.navigation-drawer.alternate {
