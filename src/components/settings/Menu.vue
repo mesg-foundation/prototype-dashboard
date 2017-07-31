@@ -5,6 +5,7 @@
         {{ $t('title') }}
       </v-toolbar-title>
     </v-toolbar>
+    <v-divider></v-divider>
     <v-tabs light v-model="activeTab">
       <v-tabs-bar class="secondary" slot="activators">
         <v-tabs-item
@@ -17,6 +18,7 @@
         <v-tabs-slider></v-tabs-slider>
       </v-tabs-bar>
     </v-tabs>
+    <v-divider></v-divider>
     <router-view></router-view>
   </v-card>
 </template>
