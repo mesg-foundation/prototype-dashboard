@@ -15,8 +15,11 @@ Vue.use(Vuelidate)
 router.beforeEach(loggedIn(store))
 router.beforeEach(withProject(store))
 
-store.dispatch('session/refresh')
-.then(_ => new Vue({
+const promise = process.env.OFFLINE_MODE
+  ? Promise.resolve()
+  : store.dispatch('session/refresh')
+
+promise.then(_ => new Vue({
   el: '#app',
   router,
   i18n,

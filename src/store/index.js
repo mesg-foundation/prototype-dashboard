@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 import webhooks from './webhooks'
 import contracts from './contracts'
 import projects from './projects'
@@ -21,8 +21,8 @@ export default new Vuex.Store({
     session
   },
   plugins: [
-    // createPersistedState({
-    //   key: 'eth-hook'
-    // })
+    createPersistedState({
+      key: 'eth-hook'
+    })
   ]
 })
