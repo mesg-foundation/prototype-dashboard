@@ -1,0 +1,15 @@
+#import "@/graphql/users/schema.graphql"
+
+query(
+  $projectId: ID!
+) {
+  allUsers(
+    filter: {
+      projects_some: {
+        id: $projectId
+      }
+    }
+  ) {
+    ...userFields
+  }
+}
