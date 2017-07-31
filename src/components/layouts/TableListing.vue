@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-toolbar card class="secondary">
+    <v-toolbar card :class="{ secondary: !transparent, transparent }">
       <v-toolbar-title class="headline">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <template v-if="searchable">
@@ -17,7 +17,7 @@
     </v-toolbar>
     <slot name="extension"></slot>
     <v-data-table
-      class="secondary--header"
+      :class="{ 'secondary--header': !transparent }"
       :search="search"
       :headers="headers"
       :items="items"
@@ -52,6 +52,10 @@
         required: true
       },
       loading: {
+        type: Boolean,
+        default: false
+      },
+      transparent: {
         type: Boolean,
         default: false
       },
