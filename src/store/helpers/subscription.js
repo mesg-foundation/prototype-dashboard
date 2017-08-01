@@ -9,8 +9,8 @@ const defaultStore = actions => ({
     removeListener: (state, { action }) => (state[`${action}Listener`] = null)
   },
   actions: {
-    subscribes: ({ dispatch }) => Object.keys(actions)
-      .forEach(action => dispatch(`subscribeTo${Utils.toHuman(action)}Event`)),
+    subscribes: ({ dispatch }, variables) => Object.keys(actions)
+      .forEach(action => dispatch(`subscribeTo${Utils.toHuman(action)}Event`, variables)),
     unsubscribe: ({ getters, commit }) => Object.keys(actions)
       .forEach(action => {
         const listener = getters[`${action}EventListener`]
@@ -26,16 +26,15 @@ const subscriptionsBehaviors = {
   removed: { mutation: 'deleteItem', payload: item => result => ({ item: result.data.previousValues.id }) }
 }
 
-const guard = (item, actions, variables) => {
+const guard = (item, actions) => {
   if (!item) { throw new Error('Item need to be defined') }
-  if (!variables) { throw new Error('Variables parameter for subscriptions need to be a function') }
   const validAction = action => Object.keys(subscriptionsBehaviors).indexOf(action) >= 0
   const validActions = actions => Object.keys(actions).reduce((prev, action) => prev && validAction(action), true)
   if (!validActions(actions)) { throw new Error(`Actions for subscriptions needs to be one or many of thoses ${Object.keys(subscriptionsBehaviors)}`) }
   return true
 }
 
-export default (item, actions = {}, variables = rootGetter => ({})) => guard(item, actions, variables) && Object.keys(actions)
+export default (item, actions = {}) => guard(item, actions) && Object.keys(actions)
   .reduce((acc, action) => ({
     ...acc,
     state: {
@@ -48,11 +47,11 @@ export default (item, actions = {}, variables = rootGetter => ({})) => guard(ite
     },
     actions: {
       ...acc.actions,
-      [`subscribeTo${Utils.toHuman(action)}Event`]: ({ commit, rootGetters }) => {
+      [`subscribeTo${Utils.toHuman(action)}Event`]: ({ commit, rootGetters }, variables) => {
         const behavior = subscriptionsBehaviors[action]
         const payload = behavior.payload(item)
         const listener = client()
-          .subscribe({ query: actions[action], variables: variables(rootGetters) })
+          .subscribe({ query: actions[action], variables })
           .subscribe({
             next: event => commit(behavior.mutation, payload(event)),
             error: error => console.log('error', error),
