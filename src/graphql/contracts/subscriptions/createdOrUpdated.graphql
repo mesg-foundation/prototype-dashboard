@@ -1,10 +1,10 @@
-#import "@/graphql/webhooks/schema.graphql"
+#import "@/graphql/contracts/schema.graphql"
 
 subscription(
   $projectId: ID!
 ) {
-  Webhook(filter: {
-    mutation_in: CREATED,
+  Contract(filter: {
+    mutation_in: [CREATED, UPDATED],
     node: {
       project: {
         id: $projectId
@@ -12,7 +12,7 @@ subscription(
     }
   }) {
     node {
-      ...webhookFields
+      ...contractFields
     }
   }
 }

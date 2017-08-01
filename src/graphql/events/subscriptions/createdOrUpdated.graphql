@@ -1,0 +1,20 @@
+#import "@/graphql/events/schema.graphql"
+
+subscription(
+  $projectId: ID!
+) {
+  Event(filter: {
+    mutation_in: [CREATED, UPDATED],
+    node: {
+      webhook: {
+        project: {
+          id: $projectId
+        }
+      }
+    }
+  }) {
+    node {
+      ...eventFields
+    }
+  }
+}

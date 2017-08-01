@@ -1,0 +1,18 @@
+#import "@/graphql/projects/schema.graphql"
+
+subscription(
+  $userId: ID!
+) {
+  Project(filter: {
+    mutation_in: [CREATED, UPDATED],
+    node: {
+      users_some: {
+        id: $userId
+      }
+    }
+  }) {
+    node {
+      ...projectFields
+    }
+  }
+}

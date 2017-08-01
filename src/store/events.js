@@ -1,14 +1,8 @@
 import allEvents from '@/graphql/events/queries/allEvents.graphql'
 import Event from '@/graphql/events/queries/event.graphql'
 import createEvent from '@/graphql/events/mutations/create.graphql'
+import createdOrUpdated from '@/graphql/events/subscriptions/createdOrUpdated.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
-
-const subscriptionsQueries = {
-}
-
-const subscriptionsVariables = getter => ({
-  projectId: getter['session/currentProjectId']
-})
 
 export default merge({},
   collection({
@@ -16,7 +10,10 @@ export default merge({},
     fetch: { Event },
     create: { createEvent }
   }),
-  subscription('Event', subscriptionsQueries, subscriptionsVariables),
+  subscription('Event', {
+    created: createdOrUpdated,
+    updated: createdOrUpdated
+  }),
   {
     namespaced: true
   }

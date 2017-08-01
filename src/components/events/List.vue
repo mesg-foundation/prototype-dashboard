@@ -118,7 +118,6 @@
     methods: {
       closeTestModal () {
         this.testModal = false
-        this.reloadevents()
       },
       closeFormModal () {
         this.formModal = false

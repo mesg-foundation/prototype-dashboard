@@ -1,15 +1,8 @@
 import allProjects from '@/graphql/projects/queries/allProjects.graphql'
 import createProject from '@/graphql/projects/mutations/create.graphql'
 import updateProject from '@/graphql/projects/mutations/update.graphql'
+import createdOrUpdated from '@/graphql/projects/subscriptions/createdOrUpdated.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
-// import actions from './actions'
-
-const subscriptionsQueries = {
-}
-
-const subscriptionsVariables = getter => ({
-  currentUserId: getter['session/currentUserId']
-})
 
 export default merge({},
   collection({
@@ -17,9 +10,11 @@ export default merge({},
     create: { createProject },
     update: { updateProject }
   }),
-  subscription('Project', subscriptionsQueries, subscriptionsVariables),
+  subscription('Project', {
+    created: createdOrUpdated,
+    updated: createdOrUpdated
+  }),
   {
     namespaced: true
-    // actions
   }
 )
