@@ -25,7 +25,10 @@ export default (ws = null) => {
   ])
 
   const wsClient = new SubscriptionClient(process.env.GRAPHQL_SOCKET, {
-    reconnect: true
+    reconnect: true,
+    connectionParams: () => ({
+      Authorization: `Bearer ${Cookie.get(process.env.AUTH_COOKIE_NAME_TOKEN)}`
+    })
   }, ws)
 
   const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
