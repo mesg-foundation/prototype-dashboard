@@ -15,7 +15,10 @@ export default ({ commit, dispatch, getters }) => client()
     return dispatch('projects/fetchAll', { currentUserId: user.id }, { root: true })
   })
   .then(projects => {
-    if (getters.currentProjectId) { return }
-    if (projects.length === 0) { return }
-    dispatch('changeProject', { project: projects[0] })
+    const project = [
+      ...projects.filter(x => x.id === getters.currentProjectId),
+      ...projects
+    ][0]
+    if (!project) { return }
+    dispatch('changeProject', { project })
   })
