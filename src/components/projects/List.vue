@@ -3,7 +3,8 @@
     :headers="headers"
     :items="projects"
     :title="$t('title')"
-    :loading="loadingProjects">
+    :loading="loadingProjects"
+    withMenu>
     <template scope="contract">
       <td>
         {{ project.name }}

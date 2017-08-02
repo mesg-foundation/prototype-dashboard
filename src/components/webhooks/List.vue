@@ -4,7 +4,8 @@
     :items="webhooks"
     :title="$t('title')"
     :loading="loadingWebhooks"
-    searchable>
+    searchable
+    withMenu>
     <template slot="toolbar">
       <v-btn
         success class="white--text"

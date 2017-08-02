@@ -4,7 +4,8 @@
     :items="webhookResults"
     :title="$t('title')"
     :loading="loadingWebhookResults"
-    searchable>
+    searchable
+    withMenu>
     <template slot="toolbar">
       <v-btn
         v-if="event"

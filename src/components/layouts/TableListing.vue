@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-toolbar card :class="{ secondary: !transparent, transparent }">
-      <MenuToggle></MenuToggle>
+      <MenuToggle v-if="withMenu"></MenuToggle>
       <v-toolbar-title class="headline">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <template v-if="searchable">
@@ -62,6 +62,10 @@
         default: false
       },
       transparent: {
+        type: Boolean,
+        default: false
+      },
+      withMenu: {
         type: Boolean,
         default: false
       },

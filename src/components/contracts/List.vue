@@ -4,7 +4,8 @@
     :items="contracts"
     :title="$t('title')"
     :loading="loadingContracts"
-    searchable>
+    searchable
+    withMenu>
     <template scope="contract">
       <td>
         <v-icon class="mr-2">{{ contract.public ? 'public' : 'vpn_lock' }}</v-icon>

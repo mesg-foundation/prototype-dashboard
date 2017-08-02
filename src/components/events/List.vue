@@ -4,7 +4,8 @@
     :items="events"
     :title="title"
     :loading="loadingEvents"
-    extended>
+    extended
+    withMenu>
     <template v-if="webhook" slot="toolbar">
       <v-dialog
         lazy
