@@ -9,8 +9,11 @@ const defaultStore = actions => ({
     removeListener: (state, { action }) => (state[`${action}Listener`] = null)
   },
   actions: {
-    subscribes: ({ dispatch }, variables) => Object.keys(actions)
-      .forEach(action => dispatch(`subscribeTo${Utils.toHuman(action)}Event`, variables)),
+    subscribes: ({ dispatch }, variables) => {
+      dispatch('unsubscribe')
+      return Object.keys(actions)
+      .forEach(action => dispatch(`subscribeTo${Utils.toHuman(action)}Event`, variables))
+    },
     unsubscribe: ({ getters, commit }) => Object.keys(actions)
       .forEach(action => {
         const listener = getters[`${action}EventListener`]
