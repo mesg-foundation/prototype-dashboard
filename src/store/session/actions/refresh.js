@@ -12,9 +12,12 @@ export default ({ commit, dispatch, getters }) => client()
   })
   .then(user => {
     if (!user) { return [] }
-    return dispatch('projects/fetchAll', { currentUserId: user.id }, { root: true })
+    return Promise.all([
+      dispatch('projects/fetchAll', { currentUserId: user.id }, { root: true }),
+      dispatch('projects/subscribes', { userId: user.id }, { root: true })
+    ])
   })
-  .then(projects => {
+  .then(([projects, subscriptions]) => {
     const project = [
       ...projects.filter(x => x.id === getters.currentProjectId),
       ...projects
