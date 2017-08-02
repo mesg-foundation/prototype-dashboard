@@ -4,7 +4,7 @@ subscription(
   $projectId: ID!
 ) {
   User(filter: {
-    mutation_in: [CREATED, UPDATED],
+    mutation_in: [CREATED, UPDATED, CREATED],
     node: {
       project: {
         id: $projectId
@@ -12,6 +12,9 @@ subscription(
     }
   }) {
     mutation
+    previousValues {
+      id
+    }
     node {
       ...userFields
     }

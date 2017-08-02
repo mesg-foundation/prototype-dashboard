@@ -1,7 +1,7 @@
 import allProjects from '@/graphql/projects/queries/allProjects.graphql'
 import createProject from '@/graphql/projects/mutations/create.graphql'
 import updateProject from '@/graphql/projects/mutations/update.graphql'
-import updated from '@/graphql/projects/subscriptions/updated.graphql'
+import Subscription from '@/graphql/projects/subscription.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
 
 export default merge({},
@@ -10,9 +10,7 @@ export default merge({},
     create: { createProject },
     update: { updateProject }
   }),
-  subscription('Project', [
-    updated
-  ]),
+  subscription('Project', Subscription),
   {
     namespaced: true
   }

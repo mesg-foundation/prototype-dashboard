@@ -4,7 +4,7 @@ subscription(
   $projectId: ID!
 ) {
   Contract(filter: {
-    mutation_in: [CREATED, UPDATED],
+    mutation_in: [CREATED, UPDATED, DELETED],
     node: {
       project: {
         id: $projectId
@@ -12,6 +12,9 @@ subscription(
     }
   }) {
     mutation
+    previousValues {
+      id
+    }
     node {
       ...contractFields
     }

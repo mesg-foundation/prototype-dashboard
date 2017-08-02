@@ -4,13 +4,17 @@ subscription(
   $projectId: ID!
 ) {
   Webhook(filter: {
-    mutation_in: [CREATED, UPDATED],
+    mutation_in: [CREATED, UPDATED, DELETED],
     node: {
       project: {
         id: $projectId
       }
     }
   }) {
+    mutation
+    previousValues {
+      id
+    }
     node {
       ...webhookFields
     }

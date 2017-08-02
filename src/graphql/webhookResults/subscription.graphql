@@ -1,0 +1,24 @@
+#import "@/graphql/webhookResults/schema.graphql"
+
+subscription(
+  $projectId: ID!
+) {
+  WebhookResult(filter: {
+    mutation_in: [CREATED, UPDATED, DELETED],
+    node: {
+      webhook: {
+        project: {
+          id: $projectId
+        }
+      }
+    }
+  }) {
+    mutation
+    previousValues {
+      id
+    }
+    node {
+      ...webhookResultFields
+    }
+  }
+}

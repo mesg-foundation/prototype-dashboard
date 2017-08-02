@@ -1,7 +1,7 @@
 import allContracts from '@/graphql/contracts/queries/allContracts.graphql'
 import createContract from '@/graphql/contracts/mutations/create.graphql'
 import Contract from '@/graphql/contracts/queries/contract.graphql'
-import updated from '@/graphql/contracts/subscriptions/updated.graphql'
+import Subscription from '@/graphql/contracts/subscription.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
 
 export default merge({},
@@ -10,9 +10,7 @@ export default merge({},
     fetch: { Contract },
     create: { createContract }
   }),
-  subscription('Contract', [
-    updated
-  ]),
+  subscription('Contract', Subscription),
   {
     namespaced: true
   }
