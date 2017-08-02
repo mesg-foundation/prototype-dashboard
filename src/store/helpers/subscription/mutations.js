@@ -1,9 +1,9 @@
 export default {
   addListener: (state, listener = null) => (state.listener = listener),
   removeListeners: state => {
-    if (state.listener) {
+    try {
       state.listener.unsubscribe()
-    }
-    state.listeners = null
+    } catch (e) {}
+    state.listener = null
   }
 }
