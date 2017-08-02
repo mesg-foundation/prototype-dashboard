@@ -7,6 +7,7 @@
     extended>
     <template v-if="webhook" slot="toolbar">
       <v-dialog
+        lazy
         width="480"
         v-model="formModal">
         <v-btn slot="activator" primary outline>
@@ -19,6 +20,7 @@
         </WebhookForm>
       </v-dialog>
       <v-dialog
+        lazy
         width="480"
         v-model="testModal">
         <v-btn slot="activator" primary outline>
