@@ -1,11 +1,28 @@
 import Utils from '@/utils'
 
+const conditions = state => Object.keys(state.collectionList)
+  .map(Utils.conditionFromKey)
+
 const updateItem = (state, item) => replaceItem(state, {
   ...state.collectionById[(item.id || item._id)],
   ...item
 })
 
-const createItem = (state, item) => replaceItem(state, item)
+const createItem = (state, item) => {
+  replaceItem(state, item)
+  const match = Utils.testItem(item)
+  conditions(state)
+    .filter(match)
+    .forEach(({ key }) => {
+      state.collectionList = {
+        ...state.collectionList,
+        [key]: [
+          item.id,
+          ...state.collectionList[key]
+        ]
+      }
+    })
+}
 
 const replaceItem = (state, item) => (state.collectionById = {
   ...state.collectionById,
