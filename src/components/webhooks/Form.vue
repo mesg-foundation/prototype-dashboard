@@ -2,6 +2,7 @@
   <form @submit.prevent="submit()">
     <v-card>
       <WebhookFormHeader
+        v-if="webhook"
         :webhook="webhook">
       </WebhookFormHeader>
       <v-divider></v-divider>
@@ -124,9 +125,9 @@
         updateWebhook: 'webhooks/update'
       }),
       submit () {
-        const method = this.webhook.id ? 'updateWebhook' : 'createWebhook'
+        const method = (this.webhook || {}).id ? 'updateWebhook' : 'createWebhook'
         this[method]({
-          id: this.webhook.id,
+          id: (this.webhook || {}).id,
           endpoint: this.endpoint,
           eventName: this.eventName,
           contractId: this.contract.id,
