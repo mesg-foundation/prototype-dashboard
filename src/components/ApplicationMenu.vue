@@ -1,5 +1,10 @@
 <template>
-  <v-navigation-drawer permanent dark :class="{ 'alternate': showProjects }">
+  <v-navigation-drawer
+    persistent enable-resize-watcher
+    :value="menu"
+    @input="value => updateMenu(value)"
+    dark
+    :class="{ 'alternate': showProjects }">
     <v-list class="pa-1 header">
       <v-list-tile avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
@@ -85,6 +90,7 @@
 </i18n>
 
 <script>
+  import { mapGetters, mapMutations } from 'vuex'
   import withCurrentProject from '@/mixins/withCurrentProject'
   export default {
     mixins: [withCurrentProject],
@@ -94,6 +100,9 @@
       }
     },
     computed: {
+      ...mapGetters({
+        menu: 'menu'
+      }),
       items () {
         return [
           { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },
@@ -103,7 +112,10 @@
           title: this.$t(`menu.${e.key}`)
         }))
       }
-    }
+    },
+    methods: mapMutations({
+      updateMenu: 'updateMenu'
+    })
   }
 </script>
 

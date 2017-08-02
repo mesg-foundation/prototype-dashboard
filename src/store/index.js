@@ -26,5 +26,14 @@ export default new Vuex.Store({
     createPersistedState({
       key: 'eth-hook'
     })
-  ]
+  ],
+  state: {
+    menu: true
+  },
+  getters: {
+    menu: state => state.menu
+  },
+  mutations: {
+    updateMenu: (state, value) => (state.menu = value)
+  }
 })

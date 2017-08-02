@@ -1,10 +1,12 @@
 <template>
   <v-card flat>
     <v-toolbar card :class="{ secondary: !transparent, transparent }">
+      <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <template v-if="searchable">
         <v-text-field
+          class="hidden-sm-and-down"
           append-icon="search"
           label="Search"
           single-line
@@ -37,7 +39,11 @@
 </i18n>
 
 <script>
+  import MenuToggle from '@/components/MenuToggle'
   export default {
+    components: {
+      MenuToggle
+    },
     props: {
       headers: {
         type: Array,

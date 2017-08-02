@@ -1,6 +1,7 @@
 <template>
   <v-card flat>
     <v-toolbar card>
+      <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">
         {{ $t('title') }}
       </v-toolbar-title>
@@ -34,12 +35,16 @@
 
 <script>
   import Utils from '@/utils'
+  import MenuToggle from '@/components/MenuToggle'
   const TABS = [
     'general',
     'team',
     'billing'
   ]
   export default {
+    components: {
+      MenuToggle
+    },
     props: {
       tab: {
         type: String,
