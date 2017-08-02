@@ -12,6 +12,9 @@
           {{ contract.address }}
         </router-link>
       </td>
+      <td>
+        {{ contract.chain }}
+      </td>
       <td class="text-xs-right">
         <timeago :since="contract.createdAt" :auto-update="10"></timeago>
       </td>
@@ -24,6 +27,7 @@
     title: "Contracts"
     header:
       address: "Address"
+      chain: "Blockchain"
       createdAt: "Created at"
 </i18n>
 
@@ -45,6 +49,7 @@
       headers () {
         return [
           { text: this.$t('header.address'), align: 'left', sortable: false, value: 'address' },
+          { text: this.$t('header.chain'), align: 'left', sortable: false, value: 'chain' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
         ]
       }
