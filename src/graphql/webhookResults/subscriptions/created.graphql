@@ -13,6 +13,7 @@ subscription(
       }
     }
   }) {
+    mutation
     node {
       ...webhookResultFields
     }
