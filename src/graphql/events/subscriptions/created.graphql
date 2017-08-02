@@ -4,7 +4,7 @@ subscription(
   $projectId: ID!
 ) {
   Event(filter: {
-    mutation_in: [CREATED, UPDATED],
+    mutation_in: CREATED,
     node: {
       webhook: {
         project: {
