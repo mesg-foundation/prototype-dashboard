@@ -16,8 +16,25 @@ const toHuman = str => [
   str.substr(1)
 ].filter(x => x).join('')
 
+const conditionFromKey = key => ({
+  key,
+  predicate: key.split('=')[0],
+  value: key.split('=')[1]
+})
+
+const testItem = item => ({ predicate, value }) => {
+  if (!predicate) { return false }
+  if (predicate.endsWith('Id')) {
+    const entity = predicate.match(/^(.*)Id$/)[1]
+    if (item[entity].id === value) { return true }
+  }
+  return item[predicate] === value
+}
+
 export default {
   dataForUrl,
   dataToUrlString,
-  toHuman
+  toHuman,
+  conditionFromKey,
+  testItem
 }
