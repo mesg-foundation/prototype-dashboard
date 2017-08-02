@@ -10,9 +10,9 @@ export default merge({},
     fetch: { Contract },
     create: { createContract }
   }),
-  subscription('Contract', {
+  subscription('Contract', [
     updated
-  }),
+  ]),
   {
     namespaced: true
   }

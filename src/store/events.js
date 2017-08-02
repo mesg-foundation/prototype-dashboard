@@ -10,9 +10,9 @@ export default merge({},
     fetch: { Event },
     create: { createEvent }
   }),
-  subscription('Event', {
+  subscription('Event', [
     created
-  }),
+  ]),
   {
     namespaced: true
   }

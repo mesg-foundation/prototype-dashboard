@@ -6,9 +6,9 @@ export default merge({},
   collection({
     fetchAll: { allWebhookResults }
   }),
-  subscription('WebhookResult', {
+  subscription('WebhookResult', [
     created
-  }),
+  ]),
   {
     namespaced: true
   }

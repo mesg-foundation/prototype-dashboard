@@ -12,9 +12,9 @@ export default merge({},
     create: { createWebhook },
     update: { updateWebhook }
   }),
-  subscription('Webhook', {
+  subscription('Webhook', [
     updated
-  }),
+  ]),
   {
     namespaced: true
   }

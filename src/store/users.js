@@ -6,9 +6,9 @@ export default merge({},
   collection({
     fetchAll: { allUsers }
   }),
-  subscription('User', {
+  subscription('User', [
     // updated
-  }),
+  ]),
   {
     namespaced: true
   }

@@ -10,9 +10,9 @@ export default merge({},
     create: { createProject },
     update: { updateProject }
   }),
-  subscription('Project', {
+  subscription('Project', [
     updated
-  }),
+  ]),
   {
     namespaced: true
   }
