@@ -8,7 +8,7 @@
     <v-list class="pa-1 header">
       <v-list-tile avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
-          <img class="blue darken-2" src="/static/img/logo-light.svg">
+          <img alt="logo" class="blue darken-2" src="/static/img/logo-light.svg">
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title>
