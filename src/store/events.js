@@ -1,7 +1,7 @@
 import allEvents from '@/graphql/events/queries/allEvents.graphql'
 import Event from '@/graphql/events/queries/event.graphql'
 import createEvent from '@/graphql/events/mutations/create.graphql'
-import createdOrUpdated from '@/graphql/events/subscriptions/createdOrUpdated.graphql'
+import updated from '@/graphql/events/subscriptions/updated.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
 
 export default merge({},
@@ -11,8 +11,7 @@ export default merge({},
     create: { createEvent }
   }),
   subscription('Event', {
-    created: createdOrUpdated,
-    updated: createdOrUpdated
+    updated
   }),
   {
     namespaced: true

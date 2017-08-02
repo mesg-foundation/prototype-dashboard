@@ -2,7 +2,7 @@ import allWebhooks from '@/graphql/webhooks/queries/allWebhooks.graphql'
 import Webhook from '@/graphql/webhooks/queries/webhook.graphql'
 import createWebhook from '@/graphql/webhooks/mutations/create.graphql'
 import updateWebhook from '@/graphql/webhooks/mutations/update.graphql'
-import createdOrUpdated from '@/graphql/webhooks/subscriptions/createdOrUpdated.graphql'
+import updated from '@/graphql/webhooks/subscriptions/updated.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
 
 export default merge({},
@@ -13,8 +13,7 @@ export default merge({},
     update: { updateWebhook }
   }),
   subscription('Webhook', {
-    created: createdOrUpdated,
-    updated: createdOrUpdated
+    updated
   }),
   {
     namespaced: true

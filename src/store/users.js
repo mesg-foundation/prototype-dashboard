@@ -1,5 +1,5 @@
 import allUsers from '@/graphql/users/queries/allUsers.graphql'
-import createdOrUpdated from '@/graphql/events/subscriptions/createdOrUpdated.graphql'
+// import updated from '@/graphql/events/subscriptions/updated.graphql'
 import { collection, subscription, merge } from '@/store/helpers'
 
 export default merge({},
@@ -7,8 +7,7 @@ export default merge({},
     fetchAll: { allUsers }
   }),
   subscription('User', {
-    created: createdOrUpdated,
-    updated: createdOrUpdated
+    // updated
   }),
   {
     namespaced: true
