@@ -48,14 +48,13 @@ export default (item, actions = {}) => guard(item, actions) && Object.keys(actio
     actions: {
       ...acc.actions,
       [`subscribeTo${Utils.toHuman(action)}Event`]: ({ commit, rootGetters }, variables) => {
+        console.debug(`[subscription][${action}] ${item}`)
         const behavior = subscriptionsBehaviors[action]
         const listener = client()
           .subscribe({ query: actions[action], variables })
           .subscribe({
             next: event => {
-              console.log(item)
-              console.log(`subscribeTo${Utils.toHuman(action)}Event`)
-              debugger
+              // TODO bad syncro with user and event...
               commit(behavior.mutation, behavior.payload(item)(event))
             },
             error: error => console.log('error', error),
