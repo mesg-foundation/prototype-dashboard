@@ -11,7 +11,7 @@ export default ({ commit, dispatch, getters }) => client()
     return data.user
   })
   .then(user => {
-    if (!user) { return [] }
+    if (!user) { return [[], null] }
     return Promise.all([
       dispatch('projects/fetchAll', { currentUserId: user.id }, { root: true }),
       dispatch('projects/subscribes', { userId: user.id }, { root: true })
