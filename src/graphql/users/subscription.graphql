@@ -6,7 +6,7 @@ subscription(
   User(filter: {
     mutation_in: [CREATED, UPDATED, CREATED],
     node: {
-      project: {
+      projects_some: {
         id: $projectId
       }
     }
