@@ -11,7 +11,6 @@
       <v-tabs-bar class="secondary" slot="activators">
         <v-tabs-item
           v-for="tab in tabs" :key="tab"
-          router
           :to="tab.to"
           ripple>
           {{ tab.title }}

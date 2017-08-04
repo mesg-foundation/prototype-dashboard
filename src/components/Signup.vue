@@ -33,7 +33,7 @@
     <v-btn
       class="ma-0 mt-2"
       secondary flat dark block
-      router :to="{ name: 'Login' }">
+      :to="{ name: 'Login' }">
       {{ $t('login') }}
     </v-btn>
   </div>

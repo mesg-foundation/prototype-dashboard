@@ -30,7 +30,7 @@
         </v-list-tile-action>
       </v-list-tile>
       <v-list-tile
-        router :to="{ name: 'Settings' }"
+        :to="{ name: 'Settings' }"
         v-if="showProjects">
         <v-list-tile-action>
           <v-icon dark>settings</v-icon>
@@ -61,7 +61,7 @@
       <v-list>
         <v-list-tile
           v-for="item in items" :key="item.key"
-          router :to="item.to">
+          :to="item.to">
           <v-list-tile-action>
             <v-icon dark>{{ item.icon }}</v-icon>
           </v-list-tile-action>

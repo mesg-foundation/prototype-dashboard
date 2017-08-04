@@ -9,7 +9,7 @@
     <template slot="toolbar">
       <v-btn
         success class="white--text"
-        router :to="{ name: 'NewWebhook' }">
+        :to="{ name: 'NewWebhook' }">
         <v-icon class="white--text">add</v-icon>
         {{ $t('create') }}
       </v-btn>

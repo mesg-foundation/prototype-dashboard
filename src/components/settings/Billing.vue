@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
       <v-btn
         success dark
-        router :to="{ name: 'Plans' }">
+        :to="{ name: 'Plans' }">
         {{ $t('upgrade') }}
       </v-btn>
     </v-toolbar>

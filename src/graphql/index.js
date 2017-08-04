@@ -33,7 +33,7 @@ export default (ws = null) => {
 
   const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
     networkInterface,
-    wsClient,
+    wsClient
   )
   apolloClient = new ApolloClient({
     networkInterface: networkInterfaceWithSubscriptions,

@@ -10,7 +10,7 @@
       <v-btn
         v-if="event"
         primary outline
-        router :to="{ name: 'Webhook', params: { id: event.webhook.id } }">
+        :to="{ name: 'Webhook', params: { id: event.webhook.id } }">
         {{ $t('action') }}
       </v-btn>
     </template>
