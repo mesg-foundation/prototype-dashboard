@@ -68,6 +68,7 @@
             entries: this.value
               .filter(entry => entry.type === type)
           }))
+          .filter(x => x.entries.length > 0)
       }
     }
   }
