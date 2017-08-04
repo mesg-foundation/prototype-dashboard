@@ -27,7 +27,9 @@
       :custom-sort="a => a"
       hide-actions>
       <template slot="items" scope="props">
-        <slot v-bind="props.item"></slot>
+        <tr>
+          <slot v-bind="props.item"></slot>
+        </tr>
       </template>
     </v-data-table>
   </v-card>
