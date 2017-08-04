@@ -14,6 +14,7 @@ import Settings from '@/components/settings/Menu'
 import SettingsGeneral from '@/components/settings/General'
 import SettingsTeam from '@/components/settings/Team'
 import SettingsBilling from '@/components/settings/Billing'
+import Plans from '@/components/Plans'
 
 Vue.use(Router)
 
@@ -128,6 +129,12 @@ export default new Router({
       name: 'Signup',
       component: Signup,
       meta: { auth: false }
+    },
+    {
+      path: '/plans',
+      name: 'Plans',
+      component: Plans,
+      meta: { auth: true, project: true }
     }
   ]
 })

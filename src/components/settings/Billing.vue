@@ -1,8 +1,16 @@
 <template>
   <v-card flat>
-    <v-card-title class="headline">
-      {{ $t('title', { from, to }) }}
-    </v-card-title>
+    <v-toolbar card class="transparent">
+      <v-toolbar-title class="headline">
+        {{ $t('title', { from, to }) }}
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        success dark
+        router :to="{ name: 'Plans' }">
+        {{ $t('upgrade') }}
+      </v-btn>
+    </v-toolbar>
     <v-card-text>
       <label>
         {{ $t('labels.requests') }}
@@ -22,13 +30,18 @@
 <i18n>
   en:
     title: "Usage ({from} - {to})"
+    upgrade: "Upgrade my plan"
     labels:
       requests: "Requests number"
 </i18n>
 
 <script>
   import withCurrentProject from '@/mixins/withCurrentProject'
+  import Plans from '@/components/Plans'
   export default {
+    components: {
+      Plans
+    },
     mixins: [withCurrentProject],
     computed: {
       percent () {

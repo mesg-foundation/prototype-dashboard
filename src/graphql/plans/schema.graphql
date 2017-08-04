@@ -1,0 +1,10 @@
+fragment planFields on Plan {
+  id
+  createdAt
+  price
+  currency
+  title
+  seats
+  privateContracts
+  requests
+}

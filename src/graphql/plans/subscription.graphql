@@ -1,0 +1,15 @@
+#import "@/graphql/plans/schema.graphql"
+
+subscription {
+  Plan(filter: {
+    mutation_in: [CREATED, UPDATED, DELETED]
+  }) {
+    mutation
+    previousValues {
+      id
+    }
+    node {
+      ...planFields
+    }
+  }
+}

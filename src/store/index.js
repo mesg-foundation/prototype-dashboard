@@ -8,6 +8,7 @@ import events from './events'
 import webhookResults from './webhookResults'
 import session from './session'
 import users from './users'
+import plans from './plans'
 
 Vue.use(Vuex)
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     events,
     webhookResults,
     users,
+    plans,
     session
   },
   plugins: [

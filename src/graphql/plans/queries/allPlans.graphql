@@ -1,0 +1,7 @@
+#import "@/graphql/plans/schema.graphql"
+
+query {
+  allPlans(orderBy: price_ASC) {
+    ...planFields
+  }
+}
