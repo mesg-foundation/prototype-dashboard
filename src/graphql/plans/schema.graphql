@@ -4,7 +4,7 @@ fragment planFields on Plan {
   price
   currency
   title
-  seats
-  privateContracts
-  requests
+  members
+  contracts
+  executions
 }

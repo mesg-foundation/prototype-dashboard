@@ -1,7 +1,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import loading from '@/mixins/loading'
 
-export default item => {
+export default (item, idGetter = component => component.id) => {
   const collection = `${item}s`
   const reloadFunc = `reload${item}`
   const fetchFunc = `fetch${item}`
@@ -12,7 +12,7 @@ export default item => {
         collection: `${collection}/collection`
       }),
       [item] () {
-        return this.collection[this.id]
+        return this.collection[idGetter(this)]
       }
     },
     methods: {
@@ -20,7 +20,7 @@ export default item => {
         [fetchFunc]: `${collection}/fetch`
       }),
       [reloadFunc] () {
-        return this.commitLoading(() => this[fetchFunc]({ id: this.id }))
+        return this.commitLoading(() => this[fetchFunc]({ id: idGetter(this) }))
       }
     },
     mounted () {

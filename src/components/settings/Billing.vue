@@ -2,7 +2,13 @@
   <v-card flat>
     <v-toolbar card class="transparent">
       <v-toolbar-title class="headline">
-        {{ $t('title', { from, to }) }}
+        {{ plan.title }}
+        <Price :value="plan.price" :currency="plan.currency"></Price>
+        - (
+          <Date :value="quotaLimitFrom"></Date>
+          -
+          <Date :value="quotaLimitTo"></Date>
+        )
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-dialog
@@ -25,54 +31,43 @@
       </v-btn>
     </v-toolbar>
     <v-card-text>
-      <label>
-        {{ $t('labels.requests') }}
-        ({{ this.currentProject.requestsCount }} / {{ this.currentProject.requestsMax }})
-      </label>
-      <v-progress-linear
-        :size="100"
-        :width="15"
-        :rotate="-90"
-        :value="percent"
-        class="primary--text">
-      </v-progress-linear>
+      <Quotas
+        :plan="plan"
+        :project="currentProject">
+      </Quotas>
     </v-card-text>
   </v-card>
 </template>
 
 <i18n>
   en:
-    title: "Usage ({from} - {to})"
+    title: "Usage"
     upgrade: "Upgrade my plan"
-    labels:
-      requests: "Requests number"
 </i18n>
 
 <script>
   import withCurrentProject from '@/mixins/withCurrentProject'
+  import item from '@/mixins/item'
+  import quotasInterval from '@/mixins/quotasInterval'
+  import Date from '@/components/Date'
+  import Price from '@/components/Price'
   import PlansList from '@/components/plans/List'
+  import Quotas from '@/components/Quotas'
   export default {
     components: {
-      PlansList
+      Date,
+      Price,
+      PlansList,
+      Quotas
     },
-    mixins: [withCurrentProject],
+    mixins: [
+      quotasInterval,
+      withCurrentProject,
+      item('plan', component => component.currentProject.plan.id)
+    ],
     data () {
       return {
         plansModal: false
-      }
-    },
-    computed: {
-      percent () {
-        return this.currentProject.requestsCount / this.currentProject.requestsMax * 100
-      },
-      today () {
-        return new Date()
-      },
-      from () {
-        return new Date(this.today.getFullYear(), this.today.getMonth()).toLocaleDateString()
-      },
-      to () {
-        return new Date(this.today.getFullYear(), this.today.getMonth() + 1, 0).toLocaleDateString()
       }
     }
   }

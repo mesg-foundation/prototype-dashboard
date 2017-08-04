@@ -20,22 +20,18 @@
     <table class="table">
       <tbody>
         <tr>
-          <td>{{ $t('features.requests') }}</td>
-          <td class="text-xs-right" v-if="plan.requests">{{ $n(plan.requests) }} {{ $t('units.requests') }}</td>
+          <td>{{ $t('features.executions') }}</td>
+          <td class="text-xs-right" v-if="plan.executions">{{ $n(plan.executions) }} {{ $t('units.executions') }}</td>
           <td class="text-xs-right" v-else>{{ $t('unlimited') }}</td>
         </tr>
         <tr>
-          <td>{{ $t('features.privateContracts') }}</td>
-          <td class="text-xs-right" v-if="plan.privateContracts">{{ $n(plan.privateContracts) }}</td>
+          <td>{{ $t('features.contracts') }}</td>
+          <td class="text-xs-right" v-if="plan.contracts">{{ $n(plan.contracts) }}</td>
           <td class="text-xs-right" v-else>{{ $t('unlimited') }}</td>
         </tr>
         <tr>
-          <td>{{ $t('features.publicContracts') }}</td>
-          <td class="text-xs-right">{{ $t('unlimited') }}</td>
-        </tr>
-        <tr>
-          <td>{{ $t('features.seats') }}</td>
-          <td class="text-xs-right" v-if="plan.seats">{{ $n(plan.seats) }}</td>
+          <td>{{ $t('features.members') }}</td>
+          <td class="text-xs-right" v-if="plan.members">{{ $n(plan.members) }}</td>
           <td class="text-xs-right" v-else>{{ $t('unlimited') }}</td>
         </tr>
       </tbody>
@@ -55,12 +51,11 @@
     choose: "Choose plan"
     current: "Current plan"
     features:
-      seats: "Team member"
-      requests: "Webhook executions"
-      privateContracts: "Private contracts"
-      publicContracts: "Public contracts"
+      members: "Team members"
+      executions: "Webhook executions"
+      contracts: "Contracts"
     units:
-      requests: "/ month"
+      executions: "/ month"
 </i18n>
 
 <script>
@@ -79,7 +74,7 @@
     mixins: [withCurrentProject],
     computed: {
       features () {
-        return ['requests', 'privateContracts', 'seats']
+        return ['executions', 'contracts', 'members']
           .map(x => ({
             feature: x,
             value: this.plan[x]
