@@ -5,4 +5,7 @@ fragment contractFields on Contract {
   chain
   public
   createdAt
+  _webhooksMeta {
+    count
+  }
 }

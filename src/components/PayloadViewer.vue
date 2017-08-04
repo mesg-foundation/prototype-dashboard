@@ -1,17 +1,18 @@
 <template>
   <v-data-table
+    v-if="signature.length"
     :headers="headers"
     :items="signature"
     :custom-sort="a => a"
     hide-actions>
     <template slot="items" scope="props">
       <td>
-        {{ props.item.name }}
+        <strong>{{ props.item.name }}</strong>
       </td>
       <td>
         {{ props.item.type }}
       </td>
-      <td>
+      <td v-if="editable">
         <v-text-field
           class="ma-0 pl-0"
           placeholder="..."
@@ -27,6 +28,7 @@
 
 <i18n>
   en:
+    noParameters: "No parameters"
     header:
       name: "Parameter"
       type: "Type"
@@ -41,6 +43,10 @@
       signature: {
         type: Array,
         required: true
+      },
+      editable: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -53,8 +59,8 @@
         return [
           { text: this.$t('header.name'), align: 'left', sortable: false },
           { text: this.$t('header.type'), align: 'left', sortable: false },
-          { text: this.$t('header.value'), align: 'left', sortable: false }
-        ]
+          this.editable ? { text: this.$t('header.value'), align: 'left', sortable: false } : null
+        ].filter(x => x)
       }
     },
     methods: {
@@ -64,6 +70,7 @@
         return value
       },
       updateValue (item, value) {
+        if (!this.editable) { return }
         const convertedValue = this.convert(this.signature.find(e => e.name === item).type, value)
         this.params = {
           ...this.params,

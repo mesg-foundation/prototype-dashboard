@@ -9,11 +9,12 @@
         :webhook="webhook">
       </WebhookDetailList>
       <v-divider></v-divider>
-      <PayloadCreator
+      <PayloadViewer
         :signature="eventInputs()"
         @input="$v.payload.$touch()"
-        v-model="payload">
-      </PayloadCreator>
+        v-model="payload"
+        editable>
+      </PayloadViewer>
       <v-card-actions>
         <v-btn
           primary dark block
@@ -37,11 +38,11 @@
   import { mapActions } from 'vuex'
   import { required } from '@/validators'
   import WebhookDetailList from '@/components/webhooks/DetailList.vue'
-  import PayloadCreator from '@/components/PayloadCreator.vue'
+  import PayloadViewer from '@/components/PayloadViewer.vue'
   export default {
     components: {
       WebhookDetailList,
-      PayloadCreator
+      PayloadViewer
     },
     mixins: [
       withValidation
