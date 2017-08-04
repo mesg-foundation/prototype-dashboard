@@ -1,9 +1,11 @@
 <template>
   <div>
     <v-card flat>
-      <v-card-title class="headline">
-        {{ $t('title') }}
-      </v-card-title>
+      <v-toolbar card class="transparent">
+        <v-toolbar-title class="headline">
+          {{ $t('title') }}
+        </v-toolbar-title>
+      </v-toolbar>
       <v-card-text>
         <label>
           {{ $t('admin') }}
