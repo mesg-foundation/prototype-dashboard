@@ -15,14 +15,14 @@ Vue.use(Vuelidate)
 router.beforeEach(loggedIn(store))
 router.beforeEach(withProject(store))
 
-const promise = process.env.OFFLINE_MODE
-  ? Promise.resolve()
-  : store.dispatch('session/refresh')
-
-promise.then(_ => new Vue({
+const initializeApp = () => new Vue({
   el: '#app',
   router,
   i18n,
   store,
   render: h => h(App)
-}))
+})
+
+store.dispatch('session/refresh')
+  .then(initializeApp)
+  .catch(initializeApp)
