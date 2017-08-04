@@ -5,7 +5,20 @@
         {{ $t('title', { from, to }) }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-dialog
+        class="hidden-sm-and-down"
+        v-model="plansModal"
+        width="1024"
+        lazy>
+        <v-btn
+          success dark
+          slot="activator">
+          {{ $t('upgrade') }}
+        </v-btn>
+        <Plans></Plans>
+      </v-dialog>
       <v-btn
+        class="hidden-md-and-up"
         success dark
         :to="{ name: 'Plans' }">
         {{ $t('upgrade') }}
@@ -43,6 +56,11 @@
       Plans
     },
     mixins: [withCurrentProject],
+    data () {
+      return {
+        plansModal: false
+      }
+    },
     computed: {
       percent () {
         return this.currentProject.requestsCount / this.currentProject.requestsMax * 100

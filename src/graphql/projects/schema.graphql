@@ -2,8 +2,6 @@ fragment projectFields on Project {
   id
   name
   createdAt
-  requestsCount
-  requestsMax
   creator {
     id
     email
@@ -16,5 +14,9 @@ fragment projectFields on Project {
   }
   _usersMeta {
     count
+  },
+  plan {
+    id
+    title
   }
 }

@@ -18,3 +18,12 @@ table.table tbody td {
 .application--light .input-group.input-group--selection-controls.switch .input-group--selection-controls__ripple--active:after {
   background-color: $material-theme.background;
 }
+
+.card--hover {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card--hover:hover {
+  transform: scale(1.05);
+  z-index: 1;
+}
