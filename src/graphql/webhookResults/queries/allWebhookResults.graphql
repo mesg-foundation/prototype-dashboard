@@ -4,6 +4,7 @@ query(
   $eventId: ID!
 ) {
   allWebhookResults(
+    orderBy: createdAt_DESC,
     filter: {
       event: {
         id: $eventId

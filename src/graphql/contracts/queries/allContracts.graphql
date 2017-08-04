@@ -4,6 +4,7 @@ query(
   $projectId: ID!
 ) {
   allContracts(
+    orderBy: createdAt_DESC,
     filter: {
       project: {
         id: $projectId

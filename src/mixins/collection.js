@@ -17,7 +17,6 @@ export default (collection, payloadFunction = component => ({})) => {
       [collection] () {
         return (this[list][Utils.dataToUrlString(payloadFunction(this))] || [])
           .map(x => this[ids][x])
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       }
     },
     methods: {

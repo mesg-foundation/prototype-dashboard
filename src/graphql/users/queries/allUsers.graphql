@@ -4,6 +4,7 @@ query(
   $projectId: ID!
 ) {
   allUsers(
+    orderBy: createdAt_DESC,
     filter: {
       projects_some: {
         id: $projectId
