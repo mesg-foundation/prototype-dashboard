@@ -14,7 +14,7 @@ import Settings from '@/components/settings/Menu'
 import SettingsGeneral from '@/components/settings/General'
 import SettingsTeam from '@/components/settings/Team'
 import SettingsBilling from '@/components/settings/Billing'
-import Plans from '@/components/Plans'
+import Plans from '@/components/plans/List'
 
 Vue.use(Router)
 

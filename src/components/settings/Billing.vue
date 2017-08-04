@@ -15,7 +15,7 @@
           slot="activator">
           {{ $t('upgrade') }}
         </v-btn>
-        <Plans></Plans>
+        <PlansList></PlansList>
       </v-dialog>
       <v-btn
         class="hidden-md-and-up"
@@ -50,10 +50,10 @@
 
 <script>
   import withCurrentProject from '@/mixins/withCurrentProject'
-  import Plans from '@/components/Plans'
+  import PlansList from '@/components/plans/List'
   export default {
     components: {
-      Plans
+      PlansList
     },
     mixins: [withCurrentProject],
     data () {

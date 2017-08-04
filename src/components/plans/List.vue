@@ -12,7 +12,7 @@
         <v-flex
           v-for="plan in payedPlans" :key="plan.id"
           xs12 sm4>
-          <PlanCard :plan="plan" class="mb-2"></PlanCard>
+          <PlanItem :plan="plan" class="mb-2"></PlanItem>
         </v-flex>
       </v-layout>
     </v-card-text>
@@ -43,11 +43,11 @@
 
 <script>
   import collection from '@/mixins/collection'
-  import PlanCard from '@/components/PlanCard'
   import MenuToggle from '@/components/MenuToggle'
+  import PlanItem from './Item'
   export default {
     components: {
-      PlanCard,
+      PlanItem,
       MenuToggle
     },
     mixins: [
