@@ -6,7 +6,7 @@
     dark
     :class="{ 'alternate': showProjects }">
     <v-list class="pa-1 header">
-      <v-list-tile avatar tag="div" v-if="currentProject">
+      <v-list-tile :ripple="false" avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
           <img alt="logo" class="blue darken-2" src="/static/img/logo-light.svg">
         </v-list-tile-avatar>
