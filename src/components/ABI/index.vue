@@ -29,7 +29,6 @@
   en:
     titles:
       constructor: "Constructor"
-      constant: "Constants"
       event: "Events"
       function: "Functions"
       raw: "RAW ABI"
@@ -37,13 +36,11 @@
 
 <script>
   import Utils from '@/utils'
-  import Constant from './Constant'
   import Event from './Event'
   import Function from './Function'
   import Constructor from './Constructor'
   export default {
     components: {
-      Constant,
       Event,
       Constructor,
       Function
@@ -63,8 +60,7 @@
         return [
           'constructor',
           'event',
-          'function',
-          'constant'
+          'function'
         ]
           .map(type => ({
             key: type,
