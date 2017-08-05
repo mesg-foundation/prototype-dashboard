@@ -7,31 +7,25 @@
     extended
     withMenu>
     <template v-if="webhook" slot="toolbar">
-      <v-dialog
-        lazy
-        width="480"
+      <PopupPageButton
+        :title="$t('update')"
+        primary outline
         v-model="formModal">
-        <v-btn slot="activator" primary outline>
-          {{ $t('update') }}
-        </v-btn>
         <WebhookForm
           :webhook="webhook"
           :contract="webhook.contract"
           @saved="closeFormModal()">
         </WebhookForm>
-      </v-dialog>
-      <v-dialog
-        lazy
-        width="480"
+      </PopupPageButton>
+      <PopupPageButton
+        :title="$t('test')"
+        primary outline
         v-model="testModal">
-        <v-btn slot="activator" primary outline>
-          {{ $t('test') }}
-        </v-btn>
         <EventForm
           :webhook="webhook"
           @saved="closeTestModal()">
         </EventForm>
-      </v-dialog>
+      </PopupPageButton>
     </template>
     <WebhookDetailList
       slot="extension"
@@ -72,16 +66,18 @@
 <script>
   import item from '@/mixins/item'
   import collection from '@/mixins/collection'
-  import TableListing from '@/components/layouts/TableListing.vue'
-  import EventForm from '@/components/events/Form.vue'
-  import WebhookForm from '@/components/webhooks/Form.vue'
-  import WebhookDetailList from '@/components/webhooks/DetailList.vue'
+  import TableListing from '@/components/layouts/TableListing'
+  import EventForm from '@/components/events/Form'
+  import WebhookForm from '@/components/webhooks/Form'
+  import WebhookDetailList from '@/components/webhooks/DetailList'
+  import PopupPageButton from '@/components/PopupPageButton'
   export default {
     components: {
       TableListing,
       EventForm,
       WebhookForm,
-      WebhookDetailList
+      WebhookDetailList,
+      PopupPageButton
     },
     mixins: [
       item('webhook'),

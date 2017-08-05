@@ -11,24 +11,13 @@
         )
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-dialog
-        class="hidden-sm-and-down"
-        v-model="plansModal"
-        width="1024"
-        lazy>
-        <v-btn
-          success dark
-          slot="activator">
-          {{ $t('upgrade') }}
-        </v-btn>
-        <PlansList></PlansList>
-      </v-dialog>
-      <v-btn
-        class="hidden-md-and-up"
+      <PopupPageButton
         success dark
+        :modalWidth="1024"
+        :title="$t('upgrade')"
         :to="{ name: 'Plans' }">
-        {{ $t('upgrade') }}
-      </v-btn>
+        <PlansList></PlansList>
+      </PopupPageButton>
     </v-toolbar>
     <v-card-text>
       <Quotas
@@ -53,12 +42,14 @@
   import Price from '@/components/Price'
   import PlansList from '@/components/plans/List'
   import Quotas from '@/components/Quotas'
+  import PopupPageButton from '@/components/PopupPageButton'
   export default {
     components: {
       Date,
       Price,
       PlansList,
-      Quotas
+      Quotas,
+      PopupPageButton
     },
     mixins: [
       quotasInterval,

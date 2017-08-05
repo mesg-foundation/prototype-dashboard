@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog
-      class="{ 'hidden-sm-and-down': to }"
+      :class="{ 'hidden-sm-and-down': to }"
       v-model="modal"
       :width="modalWidth"
       lazy>
@@ -48,7 +48,7 @@
     },
     data () {
       return {
-        modal: this.value
+        modal: this.value || false
       }
     },
     watch: {
