@@ -6,8 +6,7 @@
       :width="modalWidth"
       lazy>
       <v-btn
-        :success="success"
-        :dark="dark"
+        v-bind="$attrs"
         slot="activator">
         <v-icon v-if="icon">{{ icon }}</v-icon>
         {{ title }}
@@ -16,9 +15,8 @@
     </v-dialog>
     <v-btn
       v-if="to"
+      v-bind="$attrs"
       class="hidden-md-and-up"
-      :success="success"
-      :dark="dark"
       :to="to">
       <v-icon v-if="icon">{{ icon }}</v-icon>
       {{ title }}
@@ -44,14 +42,6 @@
       modalWidth: {
         type: Number,
         default: 640
-      },
-      success: {
-        type: Boolean,
-        default: false
-      },
-      dark: {
-        type: Boolean,
-        default: false
       }
     },
     data () {
