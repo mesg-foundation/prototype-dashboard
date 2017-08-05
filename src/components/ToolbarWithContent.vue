@@ -2,7 +2,7 @@
   <div>
     <v-toolbar :card="card">
       <v-toolbar-title class="heading">
-        <slot name="title"></slot>
+        <slot v-if="!title" name="title"></slot>
         {{ title }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -21,7 +21,7 @@
     props: {
       title: {
         type: String,
-        required: true
+        default: null
       },
       card: {
         type: Boolean,
