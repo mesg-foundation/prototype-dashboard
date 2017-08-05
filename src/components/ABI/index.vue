@@ -28,6 +28,7 @@
 <i18n>
   en:
     titles:
+      constructor: "Constructor"
       constant: "Constants"
       event: "Events"
       function: "Functions"
@@ -39,10 +40,12 @@
   import Constant from './Constant'
   import Event from './Event'
   import Function from './Function'
+  import Constructor from './Constructor'
   export default {
     components: {
       Constant,
       Event,
+      Constructor,
       Function
     },
     props: {
@@ -58,6 +61,7 @@
       },
       items () {
         return [
+          'constructor',
           'event',
           'function',
           'constant'
