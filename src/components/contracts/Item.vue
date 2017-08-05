@@ -4,6 +4,10 @@
       <v-toolbar-title class="heading">
         {{ contract.address }}
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <PopupPageButton primary dark outline :title="$t('update')">
+        <ContractForm :contract="contract"></ContractForm>
+      </PopupPageButton>
     </v-toolbar>
     <v-list two-line>
       <v-list-tile v-for="item in items" :key="item.key">
@@ -23,6 +27,7 @@
 
 <i18n>
   en:
+    update: "Update"
     labels:
       address: "Contract address"
       chain: "Blockchain"
@@ -32,9 +37,13 @@
 <script>
   import item from '@/mixins/item'
   import Abi from '@/components/ABI'
+  import PopupPageButton from '@/components/PopupPageButton'
+  import ContractForm from './Form'
   export default {
     components: {
-      Abi
+      Abi,
+      PopupPageButton,
+      ContractForm
     },
     mixins: [
       item('contract')
