@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog
-      class="hidden-sm-and-down"
+      class="{ 'hidden-sm-and-down': to }"
       v-model="modal"
       :width="modalWidth"
       lazy>
@@ -15,6 +15,7 @@
       <slot></slot>
     </v-dialog>
     <v-btn
+      v-if="to"
       class="hidden-md-and-up"
       :success="success"
       :dark="dark"
@@ -28,13 +29,13 @@
 <script>
   export default {
     props: {
-      to: {
-        type: Object,
-        required: true
-      },
       title: {
         type: String,
         required: true
+      },
+      to: {
+        type: Object,
+        default: null
       },
       icon: {
         type: String,
@@ -60,6 +61,7 @@
     },
     watch: {
       modal () {
+        if (!this.to) { return }
         if (this.modal) {
           history.pushState({}, null, this.to.path)
         } else {
