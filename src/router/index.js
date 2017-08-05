@@ -8,6 +8,7 @@ import NewProject from '@/components/projects/Create'
 import Events from '@/components/events/List'
 import WebhookResults from '@/components/webhookResults/List'
 import Contracts from '@/components/contracts/List'
+import NewContract from '@/components/contracts/Create'
 import Contract from '@/components/contracts/Item'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
@@ -71,6 +72,11 @@ export default new Router({
           path: '',
           name: 'Contracts',
           component: Contracts
+        },
+        {
+          path: 'new',
+          name: 'NewContract',
+          component: NewContract
         },
         {
           path: ':id',
