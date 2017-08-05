@@ -7,12 +7,12 @@
     searchable
     withMenu>
     <template slot="toolbar">
-      <v-btn
-        success class="white--text"
-        :to="{ name: 'NewWebhook' }">
-        <v-icon class="white--text">add</v-icon>
-        {{ $t('create') }}
-      </v-btn>
+      <PopupPageButton
+        :to="{ name: 'NewWebhook' }"
+        success dark icon="add"
+        :title="$t('create')">
+        <NewWebhook></NewWebhook>
+      </PopupPageButton>
     </template>
     <template scope="webhook">
       <td>
@@ -45,10 +45,14 @@
 <script>
   import collection from '@/mixins/collection'
   import withCurrentProject from '@/mixins/withCurrentProject'
-  import TableListing from '@/components/layouts/TableListing.vue'
+  import TableListing from '@/components/layouts/TableListing'
+  import PopupPageButton from '@/components/PopupPageButton'
+  import NewWebhook from '@/components/webhooks/Create'
   export default {
     components: {
-      TableListing
+      TableListing,
+      PopupPageButton,
+      NewWebhook
     },
     mixins: [
       withCurrentProject,
