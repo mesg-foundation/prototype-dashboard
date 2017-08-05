@@ -12,6 +12,7 @@
         <v-icon v-else>arrow_drop_down</v-icon>
       </v-btn>
     </v-toolbar>
+    <v-divider></v-divider>
     <slot v-if="open"></slot>
   </div>
 </template>

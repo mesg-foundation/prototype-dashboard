@@ -1,12 +1,12 @@
 <template>
-  <v-card flat class="grey lighten-4">
+  <v-card flat>
     <ToolbarWithContent
       card
       :title="$t('constructor')">
       <h4 class="subheader">{{ $t('inputs') }} ({{ value.inputs.length }})</h4>
       <PayloadViewer :signature="value.inputs"></PayloadViewer>
+      <v-divider></v-divider>
     </ToolbarWithContent>
-    <v-divider></v-divider>
   </v-card>
 </template>
 

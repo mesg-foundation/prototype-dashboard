@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="grey lighten-4">
+  <v-card flat>
     <ToolbarWithContent card>
       <template slot="title">
         <v-chip
@@ -14,8 +14,8 @@
       <PayloadViewer :signature="value.inputs"></PayloadViewer>
       <h4 class="subheader">{{ $t('outputs') }} ({{ value.outputs.length }})</h4>
       <PayloadViewer :signature="value.outputs"></PayloadViewer>
+      <v-divider></v-divider>
     </ToolbarWithContent>
-    <v-divider></v-divider>
   </v-card>
 </template>
 
