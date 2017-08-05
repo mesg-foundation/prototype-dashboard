@@ -8,7 +8,7 @@ export default {
   actions,
   state: {
     currentUser: null,
-    currentProjectId: null,
+    currentProjectId: Cookie.get(process.env.AUTH_COOKIE_NAME_PROJECT),
     token: Cookie.get(process.env.AUTH_COOKIE_NAME_TOKEN)
   },
   mutations: {
@@ -17,7 +17,6 @@ export default {
       state.currentProjectId = projectId
     },
     setCurrentUser: (state, user) => {
-      Cookie.set(process.env.AUTH_COOKIE_NAME_USER, id(user))
       state.currentUser = user
     },
     setToken: (state, token) => {
