@@ -6,7 +6,8 @@ module.exports = {
   GRAPHQL_SOCKET: '"wss://subscriptions.graph.cool/v1/eth-hook"',
   CONTRACT_ADDRESS_LENGTH: '42',
   CHAINS: JSON.stringify([
-    { key: 'KOVAN', name: 'Kovan' }
+    { key: 'KOVAN', name: 'Kovan' },
+    { key: 'MAINNET', name: 'Mainnet' },
   ]),
   HEADER_SECRET_KEY: '"X-ETHHOOK-SECRET"'
 }
