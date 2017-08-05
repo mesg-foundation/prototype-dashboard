@@ -10,8 +10,9 @@
       <PopupPageButton
         :to="{ name: 'NewWebhook' }"
         success dark icon="add"
-        :title="$t('create')">
-        <NewWebhook></NewWebhook>
+        :title="$t('create')"
+        v-model="popup">
+        <NewWebhook @saved="popup = false"></NewWebhook>
       </PopupPageButton>
     </template>
     <template scope="webhook">
@@ -60,6 +61,11 @@
         projectId: component.currentProjectId
       }))
     ],
+    data () {
+      return {
+        popup: false
+      }
+    },
     computed: {
       headers () {
         return [

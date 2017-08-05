@@ -2,8 +2,8 @@
 export default {
   props: {
     value: {
-      type: [String, Object],
-      default: ''
+      type: [String, Object, Boolean],
+      default: null
     },
     required: {
       type: Boolean,

@@ -25,7 +25,9 @@
 </template>
 
 <script>
+  import input from '@/mixins/input'
   export default {
+    mixins: [input],
     props: {
       title: {
         type: String,
@@ -46,11 +48,15 @@
     },
     data () {
       return {
-        modal: false
+        modal: this.value
       }
     },
     watch: {
+      value () {
+        this.modal = this.value
+      },
       modal () {
+        this.$emit('input', this.modal)
         if (!this.to) { return }
         if (this.modal) {
           history.pushState({}, null, this.to.path)

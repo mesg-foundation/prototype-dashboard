@@ -82,6 +82,10 @@
       withValidation
     ],
     props: {
+      contract: {
+        type: Object,
+        default: () => ({})
+      },
       title: {
         type: String,
         default: null
@@ -93,9 +97,9 @@
     },
     data () {
       return {
-        address: null,
-        abi: null,
-        chain: null
+        address: this.contract.address,
+        abi: JSON.stringify(this.contract.abi, null, 2),
+        chain: this.contract.chain
       }
     },
     validations: {
@@ -118,14 +122,18 @@
     },
     methods: {
       ...mapActions({
-        createContract: 'contracts/create'
+        create: 'contracts/create',
+        update: 'contracts/update'
       }),
       submit () {
-        this.createContract({
+        const method = this.contract.id ? this.update : this.create
+        method({
+          id: this.contract.id,
           projectId: this.currentProjectId,
           address: this.address,
           abi: this.abiObject,
-          public: false
+          chain: this.chain,
+          public: this.contract.public || false
         })
           .then(contract => this.$emit('saved', contract))
       }

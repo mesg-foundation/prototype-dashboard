@@ -2,15 +2,13 @@
 #import "@/graphql/projects/schema.graphql"
 
 mutation(
-  $projectId: ID!
-  $address: String!
+  $id: ID!
   $abi: Json!
   $chain: CONTRACT_CHAIN
   $public: Boolean
 ) {
-  createContract(
-    projectId: $projectId,
-    address: $address
+  updateContract(
+    id: $id,
     abi: $abi
     chain: $chain
     public: $public

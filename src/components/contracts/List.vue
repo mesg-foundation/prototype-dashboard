@@ -10,8 +10,9 @@
       <PopupPageButton
         :to="{ name: 'NewContract' }"
         success dark icon="add"
-        :title="$t('create')">
-        <NewContract></NewContract>
+        :title="$t('create')"
+        v-model="popup">
+        <NewContract @saved="popup = false"></NewContract>
       </PopupPageButton>
     </template>
     <template scope="contract">
@@ -59,6 +60,11 @@
         projectId: component.currentProjectId
       }))
     ],
+    data () {
+      return {
+        popup: false
+      }
+    },
     computed: {
       headers () {
         return [

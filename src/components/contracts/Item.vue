@@ -5,8 +5,15 @@
         {{ contract.address }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <PopupPageButton primary dark outline :title="$t('update')">
-        <ContractForm :contract="contract"></ContractForm>
+      <PopupPageButton
+        primary dark outline
+        :title="$t('update')"
+        v-model="popup">
+        <ContractForm
+          :title="$t('edit')"
+          :contract="contract"
+          @saved="popup = false">
+        </ContractForm>
       </PopupPageButton>
     </v-toolbar>
     <v-list two-line>
@@ -28,6 +35,7 @@
 <i18n>
   en:
     update: "Update"
+    edit: "Edit contract"
     labels:
       address: "Contract address"
       chain: "Blockchain"
@@ -52,6 +60,11 @@
       id: {
         type: String,
         required: true
+      }
+    },
+    data () {
+      return {
+        popup: false
       }
     },
     computed: {
