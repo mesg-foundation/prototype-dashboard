@@ -1,22 +1,23 @@
 <template>
   <form @submit.prevent="submit()">
-    <v-card>
+    <v-card flat>
       <WebhookFormHeader
-        v-if="webhook"
         :webhook="webhook">
       </WebhookFormHeader>
       <v-divider></v-divider>
       <v-card-text>
         <EventSelector
           :label="$t('labels.event')"
-          v-model="eventName"
           :contract="contract"
+          v-model="eventName"
+          @input="$v.eventName.$touch()"
           required>
         </EventSelector>
 
         <v-text-field
           :label="$t('labels.endpoint')"
           v-model="endpoint"
+          @input="$v.endpoint.$touch()"
           type="url"
           required>
         </v-text-field>
@@ -24,16 +25,17 @@
         <template v-if="advanced">
           <v-text-field
             :label="$t('labels.secret')"
-            v-model="secret"
             :hint="$t('hints.secret', { variable: headerSecretValue })"
+            v-model="secret"
             persistent-hint>
           </v-text-field>
 
           <v-select
             :label="$t('labels.authorizationType')"
             :items="authorizations"
-            v-model="authorizationType"
             :hint="$t('hints.authorization')"
+            v-model="authorizationType"
+            @input="$v.authorizationType.$touch()"
             persistent-hint>
           </v-select>
 
@@ -47,13 +49,20 @@
           v-else
           flat primary
           class="ma-0"
-          @click.native.stop="advanced = true">
+          @click.stop="advanced = true">
           {{ $t('advanced') }}
         </v-btn>
       </v-card-text>
       <v-card-actions>
         <v-btn
+          v-if="cancelable"
+          light flat block
+          @click="$emit('cancel')">
+          {{ $t('cancel') }}
+        </v-btn>
+        <v-btn
           primary dark block
+          :disabled="!isValid"
           type="submit">
           {{ $t('submit') }}
         </v-btn>
@@ -66,6 +75,7 @@
   en:
     submit: "Sauvegarder"
     advanced: "Advanced"
+    cancel: "Cancel"
     hints:
       secret: "This secret can help you to verify the validity of the webhook. This secret is sent throw the header variable `{variable}`"
       authorization: "This is usefull if your webhook needs some authentification"
@@ -78,16 +88,27 @@
 </i18n>
 <script>
   import { mapActions } from 'vuex'
+  import withValidation from '@/mixins/withValidation'
+  import { required, url, includedIn } from '@/validators'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import EventSelector from '@/components/EventSelector.vue'
   import WebhookFormHeader from '@/components/webhooks/FormHeader.vue'
+
+  const AUTHORIZATIONS = [
+    'NONE',
+    'BASIC',
+    'BEARER'
+  ]
 
   export default {
     components: {
       EventSelector,
       WebhookFormHeader
     },
-    mixins: [withCurrentProject],
+    mixins: [
+      withValidation,
+      withCurrentProject
+    ],
     props: {
       contract: {
         type: Object,
@@ -96,6 +117,10 @@
       webhook: {
         type: Object,
         default: null
+      },
+      cancelable: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -111,13 +136,22 @@
     },
     computed: {
       authorizations () {
-        return [
-          'NONE',
-          'BASIC',
-          'BEARER'
-        ]
+        return AUTHORIZATIONS
       },
       headerSecretValue () { return process.env.HEADER_SECRET_KEY }
+    },
+    validations: {
+      eventName: {
+        required
+      },
+      endpoint: {
+        required,
+        url
+      },
+      authorizationType: {
+        required,
+        includedIn: includedIn(AUTHORIZATIONS)
+      }
     },
     methods: {
       ...mapActions({
