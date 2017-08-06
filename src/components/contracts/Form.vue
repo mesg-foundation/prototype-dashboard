@@ -36,7 +36,13 @@
       </v-card-text>
       <v-card-actions>
         <v-btn
-          primary dark
+          v-if="cancelable"
+          light flat block
+          @click.stop="$emit('cancel')">
+          {{ $t('cancel') }}
+        </v-btn>
+        <v-btn
+          primary dark block
           :disabled="!isValid"
           type="submit">
           {{ submitLabel || $t('submit') }}
@@ -50,6 +56,7 @@
   en:
     title: "Add a contract"
     submit: "Save the contract"
+    cancel: "Cancel"
     labels:
       address: "Address"
       abi: "ABI"
@@ -93,6 +100,10 @@
       submitLabel: {
         type: String,
         default: null
+      },
+      cancelable: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
