@@ -1,15 +1,14 @@
 <template>
   <v-toolbar card class="secondary">
     <v-toolbar-title class="headline">
-      {{ webhook.id ? $t('update') : $t('title') }}
+      {{ webhook ? $t('update') : $t('title') }}
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
-    <v-toolbar-items>
+    <v-toolbar-items v-if="webhook">
       <v-switch
         class="mr-3"
-        v-if="webhook.id"
         v-model="enable">
       </v-switch>
     </v-toolbar-items>
@@ -28,16 +27,17 @@
     props: {
       webhook: {
         type: Object,
-        required: true
+        default: null
       }
     },
     data () {
       return {
-        enable: this.webhook.enable
+        enable: this.webhook ? this.webhook.enable : false
       }
     },
     watch: {
       enable () {
+        if (!this.webhook) { return }
         this.updateWebhook({
           id: this.webhook.id,
           enable: this.enable
