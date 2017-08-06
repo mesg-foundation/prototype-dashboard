@@ -26,7 +26,7 @@ const testItem = item => ({ predicate, value }) => {
   if (!predicate) { return false }
   if (predicate.endsWith('Id')) {
     const entity = predicate.match(/^(.*)Id$/)[1]
-    if (item[entity].id === value) { return true }
+    if (item[entity] && item[entity].id === value) { return true }
   }
   return item[predicate] === value
 }
