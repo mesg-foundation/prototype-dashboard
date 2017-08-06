@@ -1,23 +1,24 @@
 <template>
-  <ContractForm
-    v-if="!contract"
-    submitLabel="Next ->"
-    @saved="contractSaved">
-  </ContractForm>
   <WebhookForm
-    v-else
+    v-if="contract"
     :contract="contract"
+    cancelable
+    @cancel="contract = null"
     @saved="webhookSaved">
   </WebhookForm>
+  <ContractSelection
+    v-else
+    @selected="contractSelected">
+  </ContractSelection>
 </template>
 
 <script>
-  import ContractForm from '@/components/contracts/Form.vue'
+  import ContractSelection from '@/components/contracts/Selector'
   import WebhookForm from './Form.vue'
   export default {
     components: {
-      ContractForm,
-      WebhookForm
+      WebhookForm,
+      ContractSelection
     },
     data () {
       return {
@@ -25,7 +26,7 @@
       }
     },
     methods: {
-      contractSaved (contract) {
+      contractSelected (contract) {
         this.contract = contract
       },
       webhookSaved (webhook) {
