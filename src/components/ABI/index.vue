@@ -6,6 +6,7 @@
         :href="`#${item.key}`"
         ripple>
         {{ $t(`titles.${item.key}`) }}
+        ({{ item.entries.length }})
       </v-tabs-item>
       <v-tabs-item href="#raw" ripple>{{ $t('titles.raw') }}</v-tabs-item>
       <v-tabs-slider></v-tabs-slider>

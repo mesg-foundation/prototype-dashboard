@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <ToolbarWithContent card :title="value.name">
+    <ToolbarWithContent card :title="signature">
       <h4 class="subheader">{{ $t('inputs') }} ({{ value.inputs.length }})</h4>
       <PayloadViewer :signature="value.inputs"></PayloadViewer>
       <h4 class="subheader">{{ $t('outputs') }} ({{ value.outputs.length }})</h4>

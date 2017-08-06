@@ -8,7 +8,7 @@
           class="error white--text">
           {{ $t('payable') }}
         </v-chip>
-        {{ value.name }}
+        {{ signature }}
       </template>
       <h4 class="subheader">{{ $t('inputs') }} ({{ value.inputs.length }})</h4>
       <PayloadViewer :signature="value.inputs"></PayloadViewer>
