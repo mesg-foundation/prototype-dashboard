@@ -47,7 +47,8 @@ export default new Router({
         {
           path: 'new',
           name: 'NewWebhook',
-          component: NewWebhook
+          component: NewWebhook,
+          props: route => route.query
         },
         {
           path: ':id',

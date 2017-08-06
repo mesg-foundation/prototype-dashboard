@@ -121,13 +121,17 @@
       cancelable: {
         type: Boolean,
         default: false
+      },
+      event: {
+        type: String,
+        default: null
       }
     },
     data () {
       const webhook = this.webhook || {}
       return {
         advanced: webhook.authorizationValue && webhook.secret,
-        eventName: webhook.eventName,
+        eventName: webhook.eventName || this.event,
         endpoint: webhook.endpoint,
         authorizationType: webhook.authorizationType || 'NONE',
         authorizationValue: webhook.authorizationValue,
