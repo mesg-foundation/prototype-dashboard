@@ -1,26 +1,30 @@
 <template>
-  <table-listing
-    :headers="headers"
-    :items="users"
-    :title="$t('title')"
-    :loading="loadingUsers"
-    transparent>
-    <template slot="toolbar">
-      <PopupPageButton
-        primary dark outline
-        :title="$t('invite')"
-        v-model="popup">
-        <InvitationForm @saved="popup = false"></InvitationForm>
-      </PopupPageButton>
-    </template>
-    <template scope="user">
-      <td>{{ user.email }}</td>
-      <td>{{ $t(`role.${role(user)}`) }}</td>
-      <td class="text-xs-right">
-        <timeago :since="user.createdAt" :auto-update="10"></timeago>
-      </td>
-    </template>
-  </table-listing></template>
+  <div>
+    <table-listing
+      :headers="headers"
+      :items="users"
+      :title="$t('title')"
+      :loading="loadingUsers"
+      transparent>
+      <template slot="toolbar">
+        <PopupPageButton
+          primary dark outline
+          :title="$t('invite')"
+          v-model="popup">
+          <InvitationForm @saved="popup = false"></InvitationForm>
+        </PopupPageButton>
+      </template>
+      <template scope="user">
+        <td>{{ user.email }}</td>
+        <td>{{ $t(`role.${role(user)}`) }}</td>
+        <td class="text-xs-right">
+          <timeago :since="user.createdAt" :auto-update="10"></timeago>
+        </td>
+      </template>
+    </table-listing>
+    <InvitationList></InvitationList>
+  </div>
+</template>
 
 <i18n>
   en:
@@ -41,11 +45,13 @@
   import TableListing from '@/components/layouts/TableListing'
   import PopupPageButton from '@/components/PopupPageButton'
   import InvitationForm from '@/components/invitations/Form'
+  import InvitationList from '@/components/invitations/List'
   export default {
     components: {
       TableListing,
       PopupPageButton,
-      InvitationForm
+      InvitationForm,
+      InvitationList
     },
     mixins: [
       withCurrentProject,
