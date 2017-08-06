@@ -1,0 +1,16 @@
+#import "@/graphql/invitations/schema.graphql"
+
+query(
+  $projectId: ID!
+) {
+  allInvitations(
+    orderBy: createdAt_DESC,
+    filter: {
+      project: {
+        id: $projectId
+      }
+    }
+  ) {
+    ...invitationFields
+  }
+}

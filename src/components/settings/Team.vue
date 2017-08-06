@@ -5,6 +5,14 @@
     :title="$t('title')"
     :loading="loadingUsers"
     transparent>
+    <template slot="toolbar">
+      <PopupPageButton
+        primary dark outline
+        :title="$t('invite')"
+        v-model="popup">
+        <InvitationForm @saved="popup = false"></InvitationForm>
+      </PopupPageButton>
+    </template>
     <template scope="user">
       <td>{{ user.email }}</td>
       <td>{{ $t(`role.${role(user)}`) }}</td>
@@ -17,6 +25,7 @@
 <i18n>
   en:
     title: "Team"
+    invite: "Invite"
     header:
       email: "Email"
       role: "Role"
@@ -29,10 +38,14 @@
 <script>
   import collection from '@/mixins/collection'
   import withCurrentProject from '@/mixins/withCurrentProject'
-  import TableListing from '@/components/layouts/TableListing.vue'
+  import TableListing from '@/components/layouts/TableListing'
+  import PopupPageButton from '@/components/PopupPageButton'
+  import InvitationForm from '@/components/invitations/Form'
   export default {
     components: {
-      TableListing
+      TableListing,
+      PopupPageButton,
+      InvitationForm
     },
     mixins: [
       withCurrentProject,
@@ -40,6 +53,11 @@
         projectId: component.currentProjectId
       }))
     ],
+    data () {
+      return {
+        popup: false
+      }
+    },
     computed: {
       headers () {
         return [

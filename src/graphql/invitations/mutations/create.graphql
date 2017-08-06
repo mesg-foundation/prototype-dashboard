@@ -1,0 +1,13 @@
+#import "@/graphql/invitations/schema.graphql"
+
+mutation(
+  $projectId: ID!
+  $email: String!
+) {
+  createInvitation(
+    projectId: $projectId,
+    email: $email
+	) {
+    ...invitationFields
+  }
+}

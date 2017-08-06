@@ -1,0 +1,5 @@
+fragment invitationFields on Invitation {
+  id
+  email
+  createdAt
+}

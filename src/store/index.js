@@ -9,6 +9,7 @@ import webhookResults from './webhookResults'
 import session from './session'
 import users from './users'
 import plans from './plans'
+import invitations from './invitations'
 
 Vue.use(Vuex)
 
@@ -22,7 +23,8 @@ export default new Vuex.Store({
     webhookResults,
     users,
     plans,
-    session
+    session,
+    invitations
   },
   plugins: [
     createPersistedState({
