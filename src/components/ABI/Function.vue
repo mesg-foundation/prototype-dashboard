@@ -10,10 +10,14 @@
         </v-chip>
         {{ signature }}
       </template>
-      <h4 class="subheader">{{ $t('inputs') }} ({{ value.inputs.length }})</h4>
-      <PayloadViewer :signature="value.inputs"></PayloadViewer>
-      <h4 class="subheader">{{ $t('outputs') }} ({{ value.outputs.length }})</h4>
-      <PayloadViewer :signature="value.outputs"></PayloadViewer>
+      <template v-if="value.inputs.length">
+        <h4 class="subheader">{{ $t('inputs') }} ({{ value.inputs.length }})</h4>
+        <PayloadViewer :signature="value.inputs"></PayloadViewer>
+      </template>
+      <template v-if="value.outputs.length">
+        <h4 class="subheader">{{ $t('outputs') }} ({{ value.outputs.length }})</h4>
+        <PayloadViewer :signature="value.outputs"></PayloadViewer>
+      </template>
       <v-divider></v-divider>
     </ToolbarWithContent>
   </v-card>
