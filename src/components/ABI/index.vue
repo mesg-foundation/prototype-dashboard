@@ -29,6 +29,7 @@
   en:
     titles:
       constructor: "Constructor"
+      constant: "Constants"
       event: "Events"
       function: "Functions"
       raw: "RAW ABI"
@@ -38,10 +39,12 @@
   import Utils from '@/utils'
   import Event from './Event'
   import Function from './Function'
+  import Constant from './Constant'
   import Constructor from './Constructor'
   export default {
     components: {
       Event,
+      Constant,
       Constructor,
       Function
     },
@@ -52,21 +55,37 @@
       }
     },
     computed: {
+      constructors () {
+        return this.value
+          .filter(x => x.type === 'constructor')
+          .sort((a, b) => a.name.localeCompare(b.name))
+      },
       events () {
         return this.value
           .filter(x => x.type === 'event')
+          .sort((a, b) => a.name.localeCompare(b.name))
+      },
+      constants () {
+        return this.value
+          .filter(x => x.type === 'function' && x.constant)
+          .sort((a, b) => a.name.localeCompare(b.name))
+      },
+      functions () {
+        return this.value
+          .filter(x => x.type === 'function' && !x.constant)
+          .sort((a, b) => a.name.localeCompare(b.name))
       },
       items () {
         return [
           'constructor',
+          'constant',
           'event',
           'function'
         ]
           .map(type => ({
             key: type,
             component: Utils.toHuman(type),
-            entries: this.value
-              .filter(entry => entry.type === type)
+            entries: this[`${type}s`]
           }))
           .filter(x => x.entries.length > 0)
       }
