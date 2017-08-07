@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar :card="card">
-      <v-toolbar-title class="heading">
+      <v-toolbar-title class="headline">
         <slot v-if="!title" name="title"></slot>
         {{ title }}
       </v-toolbar-title>

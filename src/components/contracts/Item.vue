@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-toolbar card>
-      <v-toolbar-title class="heading">
+      <v-toolbar-title class="headline">
         {{ contract.address }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
