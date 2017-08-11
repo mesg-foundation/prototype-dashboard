@@ -11,14 +11,15 @@
   export default {
     props: {
       code: {
-        type: Number,
+        type: String,
         required: true
       }
     },
     computed: {
-      success () { return this.code < 300 },
-      warning () { return this.code >= 300 && this.code < 400 },
-      error () { return this.code >= 400 || isNaN(parseInt(this.code, 10)) }
+      httpSucceed () { return !isNaN(parseInt(this.code, 10)) },
+      success () { return this.httpSucceed && this.code < 300 },
+      warning () { return this.httpSucceed && this.code >= 300 && this.code < 400 },
+      error () { return !this.httpSucceed || this.code >= 400 }
     }
   }
 </script>
