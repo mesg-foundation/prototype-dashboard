@@ -18,7 +18,7 @@
     computed: {
       success () { return this.code < 300 },
       warning () { return this.code >= 300 && this.code < 400 },
-      error () { return this.code >= 400 }
+      error () { return this.code >= 400 || isNaN(parseInt(this.code, 10)) }
     }
   }
 </script>
