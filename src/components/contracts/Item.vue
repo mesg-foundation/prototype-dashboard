@@ -1,6 +1,7 @@
 <template>
   <v-card flat>
     <v-toolbar card>
+      <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">
         {{ contract.address }}
       </v-toolbar-title>
@@ -46,10 +47,12 @@
   import item from '@/mixins/item'
   import Abi from '@/components/ABI'
   import PopupPageButton from '@/components/PopupPageButton'
+  import MenuToggle from '@/components/MenuToggle'
   import ContractForm from './Form'
   export default {
     components: {
       Abi,
+      MenuToggle,
       PopupPageButton,
       ContractForm
     },

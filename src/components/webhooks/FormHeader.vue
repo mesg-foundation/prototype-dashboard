@@ -1,5 +1,6 @@
 <template>
   <v-toolbar card class="secondary">
+    <MenuToggle></MenuToggle>
     <v-toolbar-title class="headline">
       {{ webhook ? $t('update') : $t('title') }}
     </v-toolbar-title>
@@ -23,7 +24,11 @@
 
 <script>
   import { mapActions } from 'vuex'
+  import MenuToggle from '@/components/MenuToggle'
   export default {
+    components: {
+      MenuToggle
+    },
     props: {
       webhook: {
         type: Object,

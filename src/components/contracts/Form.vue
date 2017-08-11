@@ -2,6 +2,7 @@
   <v-card flat>
     <form @submit.prevent="submit()">
       <v-toolbar card class="secondary">
+        <MenuToggle></MenuToggle>
         <v-toolbar-title class="headline">{{ title || $t('title') }}</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
@@ -78,10 +79,12 @@
     validEvents
   } from '@/validators'
   import abi from '@/mixins/abi'
-  import ChainSelector from '@/components/ChainSelector.vue'
+  import ChainSelector from '@/components/ChainSelector'
+  import MenuToggle from '@/components/MenuToggle'
   export default {
     components: {
-      ChainSelector
+      ChainSelector,
+      MenuToggle
     },
     mixins: [
       withCurrentProject,

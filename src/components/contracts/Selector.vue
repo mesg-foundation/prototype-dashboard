@@ -7,6 +7,7 @@
   </ContractForm>
   <v-card flat v-else>
     <v-toolbar card>
+      <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
@@ -41,9 +42,11 @@
   import withCurrentProject from '@/mixins/withCurrentProject'
   import collection from '@/mixins/collection'
   import ContractForm from '@/components/contracts/Form.vue'
+  import MenuToggle from '@/components/MenuToggle'
   export default {
     components: {
-      ContractForm
+      ContractForm,
+      MenuToggle
     },
     mixins: [
       withCurrentProject,
