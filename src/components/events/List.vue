@@ -20,6 +20,7 @@
       </PopupPageButton>
       <PopupPageButton
         :title="$t('test')"
+        :to="{ name: 'ExecuteWebhook', params: { webhookId: webhook.id } }"
         primary outline
         v-model="testModal">
         <EventForm

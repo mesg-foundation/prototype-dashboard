@@ -7,6 +7,7 @@ import EditWebhook from '@/components/webhooks/Edit'
 import Projects from '@/components/projects/List'
 import NewProject from '@/components/projects/Create'
 import Events from '@/components/events/List'
+import NewEvents from '@/components/events/Create'
 import WebhookResults from '@/components/webhookResults/List'
 import Contracts from '@/components/contracts/List'
 import NewContract from '@/components/contracts/Create'
@@ -62,6 +63,12 @@ export default new Router({
           path: ':id/edit',
           name: 'EditWebhook',
           component: EditWebhook,
+          props: true
+        },
+        {
+          path: ':webhookId/execute',
+          name: 'ExecuteWebhook',
+          component: NewEvents,
           props: true
         },
         {

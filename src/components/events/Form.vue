@@ -2,6 +2,7 @@
   <v-card flat>
     <form @submit.prevent="submit()">
       <v-toolbar card class="secondary">
+        <MenuToggle></MenuToggle>
         <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
@@ -37,12 +38,14 @@
   import withValidation from '@/mixins/withValidation'
   import { mapActions } from 'vuex'
   import { required } from '@/validators'
-  import WebhookDetailList from '@/components/webhooks/DetailList.vue'
-  import PayloadViewer from '@/components/PayloadViewer.vue'
+  import WebhookDetailList from '@/components/webhooks/DetailList'
+  import PayloadViewer from '@/components/PayloadViewer'
+  import MenuToggle from '@/components/MenuToggle'
   export default {
     components: {
       WebhookDetailList,
-      PayloadViewer
+      PayloadViewer,
+      MenuToggle
     },
     mixins: [
       withValidation
