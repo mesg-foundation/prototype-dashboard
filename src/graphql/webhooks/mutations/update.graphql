@@ -5,7 +5,7 @@ mutation(
   $endpoint: String
   $eventName: String
   $enable: Boolean,
-  $authorizationType: WEBHOOK_AUTHORIZATION_TYPE
+  $authorizationType: AUTHORIZATION
   $authorizationValue: String,
   $secret: String
 ) {
