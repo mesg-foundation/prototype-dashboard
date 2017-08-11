@@ -46,7 +46,7 @@
     warning: "Every data of this project will be lost"
     deleteAction: "Delete project"
     sure: "Are you sure to want to delete this project ?"
-    save: "Sauvegarder"
+    save: "Save"
     admin: "Administrator: "
     labels:
       name: "Project name"
