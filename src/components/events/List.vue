@@ -9,6 +9,7 @@
     <template v-if="webhook" slot="toolbar">
       <PopupPageButton
         :title="$t('update')"
+        :to="{ name: 'EditWebhook', params: { id: webhook.id } }"
         primary outline
         v-model="formModal">
         <WebhookForm

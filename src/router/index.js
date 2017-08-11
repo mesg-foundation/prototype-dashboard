@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import RouteDelegate from './RouteDelegate'
 import Webhooks from '@/components/webhooks/List'
 import NewWebhook from '@/components/webhooks/Create'
+import EditWebhook from '@/components/webhooks/Edit'
 import Projects from '@/components/projects/List'
 import NewProject from '@/components/projects/Create'
 import Events from '@/components/events/List'
@@ -55,6 +56,12 @@ export default new Router({
           path: ':id',
           name: 'Webhook',
           component: Events,
+          props: true
+        },
+        {
+          path: ':id/edit',
+          name: 'EditWebhook',
+          component: EditWebhook,
           props: true
         },
         {
