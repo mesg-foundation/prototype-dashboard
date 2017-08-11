@@ -8,6 +8,7 @@
       <v-spacer></v-spacer>
       <PopupPageButton
         primary dark outline
+        :to="{ name: 'EditContract', params: { id: contract.id } }"
         :title="$t('update')"
         v-model="popup">
         <ContractForm

@@ -9,6 +9,7 @@ import Events from '@/components/events/List'
 import WebhookResults from '@/components/webhookResults/List'
 import Contracts from '@/components/contracts/List'
 import NewContract from '@/components/contracts/Create'
+import EditContract from '@/components/contracts/Edit'
 import Contract from '@/components/contracts/Item'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
@@ -83,6 +84,12 @@ export default new Router({
           path: ':id',
           name: 'Contract',
           component: Contract,
+          props: true
+        },
+        {
+          path: ':id/edit',
+          name: 'EditContract',
+          component: EditContract,
           props: true
         }
       ]
