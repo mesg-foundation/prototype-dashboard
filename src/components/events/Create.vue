@@ -24,7 +24,7 @@
     },
     methods: {
       eventSaved (event) {
-        this.$router.push({ name: 'event', params: { id: event.id } })
+        this.$router.push({ name: 'Webhook', params: { id: this.webhookId } })
       }
     }
   }
