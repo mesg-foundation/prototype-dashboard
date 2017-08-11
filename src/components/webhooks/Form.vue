@@ -73,7 +73,7 @@
 
 <i18n>
   en:
-    submit: "Sauvegarder"
+    submit: "Save"
     advanced: "Advanced"
     cancel: "Cancel"
     hints:
