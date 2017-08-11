@@ -18,7 +18,7 @@
           placeholder="..."
           hide-details
           full-width
-          :value="params[props.item.name]"
+          :value="payload[props.item.name]"
           @input="e => updateValue(props.item.name, e)">
         </v-text-field>
       </td>
@@ -51,7 +51,7 @@
     },
     data () {
       return {
-        params: {}
+        payload: {}
       }
     },
     computed: {
@@ -64,19 +64,10 @@
       }
     },
     methods: {
-      convert (type, value) {
-        if (type === 'bool') { return value === 'true' }
-        if (type.match(/u?int.*/)) { return parseFloat(value) }
-        return value
-      },
       updateValue (item, value) {
         if (!this.editable) { return }
-        const convertedValue = this.convert(this.signature.find(e => e.name === item).type, value)
-        this.params = {
-          ...this.params,
-          [item]: convertedValue
-        }
-        this.$emit('input', this.params)
+        this.payload[item] = value
+        this.$emit('input', JSON.stringify(this.payload))
       }
     }
   }

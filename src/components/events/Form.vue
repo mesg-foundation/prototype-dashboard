@@ -55,7 +55,7 @@
     },
     data () {
       return {
-        payload: null
+        payload: ''
       }
     },
     validations: {
