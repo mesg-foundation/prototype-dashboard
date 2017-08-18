@@ -3,19 +3,19 @@
 
 mutation(
   $projectId: ID!,
-  $endpoint: String!
-  $eventName: String!
-  $contractId: ID!
-  $authorizationType: AUTHORIZATION
+  $endpoint: String!,
+  $eventName: String!,
+  $contractId: ID!,
+  $authorizationType: AUTHORIZATION,
   $authorizationValue: String,
   $secret: String
 ) {
   createWebhook(
-    authorizationType: $authorizationType
-    authorizationValue:$authorizationValue
-    endpoint: $endpoint
-    eventName: $eventName
-    secret: $secret
+    authorizationType: $authorizationType,
+    authorizationValue:$authorizationValue,
+    endpoint: $endpoint,
+    eventName: $eventName,
+    secret: $secret,
     projectId: $projectId,
     contractId: $contractId
 	) {

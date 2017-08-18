@@ -2,15 +2,19 @@
 #import "@/graphql/projects/schema.graphql"
 
 mutation(
-  $id: ID!
-  $abi: Json!
-  $chain: CHAIN
+  $id: ID!,
+  $name: String!,
+  $abi: Json!,
+  $description: String,
+  $chain: CHAIN,
   $public: Boolean
 ) {
   updateContract(
     id: $id,
-    abi: $abi
-    chain: $chain
+    name: $name,
+    abi: $abi,
+    description: $description,
+    chain: $chain,
     public: $public
 	) {
     ...contractFields

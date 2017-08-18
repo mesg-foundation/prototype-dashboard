@@ -6,7 +6,7 @@ mutation(
 ) {
   updateProject(
     id: $id,
-    name: $name,
+    name: $name
 	) {
     ...projectFields
   }

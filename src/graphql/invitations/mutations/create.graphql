@@ -1,7 +1,7 @@
 #import "@/graphql/invitations/schema.graphql"
 
 mutation(
-  $projectId: ID!
+  $projectId: ID!,
   $email: String!
 ) {
   createInvitation(

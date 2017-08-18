@@ -20,8 +20,13 @@
         <v-switch v-model="webhook.enable"></v-switch>
       </td>
       <td>
-        <router-link :to="{ name: 'Webhook', params: { id: webhook.id } }">
+        <router-link :to="{ name: 'Webhook', params: webhook }">
           {{ webhook.endpoint }}
+        </router-link>
+      </td>
+      <td>
+        <router-link :to="{ name: 'Contract', params: webhook.contract }">
+          {{ webhook.contract.name }}
         </router-link>
       </td>
       <td>{{ webhook.eventName }}</td>
@@ -39,6 +44,7 @@
     header:
       enable: " "
       endpoint: "Endpoint"
+      contractName: "Contract"
       eventName: "Event Name"
       createdAt: "Created at"
 </i18n>
@@ -71,6 +77,7 @@
         return [
           { text: this.$t('header.enable'), align: 'left', sortable: false },
           { text: this.$t('header.endpoint'), align: 'left', sortable: false, value: 'endpoint' },
+          { text: this.$t('header.contractName'), align: 'left', sortable: false, value: 'contract.name' },
           { text: this.$t('header.eventName'), align: 'left', sortable: false, value: 'eventName' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
         ]

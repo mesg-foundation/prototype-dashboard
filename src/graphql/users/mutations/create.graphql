@@ -1,6 +1,6 @@
 mutation(
-  $email: String!
-  $password: String!,
+  $email: String!,
+  $password: String!
 ) {
   createUser(
     authProvider: {

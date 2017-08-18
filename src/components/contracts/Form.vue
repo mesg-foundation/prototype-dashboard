@@ -8,12 +8,21 @@
       <v-divider></v-divider>
       <v-card-text>
         <v-text-field
+          :label="$t('labels.name')"
+          :error-messages="errors.name"
+          v-model="name"
+          @input="$v.name.$touch()"
+          placeholder="Set a name for your contract"
+          autofocus
+          required>
+        </v-text-field>
+
+        <v-text-field
           :label="$t('labels.address')"
           :error-messages="errors.address"
           v-model="address"
           @input="$v.address.$touch()"
           placeholder="0x12345678901234567890123456789012"
-          autofocus
           required>
         </v-text-field>
 
@@ -59,6 +68,7 @@
     submit: "Save the contract"
     cancel: "Cancel"
     labels:
+      name: "Name"
       address: "Address"
       abi: "ABI"
       chain: "Blockchain"
@@ -111,12 +121,17 @@
     },
     data () {
       return {
+        name: this.contract.name,
         address: this.contract.address,
         abi: JSON.stringify(this.contract.abi, null, 2),
         chain: this.contract.chain
       }
     },
     validations: {
+      name: {
+        required,
+        minLength: minLength(3)
+      },
       address: {
         required,
         alphaNum,
@@ -144,6 +159,7 @@
         method({
           id: this.contract.id,
           projectId: this.currentProjectId,
+          name: this.name,
           address: this.address,
           abi: this.abiObject,
           chain: this.chain,

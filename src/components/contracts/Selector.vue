@@ -17,13 +17,18 @@
       </v-btn>
     </v-toolbar>
     <v-divider></v-divider>
-    <v-list>
+    <v-list two-line>
       <v-list-tile
         v-for="contract in contracts" :key="contract.id"
         @click.stop="select(contract)">
-        <v-list-tile-title>
-          {{ contract.address }}
-        </v-list-tile-title>
+        <v-list-tile-content>
+          <v-list-tile-title>
+            {{ contract.name }}
+          </v-list-tile-title>
+          <v-list-tile-sub-title>
+            {{ contract.address }}
+          </v-list-tile-sub-title>
+        </v-list-tile-content>
         </v-list-tile-action>
           <v-icon>chevron_right</v-icon>
         </v-list-tile-action>

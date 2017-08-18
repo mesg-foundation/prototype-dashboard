@@ -103,8 +103,8 @@
       title () {
         if (!this.webhook) { return '' }
         return [
-          this.webhook.eventName,
-          this.webhook.contract.address
+          this.webhook.contract.name,
+          this.webhook.eventName
         ].join(' - ')
       },
       headers () {

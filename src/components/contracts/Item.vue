@@ -3,7 +3,7 @@
     <v-toolbar card>
       <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">
-        {{ contract.address }}
+        {{ contract.name }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <PopupPageButton
@@ -39,6 +39,7 @@
     update: "Update"
     edit: "Edit contract"
     labels:
+      name: "Name"
       address: "Contract address"
       chain: "Blockchain"
       webhooks: "Connected webhooks"
@@ -72,12 +73,13 @@
       }
     },
     computed: {
+      name () { return this.contract.name },
       address () { return this.contract.address },
       chain () { return this.contract.chain },
       webhooks () { return this.contract._webhooksMeta.count },
       abi () { return this.contract.abi },
       items () {
-        return ['address', 'chain', 'webhooks']
+        return ['name', 'address', 'chain', 'webhooks']
           .map(x => ({
             key: x,
             value: this[x]

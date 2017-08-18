@@ -17,10 +17,13 @@
     </template>
     <template scope="contract">
       <td>
-        <v-icon class="mr-2">{{ contract.public ? 'public' : 'vpn_lock' }}</v-icon>
         <router-link :to="{ name: 'Contract', params: { id: contract.id } }">
-          {{ contract.address }}
+          <v-icon class="mr-2">{{ contract.public ? 'public' : 'vpn_lock' }}</v-icon>
+          {{ contract.name }}
         </router-link>
+      </td>
+      <td>
+        {{ contract.address }}
       </td>
       <td>
         {{ contract.chain }}
@@ -37,6 +40,7 @@
     title: "Contracts"
     create: "Add contract"
     header:
+      name: "Name"
       address: "Address"
       chain: "Blockchain"
       createdAt: "Created at"
@@ -68,6 +72,7 @@
     computed: {
       headers () {
         return [
+          { text: this.$t('header.name'), align: 'left', sortable: false, value: 'name' },
           { text: this.$t('header.address'), align: 'left', sortable: false, value: 'address' },
           { text: this.$t('header.chain'), align: 'left', sortable: false, value: 'chain' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }

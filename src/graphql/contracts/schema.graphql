@@ -1,5 +1,7 @@
 fragment contractFields on Contract {
   id
+  name
+  description
   address
   abi
   chain

@@ -7,7 +7,7 @@ mutation(
 ) {
   createEvent(
     webhookId: $webhookId,
-    payload: $payload
+    payload: $payload,
     transactionId: $transactionId
 	) {
     ...eventFields
