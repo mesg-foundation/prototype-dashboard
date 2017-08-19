@@ -19,7 +19,7 @@
         </v-text-field>
       </v-card-text>
       <v-card-actions>
-        <v-btn primary @click.native.stop="save()">
+        <v-btn primary @click.stop="save()">
           {{ $t('save') }}
         </v-btn>
       </v-card-actions>
@@ -33,7 +33,7 @@
         <p>{{ $t('warning') }}</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click.native.stop="deleteProject()" error>{{ $t('deleteAction') }}</v-btn>
+        <v-btn @click.stop="deleteProject()" error>{{ $t('deleteAction') }}</v-btn>
       </v-card-actions>
     </v-card>
   </div>

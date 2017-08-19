@@ -2,7 +2,7 @@
   <v-toolbar-side-icon
     class="hidden-md-and-up"
     light
-    @click.native.stop="updateMenu(true)">
+    @click.stop="updateMenu(true)">
   </v-toolbar-side-icon>
 </template>
 
