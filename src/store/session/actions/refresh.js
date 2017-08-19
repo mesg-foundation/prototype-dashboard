@@ -13,7 +13,7 @@ export default ({ commit, dispatch, getters }) => client()
   .then(user => {
     if (!user) { return [[], null] }
     return Promise.all([
-      dispatch('projects/fetchAll', { currentUserId: user.id }, { root: true }),
+      dispatch('projects/fetchAll', { variables: { currentUserId: user.id } }, { root: true }),
       dispatch('projects/subscribes', { userId: user.id }, { root: true }),
       dispatch('plans/subscribes', {}, { root: true })
     ])

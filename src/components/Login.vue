@@ -63,10 +63,10 @@
         login: 'session/signin'
       }),
       submit () {
-        this.login({
+        this.login({ variables: {
           email: this.email,
           password: this.password
-        })
+        }})
           .then(_ => this.$router.replace({ path: this.$route.query.redirect || '/' }))
       }
     }

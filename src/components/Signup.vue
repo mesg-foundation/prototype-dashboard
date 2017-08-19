@@ -63,10 +63,10 @@
         createUser: 'session/createUser'
       }),
       submit () {
-        this.createUser({
+        this.createUser({ variables: {
           email: this.email,
           password: this.password
-        })
+        }})
           .then(_ => this.$router.replace({ path: this.$route.query.redirect || '/' }))
       }
     }

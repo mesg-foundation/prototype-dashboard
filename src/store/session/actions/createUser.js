@@ -1,9 +1,9 @@
 import client from '@/graphql'
 import mutation from '@/graphql/users/mutations/create.graphql'
 
-export default ({ commit, dispatch, rootGetters }, { variables }) => client()
+export default ({ commit, dispatch, rootGetters }, gqlConfig) => client()
   .mutate({
     mutation,
-    variables
+    ...gqlConfig
   })
-  .then(({ data }) => dispatch('signin', { variables }))
+  .then(({ data }) => dispatch('signin', gqlConfig))
