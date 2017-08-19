@@ -1,27 +1,23 @@
 <template>
-  <v-card flat>
-    <ToolbarWithContent card :title="signature">
-      <template slot="toolbar">
-        <v-btn
-          success dark
-          :to="{ name: 'NewWebhook', query }">
-          {{ $t('connect') }}
-        </v-btn>
-      </template>
-      <template v-if="value.inputs.length">
-        <h4 class="subheader">{{ $t('inputs') }} ({{ value.inputs.length }})</h4>
-        <PayloadViewer :signature="value.inputs"></PayloadViewer>
-      </template>
-      <v-divider></v-divider>
-    </ToolbarWithContent>
-  </v-card>
+  <v-list-tile>
+    <v-list-tile-content>
+      <v-list-tile-title>
+        {{ signature }}
+      </v-list-tile-title>
+    </v-list-tile-content>
+    <v-list-tile-action>
+      <v-btn
+        success dark
+        :to="{ name: 'NewWebhook', query }">
+        {{ $t('connect') }}
+      </v-btn>
+    </v-list-tile-action>
+  </v-list-tile>
 </template>
 
 <i18n>
   en:
     connect: "Connect"
-    name: "Name"
-    inputs: "Inputs"
 </i18n>
 
 <script>

@@ -13,13 +13,20 @@
     </v-tabs-bar>
     <v-tabs-content
       v-for="item in items" :key="item.key"
-      :id="item.key">
-      <component
-        :is="item.component"
-        v-for="entry in item.entries" :key="entry.name"
-        :value="entry"
-        :contract="contract">
-      </component>
+      :id="item.key"
+      class="secondary">
+      <v-divider></v-divider>
+      <v-list two-line dense class="pa-0">
+        <template v-for="(entry, i) in item.entries">
+          <v-divider v-if="i !== 0" :key="entry.name"></v-divider>
+          <component
+            :key="entry.name"
+            :is="item.component"
+            :value="entry"
+            :contract="contract">
+          </component>
+        </template>
+      </v-list>
     </v-tabs-content>
     <v-tabs-content :id="'raw'">
       <code class="pa-3">{{ value }}</code>

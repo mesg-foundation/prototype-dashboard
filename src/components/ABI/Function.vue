@@ -1,34 +1,20 @@
 <template>
-  <v-card flat>
-    <ToolbarWithContent card>
-      <template slot="title">
-        <v-chip
-          v-if="value.payable"
-          small
-          class="error white--text">
-          {{ $t('payable') }}
+  <v-list-tile>
+    <v-list-tile-content>
+      <v-list-tile-title>
+        <v-chip v-if="value.payable" small class="error white--text">
+          <v-avatar class="white error--text">$</v-avatar>
+          <small>{{ $t('payable') }}</small>
         </v-chip>
         {{ signature }}
-      </template>
-      <template v-if="value.inputs.length">
-        <h4 class="subheader">{{ $t('inputs') }} ({{ value.inputs.length }})</h4>
-        <PayloadViewer :signature="value.inputs"></PayloadViewer>
-      </template>
-      <template v-if="value.outputs.length">
-        <h4 class="subheader">{{ $t('outputs') }} ({{ value.outputs.length }})</h4>
-        <PayloadViewer :signature="value.outputs"></PayloadViewer>
-      </template>
-      <v-divider></v-divider>
-    </ToolbarWithContent>
-  </v-card>
+      </v-list-tile-title>
+    </v-list-tile-content>
+  </v-list-tile>
 </template>
 
 <i18n>
   en:
-    payable: "Payable"
-    name: "Name"
-    inputs: "Inputs"
-    outputs: "Outputs"
+    payable: "payable"
 </i18n>
 
 <script>
@@ -37,3 +23,11 @@
     mixins: [abiView]
   }
 </script>
+
+<style scoped lang="stylus">
+  @import "../../variables"
+
+  .avatar {
+    box-shadow: 0 0 0 1px $theme.error inset;
+  }
+</style>
