@@ -1,4 +1,4 @@
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
@@ -9,5 +9,8 @@ export default {
     currentProject () {
       return this.projects[this.currentProjectId]
     }
-  }
+  },
+  methods: mapActions({
+    changeProject: 'session/changeProject'
+  })
 }

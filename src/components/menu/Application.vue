@@ -23,7 +23,7 @@
           </v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-btn icon dark @click.native.stop="showProjects = !showProjects">
+          <v-btn icon dark @click.stop="showProjects = !showProjects">
             <v-icon v-if="showProjects">arrow_drop_up</v-icon>
             <v-icon v-else>arrow_drop_down</v-icon>
           </v-btn>
@@ -43,45 +43,29 @@
       </v-list-tile>
     </v-list>
     <v-divider></v-divider>
-    <div v-if="showProjects">
-      <v-list>
-        <v-subheader class="grey--text">{{ $t('projects') }}</v-subheader>
-        <v-list-tile
-          v-for="project in projects" :key="project.id"
-          :class="{ 'active': project.id === currentProjectId }">
-          <v-list-tile-content>
-            <v-list-tile-title>
-              {{ project.name }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </div>
-    <div v-else>
-      <v-list>
-        <v-list-tile
-          v-for="item in items" :key="item.key"
-          :to="item.to">
-          <v-list-tile-action>
-            <v-icon dark>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>
-              {{ item.title }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-          <v-list-tile-action v-if="item.count">
-            {{ item.count }}
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list>
-    </div>
+    <ProjectsMenu v-if="showProjects"></ProjectsMenu>
+    <v-list v-else>
+      <v-list-tile
+        v-for="item in items" :key="item.key"
+        :to="item.to">
+        <v-list-tile-action>
+          <v-icon dark>{{ item.icon }}</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>
+            {{ item.title }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-action v-if="item.count">
+          {{ item.count }}
+        </v-list-tile-action>
+      </v-list-tile>
+    </v-list>
   </v-navigation-drawer>
 </template>
 
 <i18n>
   en:
-    projects: "Projects"
     members: "Members"
     settings: "Settings"
     menu:
@@ -92,7 +76,11 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   import withCurrentProject from '@/mixins/withCurrentProject'
+  import ProjectsMenu from '@/components/menu/Projects'
   export default {
+    components: {
+      ProjectsMenu
+    },
     mixins: [withCurrentProject],
     data () {
       return {
@@ -120,7 +108,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "../variables"
+  @import "../../variables"
 
   img {
     position: fixed;
@@ -136,7 +124,7 @@
 </style>
 
 <style lang="stylus">
-  @import "../variables"
+  @import "../../variables"
 
   .navigation-drawer .list__tile {
     position: relative;

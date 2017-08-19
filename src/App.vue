@@ -19,7 +19,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import withCurrentProject from '@/mixins/withCurrentProject'
-  import ApplicationMenu from '@/components/ApplicationMenu.vue'
+  import ApplicationMenu from '@/components/menu/Application.vue'
   import FullHeightCenter from '@/components/layouts/FullHeightCenter.vue'
   export default {
     components: {
