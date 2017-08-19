@@ -33,7 +33,7 @@
         <p>{{ $t('warning') }}</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click.stop="deleteProject()" error>{{ $t('deleteAction') }}</v-btn>
+        <v-btn @click.stop="deleteProjectWithConfirmation" error>{{ $t('deleteAction') }}</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -48,6 +48,7 @@
     sure: "Are you sure to want to delete this project ?"
     save: "Save"
     admin: "Administrator: "
+    cannot: "You cannot delete this project"
     labels:
       name: "Project name"
 </i18n>
@@ -64,7 +65,8 @@
     },
     methods: {
       ...mapActions({
-        updateProject: 'projects/update'
+        updateProject: 'projects/update',
+        deleteProject: 'projects/delete'
       }),
       save () {
         this.updateProject({ variables: {
@@ -72,10 +74,16 @@
           name: this.name || this.currentProject.name
         }})
       },
-      deleteProject () {
+      deleteProjectWithConfirmation () {
         if (!confirm(this.$t('sure'))) { return }
-        // TODO
-        alert('You cannot yet delete a project, this is comming soon, but you can stay with us :)')
+        if (Object.keys(this.projects).length <= 1) {
+          alert(this.$t('cannot'))
+          return
+        }
+        this.deleteProject({ variables: {
+          id: this.currentProjectId
+        }})
+          .then(() => this.$router.push({ path: '/' }))
       }
     }
   }

@@ -1,6 +1,8 @@
 import client from '@/graphql'
 
-const isMutation = name => !!name.match(/create|update/)
+const isDeletion = name => !!name.match(/delete/)
+
+const isMutation = name => !!name.match(/create|update/) || isDeletion(name)
 
 const generateGraphQlMethod = name => client()[isMutation(name) ? 'mutate' : 'query']
 
@@ -20,10 +22,11 @@ const generateAction = (name, queries) => {
     .then(({ data }) => data[resource])
     .then(data => {
       if (Array.isArray(data)) {
-        commit('updateCollection', { collection: data })
-        commit('updateCollectionList', { variables: gqlConfig.variables, data })
+        commit('updateCollection', { variables: gqlConfig.variables, data })
       } else {
-        commit('replaceItem', { item: data })
+        if (!isDeletion(name)) {
+          commit('replaceItem', { item: data })
+        }
       }
       return data
     })

@@ -57,6 +57,8 @@ export default {
   updateItem: (state, { item }) => updateItem(state, item),
   replaceItem: (state, { item }) => replaceItem(state, item),
   deleteItem: (state, { id }) => deleteItem(state, id),
-  updateCollection: (state, { collection }) => updateCollection(state, collection),
-  updateCollectionList: (state, { variables, data }) => updateCollectionList(state, Utils.dataToUrlString(variables), data)
+  updateCollection: (state, { variables, data }) => {
+    updateCollection(state, data)
+    updateCollectionList(state, Utils.dataToUrlString(variables), data)
+  }
 }
