@@ -14,6 +14,7 @@ Vue.use(Vuelidate)
 
 router.beforeEach(loggedIn(store))
 router.beforeEach(withProject(store))
+router.afterEach(x => store.commit('updateShowProjects', false))
 
 const initializeApp = () => new Vue({
   el: '#app',

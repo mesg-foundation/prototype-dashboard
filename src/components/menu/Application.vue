@@ -23,7 +23,7 @@
           </v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-btn icon dark @click.stop="showProjects = !showProjects">
+          <v-btn icon dark @click.stop="updateShowProjects(!showProjects)">
             <v-icon v-if="showProjects">arrow_drop_up</v-icon>
             <v-icon v-else>arrow_drop_down</v-icon>
           </v-btn>
@@ -82,14 +82,10 @@
       ProjectsMenu
     },
     mixins: [withCurrentProject],
-    data () {
-      return {
-        showProjects: false
-      }
-    },
     computed: {
       ...mapGetters({
-        menu: 'menu'
+        menu: 'menu',
+        showProjects: 'showProjects'
       }),
       items () {
         return [
@@ -102,7 +98,8 @@
       }
     },
     methods: mapMutations({
-      updateMenu: 'updateMenu'
+      updateMenu: 'updateMenu',
+      updateShowProjects: 'updateShowProjects'
     })
   }
 </script>

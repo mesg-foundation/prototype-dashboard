@@ -32,12 +32,15 @@ export default new Vuex.Store({
     })
   ],
   state: {
-    menu: true
+    menu: true,
+    showProjects: false
   },
   getters: {
-    menu: state => state.menu
+    menu: state => state.menu,
+    showProjects: state => state.showProjects
   },
   mutations: {
-    updateMenu: (state, value) => (state.menu = value)
+    updateMenu: (state, value) => (state.menu = value),
+    updateShowProjects: (state, value) => (state.showProjects = value)
   }
 })
