@@ -30,7 +30,7 @@
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
-    <Abi :value="abi"></Abi>
+    <Abi :contract="contract" :value="abi"></Abi>
   </v-card>
 </template>
 

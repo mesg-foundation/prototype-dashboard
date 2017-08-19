@@ -17,7 +17,8 @@
       <component
         :is="item.component"
         v-for="entry in item.entries" :key="entry.name"
-        :value="entry">
+        :value="entry"
+        :contract="contract">
       </component>
     </v-tabs-content>
     <v-tabs-content :id="'raw'">
@@ -50,6 +51,10 @@
       Function
     },
     props: {
+      contract: {
+        type: Object,
+        required: true
+      },
       value: {
         type: Array,
         required: true

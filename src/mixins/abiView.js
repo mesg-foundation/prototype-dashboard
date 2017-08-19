@@ -6,6 +6,10 @@ export default {
     PayloadViewer
   },
   props: {
+    contract: {
+      type: Object,
+      required: true
+    },
     value: {
       type: Object,
       required: true
