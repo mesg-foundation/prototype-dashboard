@@ -17,12 +17,14 @@ export default {
   },
   computed: {
     signature () {
-      if (!this.value.inputs) { return this.name }
+      const toParams = x => [x.name, x.type].join(': ')
+      const collectionToParams = x => x.map(toParams).join(', ')
       return [
         this.value.type === 'constructor' ? 'Constructor' : this.value.name,
         '(',
-        this.value.inputs.map(x => [x.name, x.type].join(': ')).join(', '),
-        ')'
+        collectionToParams(this.value.inputs),
+        ') ',
+        this.value.outputs && this.value.outputs.length ? collectionToParams(this.value.outputs) : ''
       ].join('')
     }
   }
