@@ -1,13 +1,10 @@
 import client from '@/graphql'
 import mutation from '@/graphql/users/mutations/signin.graphql'
 
-export default ({ commit, dispatch }, { email, password }) => client()
+export default ({ commit, dispatch }, { variables }) => client()
   .mutate({
     mutation,
-    variables: {
-      email,
-      password
-    },
+    variables,
     fetchPolicy: 'network-only'
   })
   .then(({ data }) => commit('setToken', data.signinUser.token))

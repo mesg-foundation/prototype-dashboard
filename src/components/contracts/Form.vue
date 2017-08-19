@@ -156,7 +156,7 @@
       }),
       submit () {
         const method = this.contract.id ? this.update : this.create
-        method({
+        method({ variables: {
           id: this.contract.id,
           projectId: this.currentProjectId,
           name: this.name,
@@ -164,7 +164,7 @@
           abi: this.abiObject,
           chain: this.chain,
           public: this.contract.public || false
-        })
+        }})
           .then(contract => this.$emit('saved', contract))
       }
     }

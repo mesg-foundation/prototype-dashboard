@@ -64,7 +64,7 @@
     },
     mounted () {
       if (this.contractId && !this.contractFromProps) {
-        this.fetch({ id: this.contractId })
+        this.fetch({ variables: { id: this.contractId } })
       }
     }
   }

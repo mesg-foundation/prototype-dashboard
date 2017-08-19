@@ -2,6 +2,7 @@
   <v-card flat>
     <form @submit.prevent="submit()">
       <v-toolbar card class="secondary">
+        <MenuToggle></MenuToggle>
         <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
@@ -36,10 +37,14 @@
 </i18n>
 
 <script>
-  import withValidation from '@/mixins/withValidation'
   import { mapGetters, mapActions } from 'vuex'
-  import { required, alphaNum } from '@/validators'
+  import { required, minLength } from '@/validators'
+  import withValidation from '@/mixins/withValidation'
+  import MenuToggle from '@/components/MenuToggle'
   export default {
+    components: {
+      MenuToggle
+    },
     mixins: [
       withValidation
     ],
@@ -54,18 +59,19 @@
     validations: {
       name: {
         required,
-        alphaNum
+        minLength: minLength(3)
       }
     },
     methods: {
       ...mapActions({
-        createProject: 'projects/create'
+        createProject: 'projects/createAndSelect'
       }),
       submit () {
-        this.createProject({
+        this.createProject({ variables: {
           name: this.name,
-          userId: this.currentUserId
-        })
+          userId: this.currentUserId,
+          creatorId: this.currentUserId
+        }})
           .then(project => this.$emit('saved', project))
       }
     }

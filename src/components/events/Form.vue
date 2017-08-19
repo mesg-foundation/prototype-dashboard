@@ -78,11 +78,11 @@
         return event.inputs
       },
       submit () {
-        this.createEvent({
+        this.createEvent({ variables: {
           webhookId: this.webhook.id,
           payload: this.payload,
           transactionId: '0x0000000000000000000000000000000000000000'
-        })
+        }})
           .then(event => this.$emit('saved', event))
       }
     }

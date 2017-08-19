@@ -43,10 +43,10 @@
     watch: {
       enable () {
         if (!this.webhook) { return }
-        this.updateWebhook({
+        this.updateWebhook({ variables: {
           id: this.webhook.id,
           enable: this.enable
-        })
+        }})
       }
     },
     methods: mapActions({

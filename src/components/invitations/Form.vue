@@ -62,10 +62,10 @@
         create: 'invitations/create'
       }),
       submit () {
-        this.create({
+        this.create({ variables: {
           email: this.email,
           projectId: this.currentProjectId
-        })
+        }})
           .then(invitation => this.$emit('saved', invitation))
       }
     }

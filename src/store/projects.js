@@ -7,11 +7,18 @@ import { collection, subscription, merge } from '@/store/helpers'
 export default merge({},
   collection({
     fetchAll: { allProjects },
-    create: { createProject },
+    _create: { createProject },
     update: { updateProject }
   }),
   subscription('Project', Subscription),
   {
-    namespaced: true
+    namespaced: true,
+    actions: {
+      async createAndSelect ({ commit, dispatch }, { variables, config = {} }) {
+        const project = await dispatch('_create', { variables, config })
+        dispatch('session/changeProject', { project }, { root: true })
+        return project
+      }
+    }
   }
 )

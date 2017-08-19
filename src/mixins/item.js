@@ -20,7 +20,7 @@ export default (item, idGetter = component => component.id) => {
         [fetchFunc]: `${collection}/fetch`
       }),
       [reloadFunc] () {
-        return this.commitLoading(() => this[fetchFunc]({ id: idGetter(this) }))
+        return this.commitLoading(() => this[fetchFunc]({ variables: { id: idGetter(this) } }))
       }
     },
     mounted () {

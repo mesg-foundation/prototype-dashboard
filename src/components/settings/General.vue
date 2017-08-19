@@ -67,10 +67,10 @@
         updateProject: 'projects/update'
       }),
       save () {
-        this.updateProject({
+        this.updateProject({ variables: {
           id: this.currentProjectId,
           name: this.name || this.currentProject.name
-        })
+        }})
       },
       deleteProject () {
         if (!confirm(this.$t('sure'))) { return }

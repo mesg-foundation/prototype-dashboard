@@ -24,7 +24,7 @@ export default (collection, payloadFunction = component => ({})) => {
         [fetchFunction]: `${collection}/fetchAll`
       }),
       [reloadFunction] () {
-        return this.commitLoading(_ => this[fetchFunction](payloadFunction(this)))
+        return this.commitLoading(_ => this[fetchFunction]({ variables: payloadFunction(this) }))
       }
     },
     mounted () {

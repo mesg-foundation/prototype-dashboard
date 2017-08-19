@@ -164,7 +164,7 @@
       }),
       submit () {
         const method = (this.webhook || {}).id ? 'updateWebhook' : 'createWebhook'
-        this[method]({
+        this[method]({ variables: {
           id: (this.webhook || {}).id,
           endpoint: this.endpoint,
           eventName: this.eventName,
@@ -173,7 +173,7 @@
           authorizationType: this.authorizationType,
           authorizationValue: this.authorizationValue,
           secret: this.secret
-        })
+        }})
           .then(webhook => this.$emit('saved', webhook))
       }
     }
