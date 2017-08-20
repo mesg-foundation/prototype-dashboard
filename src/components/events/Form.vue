@@ -6,9 +6,9 @@
         <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
-      <WebhookDetailList
-        :webhook="webhook">
-      </WebhookDetailList>
+      <TriggerDetailList
+        :trigger="trigger">
+      </TriggerDetailList>
       <v-divider></v-divider>
       <PayloadViewer
         :signature="eventInputs()"
@@ -30,7 +30,7 @@
 
 <i18n>
   en:
-    title: "Test the webhook"
+    title: "Test the trigger"
     submit: "Send test event"
 </i18n>
 
@@ -38,12 +38,12 @@
   import withValidation from '@/mixins/withValidation'
   import { mapActions } from 'vuex'
   import { required } from '@/validators'
-  import WebhookDetailList from '@/components/webhooks/DetailList'
+  import TriggerDetailList from '@/components/triggers/DetailList'
   import PayloadViewer from '@/components/PayloadViewer'
   import MenuToggle from '@/components/MenuToggle'
   export default {
     components: {
-      WebhookDetailList,
+      TriggerDetailList,
       PayloadViewer,
       MenuToggle
     },
@@ -51,7 +51,7 @@
       withValidation
     ],
     props: {
-      webhook: {
+      trigger: {
         type: Object,
         required: true
       }
@@ -71,15 +71,15 @@
         createEvent: 'events/create'
       }),
       eventInputs () {
-        const event = this.webhook.contract.abi
+        const event = this.trigger.contract.abi
           .filter(e => e.type === 'event')
-          .filter(e => e.name === this.webhook.eventName)[0]
+          .filter(e => e.name === this.trigger.eventName)[0]
         if (!event) { return [] }
         return event.inputs
       },
       submit () {
         this.createEvent({ variables: {
-          webhookId: this.webhook.id,
+          triggerId: this.trigger.id,
           payload: this.payload,
           transactionId: '0x0000000000000000000000000000000000000000'
         }})

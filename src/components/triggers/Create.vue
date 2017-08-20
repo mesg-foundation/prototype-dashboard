@@ -1,12 +1,12 @@
 <template>
-  <WebhookForm
+  <TriggerForm
     v-if="contract"
     :contract="contract"
     :event="event"
     :cancelable="!contractFromProps"
     @cancel="contract = null"
-    @saved="webhookSaved">
-  </WebhookForm>
+    @saved="triggerSaved">
+  </TriggerForm>
   <ContractSelection
     v-else
     @selected="contractSelected">
@@ -16,10 +16,10 @@
 <script>
   import { mapActions, mapGetters } from 'vuex'
   import ContractSelection from '@/components/contracts/Selector'
-  import WebhookForm from './Form.vue'
+  import TriggerForm from './Form.vue'
   export default {
     components: {
-      WebhookForm,
+      TriggerForm,
       ContractSelection
     },
     props: {
@@ -53,8 +53,8 @@
       contractSelected (contract) {
         this.contract = contract
       },
-      webhookSaved (webhook) {
-        this.$router.push({ name: 'Webhook', params: { id: webhook.id } })
+      triggerSaved (trigger) {
+        this.$router.push({ name: 'Trigger', params: { id: trigger.id } })
       }
     },
     watch: {

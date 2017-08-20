@@ -1,0 +1,16 @@
+#import "@/graphql/triggers/schema.graphql"
+
+mutation(
+  $id: ID!,
+  $eventName: String,
+  $enable: Boolean
+) {
+  updateTrigger(
+    id: $id,
+    eventName: $eventName,
+    enable: $enable,
+    secret: $secret
+	) {
+    ...triggerFields
+  }
+}

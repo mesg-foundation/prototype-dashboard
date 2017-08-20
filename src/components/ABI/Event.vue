@@ -8,7 +8,7 @@
     <v-list-tile-action>
       <v-btn
         success dark
-        :to="{ name: 'NewWebhook', query }">
+        :to="{ name: 'NewTrigger', query }">
         {{ $t('connect') }}
       </v-btn>
     </v-list-tile-action>

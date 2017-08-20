@@ -3,10 +3,10 @@ fragment eventFields on Event {
   createdAt
   payload
   transactionId
-  webhook {
+  trigger {
     id
   }
-  _webhookResultsMeta {
+  _triggerResultsMeta {
     count
   }
 }

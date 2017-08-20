@@ -2,8 +2,8 @@ const PROJECT_SUBSCRIBERS = [
   'events',
   'contracts',
   'users',
-  'webhooks',
-  'webhookResults',
+  'triggers',
+  'triggerResults',
   'invitations'
 ]
 

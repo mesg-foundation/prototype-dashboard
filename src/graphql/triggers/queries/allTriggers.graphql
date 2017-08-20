@@ -1,9 +1,9 @@
-#import "@/graphql/webhooks/schema.graphql"
+#import "@/graphql/triggers/schema.graphql"
 
 query(
   $projectId: ID!
 ) {
-  allWebhooks(
+  allTriggers(
     orderBy: createdAt_DESC,
     filter: {
       project: {
@@ -11,6 +11,6 @@ query(
       }
     }
   ) {
-    ...webhookFields
+    ...triggerFields
   }
 }

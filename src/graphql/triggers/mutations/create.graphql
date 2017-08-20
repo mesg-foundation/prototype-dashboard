@@ -1,0 +1,19 @@
+#import "@/graphql/triggers/schema.graphql"
+#import "@/graphql/projects/schema.graphql"
+
+mutation(
+  $projectId: ID!,
+  $eventName: String!,
+  $contractId: ID!
+) {
+  createTrigger(
+    eventName: $eventName,
+    projectId: $projectId,
+    contractId: $contractId
+	) {
+    ...triggerFields
+    project {
+      ...projectFields
+    }
+  }
+}

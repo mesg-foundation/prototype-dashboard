@@ -2,12 +2,12 @@
   <v-toolbar card class="secondary">
     <MenuToggle></MenuToggle>
     <v-toolbar-title class="headline">
-      {{ webhook ? $t('update') : $t('title') }}
+      {{ trigger ? $t('update') : $t('title') }}
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
-    <v-toolbar-items v-if="webhook">
+    <v-toolbar-items v-if="trigger">
       <v-switch
         class="mr-3"
         v-model="enable">
@@ -18,8 +18,8 @@
 
 <i18n>
   en:
-    title: "Create a webhook"
-    update: "Update webhook"
+    title: "Create a trigger"
+    update: "Update trigger"
 </i18n>
 
 <script>
@@ -30,27 +30,27 @@
       MenuToggle
     },
     props: {
-      webhook: {
+      trigger: {
         type: Object,
         default: null
       }
     },
     data () {
       return {
-        enable: this.webhook ? this.webhook.enable : false
+        enable: this.trigger ? this.trigger.enable : false
       }
     },
     watch: {
       enable () {
-        if (!this.webhook) { return }
-        this.updateWebhook({ variables: {
-          id: this.webhook.id,
+        if (!this.trigger) { return }
+        this.updateTrigger({ variables: {
+          id: this.trigger.id,
           enable: this.enable
         }})
       }
     },
     methods: mapActions({
-      updateWebhook: 'webhooks/update'
+      updateTrigger: 'triggers/update'
     })
   }
 </script>

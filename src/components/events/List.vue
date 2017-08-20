@@ -6,38 +6,38 @@
     :loading="loadingEvents"
     extended
     withMenu>
-    <template v-if="webhook" slot="toolbar">
+    <template v-if="trigger" slot="toolbar">
       <PopupPageButton
         :title="$t('update')"
-        :to="{ name: 'EditWebhook', params: { id: webhook.id } }"
+        :to="{ name: 'EditTrigger', params: { id: trigger.id } }"
         primary outline
         v-model="formModal">
-        <WebhookForm
-          :webhook="webhook"
-          :contract="webhook.contract"
+        <TriggerForm
+          :trigger="trigger"
+          :contract="trigger.contract"
           @saved="closeFormModal()">
-        </WebhookForm>
+        </TriggerForm>
       </PopupPageButton>
       <PopupPageButton
         :title="$t('test')"
-        :to="{ name: 'ExecuteWebhook', params: { webhookId: webhook.id } }"
+        :to="{ name: 'ExecuteTrigger', params: { triggerId: trigger.id } }"
         primary outline
         v-model="testModal">
         <EventForm
-          :webhook="webhook"
+          :trigger="trigger"
           @saved="closeTestModal()">
         </EventForm>
       </PopupPageButton>
     </template>
-    <WebhookDetailList
+    <TriggerDetailList
       slot="extension"
       class="secondary"
-      v-if="webhook"
-      :webhook="webhook">
-    </WebhookDetailList>
+      v-if="trigger"
+      :trigger="trigger">
+    </TriggerDetailList>
     <template scope="event">
       <td>
-        <router-link :to="{ name: 'Event', params: { id: event.id, webhookId: webhook.id } }">
+        <router-link :to="{ name: 'Event', params: { id: event.id, triggerId: trigger.id } }">
           <timeago :since="event.createdAt" :auto-update="10"></timeago>
         </router-link>
       </td>
@@ -48,7 +48,7 @@
         {{ event.payload }}
       </td>
       <td>
-        {{ event._webhookResultsMeta.count }}
+        {{ event._triggerResultsMeta.count }}
       </td>
     </template>
   </table-listing>
@@ -70,21 +70,21 @@
   import collection from '@/mixins/collection'
   import TableListing from '@/components/layouts/TableListing'
   import EventForm from '@/components/events/Form'
-  import WebhookForm from '@/components/webhooks/Form'
-  import WebhookDetailList from '@/components/webhooks/DetailList'
+  import TriggerForm from '@/components/triggers/Form'
+  import TriggerDetailList from '@/components/triggers/DetailList'
   import PopupPageButton from '@/components/PopupPageButton'
   export default {
     components: {
       TableListing,
       EventForm,
-      WebhookForm,
-      WebhookDetailList,
+      TriggerForm,
+      TriggerDetailList,
       PopupPageButton
     },
     mixins: [
-      item('webhook'),
+      item('trigger'),
       collection('events', component => ({
-        webhookId: component.id
+        triggerId: component.id
       }))
     ],
     props: {
@@ -101,10 +101,10 @@
     },
     computed: {
       title () {
-        if (!this.webhook) { return '' }
+        if (!this.trigger) { return '' }
         return [
-          this.webhook.contract.name,
-          this.webhook.eventName
+          this.trigger.contract.name,
+          this.trigger.eventName
         ].join(' - ')
       },
       headers () {
@@ -112,7 +112,7 @@
           { text: this.$t('header.createdAt'), align: 'left', sortable: false, value: 'createdAt' },
           { text: this.$t('header.transactionId'), align: 'left', sortable: false, value: 'transactionId' },
           { text: this.$t('header.payload'), align: 'left', sortable: false, value: 'payload' },
-          { text: this.$t('header.attempts'), align: 'left', sortable: false, value: '_webhookResultsMeta' }
+          { text: this.$t('header.attempts'), align: 'left', sortable: false, value: '_triggerResultsMeta' }
         ]
       }
     },

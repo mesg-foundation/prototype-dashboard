@@ -1,12 +1,8 @@
 #import "@/graphql/contracts/schema.graphql"
 
-fragment webhookFields on Webhook {
+fragment triggerFields on Trigger {
   id
-  endpoint
   eventName
-  authorizationType
-  authorizationValue
-  secret
   enable,
   createdAt
   contract {

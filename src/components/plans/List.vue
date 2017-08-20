@@ -38,7 +38,7 @@
     title: "Change your plan"
     free:
       title: "We also have a free plan"
-      desc: "With the free plan you will be limited to {executions} webhooks / month, with {contracts} contract and have {members} member"
+      desc: "With the free plan you will be limited to {executions} triggers / month, with {contracts} contract and have {members} member"
 </i18n>
 
 <script>

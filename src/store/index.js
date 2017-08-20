@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import webhooks from './webhooks'
+import triggers from './triggers'
 import contracts from './contracts'
 import projects from './projects'
 import events from './events'
-import webhookResults from './webhookResults'
+import triggerResults from './triggerResults'
 import session from './session'
 import users from './users'
 import plans from './plans'
@@ -16,11 +16,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   modules: {
-    webhooks,
+    triggers,
     contracts,
     projects,
     events,
-    webhookResults,
+    triggerResults,
     users,
     plans,
     session,

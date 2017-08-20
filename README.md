@@ -3,7 +3,7 @@ https://dashboard-etherstellar.netlify.com/
 
 # Dashboard
 
-> Dashboard to manage your contracts, webhooks, and everything else
+> Dashboard to manage your contracts, triggers, and everything else
 
 ## Build Setup
 

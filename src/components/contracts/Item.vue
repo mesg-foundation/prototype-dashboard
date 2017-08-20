@@ -42,7 +42,7 @@
       name: "Name"
       address: "Contract address"
       chain: "Blockchain"
-      webhooks: "Connected webhooks"
+      triggers: "Connected triggers"
 </i18n>
 
 <script>
@@ -76,10 +76,10 @@
       name () { return this.contract.name },
       address () { return this.contract.address },
       chain () { return this.contract.chain },
-      webhooks () { return this.contract._webhooksMeta.count },
+      triggers () { return this.contract._triggersMeta.count },
       abi () { return this.contract.abi },
       items () {
-        return ['name', 'address', 'chain', 'webhooks']
+        return ['name', 'address', 'chain', 'triggers']
           .map(x => ({
             key: x,
             value: this[x]

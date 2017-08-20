@@ -52,7 +52,7 @@
     current: "Current plan"
     features:
       members: "Team members"
-      executions: "Webhook executions"
+      executions: "Trigger executions"
       contracts: "Contracts"
     units:
       executions: "/ month"

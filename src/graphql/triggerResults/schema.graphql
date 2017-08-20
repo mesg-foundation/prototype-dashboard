@@ -1,9 +1,9 @@
-fragment webhookResultFields on WebhookResult {
+fragment triggerResultFields on TriggerResult {
   id
   createdAt
   body
   code
-  webhook {
+  trigger {
     id
   }
   event {

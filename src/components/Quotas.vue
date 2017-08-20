@@ -20,7 +20,7 @@
   en:
     unlimited: '∞'
     titles:
-      executions: "Webhook executions"
+      executions: "Trigger executions"
       members: "Team members"
       contracts: "Contracts"
 </i18n>
@@ -53,7 +53,7 @@
       executions () {
         // TODO calculate executions with
         // query {
-        //   _allWebhookResultsMeta {
+        //   _allTriggerResultsMeta {
         //     count
         //   }
         // }

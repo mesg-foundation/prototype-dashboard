@@ -1,9 +1,9 @@
-#import "@/graphql/webhooks/schema.graphql"
+#import "@/graphql/triggers/schema.graphql"
 
 subscription(
   $projectId: ID!
 ) {
-  Webhook(filter: {
+  Trigger(filter: {
     mutation_in: [CREATED, UPDATED, DELETED],
     node: {
       project: {
@@ -16,7 +16,7 @@ subscription(
       id
     }
     node {
-      ...webhookFields
+      ...triggerFields
     }
   }
 }

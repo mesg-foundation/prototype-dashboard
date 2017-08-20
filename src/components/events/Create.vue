@@ -1,7 +1,7 @@
 <template>
   <EventForm
-    v-if="webhook"
-    :webhook="webhook"
+    v-if="trigger"
+    :trigger="trigger"
     @saved="eventSaved">
   </EventForm>
 </template>
@@ -14,17 +14,17 @@
       EventForm
     },
     mixins: [
-      item('webhook', x => x.webhookId)
+      item('trigger', x => x.triggerId)
     ],
     props: {
-      webhookId: {
+      triggerId: {
         type: String,
         required: true
       }
     },
     methods: {
       eventSaved (event) {
-        this.$router.push({ name: 'Webhook', params: { id: this.webhookId } })
+        this.$router.push({ name: 'Trigger', params: { id: this.triggerId } })
       }
     }
   }

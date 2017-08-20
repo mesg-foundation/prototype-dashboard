@@ -69,7 +69,7 @@
     members: "Members"
     settings: "Settings"
     menu:
-      webhooks: "Webhooks"
+      triggers: "Triggers"
       contracts: "Contracts"
 </i18n>
 
@@ -90,7 +90,7 @@
       items () {
         return [
           { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },
-          { key: 'webhooks', to: { name: 'Webhooks' }, icon: 'http', count: this.currentProject._webhooksMeta.count }
+          { key: 'triggers', to: { name: 'Triggers' }, icon: 'http', count: this.currentProject._triggersMeta.count }
         ].map(e => ({
           ...e,
           title: this.$t(`menu.${e.key}`)

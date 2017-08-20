@@ -1,13 +1,13 @@
 #import "@/graphql/events/schema.graphql"
 
 query(
-  $webhookId: ID!
+  $triggerId: ID!
 ) {
   allEvents(
     orderBy: createdAt_DESC,
     filter: {
-      webhook: {
-        id: $webhookId
+      trigger: {
+        id: $triggerId
       }
     }
   ) {

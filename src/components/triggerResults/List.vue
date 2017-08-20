@@ -1,16 +1,16 @@
 <template>
   <table-listing
     :headers="headers"
-    :items="webhookResults"
+    :items="triggerResults"
     :title="$t('title')"
-    :loading="loadingWebhookResults"
+    :loading="loadingTriggerResults"
     searchable
     withMenu>
     <template slot="toolbar">
       <v-btn
         v-if="event"
         primary outline
-        :to="{ name: 'Webhook', params: { id: event.webhook.id } }">
+        :to="{ name: 'Trigger', params: { id: event.trigger.id } }">
         {{ $t('action') }}
       </v-btn>
     </template>
@@ -28,8 +28,8 @@
 
 <i18n>
   en:
-    title: "Webhook Event Results"
-    action: "Go to webhook"
+    title: "Trigger Event Results"
+    action: "Go to trigger"
     empty: "Empty"
     header:
       code: "HTTP Status Code"
@@ -48,7 +48,7 @@
       StatusCode
     },
     props: {
-      webhookId: {
+      triggerId: {
         type: String,
         required: true
       },
@@ -59,7 +59,7 @@
     },
     mixins: [
       item('event'),
-      collection('webhookResults', component => ({
+      collection('triggerResults', component => ({
         eventId: component.id
       }))
     ],

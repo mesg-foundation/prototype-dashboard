@@ -16,14 +16,13 @@
 <i18n>
   en:
     address: "Contract address"
-    endpoint: "Endpoint"
     chain: "Blockchain"
 </i18n>
 
 <script>
   export default {
     props: {
-      webhook: {
+      trigger: {
         type: Object,
         required: true
       }
@@ -31,9 +30,8 @@
     computed: {
       items () {
         return [
-          { key: this.$t('address'), value: this.webhook.contract.address },
-          { key: this.$t('chain'), value: this.webhook.contract.chain },
-          { key: this.$t('endpoint'), value: this.webhook.endpoint }
+          { key: this.$t('address'), value: this.trigger.contract.address },
+          { key: this.$t('chain'), value: this.trigger.contract.chain }
         ]
       }
     }

@@ -9,7 +9,7 @@ fragment projectFields on Project {
   _contractsMeta {
     count
   }
-  _webhooksMeta {
+  _triggersMeta {
     count
   }
   _usersMeta {

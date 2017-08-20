@@ -1,12 +1,12 @@
 #import "@/graphql/events/schema.graphql"
 
 mutation(
-  $webhookId: ID!,
+  $triggerId: ID!,
   $payload: Json!,
   $transactionId: String!
 ) {
   createEvent(
-    webhookId: $webhookId,
+    triggerId: $triggerId,
     payload: $payload,
     transactionId: $transactionId
 	) {

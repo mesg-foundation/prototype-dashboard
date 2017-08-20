@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import RouteDelegate from './RouteDelegate'
-import Webhooks from '@/components/webhooks/List'
-import NewWebhook from '@/components/webhooks/Create'
-import EditWebhook from '@/components/webhooks/Edit'
+import Triggers from '@/components/triggers/List'
+import NewTrigger from '@/components/triggers/Create'
+import EditTrigger from '@/components/triggers/Edit'
 import Projects from '@/components/projects/List'
 import NewProject from '@/components/projects/Create'
 import Events from '@/components/events/List'
 import NewEvents from '@/components/events/Create'
-import WebhookResults from '@/components/webhookResults/List'
+import TriggerResults from '@/components/triggerResults/List'
 import Contracts from '@/components/contracts/List'
 import NewContract from '@/components/contracts/Create'
 import EditContract from '@/components/contracts/Edit'
@@ -35,46 +35,46 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/webhooks'
+      redirect: '/triggers'
     },
     {
-      path: '/webhooks',
+      path: '/triggers',
       component: RouteDelegate,
       meta: { auth: true, project: true },
       children: [
         {
           path: '',
-          name: 'Webhooks',
-          component: Webhooks
+          name: 'Triggers',
+          component: Triggers
         },
         {
           path: 'new',
-          name: 'NewWebhook',
-          component: NewWebhook,
+          name: 'NewTrigger',
+          component: NewTrigger,
           props: route => route.query
         },
         {
           path: ':id',
-          name: 'Webhook',
+          name: 'Trigger',
           component: Events,
           props: true
         },
         {
           path: ':id/edit',
-          name: 'EditWebhook',
-          component: EditWebhook,
+          name: 'EditTrigger',
+          component: EditTrigger,
           props: true
         },
         {
-          path: ':webhookId/execute',
-          name: 'ExecuteWebhook',
+          path: ':triggerId/execute',
+          name: 'ExecuteTrigger',
           component: NewEvents,
           props: true
         },
         {
-          path: ':webhookId/:id',
+          path: ':triggerId/:id',
           name: 'Event',
-          component: WebhookResults,
+          component: TriggerResults,
           props: true
         }
       ]

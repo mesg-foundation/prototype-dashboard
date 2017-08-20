@@ -1,9 +1,0 @@
-#import "@/graphql/webhooks/schema.graphql"
-
-query(
-  $id: ID!
-) {
-  Webhook(id: $id) {
-    ...webhookFields
-  }
-}
