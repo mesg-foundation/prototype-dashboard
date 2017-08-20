@@ -8,4 +8,7 @@ fragment triggerFields on Trigger {
   contract {
     ...contractFields
   }
+  service {
+    id
+  }
 }

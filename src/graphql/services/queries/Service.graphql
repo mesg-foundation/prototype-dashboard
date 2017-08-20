@@ -1,0 +1,9 @@
+#import "@/graphql/services/schema.graphql"
+
+query(
+  $id: ID!
+) {
+  Service(id: $id) {
+    ...serviceFields
+  }
+}

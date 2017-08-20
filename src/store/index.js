@@ -10,6 +10,7 @@ import session from './session'
 import users from './users'
 import plans from './plans'
 import invitations from './invitations'
+import services from './services'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
     users,
     plans,
     session,
-    invitations
+    invitations,
+    services
   },
   plugins: [
     createPersistedState({

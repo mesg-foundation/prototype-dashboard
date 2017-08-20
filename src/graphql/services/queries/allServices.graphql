@@ -1,0 +1,7 @@
+#import "@/graphql/services/schema.graphql"
+
+query {
+  allServices(orderBy: priority_ASC) {
+    ...serviceFields
+  }
+}
