@@ -14,17 +14,29 @@
           required>
         </EventSelector>
 
+        <p>{{ $t('servicesText') }}</p>
+
         <v-layout row wrap>
           <v-flex
             v-for="service in services" :key="service.id"
-            xs12 sm6 md4 lg3>
+            :class="{ 'xs12 sm6': inDialog, 'xs12 sm6 md4 lg3': !inDialog }">
             <Service
               class="ma-1"
               :service="service"
-              v-model="serviceId">
+              v-model="serviceId"
+              @input="$v.serviceId.$touch()">
             </Service>
           </v-flex>
         </v-layout>
+
+        <component
+          v-if="serviceForm"
+          :is="serviceForm"
+          :service="selectedService"
+          v-model="serviceData"
+          @input="$v.serviceData.$touch()">
+        </component>
+
       </v-card-text>
       <v-card-actions>
         <v-btn
@@ -49,12 +61,14 @@
     submit: "Save"
     advanced: "Advanced"
     cancel: "Cancel"
+    servicesText: "Connect the event to any of the services bellow."
     labels:
       event: "Event to connect for your trigger"
 </i18n>
 <script>
   import { mapActions } from 'vuex'
   import { required } from '@/validators'
+  import inDialog from '@/mixins/inDialog'
   import withValidation from '@/mixins/withValidation'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import collection from '@/mixins/collection'
@@ -69,6 +83,7 @@
       Service
     },
     mixins: [
+      inDialog,
       withValidation,
       withCurrentProject,
       collection('services')
@@ -105,6 +120,22 @@
       },
       serviceId: {
         required
+      },
+      serviceData: {
+        required
+      }
+    },
+    computed: {
+      selectedService () {
+        if (!this.serviceId) { return false }
+        return this.services.find(x => x.id === this.serviceId)
+      },
+      serviceForm () {
+        if (!this.selectedService) { return null }
+        return {
+          Webhook: () => import('@/components/services/webhook/Form'),
+          SendgridEmail: () => import('@/components/services/sendgridEmail/Form')
+        }[this.selectedService.key]
       }
     },
     methods: {
