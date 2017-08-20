@@ -134,7 +134,8 @@
         if (!this.selectedService) { return null }
         return {
           Webhook: () => import('@/components/services/webhook/Form'),
-          SendgridEmail: () => import('@/components/services/sendgridEmail/Form')
+          SendgridEmail: () => import('@/components/services/sendgridEmail/Form'),
+          ServerlessFunction: () => import('@/components/services/serverlessFunction/Form')
         }[this.selectedService.key]
       }
     },
