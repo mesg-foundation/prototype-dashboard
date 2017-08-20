@@ -1,7 +1,8 @@
 <template>
   <v-card
     :class="{ 'blue': isSelected, 'lighten-5': isSelected }">
-    <v-card-title class="headline">
+    <img v-if="service.picture" :src="service.picture" :alt="service.name">
+    <v-card-title v-else class="headline">
       {{ service.name }}
     </v-card-title>
     <v-card-text style="min-height:150px" v-html="service.description"></v-card-text>
@@ -49,3 +50,15 @@
     }
   }
 </script>
+
+<style scoped>
+  .card {
+    text-align: center;
+  }
+
+  img {
+    max-width: 80%;
+    margin: 1.5em;
+    height: 3em;
+  }
+</style>

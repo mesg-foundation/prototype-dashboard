@@ -4,4 +4,5 @@ fragment serviceFields on Service {
   description
   data
   key
+  picture
 }
