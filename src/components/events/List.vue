@@ -103,6 +103,7 @@
       title () {
         if (!this.trigger) { return '' }
         return [
+          this.trigger.service.name,
           this.trigger.contract.name,
           this.trigger.eventName
         ].join(' - ')

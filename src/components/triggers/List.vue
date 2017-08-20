@@ -20,6 +20,11 @@
         <v-switch v-model="trigger.enable"></v-switch>
       </td>
       <td>
+        <router-link :to="{ name: 'Trigger', params: trigger }">
+          {{ trigger.service.name }}
+        </router-link>
+      </td>
+      <td>
         <router-link :to="{ name: 'Contract', params: trigger.contract }">
           {{ trigger.contract.name }}
         </router-link>
@@ -38,6 +43,7 @@
     create: "New Trigger"
     header:
       enable: " "
+      service: "Service"
       contractName: "Contract"
       eventName: "Event Name"
       createdAt: "Created at"
@@ -70,6 +76,7 @@
       headers () {
         return [
           { text: this.$t('header.enable'), align: 'left', sortable: false },
+          { text: this.$t('header.service'), align: 'left', sortable: false, value: 'service.name' },
           { text: this.$t('header.contractName'), align: 'left', sortable: false, value: 'contract.name' },
           { text: this.$t('header.eventName'), align: 'left', sortable: false, value: 'eventName' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
