@@ -5,13 +5,13 @@
     </v-card-title>
     <v-card-text>
       <v-text-field
-        :label="$t('label.endpoint')"
+        :label="$t('labels.endpoint')"
         :hint="$t('hints.endpoint')"
         v-model="endpoint"
         type="url">
       </v-text-field>
       <v-select
-        :label="$t('label.method')"
+        :label="$t('labels.method')"
         :items="methodValues"
         persistent-hint
         :hint="method === 'GET' && $t('hints.get')"
@@ -27,7 +27,7 @@
     hints:
       endpoint: "You can use http://webhook.site/ to test your webhook"
       get: "Hum... you really have a webhook with a GET request... concider using POST method instead, but don't worry we will still execute the webhook"
-    label:
+    labels:
       endpoint: "Enpoint"
       method: "HTTP Method"
 </i18n>
