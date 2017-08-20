@@ -13,6 +13,18 @@
           @input="$v.eventName.$touch()"
           required>
         </EventSelector>
+
+        <v-layout row wrap>
+          <v-flex
+            v-for="service in services" :key="service.id"
+            xs12 sm6 md4 lg3>
+            <Service
+              class="ma-1"
+              :service="service"
+              v-model="serviceId">
+            </Service>
+          </v-flex>
+        </v-layout>
       </v-card-text>
       <v-card-actions>
         <v-btn
@@ -42,20 +54,24 @@
 </i18n>
 <script>
   import { mapActions } from 'vuex'
-  import withValidation from '@/mixins/withValidation'
   import { required } from '@/validators'
+  import withValidation from '@/mixins/withValidation'
   import withCurrentProject from '@/mixins/withCurrentProject'
+  import collection from '@/mixins/collection'
   import EventSelector from '@/components/EventSelector.vue'
   import TriggerFormHeader from '@/components/triggers/FormHeader.vue'
+  import Service from '@/components/services/Item.vue'
 
   export default {
     components: {
       EventSelector,
-      TriggerFormHeader
+      TriggerFormHeader,
+      Service
     },
     mixins: [
       withValidation,
-      withCurrentProject
+      withCurrentProject,
+      collection('services')
     ],
     props: {
       contract: {
@@ -78,11 +94,16 @@
     data () {
       const trigger = this.trigger || {}
       return {
-        eventName: trigger.eventName || this.event
+        eventName: trigger.eventName || this.event,
+        serviceId: (trigger.service || {}).id,
+        serviceData: trigger.serviceData
       }
     },
     validations: {
       eventName: {
+        required
+      },
+      serviceId: {
         required
       }
     },
@@ -97,7 +118,9 @@
           id: (this.trigger || {}).id,
           eventName: this.eventName,
           contractId: this.contract.id,
-          projectId: this.currentProjectId
+          projectId: this.currentProjectId,
+          serviceId: this.serviceId,
+          serviceData: this.serviceData
         }})
           .then(trigger => this.$emit('saved', trigger))
       }
