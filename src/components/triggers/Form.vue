@@ -151,7 +151,7 @@
           contractId: this.contract.id,
           projectId: this.currentProjectId,
           serviceId: this.serviceId,
-          serviceData: JSON.stringify(this.serviceData)
+          serviceData: this.serviceData
         }})
           .then(trigger => this.$emit('saved', trigger))
       }

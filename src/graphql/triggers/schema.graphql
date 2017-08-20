@@ -11,5 +11,6 @@ fragment triggerFields on Trigger {
   }
   service {
     id
+    name
   }
 }
