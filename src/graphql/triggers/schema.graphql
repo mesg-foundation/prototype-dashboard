@@ -5,6 +5,7 @@ fragment triggerFields on Trigger {
   eventName
   enable,
   createdAt
+  serviceData
   contract {
     ...contractFields
   }

@@ -12,7 +12,7 @@ export default {
   data () {
     return this.service.data.reduce((acc, data) => ({
       ...acc,
-      [data.name]: this.value[data.name] || data.default
+      [data.name]: (this.value || {})[data.name] || data.default
     }), {})
   },
   computed: {

@@ -3,13 +3,14 @@
 mutation(
   $id: ID!,
   $eventName: String,
-  $enable: Boolean
+  $enable: Boolean,
+  $serviceData: Json
 ) {
   updateTrigger(
     id: $id,
     eventName: $eventName,
     enable: $enable,
-    secret: $secret
+    serviceData: $serviceData
 	) {
     ...triggerFields
   }

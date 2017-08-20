@@ -4,12 +4,16 @@
 mutation(
   $projectId: ID!,
   $eventName: String!,
-  $contractId: ID!
+  $contractId: ID!,
+  $serviceId: ID!,
+  $serviceData: Json
 ) {
   createTrigger(
     eventName: $eventName,
     projectId: $projectId,
-    contractId: $contractId
+    contractId: $contractId,
+    serviceId: $serviceId,
+    serviceData: $serviceData
 	) {
     ...triggerFields
     project {
