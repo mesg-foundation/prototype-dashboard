@@ -48,7 +48,7 @@
         {{ event.payload }}
       </td>
       <td>
-        {{ event._triggerResultsMeta.count }}
+        {{ event._taskLogsMeta.count }}
       </td>
     </template>
   </table-listing>
@@ -113,7 +113,7 @@
           { text: this.$t('header.createdAt'), align: 'left', sortable: false, value: 'createdAt' },
           { text: this.$t('header.transactionId'), align: 'left', sortable: false, value: 'transactionId' },
           { text: this.$t('header.payload'), align: 'left', sortable: false, value: 'payload' },
-          { text: this.$t('header.attempts'), align: 'left', sortable: false, value: '_triggerResultsMeta' }
+          { text: this.$t('header.attempts'), align: 'left', sortable: false, value: '_taskLogsMeta' }
         ]
       }
     },

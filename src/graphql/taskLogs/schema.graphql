@@ -1,4 +1,4 @@
-fragment triggerResultFields on TriggerResult {
+fragment taskLogsFields on TaskLog {
   id
   createdAt
   body

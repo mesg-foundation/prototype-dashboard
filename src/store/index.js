@@ -5,7 +5,7 @@ import triggers from './triggers'
 import contracts from './contracts'
 import projects from './projects'
 import events from './events'
-import triggerResults from './triggerResults'
+import taskLogs from './taskLogs'
 import session from './session'
 import users from './users'
 import plans from './plans'
@@ -21,7 +21,7 @@ export default new Vuex.Store({
     contracts,
     projects,
     events,
-    triggerResults,
+    taskLogs,
     users,
     plans,
     session,

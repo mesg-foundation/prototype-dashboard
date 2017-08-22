@@ -1,9 +1,9 @@
-#import "@/graphql/triggerResults/schema.graphql"
+#import "@/graphql/taskLogs/schema.graphql"
 
 query(
   $eventId: ID!
 ) {
-  allTriggerResults(
+  allTaskLogs(
     orderBy: createdAt_DESC,
     filter: {
       event: {
@@ -11,6 +11,6 @@ query(
       }
     }
   ) {
-    ...triggerResultFields
+    ...taskLogsFields
   }
 }

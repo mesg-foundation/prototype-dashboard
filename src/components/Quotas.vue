@@ -53,7 +53,7 @@
       executions () {
         // TODO calculate executions with
         // query {
-        //   _allTriggerResultsMeta {
+        //   _alltaskLogsMeta {
         //     count
         //   }
         // }

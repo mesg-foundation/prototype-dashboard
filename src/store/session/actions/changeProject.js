@@ -3,7 +3,7 @@ const PROJECT_SUBSCRIBERS = [
   'contracts',
   'users',
   'triggers',
-  'triggerResults',
+  'taskLogs',
   'invitations'
 ]
 

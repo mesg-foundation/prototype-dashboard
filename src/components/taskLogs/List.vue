@@ -1,9 +1,9 @@
 <template>
   <table-listing
     :headers="headers"
-    :items="triggerResults"
+    :items="taskLogs"
     :title="$t('title')"
-    :loading="loadingTriggerResults"
+    :loading="loadingTaskLogs"
     searchable
     withMenu>
     <template slot="toolbar">
@@ -59,7 +59,7 @@
     },
     mixins: [
       item('event'),
-      collection('triggerResults', component => ({
+      collection('taskLogs', component => ({
         eventId: component.id
       }))
     ],

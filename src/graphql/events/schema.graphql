@@ -6,7 +6,7 @@ fragment eventFields on Event {
   trigger {
     id
   }
-  _triggerResultsMeta {
+  _taskLogsMeta {
     count
   }
 }
