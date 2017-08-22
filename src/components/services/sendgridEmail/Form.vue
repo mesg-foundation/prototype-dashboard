@@ -16,13 +16,13 @@
         :label="$t('labels.from')"
         :hint="$t('hints.email')"
         v-model="from"
-        type="email">
+        type="text">
       </v-text-field>
       <v-text-field
         :label="$t('labels.to')"
         :hint="$t('hints.email')"
         v-model="to"
-        type="email">
+        type="text">
       </v-text-field>
       <v-text-field
         :label="$t('labels.subject')"
