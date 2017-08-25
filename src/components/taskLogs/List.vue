@@ -20,6 +20,9 @@
       </td>
       <td>{{ result.body || $t('empty') }}</td>
       <td class="text-xs-right">
+        {{ result.duration || $t('empty') }}ms
+      </td>
+      <td class="text-xs-right">
         <timeago :since="result.createdAt" :auto-update="10"></timeago>
       </td>
     </template>
@@ -34,6 +37,7 @@
     header:
       code: "HTTP Status Code"
       body: "Body Result"
+      duration: "Duration"
       createdAt: "Created at"
 </i18n>
 
@@ -68,6 +72,7 @@
         return [
           { text: this.$t('header.code'), align: 'left', sortable: false, value: 'code' },
           { text: this.$t('header.body'), align: 'left', sortable: false, value: 'body' },
+          { text: this.$t('header.duration'), align: 'right', sortable: false, value: 'duration' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
         ]
       }

@@ -3,6 +3,7 @@ fragment taskLogsFields on TaskLog {
   createdAt
   body
   code
+  duration
   trigger {
     id
   }
