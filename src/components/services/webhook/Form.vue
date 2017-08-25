@@ -14,7 +14,7 @@
         :label="$t('labels.method')"
         :items="methodValues"
         persistent-hint
-        :hint="method === 'GET' && $t('hints.get')"
+        :hint="method === 'GET' ? $t('hints.get') : ''"
         v-model="method">
       </v-select>
     </v-card-text>
