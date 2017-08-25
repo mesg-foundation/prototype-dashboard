@@ -5,9 +5,9 @@
     </v-card-title>
     <v-card-text>
       <v-text-field
-        :label="$t('labels.body')"
-        :hint="$t('hints.body')"
-        v-model="body"
+        :label="$t('labels.code')"
+        :hint="$t('hints.code')"
+        v-model="code"
         multi-line
         auto-grow
         textarea>
@@ -20,9 +20,9 @@
   en:
     title: "Serverless function"
     hints:
-      body: "Let's code !!"
+      code: "Let's code !!"
     labels:
-      body: "Function definition"
+      code: "Function definition"
 </i18n>
 
 <script>

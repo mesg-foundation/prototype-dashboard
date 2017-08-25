@@ -20,7 +20,7 @@
       </td>
       <td>{{ result.body || $t('empty') }}</td>
       <td class="text-xs-right">
-        {{ result.duration || $t('empty') }}ms
+        {{ result.duration || '- ' }}ms
       </td>
       <td class="text-xs-right">
         <timeago :since="result.createdAt" :auto-update="10"></timeago>
