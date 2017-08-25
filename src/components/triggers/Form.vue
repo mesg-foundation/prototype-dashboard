@@ -135,7 +135,8 @@
         return {
           Webhook: () => import('@/components/services/webhook/Form'),
           SendgridEmail: () => import('@/components/services/sendgridEmail/Form'),
-          ServerlessFunction: () => import('@/components/services/serverlessFunction/Form')
+          ServerlessFunction: () => import('@/components/services/serverlessFunction/Form'),
+          SlackNotification: () => import('@/components/services/slackNotification/Form')
         }[this.selectedService.key]
       }
     },
