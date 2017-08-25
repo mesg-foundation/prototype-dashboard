@@ -1,5 +1,6 @@
 <template>
   <TriggerForm
+    v-if="trigger"
     :trigger="trigger"
     :contract="trigger.contract"
     :title="$t('title')"
