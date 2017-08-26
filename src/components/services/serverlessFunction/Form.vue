@@ -4,14 +4,7 @@
       {{ $t('title') }}
     </v-card-title>
     <v-card-text>
-      <v-text-field
-        :label="$t('labels.code')"
-        :hint="$t('hints.code')"
-        v-model="code"
-        multi-line
-        auto-grow
-        textarea>
-      </v-text-field>
+      <CodeEditor :title="$t('labels.code')" v-model="code"></CodeEditor>
     </v-card-text>
   </v-card>
 </template>
@@ -19,15 +12,17 @@
 <i18n>
   en:
     title: "Serverless function"
-    hints:
-      code: "Let's code !!"
     labels:
-      code: "Function definition"
+      code: "Code to trigger"
 </i18n>
 
 <script>
   import service from '@/mixins/service'
+  import CodeEditor from '@/components/CodeEditor'
   export default {
+    components: {
+      CodeEditor
+    },
     mixins: [
       service
     ]
