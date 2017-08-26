@@ -13,7 +13,7 @@
   en:
     title: "Serverless function"
     labels:
-      code: "Code to trigger"
+      code: "Code to execute"
 </i18n>
 
 <script>

@@ -108,6 +108,10 @@
     z-index: 3;
   }
 
+  .CodeMirror {
+    padding: .5em;
+  }
+
   .fullscreen .CodeMirror {
     height: 100%;
   }
