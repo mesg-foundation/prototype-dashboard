@@ -26,7 +26,10 @@ const createItem = (state, item) => {
 
 const replaceItem = (state, item) => (state.collectionById = {
   ...state.collectionById,
-  [(item.id || item._id)]: item
+  [(item.id || item._id)]: {
+    ...state.collectionById[item.id || item._id],
+    ...item
+  }
 })
 
 const deleteItem = (state, id) => {
