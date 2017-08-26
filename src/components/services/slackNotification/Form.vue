@@ -9,8 +9,8 @@
         v-model="webhookUrl"
         type="url">
       </v-text-field>
+      <p v-html="$t('hint')"></p>
     </v-card-text>
-    <v-btn flat href="https://my.slack.com/services/new/incoming-webhook" target="_blank">{{ $t('create') }}</v-btn>
   </v-card>
 </template>
 
@@ -18,6 +18,7 @@
   en:
     title: "Slack Notification"
     create: "Create a new Webhook"
+    hint: "To create a new Slack webhook you can <a href='https://my.slack.com/services/new/incoming-webhook' target='_blank'>click here</a> and when created copy your <strong>Webhook URL</strong>"
     labels:
       webhookUrl: "Enpoint"
 </i18n>
