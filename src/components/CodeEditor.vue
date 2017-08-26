@@ -67,6 +67,14 @@
       title: {
         type: String,
         default: null
+      },
+      mode: {
+        type: String,
+        default: 'text/javascript'
+      },
+      theme: {
+        type: String,
+        default: 'monokai'
       }
     },
     data () {
@@ -81,14 +89,14 @@
           styleSelectedText: true,
           gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
           highlightSelectionMatches: { showToken: /\w/, annotateScrollbar: true },
-          mode: 'text/javascript',
+          mode: this.mode,
           hintOptions: {
             completeSingle: false
           },
           keyMap: 'sublime',
           matchBrackets: true,
           showCursorWhenSelecting: true,
-          theme: 'monokai',
+          theme: this.theme,
           extraKeys: { 'Ctrl': 'autocomplete' }
         }
       }
@@ -106,13 +114,18 @@
     width: 100%;
     height: 100%;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
   }
 
   .CodeMirror {
     padding: .5em;
   }
 
+  .fullscreen .divider {
+    flex: none;
+  }
   .fullscreen .CodeMirror {
-    height: 100%;
+    flex: 1;
   }
 </style>
