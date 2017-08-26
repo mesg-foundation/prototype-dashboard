@@ -25,9 +25,19 @@
             {{ item.value }}
           </v-list-tile-title>
           <v-list-tile-sub-title>
-            {{ $t(`labels.${item.key}`) }}
+            {{ item.title }}
           </v-list-tile-sub-title>
         </v-list-tile-content>
+        <v-list-tile-action v-if="item.action">
+          <v-btn
+            :icon="!!item.action.icon"
+            :to="item.action.to"
+            :href="item.action.href"
+            :target="item.action.href ? '_blank' : 'none'">
+            <v-icon v-if="item.action.icon">{{ item.action.icon }}</v-icon>
+            {{ item.action.text }}
+          </v-btn>
+        </v-list-tile-action>
       </v-list-tile>
     </v-list>
     <Abi :contract="contract" :value="abi"></Abi>
@@ -73,17 +83,29 @@
       }
     },
     computed: {
-      name () { return this.contract.name },
-      address () { return this.contract.address },
-      chain () { return this.contract.chain },
-      triggers () { return this.contract._triggersMeta.count },
       abi () { return this.contract.abi },
       items () {
-        return ['name', 'address', 'chain', 'triggers']
-          .map(x => ({
-            key: x,
-            value: this[x]
-          }))
+        return [{
+          key: 'name',
+          title: this.$t('labels.name'),
+          value: this.contract.name
+        }, {
+          key: 'address',
+          title: this.$t('labels.address'),
+          value: this.contract.address,
+          action: {
+            icon: 'open_in_new',
+            href: `https://etherscan.io/address/${this.contract.address}`
+          }
+        }, {
+          key: 'chain',
+          title: this.$t('labels.chain'),
+          value: this.contract.chain.toLowerCase()
+        }, {
+          key: 'triggers',
+          title: this.$t('labels.triggers'),
+          value: this.contract._triggersMeta.count
+        }]
       }
     }
   }
