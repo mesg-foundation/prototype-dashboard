@@ -33,7 +33,7 @@ export default {
     },
     warningLimit: {
       type: Number,
-      default: 90
+      default: 75
     }
   },
   computed: {
