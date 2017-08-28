@@ -8,6 +8,11 @@ query(
     _contractsMeta {
       count
     }
+    plan {
+      contracts
+      executions
+      members
+    }
   }
   _allTaskLogsMeta(filter: {
     trigger: {

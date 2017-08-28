@@ -27,10 +27,25 @@ export default {
       state.token = token
     },
     updateQuotas: (state, quotasResponse) => {
+      const setQuota = (value, maximum) => ({
+        maximum,
+        value,
+        percent: value / maximum * 100,
+        reached: value >= maximum
+      })
       state.quotas = {
-        members: quotasResponse.Project._usersMeta.count,
-        executions: quotasResponse._allTaskLogsMeta.count,
-        contracts: quotasResponse.Project._contractsMeta.count
+        members: setQuota(
+          quotasResponse.Project._usersMeta.count,
+          quotasResponse.Project.plan.members
+        ),
+        executions: setQuota(
+          quotasResponse._allTaskLogsMeta.count,
+          quotasResponse.Project.plan.executions
+        ),
+        contracts: setQuota(
+          quotasResponse.Project._contractsMeta.count,
+          quotasResponse.Project.plan.contracts
+        )
       }
     }
   },
