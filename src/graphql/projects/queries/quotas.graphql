@@ -1,0 +1,30 @@
+query(
+  $id: ID!
+) {
+  Project(id: $id) {
+    _usersMeta {
+    	count
+  	}
+    _contractsMeta {
+      count
+    }
+  }
+  _allTaskLogsMeta(filter: {
+    trigger: {
+      project: {
+        id: $id
+      }
+    }
+  }) {
+    count
+  }
+  _allEventsMeta(filter: {
+    trigger: {
+      project: {
+        id: $id
+      }
+    }
+  }) {
+    count
+  }
+}

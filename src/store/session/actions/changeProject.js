@@ -7,11 +7,12 @@ const PROJECT_SUBSCRIBERS = [
   'invitations'
 ]
 
-export default ({ commit, dispatch, rootGetters }, { project }) => {
-  // TODO update user to save his last selected project
+export default async ({ commit, dispatch, rootGetters }, { project }) => {
   const projectId = project.id
   commit('setCurrentProjectId', projectId)
-  return Promise.all(PROJECT_SUBSCRIBERS
+  const subscriptions = PROJECT_SUBSCRIBERS
     .map(x => dispatch(`${x}/subscribes`, { projectId }, { root: true }))
-  ).then(x => commit('updateShowProjects', false, { root: true }))
+  await Promise.all(subscriptions)
+  commit('updateShowProjects', false, { root: true })
+  await dispatch('quotas', { variables: { id: projectId } })
 }

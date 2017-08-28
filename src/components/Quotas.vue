@@ -26,6 +26,7 @@
 </i18n>
 
 <script>
+  import { mapGetters } from 'vuex'
   import QuotaProgress from '@/components/QuotaProgress'
   export default {
     components: {
@@ -39,39 +40,19 @@
       plan: {
         type: Object,
         required: true
-      },
-      quotas: {
-        type: Array,
-        default: () => [
-          'executions',
-          'contracts',
-          'members'
-        ]
       }
     },
     computed: {
-      executions () {
-        // TODO calculate executions with
-        // query {
-        //   _alltaskLogsMeta {
-        //     count
-        //   }
-        // }
-        return parseInt(Math.random() * this.plan['executions'], 10)
-      },
-      contracts () {
-        return this.project._contractsMeta.count
-      },
-      members () {
-        return this.project._usersMeta.count
-      },
+      ...mapGetters({
+        quotas: 'session/quotas'
+      }),
       items () {
-        return this.quotas
+        return Object.keys(this.quotas)
           .map(x => ({
             key: x,
-            value: this[x],
+            value: this.quotas[x],
             max: this.plan[x] ? this.plan[x] : this.$t('unlimited'),
-            percent: this.plan[x] ? (this[x] / this.plan[x] * 100) : 0
+            percent: this.plan[x] ? (this.quotas[x] / this.plan[x] * 100) : 0
           }))
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-card flat v-if="plan">
     <v-toolbar card class="transparent">
       <v-toolbar-title class="headline">
         {{ plan.title }}
