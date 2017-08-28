@@ -6,6 +6,7 @@
         <v-toolbar-title class="headline">{{ title || $t('title') }}</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
+      <QuotaWarning feature="contracts"></QuotaWarning>
       <v-card-text>
         <v-text-field
           :label="$t('labels.name')"
@@ -89,11 +90,13 @@
     validEvents
   } from '@/validators'
   import abi from '@/mixins/abi'
+  import QuotaWarning from '@/components/QuotaWarning'
   import ChainSelector from '@/components/ChainSelector'
   import MenuToggle from '@/components/MenuToggle'
   export default {
     components: {
       ChainSelector,
+      QuotaWarning,
       MenuToggle
     },
     mixins: [

@@ -15,6 +15,9 @@
         <NewContract @saved="popup = false"></NewContract>
       </PopupPageButton>
     </template>
+    <template slot="extension">
+      <QuotaWarning feature="contracts"></QuotaWarning>
+    </template>
     <template scope="contract">
       <td>
         <router-link :to="{ name: 'Contract', params: { id: contract.id } }">
@@ -52,11 +55,13 @@
   import TableListing from '@/components/layouts/TableListing'
   import PopupPageButton from '@/components/PopupPageButton'
   import NewContract from '@/components/contracts/Create'
+  import QuotaWarning from '@/components/QuotaWarning'
   export default {
     components: {
       TableListing,
       NewContract,
-      PopupPageButton
+      PopupPageButton,
+      QuotaWarning
     },
     mixins: [
       withCurrentProject,

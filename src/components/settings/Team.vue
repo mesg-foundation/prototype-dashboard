@@ -1,5 +1,6 @@
 <template>
   <div>
+    <QuotaWarning feature="members"></QuotaWarning>
     <table-listing
       :headers="headers"
       :items="users"
@@ -41,12 +42,14 @@
   import PopupPageButton from '@/components/PopupPageButton'
   import InvitationForm from '@/components/invitations/Form'
   import InvitationList from '@/components/invitations/List'
+  import QuotaWarning from '@/components/QuotaWarning'
   export default {
     components: {
       TableListing,
       PopupPageButton,
       InvitationForm,
-      InvitationList
+      InvitationList,
+      QuotaWarning
     },
     mixins: [
       withCurrentProject,

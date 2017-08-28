@@ -5,6 +5,7 @@
         :trigger="trigger">
       </TriggerFormHeader>
       <v-divider></v-divider>
+      <QuotaWarning feature="executions"></QuotaWarning>
       <v-card-text>
         <EventSelector
           :label="$t('labels.event')"
@@ -75,12 +76,14 @@
   import EventSelector from '@/components/EventSelector.vue'
   import TriggerFormHeader from '@/components/triggers/FormHeader.vue'
   import Service from '@/components/services/Item.vue'
+  import QuotaWarning from '@/components/QuotaWarning'
 
   export default {
     components: {
       EventSelector,
       TriggerFormHeader,
-      Service
+      Service,
+      QuotaWarning
     },
     mixins: [
       inDialog,

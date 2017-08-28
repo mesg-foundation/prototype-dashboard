@@ -15,6 +15,9 @@
         <NewTrigger @saved="popup = false"></NewTrigger>
       </PopupPageButton>
     </template>
+    <template slot="extension">
+      <QuotaWarning feature="executions"></QuotaWarning>
+    </template>
     <template scope="trigger">
       <td>
         <v-switch v-model="trigger.enable"></v-switch>
@@ -55,11 +58,13 @@
   import TableListing from '@/components/layouts/TableListing'
   import PopupPageButton from '@/components/PopupPageButton'
   import NewTrigger from '@/components/triggers/Create'
+  import QuotaWarning from '@/components/QuotaWarning'
   export default {
     components: {
       TableListing,
       PopupPageButton,
-      NewTrigger
+      NewTrigger,
+      QuotaWarning
     },
     mixins: [
       withCurrentProject,
