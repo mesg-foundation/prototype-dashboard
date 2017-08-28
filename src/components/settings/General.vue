@@ -7,11 +7,6 @@
         </v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <label>
-          {{ $t('admin') }}
-          {{ currentProject.creator.email }}
-        </label>
-
         <v-text-field
           :label="$t('labels.name')"
           :value="currentProject.name"

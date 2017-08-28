@@ -6,7 +6,6 @@ mutation(
 ) {
   createProject(
     name: $name,
-    creatorId: $userId,
     usersIds: [
       $userId
     ]

@@ -16,7 +16,6 @@
       </template>
       <template scope="user">
         <td>{{ user.email }}</td>
-        <td>{{ $t(`role.${role(user)}`) }}</td>
         <td class="text-xs-right">
           <timeago :since="user.createdAt" :auto-update="10"></timeago>
         </td>
@@ -32,11 +31,7 @@
     invite: "Invite"
     header:
       email: "Email"
-      role: "Role"
       createdAt: "Created at"
-    role:
-      admin: "Admin"
-      other: "Developper"
 </i18n>
 
 <script>
@@ -68,14 +63,8 @@
       headers () {
         return [
           { text: this.$t('header.email'), align: 'left', sortable: false },
-          { text: this.$t('header.role'), align: 'left', sortable: false },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false }
         ]
-      }
-    },
-    methods: {
-      role (user) {
-        return user.id === this.currentProject.creator.id ? 'admin' : 'other'
       }
     }
   }

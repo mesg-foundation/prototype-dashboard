@@ -2,10 +2,6 @@ fragment projectFields on Project {
   id
   name
   createdAt
-  creator {
-    id
-    email
-  }
   _contractsMeta {
     count
   }

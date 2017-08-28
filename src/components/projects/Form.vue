@@ -69,8 +69,7 @@
       submit () {
         this.createProject({ variables: {
           name: this.name,
-          userId: this.currentUserId,
-          creatorId: this.currentUserId
+          userId: this.currentUserId
         }})
           .then(project => this.$emit('saved', project))
       }
