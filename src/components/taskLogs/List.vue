@@ -4,6 +4,9 @@
     :items="taskLogs"
     :title="$t('title')"
     :loading="loadingTaskLogs"
+    :pagination="taskLogsPagination"
+    :total="taskLogsTotal"
+    @pageChanged="taskLogsChangePage"
     searchable
     withMenu>
     <template slot="toolbar">
@@ -63,11 +66,15 @@
     },
     mixins: [
       item('event'),
-      collection('taskLogs', component => ({
-        eventId: component.id
-      }))
+      collection('taskLogs', { pagination: true })
     ],
     computed: {
+      taskLogsParams () {
+        return {
+          eventId: this.id,
+          ...this.taskLogsPagination
+        }
+      },
       headers () {
         return [
           { text: this.$t('header.code'), align: 'left', sortable: false, value: 'code' },

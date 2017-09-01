@@ -2,9 +2,13 @@
 
 query(
   $eventId: ID!
+  $first: Int
+  $skip: Int
 ) {
   allTaskLogs(
     orderBy: createdAt_DESC,
+    first: $first,
+    skip: $skip,
     filter: {
       event: {
         id: $eventId
@@ -12,5 +16,12 @@ query(
     }
   ) {
     ...taskLogsFields
+  }
+  _allTaskLogsMeta(filter: {
+    event: {
+      id: $eventId
+    }
+  }) {
+    count
   }
 }
