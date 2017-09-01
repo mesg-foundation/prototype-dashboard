@@ -4,6 +4,9 @@
     :items="invitations"
     :title="$t('title')"
     :loading="loadingInvitations"
+    :pagination="invitationsPagination"
+    :total="invitationsTotal"
+    @pageChanged="invitationsChangePage"
     transparent>
     <template scope="invitation">
       <td>
@@ -34,11 +37,15 @@
     },
     mixins: [
       withCurrentProject,
-      collection('invitations', component => ({
-        projectId: component.currentProjectId
-      }))
+      collection('invitations', { pagination: true })
     ],
     computed: {
+      invitationsParams () {
+        return {
+          projectId: this.currentProjectId,
+          ...this.invitationsPagination
+        }
+      },
       headers () {
         return [
           { text: this.$t('header.email'), align: 'left', sortable: false, value: 'email' },
