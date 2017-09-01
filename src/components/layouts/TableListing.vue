@@ -25,13 +25,23 @@
       :items="items"
       :loading="loading"
       :custom-sort="a => a"
-      hide-actions>
+      hideActions>
       <template slot="items" scope="props">
         <tr>
           <slot v-bind="props.item"></slot>
         </tr>
       </template>
     </v-data-table>
+    <v-layout
+      v-if="displayPagination"
+      justify-center align-center class="pa-3">
+      <v-pagination
+        :length="paginationLength"
+        :value="pagination.page"
+        @input="x => this.$emit('pageChanged', x)"
+        total-visible="3">
+      </v-pagination>
+    </v-layout>
   </v-card>
 </template>
 
@@ -74,11 +84,27 @@
       searchable: {
         type: Boolean,
         default: false
+      },
+      pagination: {
+        type: Object,
+        default: null
+      },
+      total: {
+        type: Number,
+        default: null
       }
     },
     data () {
       return {
         search: null
+      }
+    },
+    computed: {
+      displayPagination () {
+        return this.pagination && this.total && this.total >= this.pagination.itemPerPage
+      },
+      paginationLength () {
+        return Math.ceil(this.total / this.pagination.itemPerPage)
       }
     }
   }
