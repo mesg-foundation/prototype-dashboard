@@ -4,6 +4,9 @@
     :items="events"
     :title="title"
     :loading="loadingEvents"
+    :pagination="eventsPagination"
+    :total="eventsTotal"
+    @pageChanged="eventsChangePage"
     extended
     withMenu>
     <template v-if="trigger" slot="toolbar">
@@ -83,9 +86,7 @@
     },
     mixins: [
       item('trigger'),
-      collection('events', component => ({
-        triggerId: component.id
-      }))
+      collection('events', { pagination: true })
     ],
     props: {
       id: {
@@ -100,6 +101,12 @@
       }
     },
     computed: {
+      eventsParams () {
+        return {
+          triggerId: this.id,
+          ...this.eventsPagination
+        }
+      },
       title () {
         if (!this.trigger) { return '' }
         return [

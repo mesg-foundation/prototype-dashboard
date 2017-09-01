@@ -2,9 +2,13 @@
 
 query(
   $triggerId: ID!
+  $first: Int
+  $skip: Int
 ) {
   allEvents(
     orderBy: createdAt_DESC,
+    first: $first,
+    skip: $skip
     filter: {
       trigger: {
         id: $triggerId
@@ -12,5 +16,12 @@ query(
     }
   ) {
     ...eventFields
+  }
+  _allEventsMeta(filter: {
+    trigger: {
+      id: $triggerId
+    }
+  }) {
+    count
   }
 }
