@@ -6,6 +6,9 @@
       :items="users"
       :title="$t('title')"
       :loading="loadingUsers"
+      :pagination="usersPagination"
+      :total="usersTotal"
+      @pageChanged="usersChangePage"
       transparent>
       <template slot="toolbar">
         <PopupPageButton
@@ -53,9 +56,7 @@
     },
     mixins: [
       withCurrentProject,
-      collection('users', component => ({
-        projectId: component.currentProjectId
-      }))
+      collection('users', { pagination: true })
     ],
     data () {
       return {
@@ -63,6 +64,12 @@
       }
     },
     computed: {
+      usersParams () {
+        return {
+          projectId: this.currentProjectId,
+          ...this.usersPagination
+        }
+      },
       headers () {
         return [
           { text: this.$t('header.email'), align: 'left', sortable: false },

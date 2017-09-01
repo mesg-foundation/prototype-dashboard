@@ -2,9 +2,13 @@
 
 query(
   $projectId: ID!
+  $first: Int
+  $skip: Int
 ) {
   allUsers(
     orderBy: createdAt_DESC,
+    first: $first,
+    skip: $skip
     filter: {
       projects_some: {
         id: $projectId
@@ -12,5 +16,12 @@ query(
     }
   ) {
     ...userFields
+  }
+  _allUsersMeta(filter: {
+    projects_some: {
+      id: $projectId
+    }
+  }) {
+    count
   }
 }
