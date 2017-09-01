@@ -2,9 +2,13 @@
 
 query(
   $projectId: ID!
+  $first: Int
+  $skip: Int
 ) {
   allTriggers(
     orderBy: createdAt_DESC,
+    first: $first,
+    skip: $skip,
     filter: {
       project: {
         id: $projectId
@@ -12,5 +16,12 @@ query(
     }
   ) {
     ...triggerFields
+  }
+  _allTriggersMeta(filter: {
+    project: {
+      id: $projectId
+    }
+  }) {
+    count
   }
 }

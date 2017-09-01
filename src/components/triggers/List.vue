@@ -4,6 +4,9 @@
     :items="triggers"
     :title="$t('title')"
     :loading="loadingTriggers"
+    :pagination="triggersPagination"
+    :total="triggersTotal"
+    @pageChanged="triggersChangePage"
     searchable
     withMenu>
     <template slot="toolbar">
@@ -68,9 +71,7 @@
     },
     mixins: [
       withCurrentProject,
-      collection('triggers', component => ({
-        projectId: component.currentProjectId
-      }))
+      collection('triggers', { pagination: true })
     ],
     data () {
       return {
@@ -78,6 +79,12 @@
       }
     },
     computed: {
+      triggersParams () {
+        return {
+          projectId: this.currentProjectId,
+          ...this.triggersPagination
+        }
+      },
       headers () {
         return [
           { text: this.$t('header.enable'), align: 'left', sortable: false },
