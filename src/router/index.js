@@ -4,7 +4,6 @@ import RouteDelegate from './RouteDelegate'
 import Triggers from '@/components/triggers/List'
 import NewTrigger from '@/components/triggers/Create'
 import EditTrigger from '@/components/triggers/Edit'
-import Projects from '@/components/projects/List'
 import NewProject from '@/components/projects/Create'
 import Events from '@/components/events/List'
 import NewEvents from '@/components/events/Create'
@@ -113,12 +112,6 @@ export default new Router({
       component: RouteDelegate,
       meta: { auth: true },
       children: [
-        {
-          path: '',
-          name: 'Projects',
-          component: Projects,
-          meta: { project: true }
-        },
         {
           path: 'create',
           name: 'NewProject',
