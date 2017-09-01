@@ -7,9 +7,9 @@ const dataForUrl = data => Object.keys(data)
     return res
   }, {})
 
-const dataToUrlString = data => Object.keys(dataForUrl(data))
+const dataToUrlString = data => (data && Object.keys(dataForUrl(data))
   .map(e => [e, data[e]].join('='))
-  .join('&')
+  .join('&')) || 'default'
 
 const toHuman = str => [
   str[0].toUpperCase(),

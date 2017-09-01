@@ -14,8 +14,8 @@ const paginate = gqlConfig => ({
   ...gqlConfig,
   variables: {
     ...gqlConfig.variables,
-    first: gqlConfig.variables.rowsPerPage ? gqlConfig.variables.rowsPerPage : null,
-    skip: gqlConfig.variables.page ? gqlConfig.variables.rowsPerPage * (gqlConfig.variables.page - 1) : null
+    first: (gqlConfig.variables || {}).itemPerPage,
+    skip: (gqlConfig.variables || {}).itemPerPage * ((gqlConfig.variables || {}).page - 1)
   }
 })
 
@@ -28,10 +28,10 @@ const generateAction = (name, queries) => {
     ...methodQuery,
     ...gqlConfig
   }))
-    .then(({ data }) => data[resource])
-    .then(data => {
+    .then(({ data }) => [data[resource], (data[`_${resource}Meta`] || {}).count])
+    .then(([data, total]) => {
       if (Array.isArray(data)) {
-        commit('updateCollection', { variables: gqlConfig.variables, data })
+        commit('updateCollection', { variables: gqlConfig.variables, data, total })
       } else {
         if (!isDeletion(name)) {
           commit('replaceItem', { item: data })

@@ -47,11 +47,13 @@ const updateCollection = (state, collection) => (state.collectionById = {
   }, {})
 })
 
-const updateCollectionList = (state, key, collection) => {
+const updateCollectionList = (state, key, collection, total) => {
   state.collectionList = {
     ...state.collectionList,
-    [key]: collection
-      .map(x => x.id)
+    [key]: {
+      list: collection.map(x => x.id),
+      total
+    }
   }
 }
 
@@ -60,8 +62,8 @@ export default {
   updateItem: (state, { item }) => updateItem(state, item),
   replaceItem: (state, { item }) => replaceItem(state, item),
   deleteItem: (state, { id }) => deleteItem(state, id),
-  updateCollection: (state, { variables, data }) => {
+  updateCollection: (state, { variables, data, total }) => {
     updateCollection(state, data)
-    updateCollectionList(state, Utils.dataToUrlString(variables), data)
+    updateCollectionList(state, Utils.dataToUrlString(variables), data, total)
   }
 }
