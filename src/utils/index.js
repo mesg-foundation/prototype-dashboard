@@ -1,7 +1,7 @@
 const dataForUrl = data => Object.keys(data)
   .sort()
   .filter(e => data[e])
-  .filter(e => ['rowsPerPage', 'totalItems'].indexOf(e) < 0)
+  .filter(e => ['totalItems'].indexOf(e) < 0)
   .reduce((res, e) => {
     res[e] = data[e]
     return res
