@@ -4,6 +4,9 @@
     :items="contracts"
     :title="$t('title')"
     :loading="loadingContracts"
+    :pagination="contractsPagination"
+    :total="contractsTotal"
+    @pageChanged="contractsChangePage"
     searchable
     withMenu>
     <template slot="toolbar">
@@ -65,9 +68,7 @@
     },
     mixins: [
       withCurrentProject,
-      collection('contracts', component => ({
-        projectId: component.currentProjectId
-      }))
+      collection('contracts', { pagination: true })
     ],
     data () {
       return {
@@ -75,6 +76,12 @@
       }
     },
     computed: {
+      contractsParams () {
+        return {
+          projectId: this.currentProjectId,
+          ...this.contractsPagination
+        }
+      },
       headers () {
         return [
           { text: this.$t('header.name'), align: 'left', sortable: false, value: 'name' },

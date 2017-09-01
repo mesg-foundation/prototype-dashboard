@@ -18,6 +18,7 @@
     </v-toolbar>
     <v-divider></v-divider>
     <v-list two-line>
+      <!-- TODO: Add pagination -->
       <v-list-tile
         v-for="contract in contracts" :key="contract.id"
         @click.stop="select(contract)">
@@ -55,13 +56,19 @@
     },
     mixins: [
       withCurrentProject,
-      collection('contracts', component => ({
-        projectId: component.currentProjectId
-      }))
+      collection('contracts', { pagination: true })
     ],
     data () {
       return {
         form: false
+      }
+    },
+    computed: {
+      contractsParams () {
+        return {
+          projectId: this.currentProjectId,
+          ...this.contractsPagination
+        }
       }
     },
     watch: {
