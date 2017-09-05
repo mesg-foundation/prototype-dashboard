@@ -9,7 +9,7 @@
     <v-divider></v-divider>
     <codemirror
       :value="value"
-      @input="x => $emit(x)"
+      @input="x => $emit('input', x)"
       :options="options">
     </codemirror>
   </v-card>
