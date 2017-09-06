@@ -23,17 +23,11 @@
     },
     mounted () {
       const web3 = new Web3(new Web3.providers.HttpProvider(`https://${this.contract.chain.toLowerCase()}.infura.io`))
-      const contract = new web3.eth.Contract(
-        JSON.parse(JSON.stringify([this.value])),
-        this.contract.address
-      )
+      const contract = web3.eth
+        .contract(JSON.parse(JSON.stringify([this.value])))
+        .at(this.contract.address)
       try {
-        const method = contract.methods[this.value.name]()
-        if (method.arguments.length === 0) {
-          method.call()
-            .then(x => (this.result = x))
-            .catch(x => (this.result = '-'))
-        }
+        this.result = contract[this.value.name]()
       } catch (e) {
         this.result = '-'
       }
