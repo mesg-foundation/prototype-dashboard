@@ -26,6 +26,7 @@ const generateAction = (name, queries) => {
   const methodQuery = generateGraphQlMethodParams(name, queries[resource])
   return ({ commit }, gqlConfig = {}) => method(paginate({
     ...methodQuery,
+    fetchPolicy: 'network-only',
     ...gqlConfig
   }))
     .then(({ data }) => [data[resource], (data[`_${resource}Meta`] || {}).count])
