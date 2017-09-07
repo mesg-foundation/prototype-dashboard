@@ -26,6 +26,7 @@ export default (ws = null) => {
 
   const wsClient = new SubscriptionClient(process.env.GRAPHQL_SOCKET, {
     reconnect: true,
+    timeout: 30000, // See https://github.com/apollographql/subscriptions-transport-ws/issues/220
     connectionParams: () => ({
       Authorization: `Bearer ${Cookie.get(process.env.AUTH_COOKIE_NAME_TOKEN)}`
     })
