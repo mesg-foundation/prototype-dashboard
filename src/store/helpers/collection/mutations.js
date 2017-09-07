@@ -16,10 +16,13 @@ const createItem = (state, item) => {
     .forEach(({ key }) => {
       state.collectionList = {
         ...state.collectionList,
-        [key]: [
-          item.id,
-          ...state.collectionList[key]
-        ]
+        [key]: {
+          list: [
+            item.id,
+            ...state.collectionList[key].list
+          ],
+          total: state.collectionList[key].total + 1
+        }
       }
     })
 }

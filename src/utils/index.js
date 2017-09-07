@@ -18,18 +18,20 @@ const toHuman = str => [
 
 const conditionFromKey = key => ({
   key,
-  predicate: key.split('=')[0],
-  value: key.split('=')[1]
+  conditions: key.split('&').map(x => ({
+    predicate: x.split('=')[0],
+    value: x.split('=')[1]
+  }))
 })
 
-const testItem = item => ({ predicate, value }) => {
+const testItem = item => ({ key, conditions }) => conditions.some(({ predicate, value }) => {
   if (!predicate) { return false }
   if (predicate.endsWith('Id')) {
     const entity = predicate.match(/^(.*)Id$/)[1]
     if (item[entity] && item[entity].id === value) { return true }
   }
   return item[predicate] === value
-}
+})
 
 export default {
   dataForUrl,
