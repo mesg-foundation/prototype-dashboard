@@ -34,7 +34,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/triggers'
+      redirect: '/contracts'
     },
     {
       path: '/triggers',
