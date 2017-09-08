@@ -8,6 +8,5 @@ module.exports = {
   CHAINS: JSON.stringify([
     { key: 'KOVAN', name: 'Kovan' },
     { key: 'MAINNET', name: 'Mainnet' },
-  ]),
-  HEADER_SECRET_KEY: '"X-ETHHOOK-SECRET"'
+  ])
 }
