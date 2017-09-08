@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <form @submit.prevent="submit()">
+    <form novalidate @submit.prevent="submit()">
       <v-toolbar card class="secondary">
         <MenuToggle></MenuToggle>
         <v-toolbar-title class="headline">{{ title || $t('title') }}</v-toolbar-title>
@@ -54,7 +54,6 @@
         </v-btn>
         <v-btn
           primary dark block
-          :disabled="!isValid"
           type="submit">
           {{ submitLabel || $t('submit') }}
         </v-btn>
@@ -159,6 +158,7 @@
       }),
       submit () {
         const method = this.contract.id ? this.update : this.create
+        if (!this.validate()) { return }
         method({ variables: {
           id: this.contract.id,
           projectId: this.currentProjectId,

@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <form @submit.prevent="submit()">
+    <form novalidate @submit.prevent="submit()">
       <v-toolbar card class="secondary">
         <MenuToggle></MenuToggle>
         <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
@@ -19,7 +19,6 @@
       <v-card-actions>
         <v-btn
           primary dark
-          :disabled="!isValid"
           type="submit">
           {{ $t('submit') }}
         </v-btn>
@@ -67,6 +66,7 @@
         createProject: 'projects/createAndSelect'
       }),
       submit () {
+        if (!this.validate()) { return }
         this.createProject({ variables: {
           name: this.name,
           userId: this.currentUserId

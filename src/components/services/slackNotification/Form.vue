@@ -4,6 +4,7 @@
       {{ $t('title') }}
     </v-card-title>
     <v-card-text>
+      <slot name="errors"></slot>
       <v-text-field
         :label="$t('labels.webhookUrl')"
         v-model="webhookUrl"

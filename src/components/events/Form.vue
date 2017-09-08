@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <form @submit.prevent="submit()">
+    <form novalidate @submit.prevent="submit()">
       <v-toolbar card class="secondary">
         <MenuToggle></MenuToggle>
         <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
@@ -19,7 +19,6 @@
       <v-card-actions>
         <v-btn
           primary dark block
-          :disabled="!isValid"
           type="submit">
           {{ $t('submit') }}
         </v-btn>
@@ -78,6 +77,7 @@
         return event.inputs
       },
       submit () {
+        if (!this.validate()) { return }
         this.createEvent({ variables: {
           triggerId: this.trigger.id,
           payload: this.payload,

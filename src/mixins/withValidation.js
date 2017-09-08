@@ -13,8 +13,11 @@ const errorLabels = {
 
 export default {
   computed: {
-    errors () {
+    validableFields () {
       return Object.keys(this.$v.$params)
+    },
+    errors () {
+      return this.validableFields
         .filter(x => this.$v[x].$dirty)
         .reduce((acc, x) => ({
           ...acc,
@@ -30,6 +33,11 @@ export default {
     }
   },
   methods: {
+    validate () {
+      this.validableFields
+        .forEach(x => this.$v[x].$touch())
+      return this.isValid
+    },
     errorsFor (key) {
       return Object
         .keys(this.$v[key].$params)

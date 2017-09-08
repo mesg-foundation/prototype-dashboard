@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <form @submit.prevent="submit()">
+    <form novalidate @submit.prevent="submit()">
       <v-toolbar card class="secondary">
         <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
       </v-toolbar>
@@ -19,7 +19,6 @@
       <v-card-actions>
         <v-btn
           primary dark block
-          :disabled="!isValid"
           type="submit">
           {{ $t('submit') }}
         </v-btn>
@@ -62,6 +61,7 @@
         create: 'invitations/create'
       }),
       submit () {
+        if (!this.validate()) { return }
         this.create({ variables: {
           email: this.email,
           projectId: this.currentProjectId

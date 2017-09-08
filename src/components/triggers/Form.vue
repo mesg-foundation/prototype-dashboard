@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit()">
+  <form novalidate @submit.prevent="submit()">
     <v-card flat>
       <TriggerFormHeader
         :trigger="trigger">
@@ -10,6 +10,7 @@
         <EventSelector
           :label="$t('labels.event')"
           :contract="contract"
+          :error-messages="errors.eventName"
           v-model="eventName"
           @input="$v.eventName.$touch()"
           required>
@@ -29,6 +30,7 @@
             </Service>
           </v-flex>
         </v-layout>
+        <span v-if="errors.serviceId" class="error--text">{{ errors.serviceId[0] }}</span>
 
         <component
           v-if="serviceForm"
@@ -36,6 +38,7 @@
           :service="selectedService"
           v-model="serviceData"
           @input="$v.serviceData.$touch()">
+          <span slot="errors" v-if="errors.serviceData" class="error--text">{{ errors.serviceData[0] }}</span>
         </component>
 
       </v-card-text>
@@ -48,7 +51,6 @@
         </v-btn>
         <v-btn
           primary dark block
-          :disabled="!isValid"
           type="submit">
           {{ $t('submit') }}
         </v-btn>
@@ -150,6 +152,7 @@
       }),
       submit () {
         const method = (this.trigger || {}).id ? 'updateTrigger' : 'createTrigger'
+        if (!this.validate()) { return }
         this[method]({ variables: {
           id: (this.trigger || {}).id,
           eventName: this.eventName,
