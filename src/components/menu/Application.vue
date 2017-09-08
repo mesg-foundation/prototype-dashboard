@@ -63,6 +63,13 @@
         </v-list-tile-action>
       </v-list-tile>
     </v-list>
+    <v-bottom-nav :value="true">
+      <v-btn dark block target="_blank"
+        href="mailto:incoming+etherstellar/support@gitlab.com">
+        <span>{{ $t('contact') }}</span>
+        <v-icon>mail_outline</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-navigation-drawer>
 </template>
 
@@ -70,6 +77,7 @@
   en:
     members: "Members"
     settings: "Settings"
+    contact: "Contact us / Report a bug"
     menu:
       triggers: "Triggers"
       contracts: "Contracts"
