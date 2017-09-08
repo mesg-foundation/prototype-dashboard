@@ -8,10 +8,10 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items v-if="trigger">
-      <v-switch
+      <TriggerSwitch
         class="mr-3"
-        v-model="enable">
-      </v-switch>
+        :trigger="trigger">
+      </TriggerSwitch>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -23,34 +23,18 @@
 </i18n>
 
 <script>
-  import { mapActions } from 'vuex'
   import MenuToggle from '@/components/MenuToggle'
+  import TriggerSwitch from '@/components/triggers/Switch'
   export default {
     components: {
-      MenuToggle
+      MenuToggle,
+      TriggerSwitch
     },
     props: {
       trigger: {
         type: Object,
         default: null
       }
-    },
-    data () {
-      return {
-        enable: this.trigger ? this.trigger.enable : false
-      }
-    },
-    watch: {
-      enable () {
-        if (!this.trigger) { return }
-        this.updateTrigger({ variables: {
-          id: this.trigger.id,
-          enable: this.enable
-        }})
-      }
-    },
-    methods: mapActions({
-      updateTrigger: 'triggers/update'
-    })
+    }
   }
 </script>

@@ -23,7 +23,7 @@
     </template>
     <template scope="trigger">
       <td>
-        <v-switch v-model="trigger.enable"></v-switch>
+        <TriggerSwitch :trigger="trigger"></TriggerSwitch>
       </td>
       <td>
         <router-link :to="{ name: 'Trigger', params: trigger }">
@@ -61,13 +61,15 @@
   import TableListing from '@/components/layouts/TableListing'
   import PopupPageButton from '@/components/PopupPageButton'
   import NewTrigger from '@/components/triggers/Create'
+  import TriggerSwitch from '@/components/triggers/Switch'
   import QuotaWarning from '@/components/QuotaWarning'
   export default {
     components: {
       TableListing,
       PopupPageButton,
       NewTrigger,
-      QuotaWarning
+      QuotaWarning,
+      TriggerSwitch
     },
     mixins: [
       withCurrentProject,
