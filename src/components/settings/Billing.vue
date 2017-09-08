@@ -10,14 +10,14 @@
           <Date :value="quotaLimitTo"></Date>
         )
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <PopupPageButton
+      <!--<v-spacer></v-spacer>
+       <PopupPageButton
         success dark
         :modalWidth="1024"
         :title="$t('upgrade')"
         :to="{ name: 'Plans' }">
         <PlansList></PlansList>
-      </PopupPageButton>
+      </PopupPageButton>-->
     </v-toolbar>
     <v-card-text>
       <Quotas
