@@ -40,11 +40,14 @@ export default {
     ...mapGetters({
       quotas: 'session/quotas'
     }),
+    currentQuota () {
+      return this.quotas[this.feature]
+    },
     reached () {
-      return this.quotas[this.feature].reached
+      return this.currentQuota.reached
     },
     almost () {
-      return this.quotas[this.feature].percent >= this.warningLimit
+      return this.currentQuota.percent >= this.warningLimit
     }
   }
 }

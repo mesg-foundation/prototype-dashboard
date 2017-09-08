@@ -10,9 +10,7 @@ export default {
     currentUser: null,
     currentProjectId: Cookie.get(process.env.AUTH_COOKIE_NAME_PROJECT),
     token: Cookie.get(process.env.AUTH_COOKIE_NAME_TOKEN),
-    quotas: {
-
-    }
+    quotas: {}
   },
   mutations: {
     setCurrentProjectId: (state, projectId) => {
