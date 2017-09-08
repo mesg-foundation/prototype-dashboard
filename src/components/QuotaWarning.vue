@@ -44,10 +44,14 @@ export default {
       return this.quotas[this.feature]
     },
     reached () {
-      return this.currentQuota.reached
+      return false
+      // TODO
+      // return this.currentQuota.reached
     },
     almost () {
-      return this.currentQuota.percent >= this.warningLimit
+      return false
+      // TODO
+      // return this.currentQuota.percent >= this.warningLimit
     }
   }
 }
