@@ -8,12 +8,17 @@
         {{ result }}
       </v-list-tile-sub-title>
     </v-list-tile-content>
+    <v-list-tile-action>
+      <v-btn icon @click.stop="refresh()">
+        <v-icon>cached</v-icon>
+      </v-btn>
+    </v-list-tile-action>
   </v-list-tile>
 </template>
 
 <script>
-  import Web3 from 'web3'
   import abiView from '@/mixins/abiView'
+  import Blockchain from '@/blockchain'
   export default {
     mixins: [abiView],
     data () {
@@ -21,16 +26,21 @@
         result: 'loading...'
       }
     },
-    mounted () {
-      const web3 = new Web3(new Web3.providers.HttpProvider(`https://${this.contract.chain.toLowerCase()}.infura.io`))
-      const contract = web3.eth
-        .contract(JSON.parse(JSON.stringify([this.value])))
-        .at(this.contract.address)
-      try {
-        this.result = contract[this.value.name]()
-      } catch (e) {
-        this.result = '-'
+    methods: {
+      refresh () {
+        this.result = 'loading...'
+        Blockchain.contract({
+          chain: this.contract.chain,
+          address: this.contract.address,
+          abi: [this.value]
+        })
+          .then(Blockchain.constant(this.value.name))
+          .then(x => (this.result = x))
+          .catch(x => (this.result = '-'))
       }
+    },
+    mounted () {
+      this.refresh()
     }
   }
 </script>
