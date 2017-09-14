@@ -85,7 +85,6 @@
     maxLength,
     alphaNum,
     jsonValid,
-    withEvents,
     validEvents
   } from '@/validators'
   import abi from '@/mixins/abi'
@@ -147,7 +146,6 @@
       abi: {
         required,
         jsonValid,
-        withEvents,
         validEvents
       }
     },
