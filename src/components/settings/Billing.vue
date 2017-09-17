@@ -56,6 +56,11 @@
       withCurrentProject,
       item('plan', component => component.currentProject.plan.id)
     ],
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     data () {
       return {
         plansModal: false

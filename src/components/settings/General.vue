@@ -58,6 +58,11 @@
         name: null
       }
     },
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     methods: {
       ...mapActions({
         updateProject: 'projects/update',

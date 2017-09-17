@@ -63,6 +63,11 @@
         popup: false
       }
     },
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     computed: {
       usersParams () {
         return {

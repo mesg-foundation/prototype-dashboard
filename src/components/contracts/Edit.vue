@@ -27,6 +27,11 @@
         required: true
       }
     },
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     methods: {
       contractSaved (contract) {
         this.$router.push({ name: 'Contract', params: { id: contract.id } })

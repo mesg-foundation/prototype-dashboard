@@ -58,6 +58,11 @@
         password: null
       }
     },
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     methods: {
       ...mapActions({
         createUser: 'session/createUser'

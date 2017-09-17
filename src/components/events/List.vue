@@ -59,6 +59,7 @@
 
 <i18n>
   en:
+    title: "Trigger {eventName}"
     test: "Test"
     update: "Update"
     header:
@@ -92,6 +93,11 @@
       id: {
         type: String,
         required: true
+      }
+    },
+    metaInfo () {
+      return {
+        title: this.$t('title', this.trigger)
       }
     },
     data () {

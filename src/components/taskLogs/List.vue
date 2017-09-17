@@ -68,6 +68,11 @@
       item('event'),
       collection('taskLogs', { pagination: true })
     ],
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     computed: {
       taskLogsParams () {
         return {
