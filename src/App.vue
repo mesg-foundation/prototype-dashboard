@@ -9,7 +9,7 @@
       </main>
     </template>
     <template v-else>
-      <FullHeightCenter class="primary">
+      <FullHeightCenter class="full-page">
         <router-view></router-view>
       </FullHeightCenter>
     </template>
@@ -35,4 +35,8 @@
 
 <style lang="stylus">
   @import './main'
+
+  .full-page {
+    background-color: $material-dark.cards;
+  }
 </style>
