@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
+import Meta from 'vue-meta'
 import App from './App'
 import router from './router'
 import { loggedIn, withProject } from './router/guards'
@@ -9,6 +10,7 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+Vue.use(Meta)
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 

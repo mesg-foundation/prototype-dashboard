@@ -75,6 +75,11 @@
       withCurrentProject,
       collection('triggers', { pagination: true })
     ],
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     data () {
       return {
         popup: false

@@ -6,6 +6,11 @@
   </EventForm>
 </template>
 
+<i18n>
+  en:
+    title: "Test trigger"
+</i18n>
+
 <script>
   import item from '@/mixins/item'
   import EventForm from '@/components/events/Form'
@@ -20,6 +25,11 @@
       triggerId: {
         type: String,
         required: true
+      }
+    },
+    metaInfo () {
+      return {
+        title: this.$t('title')
       }
     },
     methods: {

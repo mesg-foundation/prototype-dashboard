@@ -46,6 +46,7 @@
 
 <i18n>
   en:
+    title: "{name}"
     update: "Update"
     edit: "Edit contract"
     labels:
@@ -75,6 +76,11 @@
       id: {
         type: String,
         required: true
+      }
+    },
+    metaInfo () {
+      return {
+        title: this.$t('title', this.contract)
       }
     },
     data () {

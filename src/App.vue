@@ -27,6 +27,11 @@
       FullHeightCenter
     },
     mixins: [withCurrentProject],
+    metaInfo () {
+      return {
+        titleTemplate: '%s - Etherstellar'
+      }
+    },
     computed: mapGetters({
       connected: 'session/connected'
     })

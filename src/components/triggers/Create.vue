@@ -13,6 +13,11 @@
   </ContractSelection>
 </template>
 
+<i18n>
+  en:
+    title: "New Trigger"
+</i18n>
+
 <script>
   import { mapActions, mapGetters } from 'vuex'
   import ContractSelection from '@/components/contracts/Selector'
@@ -30,6 +35,11 @@
       event: {
         type: String,
         default: null
+      }
+    },
+    metaInfo () {
+      return {
+        title: this.$t('title')
       }
     },
     data () {

@@ -29,6 +29,11 @@
         required: true
       }
     },
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     methods: {
       triggerSaved (trigger) {
         this.$router.push({ name: 'Trigger', params: { id: trigger.id } })

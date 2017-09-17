@@ -53,6 +53,11 @@
     mixins: [
       collection('plans')
     ],
+    metaInfo () {
+      return {
+        title: this.$t('title')
+      }
+    },
     computed: {
       payedPlans () {
         return this.plans.filter(x => x.price > 0)
