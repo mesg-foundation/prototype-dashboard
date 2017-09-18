@@ -43,6 +43,18 @@
           </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-list-tile
+        :to="{ name: 'Logout' }"
+        v-if="showProjects">
+        <v-list-tile-action>
+          <v-icon dark>exit_to_app</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>
+            {{ $t('logout') }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
     <v-divider></v-divider>
     <ProjectsMenu v-if="showProjects"></ProjectsMenu>
@@ -77,6 +89,7 @@
   en:
     members: "Members"
     settings: "Settings"
+    logout: "Logout"
     contact: "Contact us / Report a bug"
     menu:
       triggers: "Triggers"

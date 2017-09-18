@@ -14,14 +14,18 @@ export default {
   },
   mutations: {
     setCurrentProjectId: (state, projectId) => {
-      Cookie.set(process.env.AUTH_COOKIE_NAME_PROJECT, projectId)
+      projectId
+        ? Cookie.set(process.env.AUTH_COOKIE_NAME_PROJECT, projectId)
+        : Cookie.remove(process.env.AUTH_COOKIE_NAME_PROJECT)
       state.currentProjectId = projectId
     },
     setCurrentUser: (state, user) => {
       state.currentUser = user
     },
     setToken: (state, token) => {
-      Cookie.set(process.env.AUTH_COOKIE_NAME_TOKEN, token)
+      token
+        ? Cookie.set(process.env.AUTH_COOKIE_NAME_TOKEN, token)
+        : Cookie.remove(process.env.AUTH_COOKIE_NAME_TOKEN)
       state.token = token
     },
     updateQuotas: (state, quotasResponse) => {

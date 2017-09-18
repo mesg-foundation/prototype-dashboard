@@ -19,6 +19,7 @@ import SettingsGeneral from '@/components/settings/General'
 import SettingsTeam from '@/components/settings/Team'
 import SettingsBilling from '@/components/settings/Billing'
 import Plans from '@/components/plans/List'
+import Logout from '@/components/Logout'
 
 Vue.use(Router)
 
@@ -145,6 +146,12 @@ export default new Router({
           component: SettingsBilling
         }
       ]
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout,
+      meta: { auth: true }
     },
     {
       path: '/login',
