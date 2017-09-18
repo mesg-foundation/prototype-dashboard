@@ -8,7 +8,7 @@
 export default {
   mounted () {
     this.$store.dispatch('session/logout')
-      .then(_ => this.$router.go('/'))
+    this.$router.go('/')
   }
 }
 </script>
