@@ -20,10 +20,17 @@
             type="password"
             required>
           </v-text-field>
+
+          <span
+            v-for="error in errors" :key="error.requestId"
+            class="caption error--text">
+            {{ error.message }}
+          </span>
         </v-card-text>
         <v-card-actions>
           <v-btn
             primary dark block
+            :loading="loading"
             type="submit">
             {{ $t('submit') }}
           </v-btn>
@@ -51,11 +58,16 @@
 
 <script>
   import { mapActions } from 'vuex'
+  import loading from '@/mixins/loading'
   export default {
+    mixins: [
+      loading()
+    ],
     data () {
       return {
         email: null,
-        password: null
+        password: null,
+        errors: []
       }
     },
     metaInfo () {
@@ -68,11 +80,12 @@
         createUser: 'session/createUser'
       }),
       submit () {
-        this.createUser({ variables: {
+        this.commitLoading(() => this.createUser({ variables: {
           email: this.email,
           password: this.password
-        }})
+        }}))
           .then(_ => this.$router.replace({ path: this.$route.query.redirect || '/' }))
+          .catch(x => (this.errors = x.graphQLErrors))
       }
     }
   }
