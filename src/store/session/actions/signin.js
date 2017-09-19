@@ -7,5 +7,5 @@ export default ({ commit, dispatch }, gqlConfig) => client()
     fetchPolicy: 'network-only',
     ...gqlConfig
   })
-  .then(({ data }) => commit('setToken', data.signinUser.token))
+  .then(({ data }) => commit('setToken', data.authenticateUser.token))
   .then(_ => dispatch('refresh'))

@@ -7,8 +7,8 @@ export default ({ commit, dispatch, getters }) => client()
     fetchPolicy: 'network-only'
   })
   .then(({ data }) => {
-    commit('setCurrentUser', data.user)
-    return data.user
+    commit('setCurrentUser', data.loggedInUser)
+    return data.loggedInUser
   })
   .then(user => {
     if (!user) { return [[], null] }
@@ -18,7 +18,7 @@ export default ({ commit, dispatch, getters }) => client()
       dispatch('plans/subscribes', {}, { root: true })
     ])
   })
-  .then(([projects, subscriptions]) => {
+  .then(([projects, ...subscriptions]) => {
     const project = [
       ...projects.filter(x => x.id === getters.currentProjectId),
       ...projects
