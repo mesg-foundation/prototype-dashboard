@@ -71,7 +71,9 @@
           name: this.name,
           userId: this.currentUserId
         }})
-          .then(project => this.$emit('saved', project))
+          .then(project => {
+            this.$router.push({ path: '/' })
+          })
       }
     }
   }
