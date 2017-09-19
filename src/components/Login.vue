@@ -24,7 +24,7 @@
           <span
             v-for="error in errors" :key="error.requestId"
             class="caption error--text">
-            {{ error.message }}
+            {{ error.functionError || error.message }}
           </span>
         </v-card-text>
         <v-card-actions>

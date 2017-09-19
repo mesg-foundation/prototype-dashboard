@@ -38,15 +38,15 @@ export default {
       state.quotas = {
         members: setQuota(
           quotasResponse.Project._usersMeta.count,
-          quotasResponse.Project.plan.members
+          (quotasResponse.Project.plan || {}).members
         ),
         executions: setQuota(
           quotasResponse._allTaskLogsMeta.count,
-          quotasResponse.Project.plan.executions
+          (quotasResponse.Project.plan || {}).executions
         ),
         contracts: setQuota(
           quotasResponse.Project._contractsMeta.count,
-          quotasResponse.Project.plan.contracts
+          (quotasResponse.Project.plan || {}).contracts
         )
       }
     }
