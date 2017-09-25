@@ -47,12 +47,6 @@
       </v-card-text>
       <v-card-actions>
         <v-btn
-          v-if="cancelable"
-          light flat block
-          @click.stop="$emit('cancel')">
-          {{ $t('cancel') }}
-        </v-btn>
-        <v-btn
           primary dark block
           type="submit">
           {{ submitLabel || $t('submit') }}
@@ -114,10 +108,6 @@
       submitLabel: {
         type: String,
         default: null
-      },
-      cancelable: {
-        type: Boolean,
-        default: false
       }
     },
     data () {

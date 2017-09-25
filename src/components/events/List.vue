@@ -17,7 +17,6 @@
         v-model="formModal">
         <TriggerForm
           :trigger="trigger"
-          :contract="trigger.contract"
           @saved="closeFormModal()">
         </TriggerForm>
       </PopupPageButton>
@@ -59,7 +58,7 @@
 
 <i18n>
   en:
-    title: "Trigger {eventName}"
+    title: "Trigger"
     test: "Test"
     update: "Update"
     header:

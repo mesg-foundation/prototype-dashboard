@@ -8,5 +8,8 @@ module.exports = {
   CHAINS: JSON.stringify([
     { key: 'KOVAN', name: 'Kovan' },
     { key: 'MAINNET', name: 'Mainnet' },
+  ]),
+  CONNECTORS: JSON.stringify([
+    'ethereumContract'
   ])
 }

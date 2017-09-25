@@ -1,14 +1,8 @@
-#import "@/graphql/contracts/schema.graphql"
-
 fragment triggerFields on Trigger {
   id
-  eventName
   enable,
   createdAt
   serviceData
-  contract {
-    ...contractFields
-  }
   service {
     id
     name

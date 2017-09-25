@@ -107,10 +107,6 @@
           key: 'chain',
           title: this.$t('labels.chain'),
           value: this.contract.chain.toLowerCase()
-        }, {
-          key: 'triggers',
-          title: this.$t('labels.triggers'),
-          value: this.contract._triggersMeta.count
         }]
       }
     }

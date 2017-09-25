@@ -2,12 +2,12 @@
   <v-toolbar card class="secondary">
     <MenuToggle></MenuToggle>
     <v-toolbar-title class="headline">
-      {{ trigger ? $t('update') : $t('title') }}
+      {{ canUpdate ? $t('update') : $t('title') }}
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
-    <v-toolbar-items v-if="trigger">
+    <v-toolbar-items v-if="canUpdate">
       <TriggerSwitch
         class="mr-3"
         :trigger="trigger">
@@ -33,8 +33,11 @@
     props: {
       trigger: {
         type: Object,
-        default: null
+        default: () => ({})
       }
+    },
+    computed: {
+      canUpdate () { return !!this.trigger.id }
     }
   }
 </script>

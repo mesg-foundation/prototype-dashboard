@@ -30,12 +30,6 @@
           {{ trigger.service.name }}
         </router-link>
       </td>
-      <td>
-        <router-link :to="{ name: 'Contract', params: trigger.contract }">
-          {{ trigger.contract.name }}
-        </router-link>
-      </td>
-      <td>{{ trigger.eventName }}</td>
       <td class="text-xs-right">
         <timeago :since="trigger.createdAt" :auto-update="10"></timeago>
       </td>
@@ -51,7 +45,6 @@
       enable: " "
       service: "Service"
       contractName: "Contract"
-      eventName: "Event Name"
       createdAt: "Created at"
 </i18n>
 
@@ -96,8 +89,6 @@
         return [
           { text: this.$t('header.enable'), align: 'left', sortable: false },
           { text: this.$t('header.service'), align: 'left', sortable: false, value: 'service.name' },
-          { text: this.$t('header.contractName'), align: 'left', sortable: false, value: 'contract.name' },
-          { text: this.$t('header.eventName'), align: 'left', sortable: false, value: 'eventName' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
         ]
       }
