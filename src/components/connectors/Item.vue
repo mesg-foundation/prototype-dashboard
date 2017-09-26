@@ -1,15 +1,13 @@
 <template>
   <v-card
     :class="{ 'blue': isSelected, 'lighten-5': isSelected }">
-    <v-card-title class="headline">
-      {{ contract.name }}
-      -
-      {{ contract.chain }}
+    <img :src="connector.picture" :alt="connector.name">
+    <v-card-title justify-center>
+      <div class="headline text-xs-center">
+        {{ connector.name }}
+      </div>
     </v-card-title>
-    <v-card-text style="min-height:100px">
-      <span class="caption">{{ contract.address }}</span>
-      <div v-html="contract.description"></div>
-    </v-card-text>
+    <v-card-text style="min-height:100px" v-html="connector.description"></v-card-text>
     <v-card-actions>
       <v-btn block flat primary @click.stop="select">
         <v-icon
@@ -26,7 +24,7 @@
 
 <i18n>
   en:
-    select: "Connect this contract"
+    select: "Use this connector"
     selected: "Selected"
 </i18n>
 
@@ -37,19 +35,19 @@
       input
     ],
     props: {
-      contract: {
+      connector: {
         type: Object,
         required: true
       }
     },
     computed: {
       isSelected () {
-        return this.value === this.contract.id
+        return this.value === this.connector.id
       }
     },
     methods: {
       select () {
-        this.$emit('input', this.contract.id)
+        this.$emit('input', this.connector.id)
       }
     }
   }
@@ -58,6 +56,15 @@
 <style scoped>
   .card {
     text-align: center;
-    width: 320px;
+  }
+
+  .card__title {
+    justify-content: center;
+  }
+
+  img {
+    max-width: 80%;
+    margin: 1.5em;
+    height: 3em;
   }
 </style>

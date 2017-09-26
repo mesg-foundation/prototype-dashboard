@@ -12,7 +12,15 @@
             <v-card slot="activator" hover class="selector">
               <v-layout column align-center justify-center>
                 <span class="headline">{{ $t('when') }}</span>
-                <v-icon x-large class="ma-4">schedule</v-icon>
+                <v-card-text
+                  v-if="connector && connector.connectorType"
+                  class="text-xs-center">
+                  <component
+                    :is="connector[connector.connectorType].component"
+                    :config="connector[connector.connectorType]">
+                  </component>
+                </v-card-text>
+                <v-icon v-else x-large class="ma-4">schedule</v-icon>
               </v-layout>
             </v-card>
             <ConnectorSelector
@@ -26,6 +34,9 @@
               <v-layout column align-center justify-center>
                 <span class="headline">{{ $t('then') }}</span>
                 <v-icon x-large class="ma-4">extension</v-icon>
+                <v-card-text class="text-xs-center">
+                  {{ action }}
+                </v-card-text>
               </v-layout>
             </v-card>
             <ActionSelector

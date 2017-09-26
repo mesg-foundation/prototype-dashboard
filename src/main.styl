@@ -33,6 +33,16 @@ table.table tbody td {
   justify-content: center;
 }
 
+.stepper__header {
+  border-bottom: solid 1px $material-twelve-percent-dark;
+  box-shadow: none;
+}
+
+.stepper__content {
+  height: calc(100% - 73px); // 73 => 72 (size of the .stepper__header) + 1 (size of the border)
+  overflow: scroll;
+}
+
 @media $display-breakpoints.md-and-up {
   .toolbar__side-icon {
     display: none;
@@ -43,4 +53,9 @@ table.table tbody td {
 .dialog > .card > .scrollable {
   height: 500px;
   overflow: scroll;
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

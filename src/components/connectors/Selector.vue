@@ -27,14 +27,18 @@
         <v-divider></v-divider>
       </v-stepper-header>
       <v-stepper-content step="1">
-        <p>{{ $t('connectorText') }}</p>
-        <v-select
-          :items="connectors"
-          v-model="connectorType"
-          @input="step = '2'">
-        </v-select>
+        <v-layout row wrap justify-center align-center>
+          <Connector
+            v-for="connector in connectors" :key="connector.id"
+            class="ma-2 connector-item"
+            :connector="connector"
+            v-model="connectorType"
+            @input="step = '2'">
+          </Connector>
+          </v-flex>
+        </v-layout>
       </v-stepper-content>
-      <v-stepper-content step="2">
+      <v-stepper-content step="2" class="pa-0">
         <component
           v-if="connectorComponent"
           :value="currentData"
@@ -59,15 +63,15 @@
     title: "Select a connector"
     connector: "Choose your connector"
     configuration: "Configure your connector"
-    connectorText: "The connector will connect an event from the blockchain of your choice"
     submit: "Select this connector"
-    connectors:
-      ethereumContract: "Ethereum Contract"
 </i18n>
 
 <script>
-import { camel } from 'change-case'
+import Connector from './Item'
 export default {
+  components: {
+    Connector
+  },
   props: {
     value: {
       type: Object,
@@ -78,43 +82,45 @@ export default {
     return {
       step: '1',
       connectorType: null,
-      ethereumContract: {
-        contractId: null,
-        eventName: null
-      }
+      connectorData: process.env.CONNECTORS.reduce((acc, connector) => ({
+        ...acc,
+        [connector.id]: {}
+      }), {})
     }
   },
   computed: {
     connectors () {
       return process.env.CONNECTORS
-        .map(value => ({
-          text: this.$t(`connectors.${value}`),
-          value: value
-        }))
-    },
-    fieldName () {
-      return camel(this.connectorType)
     },
     currentData () {
-      return this.$data[this.fieldName]
+      return this.connectorData[this.connectorType]
     },
     connectorComponent () {
       if (!this.connectorType) { return null }
       return {
-        ethereumContract: () => import('@/components/connectors/ethereumContract/Form')
-      }[this.fieldName]
+        ethereumContract: () => import('@/components/connectors/ethereumContract/Form'),
+        ethereumTransaction: () => import('@/components/connectors/ethereumTransaction/Form'),
+        bitcoinTransaction: () => import('@/components/connectors/bitcoinTransaction/Form')
+      }[this.connectorType]
     }
   },
   methods: {
     updateCurrentData (data) {
-      this.$data[this.fieldName] = { ...data }
+      this.connectorData[this.connectorType] = { ...data }
     },
     submit () {
       this.$emit('input', {
         connectorType: this.connectorType,
-        [this.fieldName]: this.currentData
+        [this.connectorType]: this.currentData
       })
     }
   }
 }
 </script>
+
+<style scoped>
+  .connector-item {
+    text-align: center;
+    width: 320px;
+  }
+</style>

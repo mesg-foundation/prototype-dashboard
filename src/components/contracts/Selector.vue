@@ -1,23 +1,25 @@
 <template>
-  <v-layout row wrap justify-center align-center>
-    <Contract
+  <v-list two-line>
+    <v-list-tile
       v-for="contract in contracts" :key="contract.id"
-      class="ma-2"
-      :contract="contract"
-      v-model="contractId"
-      @input="submit(contract)">
-    </Contract>
-  </v-layout>
+      @click.stop="submit(contract)">
+      <v-list-tile-content>
+        <v-list-tile-title>
+          {{ contract.name }}
+          <span class="caption"> - {{ contract.chain }}</span>
+        </v-list-tile-title>
+        <v-list-tile-sub-title>
+          {{ contract.address }}
+        </v-list-tile-sub-title>
+      </v-list-tile-content>
+    </v-list-tile>
+  </v-list>
 </template>
 
 <script>
   import withCurrentProject from '@/mixins/withCurrentProject'
   import collection from '@/mixins/collection'
-  import Contract from '@/components/contracts/Card'
   export default {
-    components: {
-      Contract
-    },
     mixins: [
       withCurrentProject,
       collection('contracts', { pagination: true })

@@ -1,12 +1,12 @@
 <template>
   <div>
     <ContractSelector
-      class="mt-3 mb-3"
-      @selected="contractSelected">
+      v-if="!contract"
+      @selected="x => contract = x">
     </ContractSelector>
 
-    <v-card ref="event" flat height="450px" class="mt-5">
-      <template v-if="contract">
+    <v-card flat v-else>
+      <v-card-text>
         <p>{{ $t('selectEventText') }}</p>
         <EventSelector
           v-if="contract"
@@ -15,21 +15,26 @@
           v-model="eventName"
           required>
         </EventSelector>
-      </template>
+        <v-btn flat @click.stop="contract = null">
+          {{ $t('change') }}
+        </v-btn>
+      </v-card-text>
     </v-card>
   </div>
 </template>
 
 <i18n>
   en:
+    change: "Change contract"
     selectEventText: "Select the event you want to get notified. This event will be emited directly from the contract you've selected"
     labels:
       event: "Contract's event"
 </i18n>
 
 <script>
-import EventSelector from '@/components/EventSelector.vue'
-import ContractSelector from '@/components/contracts/Selector.vue'
+import EventSelector from '@/components/EventSelector'
+import ContractSelector from '@/components/contracts/Selector'
+import component from './Item'
 export default {
   components: {
     EventSelector,
@@ -38,25 +43,17 @@ export default {
   data () {
     return {
       contract: null,
-      eventName: null,
-      eventCard: null
-    }
-  },
-  methods: {
-    contractSelected (contract) { this.contract = contract },
-    emit () {
-      this.$emit('input', {
-        contractId: (this.contract || {}).id,
-        eventName: this.eventName
-      })
+      eventName: null
     }
   },
   watch: {
-    contract () {
-      this.emit()
-      this.$refs.event.scrollIntoView()
-    },
-    eventName () { this.emit() }
+    eventName () {
+      this.$emit('input', {
+        contract: this.contract,
+        eventName: this.eventName,
+        component
+      })
+    }
   }
 }
 </script>
