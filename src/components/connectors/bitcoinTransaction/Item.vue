@@ -2,9 +2,11 @@
   <div class="truncate">
     <img class="mb-4" src="https://bitcoin.org/img/icons/opengraph.png" alt="Bitcoin">
     <br/>
-    <strong>{{ config.address }}</strong> <br/>
-    receive a transaction on <br/>
-    <strong>{{ config.chain }}</strong> <br/>
+    <span class="subheading">
+      <strong>{{ config.address }}</strong> <br/>
+      receive a transaction on <br/>
+      <strong>{{ config.chain }}</strong> <br/>
+    </span>
   </div>
 </template>
 

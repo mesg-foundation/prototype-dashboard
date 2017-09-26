@@ -105,6 +105,7 @@ export default {
     submit () {
       this.$emit('input', {
         serviceId: this.serviceId,
+        service: this.selectedService,
         data: this.data
       })
     }

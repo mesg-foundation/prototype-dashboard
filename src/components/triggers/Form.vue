@@ -33,10 +33,12 @@
             <v-card slot="activator" hover class="selector">
               <v-layout column align-center justify-center>
                 <span class="headline">{{ $t('then') }}</span>
-                <v-icon x-large class="ma-4">extension</v-icon>
-                <v-card-text class="text-xs-center">
-                  {{ action }}
+                <v-card-text class="text-xs-center" v-if="action && action.service">
+                  <img class="servicePicture mt-3 mb-3" v-if="action.service.picture" :src="action.service.picture" :alt="action.service.name">
+                  <br/>
+                  <span class="subheading">{{ action.service.name }}</span>
                 </v-card-text>
+                <v-icon v-else x-large class="ma-4">extension</v-icon>
               </v-layout>
             </v-card>
             <ActionSelector
@@ -127,5 +129,9 @@
 
   .selector > div {
     height: 100%;
+  }
+
+  .servicePicture {
+    height: 2em;
   }
 </style>
