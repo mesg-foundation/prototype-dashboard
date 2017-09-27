@@ -5,7 +5,7 @@ mutation(
   $data: Json!
   $serviceId: ID!
 ) {
-  createAction(
+  updateAction(
     id: $id
     data: $data
     serviceId: $serviceId
