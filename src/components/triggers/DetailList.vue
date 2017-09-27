@@ -30,8 +30,8 @@
     computed: {
       items () {
         return [
-          { key: this.$t('address'), value: this.trigger.contract.address },
-          { key: this.$t('chain'), value: this.trigger.contract.chain }
+          // { key: this.$t('address'), value: this.trigger.contract.address },
+          // { key: this.$t('chain'), value: this.trigger.contract.chain }
         ]
       }
     }

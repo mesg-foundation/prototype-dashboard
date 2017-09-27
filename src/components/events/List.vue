@@ -115,9 +115,8 @@
       title () {
         if (!this.trigger) { return '' }
         return [
-          this.trigger.service.name,
-          this.trigger.contract.name,
-          this.trigger.eventName
+          this.trigger.connector.connectorType,
+          this.trigger.action.service.name
         ].join(' - ')
       },
       headers () {

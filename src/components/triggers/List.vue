@@ -27,7 +27,7 @@
       </td>
       <td>
         <router-link :to="{ name: 'Trigger', params: trigger }">
-          {{ trigger.service.name }}
+          {{ trigger.action.service.name }}
         </router-link>
       </td>
       <td class="text-xs-right">

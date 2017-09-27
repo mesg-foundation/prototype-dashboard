@@ -1,5 +1,6 @@
 fragment connectorFields on Connector {
   id
+  connectorType
   createdAt
   ethereumContract {
     eventName,
