@@ -110,14 +110,23 @@
         updateAction: 'actions/update'
       }),
       updateOrCreateConnector () {
+        const flatten = data => Object.keys(data)
+          .reduce((acc, key) => key === '__typename'
+            ? acc
+            : typeof data[key] === 'object'
+              ? { ...acc, [`${key}Id`]: data[key].id }
+              : { ...acc, [key]: data[key] }
+            , {})
         const variables = {
+          id: this.connector.id,
           projectId: this.currentProjectId,
           connectorType: this.connector.connectorType,
-          [this.connector.field]: this.connector[this.connector.field]
+          [this.connector.field]: flatten(this.connector[this.connector.field])
         }
-        return this.connector.id
+        return (this.connector.id
           ? this.updateConnector({ variables })
-          : this.createConnector({ variables })
+          : this.createConnector({ variables }))
+          .then(x => (this.connector = { ...this.connector, ...x }))
       },
       updateOrCreateAction () {
         const variables = {

@@ -19,7 +19,7 @@ export default {
     }
   },
   mixins: [
-    item('contract', x => x.config.contractId)
+    item('contract', x => x.config.contractId || (x.config.contract || {}).id)
   ]
 }
 </script>

@@ -3,9 +3,9 @@
 mutation(
   $id: ID!
   $connectorType: CONNECTOR_TYPE!
-  $ethereumContract: EthereumContractConnector
+  $ethereumContract: ConnectorethereumContractEthereumContractConnector
 ) {
-  createConnector(
+  updateConnector(
     id: $id
     connectorType: $connectorType
     ethereumContract: $ethereumContract
