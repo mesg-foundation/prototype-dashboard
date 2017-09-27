@@ -1,0 +1,10 @@
+#import "@/graphql/services/schema.graphql"
+
+fragment actionFields on Action {
+  id
+  createdAt
+  data
+  service {
+    ...serviceFields
+  }
+}

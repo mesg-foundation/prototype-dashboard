@@ -1,0 +1,9 @@
+#import "@/graphql/connectors/schema.graphql"
+
+query(
+  $id: ID!
+) {
+  Connector(id: $id) {
+    ...connectorFields
+  }
+}

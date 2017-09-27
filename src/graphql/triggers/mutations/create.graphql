@@ -3,9 +3,13 @@
 
 mutation(
   $projectId: ID!
+  $connectorId: ID!
+  $actionId: ID!
 ) {
   createTrigger(
-    projectId: $projectId
+    projectId: $projectId,
+    connectorId: $connectorId
+    actionId: $actionId
 	) {
     ...triggerFields
     project {

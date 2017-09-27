@@ -1,0 +1,10 @@
+fragment connectorFields on Connector {
+  id
+  createdAt
+  ethereumContract {
+    eventName,
+    contract {
+      id
+    }
+  }
+}

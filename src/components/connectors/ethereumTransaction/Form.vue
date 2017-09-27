@@ -24,7 +24,6 @@
 
 <script>
 import ChainSelector from '@/components/ChainSelector'
-import component from './Item'
 export default {
   components: {
     ChainSelector
@@ -39,8 +38,7 @@ export default {
     emit () {
       this.$emit('input', {
         chain: this.chain,
-        address: this.address,
-        component
+        address: this.address
       })
     }
   }

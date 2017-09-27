@@ -13,11 +13,11 @@
               <v-layout column align-center justify-center>
                 <span class="headline">{{ $t('when') }}</span>
                 <v-card-text
-                  v-if="connector && connector.connectorType"
+                  v-if="connector && connector.component"
                   class="text-xs-center">
                   <component
-                    :is="connector[connector.connectorType].component"
-                    :config="connector[connector.connectorType]">
+                    :is="connector.component"
+                    :config="connector[connector.field]">
                   </component>
                 </v-card-text>
                 <v-icon v-else x-large class="ma-4">schedule</v-icon>
@@ -103,18 +103,49 @@
     methods: {
       ...mapActions({
         createTrigger: 'triggers/create',
-        updateTrigger: 'triggers/update'
+        updateTrigger: 'triggers/update',
+        createConnector: 'connectors/create',
+        updateConnector: 'connectors/update',
+        createAction: 'actions/create',
+        updateAction: 'actions/update'
       }),
-      submit () {
-        const method = this.trigger.id ? 'updateTrigger' : 'createTrigger'
-        if (!this.validate()) { return }
-        this[method]({ variables: {
+      updateOrCreateConnector () {
+        const variables = {
+          projectId: this.currentProjectId,
+          connectorType: this.connector.connectorType,
+          [this.connector.field]: this.connector[this.connector.field]
+        }
+        return this.connector.id
+          ? this.updateConnector({ variables })
+          : this.createConnector({ variables })
+      },
+      updateOrCreateAction () {
+        const variables = {
+          projectId: this.currentProjectId,
+          ...this.action
+        }
+        return this.action.id
+          ? this.updateAction({ variables })
+          : this.createAction({ variables })
+      },
+      updateOrCreateTrigger (connector, action) {
+        const variables = {
           id: this.trigger.id,
           projectId: this.currentProjectId,
-          connector: this.connector,
-          action: this.action
-        }})
-          .then(trigger => this.$emit('saved', trigger))
+          connectorId: connector.id,
+          actionId: action.id
+        }
+        return this.trigger.id
+          ? this.updateTrigger({ variables })
+          : this.createTrigger({ variables })
+      },
+      submit () {
+        this.updateOrCreateConnector()
+        // Promise.all([
+        //   this.updateOrCreateAction()
+        // ])
+        //   .then(([connector, action]) => this.updateOrCreateTrigger(connector, action))
+        //   .then(trigger => this.$emit('saved', trigger))
       }
     }
   }

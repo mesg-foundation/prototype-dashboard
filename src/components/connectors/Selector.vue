@@ -92,15 +92,28 @@ export default {
     connectors () {
       return process.env.CONNECTORS
     },
+    fieldName () {
+      return this.connectors
+        .filter(x => x.id === this.connectorType)
+        .map(x => x.fieldName)[[0]]
+    },
     currentData () {
       return this.connectorData[this.connectorType]
     },
     connectorComponent () {
       if (!this.connectorType) { return null }
       return {
-        ethereumContract: () => import('@/components/connectors/ethereumContract/Form'),
-        ethereumTransaction: () => import('@/components/connectors/ethereumTransaction/Form'),
-        bitcoinTransaction: () => import('@/components/connectors/bitcoinTransaction/Form')
+        ETHEREUM_CONTRACT: () => import('@/components/connectors/ethereumContract/Form'),
+        ETHEREUM_TRANSACTION: () => import('@/components/connectors/ethereumTransaction/Form'),
+        BITCOIN_TRANSACTION: () => import('@/components/connectors/bitcoinTransaction/Form')
+      }[this.connectorType]
+    },
+    itemComponent () {
+      if (!this.connectorType) { return null }
+      return {
+        ETHEREUM_CONTRACT: () => import('@/components/connectors/ethereumContract/Item'),
+        ETHEREUM_TRANSACTION: () => import('@/components/connectors/ethereumTransaction/Item'),
+        BITCOIN_TRANSACTION: () => import('@/components/connectors/bitcoinTransaction/Item')
       }[this.connectorType]
     }
   },
@@ -110,8 +123,10 @@ export default {
     },
     submit () {
       this.$emit('input', {
+        field: this.fieldName,
         connectorType: this.connectorType,
-        [this.connectorType]: this.currentData
+        component: this.itemComponent,
+        [this.fieldName]: this.currentData
       })
     }
   }

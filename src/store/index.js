@@ -11,6 +11,8 @@ import users from './users'
 import plans from './plans'
 import invitations from './invitations'
 import services from './services'
+import connectors from './connectors'
+import actions from './actions'
 
 Vue.use(Vuex)
 
@@ -26,7 +28,9 @@ export default new Vuex.Store({
     plans,
     session,
     invitations,
-    services
+    services,
+    connectors,
+    actions
   },
   plugins: [
     createPersistedState({

@@ -34,7 +34,6 @@
 <script>
 import EventSelector from '@/components/EventSelector'
 import ContractSelector from '@/components/contracts/Selector'
-import component from './Item'
 export default {
   components: {
     EventSelector,
@@ -49,9 +48,8 @@ export default {
   watch: {
     eventName () {
       this.$emit('input', {
-        contract: this.contract,
-        eventName: this.eventName,
-        component
+        contractId: this.contract.id,
+        eventName: this.eventName
       })
     }
   }

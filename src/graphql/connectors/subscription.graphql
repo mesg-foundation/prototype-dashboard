@@ -1,0 +1,24 @@
+#import "@/graphql/connectors/schema.graphql"
+
+subscription(
+  $projectId: ID!
+) {
+  Connector(filter: {
+    mutation_in: [CREATED, UPDATED, DELETED],
+    node: {
+      triggers: {
+        project: {
+          id: $projectId
+        }
+      }
+    }
+  }) {
+    mutation
+    previousValues {
+      id
+    }
+    node {
+      ...connectorFields
+    }
+  }
+}

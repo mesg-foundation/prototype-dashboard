@@ -1,0 +1,31 @@
+#import "@/graphql/actions/schema.graphql"
+
+query(
+  $projectId: ID!
+  $first: Int
+  $skip: Int
+) {
+  allActions(
+    orderBy: createdAt_DESC,
+    first: $first,
+    skip: $skip,
+    filter: {
+      trigger: {
+        project: {
+          id: $projectId
+        }
+      }
+    }
+  ) {
+    ...actionsFields
+  }
+  _allActionsMeta(filter: {
+    trigger: {
+      project: {
+        id: $projectId
+      }
+    }
+  }) {
+    count
+  }
+}
