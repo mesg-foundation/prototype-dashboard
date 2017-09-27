@@ -2,11 +2,15 @@
 
 mutation(
   $id: ID!,
-  $enable: Boolean
+  $enable: Boolean,
+  $connectorId: ID
+  $actionId: ID
 ) {
   updateTrigger(
     id: $id,
     enable: $enable
+    connectorId: $connectorId
+    actionId: $actionId
 	) {
     ...triggerFields
   }

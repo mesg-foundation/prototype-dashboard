@@ -126,7 +126,10 @@
         return (this.connector.id
           ? this.updateConnector({ variables })
           : this.createConnector({ variables }))
-          .then(x => (this.connector = { ...this.connector, ...x }))
+          .then(x => {
+            this.connector = { ...this.connector, ...x }
+            return this.connector
+          })
       },
       updateOrCreateAction () {
         const variables = {
@@ -136,7 +139,10 @@
         return (this.action.id
           ? this.updateAction({ variables })
           : this.createAction({ variables }))
-          .then(x => (this.action = { ...this.action, ...x }))
+          .then(x => {
+            this.action = { ...this.action, ...x }
+            return this.action
+          })
       },
       updateOrCreateTrigger (connector, action) {
         const variables = {
@@ -150,13 +156,12 @@
           : this.createTrigger({ variables })
       },
       submit () {
-        this.updateOrCreateAction()
-        // Promise.all([
-        //   this.updateOrCreateConnector()
-        //   this.updateOrCreateAction()
-        // ])
-        //   .then(([connector, action]) => this.updateOrCreateTrigger(connector, action))
-        //   .then(trigger => this.$emit('saved', trigger))
+        Promise.all([
+          this.updateOrCreateConnector(),
+          this.updateOrCreateAction()
+        ])
+          .then(([connector, action]) => this.updateOrCreateTrigger(connector, action))
+          .then(trigger => this.$emit('saved', trigger))
       }
     }
   }
