@@ -133,9 +133,10 @@
           projectId: this.currentProjectId,
           ...this.action
         }
-        return this.action.id
+        return (this.action.id
           ? this.updateAction({ variables })
-          : this.createAction({ variables })
+          : this.createAction({ variables }))
+          .then(x => (this.action = { ...this.action, ...x }))
       },
       updateOrCreateTrigger (connector, action) {
         const variables = {
@@ -149,8 +150,9 @@
           : this.createTrigger({ variables })
       },
       submit () {
-        this.updateOrCreateConnector()
+        this.updateOrCreateAction()
         // Promise.all([
+        //   this.updateOrCreateConnector()
         //   this.updateOrCreateAction()
         // ])
         //   .then(([connector, action]) => this.updateOrCreateTrigger(connector, action))
