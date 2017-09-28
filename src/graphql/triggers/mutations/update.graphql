@@ -5,10 +5,14 @@ mutation(
   $enable: Boolean,
   $connectorId: ID
   $actionId: ID
+  $title: String
+  $description: String
 ) {
   updateTrigger(
     id: $id,
     enable: $enable
+    title: $title
+    description: $description
     connectorId: $connectorId
     actionId: $actionId
 	) {

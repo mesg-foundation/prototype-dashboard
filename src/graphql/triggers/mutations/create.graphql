@@ -5,9 +5,12 @@ mutation(
   $projectId: ID!
   $connectorId: ID!
   $actionId: ID!
+  $title: String
+  $description: String
 ) {
   createTrigger(
-    enable: true, # required to avoid bug with graphcool / https://github.com/graphcool/graphcool/issues/607
+    title: $title,
+    description: $description
     projectId: $projectId,
     connectorId: $connectorId
     actionId: $actionId

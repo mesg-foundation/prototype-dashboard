@@ -5,6 +5,8 @@ fragment triggerFields on Trigger {
   id
   enable,
   createdAt
+  title,
+  description,
   connector {
     ...connectorFields
   },

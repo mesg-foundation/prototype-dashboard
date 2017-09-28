@@ -7,6 +7,15 @@
       <v-divider></v-divider>
       <QuotaWarning feature="executions"></QuotaWarning>
       <v-card-text>
+        <v-text-field
+          :label="$t('title')"
+          v-model="title">
+        </v-text-field>
+        <v-text-field
+          :label="$t('description')"
+          v-model="description"
+          multi-line>
+        </v-text-field>
         <v-layout row justify-center align-center>
           <FormConnector v-model="connector"></FormConnector>
           <v-icon large class="ma-3">keyboard_arrow_right</v-icon>
@@ -28,6 +37,8 @@
 <i18n>
   en:
     submit: "Save"
+    title: "Title of your trigger"
+    description: "Describe your trigger"
 </i18n>
 
 <script>
@@ -62,6 +73,8 @@
       return {
         connector: this.trigger.connector || {},
         action: this.trigger.action || {},
+        title: this.trigger.title,
+        description: this.trigger.description,
         saving: false
       }
     },
@@ -93,7 +106,8 @@
             this.action = { ...this.action, ...action }
             return this.updateOrCreateTrigger({
               id: this.trigger.id,
-              enable: this.trigger.enable, // required to avoid bug with graphcool / https://github.com/graphcool/graphcool/issues/607
+              title: this.title,
+              description: this.description,
               projectId: this.currentProjectId,
               connectorId: connector.id,
               actionId: action.id
