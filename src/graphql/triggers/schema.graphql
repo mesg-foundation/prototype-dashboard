@@ -1,16 +1,16 @@
-#import "@/graphql/contracts/schema.graphql"
+#import "@/graphql/connectors/schema.graphql"
+#import "@/graphql/actions/schema.graphql"
 
 fragment triggerFields on Trigger {
   id
-  eventName
   enable,
   createdAt
-  serviceData
-  contract {
-    ...contractFields
-  }
-  service {
-    id
-    name
+  title,
+  description,
+  connector {
+    ...connectorFields
+  },
+  action {
+    ...actionFields
   }
 }

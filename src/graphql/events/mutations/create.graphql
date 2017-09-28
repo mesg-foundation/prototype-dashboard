@@ -3,12 +3,23 @@
 mutation(
   $triggerId: ID!,
   $payload: Json!,
-  $transactionId: String!
+  $transactionId: String!,
+  $blockId: String!,
+  $from: String!,
+  $to: String!,
+  $value: Float!
+  $fees: Float!
+
 ) {
   createEvent(
     triggerId: $triggerId,
     payload: $payload,
-    transactionId: $transactionId
+    transactionId: $transactionId,
+    blockId: $blockId,
+    from: $from,
+    to: $to,
+    value: $value,
+    fees: $fees
 	) {
     ...eventFields
   }

@@ -10,13 +10,12 @@
     searchable
     withMenu>
     <template slot="toolbar">
-      <PopupPageButton
+      <v-btn
         :to="{ name: 'NewTrigger' }"
-        success dark icon="add"
-        :title="$t('create')"
-        v-model="popup">
-        <NewTrigger @saved="popup = false"></NewTrigger>
-      </PopupPageButton>
+        success dark>
+        <v-icon>add</v-icon>
+        {{ $t('create') }}
+      </v-btn>
     </template>
     <template slot="extension">
       <QuotaWarning feature="executions"></QuotaWarning>
@@ -27,15 +26,9 @@
       </td>
       <td>
         <router-link :to="{ name: 'Trigger', params: trigger }">
-          {{ trigger.service.name }}
+          <TriggerTitle :trigger="trigger"></TriggerTitle>
         </router-link>
       </td>
-      <td>
-        <router-link :to="{ name: 'Contract', params: trigger.contract }">
-          {{ trigger.contract.name }}
-        </router-link>
-      </td>
-      <td>{{ trigger.eventName }}</td>
       <td class="text-xs-right">
         <timeago :since="trigger.createdAt" :auto-update="10"></timeago>
       </td>
@@ -49,9 +42,7 @@
     create: "New Trigger"
     header:
       enable: " "
-      service: "Service"
-      contractName: "Contract"
-      eventName: "Event Name"
+      title: "Title"
       createdAt: "Created at"
 </i18n>
 
@@ -59,17 +50,15 @@
   import collection from '@/mixins/collection'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import TableListing from '@/components/layouts/TableListing'
-  import PopupPageButton from '@/components/PopupPageButton'
-  import NewTrigger from '@/components/triggers/Create'
   import TriggerSwitch from '@/components/triggers/Switch'
   import QuotaWarning from '@/components/QuotaWarning'
+  import TriggerTitle from '@/components/triggers/Title'
   export default {
     components: {
       TableListing,
-      PopupPageButton,
-      NewTrigger,
       QuotaWarning,
-      TriggerSwitch
+      TriggerSwitch,
+      TriggerTitle
     },
     mixins: [
       withCurrentProject,
@@ -78,11 +67,6 @@
     metaInfo () {
       return {
         title: this.$t('title')
-      }
-    },
-    data () {
-      return {
-        popup: false
       }
     },
     computed: {
@@ -95,9 +79,7 @@
       headers () {
         return [
           { text: this.$t('header.enable'), align: 'left', sortable: false },
-          { text: this.$t('header.service'), align: 'left', sortable: false, value: 'service.name' },
-          { text: this.$t('header.contractName'), align: 'left', sortable: false, value: 'contract.name' },
-          { text: this.$t('header.eventName'), align: 'left', sortable: false, value: 'eventName' },
+          { text: this.$t('header.title'), align: 'left', sortable: false, value: 'title' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
         ]
       }

@@ -1,0 +1,149 @@
+<template>
+  <v-card flat>
+    <v-toolbar card>
+      <v-toolbar-title class="subheading">
+        {{ $t('title') }}
+      </v-toolbar-title>
+    </v-toolbar>
+    <v-divider></v-divider>
+    <v-stepper
+      non-linear
+      v-model="step"
+      class="scrollable elevation-0">
+      <v-stepper-header>
+        <v-stepper-step
+          step="1"
+          editable
+          :complete="!!connectorType">
+          {{ $t('connector') }}
+        </v-stepper-step>
+        <v-divider></v-divider>
+        <v-stepper-step
+          step="2"
+          :editable="!!connectorType"
+          :complete="!!currentData">
+          {{ $t('configuration') }}
+        </v-stepper-step>
+        <v-divider></v-divider>
+      </v-stepper-header>
+      <v-stepper-content step="1">
+        <v-layout row wrap justify-center align-center>
+          <Connector
+            v-for="connector in connectors" :key="connector.id"
+            class="ma-2 connector-item"
+            :connector="connector"
+            v-model="connectorType"
+            @input="step = '2'">
+          </Connector>
+          </v-flex>
+        </v-layout>
+      </v-stepper-content>
+      <v-stepper-content step="2" class="pa-0">
+        <component
+          v-if="connectorComponent"
+          :value="currentData"
+          @input="updateCurrentData"
+          :is="connectorComponent">
+        </component>
+      </v-stepper-content>
+    </v-stepper>
+    <v-divider></v-divider>
+    <v-card-actions>
+      <v-btn
+        primary block
+        @click.stop="submit">
+        {{ $t('submit') }}
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
+
+<i18n>
+  en:
+    title: "Select a connector"
+    connector: "Choose your connector"
+    configuration: "Configure your connector"
+    submit: "Select this connector"
+</i18n>
+
+<script>
+import Connector from './Item'
+export default {
+  components: {
+    Connector
+  },
+  props: {
+    value: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  data () {
+    return {
+      step: '1',
+      connectorType: this.value.connectorType,
+      connectorData: process.env.CONNECTORS.reduce((acc, connector) => ({
+        ...acc,
+        [connector.id]: this.value[connector.fieldName]
+      }), {})
+    }
+  },
+  computed: {
+    connectors () {
+      return process.env.CONNECTORS
+    },
+    fieldName () {
+      return this.connectors
+        .filter(x => x.id === this.connectorType)
+        .map(x => x.fieldName)[[0]]
+    },
+    currentData () {
+      return this.connectorData[this.connectorType]
+    },
+    connectorComponent () {
+      if (!this.connectorType) { return null }
+      return {
+        ETHEREUM_CONTRACT: () => import('@/components/connectors/ethereumContract/Form'),
+        ETHEREUM_TRANSACTION: () => import('@/components/connectors/ethereumTransaction/Form'),
+        BITCOIN_TRANSACTION: () => import('@/components/connectors/bitcoinTransaction/Form')
+      }[this.connectorType]
+    },
+    itemComponent () {
+      if (!this.connectorType) { return null }
+      return {
+        ETHEREUM_CONTRACT: () => import('@/components/connectors/ethereumContract/Item'),
+        ETHEREUM_TRANSACTION: () => import('@/components/connectors/ethereumTransaction/Item'),
+        BITCOIN_TRANSACTION: () => import('@/components/connectors/bitcoinTransaction/Item')
+      }[this.connectorType]
+    }
+  },
+  methods: {
+    updateCurrentData (data) {
+      this.connectorData[this.connectorType] = { ...data }
+    },
+    submit () {
+      this.$emit('input', {
+        field: this.fieldName,
+        connectorType: this.connectorType,
+        component: this.itemComponent,
+        [this.fieldName]: this.currentData
+      })
+    }
+  },
+  mounted () {
+    // If the id already exisits it means we are editing,
+    // in this case we need to notify again the parent form that it should
+    // display the specific components for the data we want to edit so we submit
+    // the data again like that the field and component are sent because
+    // from the api we cannot retrive those informations
+    if (this.value.id) { this.submit() }
+  }
+}
+</script>
+
+<style scoped>
+  .connector-item {
+    text-align: center;
+    width: 320px;
+  }
+</style>

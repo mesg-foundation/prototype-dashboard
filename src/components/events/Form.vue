@@ -10,12 +10,34 @@
         :trigger="trigger">
       </TriggerDetailList>
       <v-divider></v-divider>
-      <PayloadViewer
-        :signature="eventInputs()"
-        @input="$v.payload.$touch()"
-        v-model="payload"
-        editable>
-      </PayloadViewer>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :custom-sort="a => a"
+        hide-actions>
+        <template slot="items" scope="props">
+          <td>
+            <strong>{{ $t(`keys.${props.item.key}`) }}</strong>
+          </td>
+          <td>
+            <PayloadViewer
+              v-if="props.item.type === 'payload'"
+              :ethereumContractConnector="ethereumContractConnector"
+              v-model="params[props.item.key]"
+              editable>
+            </PayloadViewer>
+            <v-text-field
+              v-else
+              class="ma-0 pl-0"
+              placeholder="..."
+              hide-details
+              full-width
+              v-model="params[props.item.key]"
+              :type="props.item.type">
+            </v-text-field>
+          </td>
+        </template>
+      </v-data-table>
       <v-card-actions>
         <v-btn
           primary dark block
@@ -31,12 +53,21 @@
   en:
     title: "Test the trigger"
     submit: "Send test event"
+    header:
+      key: "Key"
+      value: "Value"
+    keys:
+      transactionId: 'transactionId'
+      blockId: 'blockId'
+      from: 'from'
+      to: 'to'
+      value: 'value'
+      fees: 'fees'
+      payload: 'payload'
 </i18n>
 
 <script>
-  import withValidation from '@/mixins/withValidation'
   import { mapActions } from 'vuex'
-  import { required } from '@/validators'
   import TriggerDetailList from '@/components/triggers/DetailList'
   import PayloadViewer from '@/components/PayloadViewer'
   import MenuToggle from '@/components/MenuToggle'
@@ -46,9 +77,6 @@
       PayloadViewer,
       MenuToggle
     },
-    mixins: [
-      withValidation
-    ],
     props: {
       trigger: {
         type: Object,
@@ -57,32 +85,51 @@
     },
     data () {
       return {
-        payload: ''
+        params: {
+          transactionId: '0x0000000000000000000000000000000000000000',
+          blockId: '0000000',
+          from: '0x1111111111111111111111111111111111111111',
+          to: '0x2222222222222222222222222222222222222222',
+          value: 0,
+          fees: 0,
+          payload: {}
+        }
       }
     },
-    validations: {
-      payload: {
-        required
+    computed: {
+      ethereumContractConnector () {
+        return this.trigger.connector.ethereumContract
+      },
+      headers () {
+        return [
+          { text: this.$t('header.key'), align: 'left', sortable: false },
+          { text: this.$t('header.value'), align: 'left', sortable: false }
+        ]
+      },
+      items () {
+        return [
+          { key: 'transactionId', type: 'text' },
+          { key: 'blockId', type: 'text' },
+          { key: 'from', type: 'text' },
+          { key: 'to', type: 'text' },
+          { key: 'value', type: 'number' },
+          { key: 'fees', type: 'number' },
+          this.ethereumContractConnector
+            ? { key: 'payload', type: 'payload' }
+            : null
+        ]
+          .filter(x => x)
       }
     },
     methods: {
       ...mapActions({
         createEvent: 'events/create'
       }),
-      eventInputs () {
-        const event = this.trigger.contract.abi
-          .filter(e => e.type === 'event')
-          .filter(e => e.name === this.trigger.eventName)[0]
-        if (!event) { return [] }
-        return event.inputs
-      },
       submit () {
-        if (!this.validate()) { return }
         this.createEvent({ variables: {
           triggerId: this.trigger.id,
-          payload: this.payload,
-          transactionId: '0x0000000000000000000000000000000000000000'
-        }})
+          ...this.params
+        } })
           .then(event => this.$emit('saved', event))
       }
     }

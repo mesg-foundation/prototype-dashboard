@@ -2,17 +2,19 @@
 
 mutation(
   $id: ID!,
-  $eventName: String,
   $enable: Boolean,
-  $serviceId: ID
-  $serviceData: Json
+  $connectorId: ID
+  $actionId: ID
+  $title: String
+  $description: String
 ) {
   updateTrigger(
     id: $id,
-    eventName: $eventName,
-    enable: $enable,
-    serviceId: $serviceId,
-    serviceData: $serviceData
+    enable: $enable
+    title: $title
+    description: $description
+    connectorId: $connectorId
+    actionId: $actionId
 	) {
     ...triggerFields
   }

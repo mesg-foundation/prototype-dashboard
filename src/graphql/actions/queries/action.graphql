@@ -1,0 +1,9 @@
+#import "@/graphql/actions/schema.graphql"
+
+query(
+  $id: ID!
+) {
+  Action(id: $id) {
+    ...actionFields
+  }
+}

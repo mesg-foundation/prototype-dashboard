@@ -15,8 +15,12 @@
 
 <i18n>
   en:
-    address: "Contract address"
-    chain: "Blockchain"
+    title: "Title"
+    description: "Description"
+    connector: "Connector"
+    service: "Service"
+    connectorType:
+      ETHEREUM_CONTRACT: "Ethereum Contract"
 </i18n>
 
 <script>
@@ -30,8 +34,10 @@
     computed: {
       items () {
         return [
-          { key: this.$t('address'), value: this.trigger.contract.address },
-          { key: this.$t('chain'), value: this.trigger.contract.chain }
+          { key: this.$t('title'), value: this.trigger.title },
+          { key: this.$t('description'), value: this.trigger.description },
+          { key: this.$t('connector'), value: this.$t(`connectorType.${this.trigger.connector.connectorType}`) },
+          { key: this.$t('service'), value: this.trigger.action.service.name }
         ]
       }
     }

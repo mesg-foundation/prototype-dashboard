@@ -7,50 +7,25 @@
       <v-divider></v-divider>
       <QuotaWarning feature="executions"></QuotaWarning>
       <v-card-text>
-        <EventSelector
-          :label="$t('labels.event')"
-          :contract="contract"
-          :error-messages="errors.eventName"
-          v-model="eventName"
-          @input="$v.eventName.$touch()"
-          required>
-        </EventSelector>
-
-        <p>{{ $t('servicesText') }}</p>
-
-        <v-layout row wrap>
-          <v-flex
-            v-for="service in services" :key="service.id"
-            :class="{ 'xs12 sm6': inDialog, 'xs12 sm6 md4 lg3': !inDialog }">
-            <Service
-              class="ma-1"
-              :service="service"
-              v-model="serviceId"
-              @input="$v.serviceId.$touch()">
-            </Service>
-          </v-flex>
+        <v-text-field
+          :label="$t('title')"
+          v-model="title">
+        </v-text-field>
+        <v-text-field
+          :label="$t('description')"
+          v-model="description"
+          multi-line>
+        </v-text-field>
+        <v-layout row justify-center align-center>
+          <FormConnector v-model="connector"></FormConnector>
+          <v-icon large class="ma-3">keyboard_arrow_right</v-icon>
+          <FormAction v-model="action"></FormAction>
         </v-layout>
-        <span v-if="errors.serviceId" class="error--text">{{ errors.serviceId[0] }}</span>
-
-        <component
-          v-if="serviceForm"
-          :is="serviceForm"
-          :service="selectedService"
-          v-model="serviceData"
-          @input="$v.serviceData.$touch()">
-          <span slot="errors" v-if="errors.serviceData" class="error--text">{{ errors.serviceData[0] }}</span>
-        </component>
-
       </v-card-text>
       <v-card-actions>
         <v-btn
-          v-if="cancelable"
-          light flat block
-          @click="$emit('cancel')">
-          {{ $t('cancel') }}
-        </v-btn>
-        <v-btn
           primary dark block
+          :loading="saving"
           type="submit">
           {{ $t('submit') }}
         </v-btn>
@@ -62,106 +37,90 @@
 <i18n>
   en:
     submit: "Save"
-    advanced: "Advanced"
-    cancel: "Cancel"
-    servicesText: "Connect the event to any of the services bellow."
-    labels:
-      event: "Event to connect for your trigger"
+    title: "Title of your trigger"
+    description: "Describe your trigger"
 </i18n>
+
 <script>
-  import { mapActions } from 'vuex'
-  import { required } from '@/validators'
-  import inDialog from '@/mixins/inDialog'
-  import withValidation from '@/mixins/withValidation'
+  import Utils from '@/utils'
   import withCurrentProject from '@/mixins/withCurrentProject'
-  import collection from '@/mixins/collection'
-  import EventSelector from '@/components/EventSelector.vue'
+  import updateOrCreate from '@/mixins/updateOrCreate'
   import TriggerFormHeader from '@/components/triggers/FormHeader.vue'
-  import Service from '@/components/services/Item.vue'
   import QuotaWarning from '@/components/QuotaWarning'
+  import FormAction from './form/Action'
+  import FormConnector from './form/Connector'
 
   export default {
     components: {
-      EventSelector,
       TriggerFormHeader,
-      Service,
-      QuotaWarning
+      QuotaWarning,
+      FormAction,
+      FormConnector
     },
     mixins: [
-      inDialog,
-      withValidation,
       withCurrentProject,
-      collection('services')
+      updateOrCreate('Connector'),
+      updateOrCreate('Action'),
+      updateOrCreate('Trigger')
     ],
     props: {
-      contract: {
-        type: Object,
-        required: true
-      },
       trigger: {
         type: Object,
-        default: null
-      },
-      cancelable: {
-        type: Boolean,
-        default: false
-      },
-      event: {
-        type: String,
-        default: null
+        default: () => ({})
       }
     },
     data () {
-      const trigger = this.trigger || {}
       return {
-        eventName: trigger.eventName || this.event,
-        serviceId: (trigger.service || {}).id,
-        serviceData: trigger.serviceData
-      }
-    },
-    validations: {
-      eventName: {
-        required
-      },
-      serviceId: {
-        required
-      },
-      serviceData: {
-        required
+        connector: this.trigger.connector || {},
+        action: this.trigger.action || {},
+        title: this.trigger.title,
+        description: this.trigger.description,
+        saving: false
       }
     },
     computed: {
-      selectedService () {
-        if (!this.serviceId) { return false }
-        return this.services.find(x => x.id === this.serviceId)
-      },
-      serviceForm () {
-        if (!this.selectedService) { return null }
+      connectorVariables () {
         return {
-          Webhook: () => import('@/components/services/webhook/Form'),
-          SendgridEmail: () => import('@/components/services/sendgridEmail/Form'),
-          ServerlessFunction: () => import('@/components/services/serverlessFunction/Form'),
-          SlackNotification: () => import('@/components/services/slackNotification/Form')
-        }[this.selectedService.key]
+          id: this.connector.id,
+          projectId: this.currentProjectId,
+          connectorType: this.connector.connectorType,
+          [this.connector.field]: Utils.flattenGraphQlData(this.connector[this.connector.field])
+        }
+      },
+      actionVariables () {
+        return {
+          projectId: this.currentProjectId,
+          ...Utils.flattenGraphQlData(this.action, ['data'])
+        }
       }
     },
     methods: {
-      ...mapActions({
-        createTrigger: 'triggers/create',
-        updateTrigger: 'triggers/update'
-      }),
       submit () {
-        const method = (this.trigger || {}).id ? 'updateTrigger' : 'createTrigger'
-        if (!this.validate()) { return }
-        this[method]({ variables: {
-          id: (this.trigger || {}).id,
-          eventName: this.eventName,
-          contractId: this.contract.id,
-          projectId: this.currentProjectId,
-          serviceId: this.serviceId,
-          serviceData: this.serviceData
-        }})
-          .then(trigger => this.$emit('saved', trigger))
+        this.saving = true
+        Promise.all([
+          this.updateOrCreateConnector(this.connectorVariables),
+          this.updateOrCreateAction(this.actionVariables)
+        ])
+          .then(([connector, action]) => {
+            this.connector = { ...this.connector, ...connector }
+            this.action = { ...this.action, ...action }
+            return this.updateOrCreateTrigger({
+              id: this.trigger.id,
+              title: this.title,
+              description: this.description,
+              projectId: this.currentProjectId,
+              connectorId: connector.id,
+              actionId: action.id
+            })
+          })
+          .then(trigger => {
+            this.saving = false
+            this.$emit('saved', trigger)
+          })
+          .catch(e => {
+            this.saving = false
+            throw e
+          })
       }
     }
   }

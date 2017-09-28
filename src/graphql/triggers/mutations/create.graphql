@@ -2,18 +2,18 @@
 #import "@/graphql/projects/schema.graphql"
 
 mutation(
-  $projectId: ID!,
-  $eventName: String!,
-  $contractId: ID!,
-  $serviceId: ID!,
-  $serviceData: Json
+  $projectId: ID!
+  $connectorId: ID!
+  $actionId: ID!
+  $title: String
+  $description: String
 ) {
   createTrigger(
-    eventName: $eventName,
+    title: $title,
+    description: $description
     projectId: $projectId,
-    contractId: $contractId,
-    serviceId: $serviceId,
-    serviceData: $serviceData
+    connectorId: $connectorId
+    actionId: $actionId
 	) {
     ...triggerFields
     project {

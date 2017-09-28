@@ -37,11 +37,15 @@
 
 <script>
   import input from '@/mixins/input'
+  import item from '@/mixins/item'
   export default {
-    mixins: [input],
+    mixins: [
+      input,
+      item('contract', x => x.contractId)
+    ],
     props: {
-      signature: {
-        type: Array,
+      ethereumContractConnector: {
+        type: Object,
         required: true
       },
       editable: {
@@ -55,6 +59,17 @@
       }
     },
     computed: {
+      contractId () {
+        return this.ethereumContractConnector.contract.id
+      },
+      signature () {
+        if (!this.contract) { return [] }
+        const event = this.contract.abi
+          .filter(e => e.type === 'event')
+          .filter(e => e.name === this.ethereumContractConnector.eventName)[0]
+        if (!event) { return [] }
+        return event.inputs
+      },
       headers () {
         return [
           { text: this.$t('header.name'), align: 'left', sortable: false },

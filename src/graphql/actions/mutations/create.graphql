@@ -1,0 +1,15 @@
+#import "@/graphql/actions/schema.graphql"
+
+mutation(
+  $projectId: ID!
+  $data: Json!
+  $serviceId: ID!
+) {
+  createAction(
+    projectId: $projectId
+    data: $data
+    serviceId: $serviceId
+	) {
+    ...actionFields
+  }
+}

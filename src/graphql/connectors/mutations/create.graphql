@@ -1,0 +1,15 @@
+#import "@/graphql/connectors/schema.graphql"
+
+mutation(
+  $projectId: ID!
+  $connectorType: CONNECTOR_TYPE!
+  $ethereumContract: ConnectorethereumContractEthereumContractConnector
+) {
+  createConnector(
+    projectId: $projectId
+    connectorType: $connectorType
+    ethereumContract: $ethereumContract
+	) {
+    ...connectorFields
+  }
+}

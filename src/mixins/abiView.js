@@ -1,9 +1,7 @@
-import PayloadViewer from '@/components/PayloadViewer'
 import ToolbarWithContent from '@/components/ToolbarWithContent'
 export default {
   components: {
-    ToolbarWithContent,
-    PayloadViewer
+    ToolbarWithContent
   },
   props: {
     contract: {

@@ -33,10 +33,22 @@ const testItem = item => ({ key, conditions }) => conditions.some(({ predicate, 
   return item[predicate] === value
 })
 
+const flattenGraphQlData = (data, exclude = []) => {
+  if (!data) { return null }
+  const reducer = (acc, key) => key === '__typename'
+    ? acc
+    : typeof data[key] === 'object' && exclude.indexOf(key) < 0
+      ? { ...acc, [`${key}Id`]: (data[key] || {}).id }
+      : { ...acc, [key]: data[key] }
+  return Object.keys(data)
+    .reduce(reducer, {})
+}
+
 export default {
   dataForUrl,
   dataToUrlString,
   toHuman,
   conditionFromKey,
-  testItem
+  testItem,
+  flattenGraphQlData
 }
