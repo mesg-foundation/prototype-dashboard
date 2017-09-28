@@ -11,7 +11,8 @@
       </TriggerDetailList>
       <v-divider></v-divider>
       <PayloadViewer
-        :signature="eventInputs()"
+        v-if="ethereumContractConnector"
+        :ethereumContractConnector="ethereumContractConnector"
         @input="$v.payload.$touch()"
         v-model="payload"
         editable>
@@ -65,17 +66,15 @@
         required
       }
     },
+    computed: {
+      ethereumContractConnector () {
+        return this.trigger.connector.ethereumContract
+      }
+    },
     methods: {
       ...mapActions({
         createEvent: 'events/create'
       }),
-      eventInputs () {
-        const event = this.trigger.contract.abi
-          .filter(e => e.type === 'event')
-          .filter(e => e.name === this.trigger.eventName)[0]
-        if (!event) { return [] }
-        return event.inputs
-      },
       submit () {
         if (!this.validate()) { return }
         this.createEvent({ variables: {
