@@ -8,49 +8,15 @@
       <QuotaWarning feature="executions"></QuotaWarning>
       <v-card-text>
         <v-layout row justify-center align-center>
-          <v-dialog width="700" v-model="connectorPopup">
-            <v-card slot="activator" hover class="selector">
-              <v-layout column align-center justify-center>
-                <span class="headline">{{ $t('when') }}</span>
-                <v-card-text
-                  v-if="connector && connector.component"
-                  class="text-xs-center">
-                  <component
-                    :is="connector.component"
-                    :config="connector[connector.field]">
-                  </component>
-                </v-card-text>
-                <v-icon v-else x-large class="ma-4">schedule</v-icon>
-              </v-layout>
-            </v-card>
-            <ConnectorSelector
-              v-model="connector"
-              @input="connectorPopup = false">
-            </ConnectorSelector>
-          </v-dialog>
+          <FormConnector v-model="connector"></FormConnector>
           <v-icon large class="ma-3">keyboard_arrow_right</v-icon>
-          <v-dialog width="700" v-model="actionPopup">
-            <v-card slot="activator" hover class="selector">
-              <v-layout column align-center justify-center>
-                <span class="headline">{{ $t('then') }}</span>
-                <v-card-text class="text-xs-center" v-if="action && action.service">
-                  <img class="servicePicture mt-3 mb-3" v-if="action.service.picture" :src="action.service.picture" :alt="action.service.name">
-                  <br/>
-                  <span class="subheading">{{ action.service.name }}</span>
-                </v-card-text>
-                <v-icon v-else x-large class="ma-4">extension</v-icon>
-              </v-layout>
-            </v-card>
-            <ActionSelector
-              v-model="action"
-              @input="actionPopup = false">
-            </ActionSelector>
-          </v-dialog>
+          <FormAction v-model="action"></FormAction>
         </v-layout>
       </v-card-text>
       <v-card-actions>
         <v-btn
           primary dark block
+          :loading="saving"
           type="submit">
           {{ $t('submit') }}
         </v-btn>
@@ -61,29 +27,30 @@
 
 <i18n>
   en:
-    when: "WHEN"
-    then: "THEN"
     submit: "Save"
 </i18n>
+
 <script>
-  import { mapActions } from 'vuex'
-  import withValidation from '@/mixins/withValidation'
+  import Utils from '@/utils'
   import withCurrentProject from '@/mixins/withCurrentProject'
+  import updateOrCreate from '@/mixins/updateOrCreate'
   import TriggerFormHeader from '@/components/triggers/FormHeader.vue'
   import QuotaWarning from '@/components/QuotaWarning'
-  import ConnectorSelector from '@/components/connectors/Selector'
-  import ActionSelector from '@/components/actions/Selector'
+  import FormAction from './form/Action'
+  import FormConnector from './form/Connector'
 
   export default {
     components: {
       TriggerFormHeader,
       QuotaWarning,
-      ConnectorSelector,
-      ActionSelector
+      FormAction,
+      FormConnector
     },
     mixins: [
-      withValidation,
-      withCurrentProject
+      withCurrentProject,
+      updateOrCreate('Connector'),
+      updateOrCreate('Action'),
+      updateOrCreate('Trigger')
     ],
     props: {
       trigger: {
@@ -92,93 +59,51 @@
       }
     },
     data () {
-      const { connector, action } = this.trigger
       return {
-        connectorPopup: false,
-        actionPopup: false,
-        connector,
-        action
+        connector: this.trigger.connector || {},
+        action: this.trigger.action || {},
+        saving: false
       }
     },
-    methods: {
-      ...mapActions({
-        createTrigger: 'triggers/create',
-        updateTrigger: 'triggers/update',
-        createConnector: 'connectors/create',
-        updateConnector: 'connectors/update',
-        createAction: 'actions/create',
-        updateAction: 'actions/update'
-      }),
-      updateOrCreateConnector () {
-        const flatten = data => Object.keys(data)
-          .reduce((acc, key) => key === '__typename'
-            ? acc
-            : typeof data[key] === 'object'
-              ? { ...acc, [`${key}Id`]: data[key].id }
-              : { ...acc, [key]: data[key] }
-            , {})
-        const variables = {
+    computed: {
+      connectorVariables () {
+        return {
           id: this.connector.id,
           projectId: this.currentProjectId,
           connectorType: this.connector.connectorType,
-          [this.connector.field]: flatten(this.connector[this.connector.field])
+          [this.connector.field]: Utils.flattenGraphQlData(this.connector[this.connector.field])
         }
-        return (this.connector.id
-          ? this.updateConnector({ variables })
-          : this.createConnector({ variables }))
-          .then(x => {
-            this.connector = { ...this.connector, ...x }
-            return this.connector
-          })
       },
-      updateOrCreateAction () {
-        const variables = {
+      actionVariables () {
+        return {
           projectId: this.currentProjectId,
           ...this.action
         }
-        return (this.action.id
-          ? this.updateAction({ variables })
-          : this.createAction({ variables }))
-          .then(x => {
-            this.action = { ...this.action, ...x }
-            return this.action
-          })
-      },
-      updateOrCreateTrigger (connector, action) {
-        const variables = {
-          id: this.trigger.id,
-          projectId: this.currentProjectId,
-          connectorId: connector.id,
-          actionId: action.id
-        }
-        return this.trigger.id
-          ? this.updateTrigger({ variables })
-          : this.createTrigger({ variables })
-      },
+      }
+    },
+    methods: {
       submit () {
+        this.saving = true
         Promise.all([
-          this.updateOrCreateConnector(),
-          this.updateOrCreateAction()
+          this.updateOrCreateConnector(this.connectorVariables),
+          this.updateOrCreateAction(this.actionVariables)
         ])
-          .then(([connector, action]) => this.updateOrCreateTrigger(connector, action))
-          .then(trigger => this.$emit('saved', trigger))
+          .then(([connector, action]) => {
+            this.connector = { ...this.connector, ...connector }
+            this.action = { ...this.action, ...action }
+            return this.updateOrCreateTrigger({
+              id: this.trigger.id,
+              projectId: this.currentProjectId,
+              connectorId: connector.id,
+              actionId: action.id
+            })
+          })
+          .then(trigger => {
+            this.saving = false
+            this.$emit('saved', trigger)
+          })
+          .catch(() => (this.saving = false))
       }
     }
   }
 </script>
-
-<style scoped>
-  .selector {
-    width: 300px!important;
-    height: 300px!important;
-    margin: 2em;
-  }
-
-  .selector > div {
-    height: 100%;
-  }
-
-  .servicePicture {
-    height: 2em;
-  }
-</style>
