@@ -2,7 +2,10 @@
   <v-card flat>
     <v-toolbar card :class="{ secondary: !transparent, transparent }">
       <MenuToggle v-if="withMenu"></MenuToggle>
-      <v-toolbar-title class="headline">{{ title }}</v-toolbar-title>
+      <v-toolbar-title class="headline">
+        {{ title }}
+        <slot name="title"></slot>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <template v-if="searchable">
         <v-text-field
@@ -67,7 +70,7 @@
       },
       title: {
         type: String,
-        required: true
+        default: ''
       },
       loading: {
         type: Boolean,

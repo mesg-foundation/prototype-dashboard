@@ -2,13 +2,15 @@
   <table-listing
     :headers="headers"
     :items="events"
-    :title="title"
     :loading="loadingEvents"
     :pagination="eventsPagination"
     :total="eventsTotal"
     @pageChanged="eventsChangePage"
     extended
     withMenu>
+    <template slot="title">
+      <TriggerTitle v-if="trigger" :trigger="trigger"></TriggerTitle>
+    </template>
     <template v-if="trigger" slot="toolbar">
       <v-btn
         :to="{ name: 'EditTrigger', params: { id: trigger.id } }"
@@ -64,10 +66,12 @@
   import collection from '@/mixins/collection'
   import TableListing from '@/components/layouts/TableListing'
   import TriggerDetailList from '@/components/triggers/DetailList'
+  import TriggerTitle from '@/components/triggers/Title'
   export default {
     components: {
       TableListing,
-      TriggerDetailList
+      TriggerDetailList,
+      TriggerTitle
     },
     mixins: [
       item('trigger'),
@@ -95,13 +99,6 @@
           triggerId: this.id,
           ...this.eventsPagination
         }
-      },
-      title () {
-        if (!this.trigger) { return '' }
-        return [
-          this.trigger.connector.connectorType,
-          this.trigger.action.service.name
-        ].join(' - ')
       },
       headers () {
         return [

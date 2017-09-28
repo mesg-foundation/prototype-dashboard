@@ -26,7 +26,7 @@
       </td>
       <td>
         <router-link :to="{ name: 'Trigger', params: trigger }">
-          {{ trigger.action.service.name }}
+          <TriggerTitle :trigger="trigger"></TriggerTitle>
         </router-link>
       </td>
       <td class="text-xs-right">
@@ -42,8 +42,7 @@
     create: "New Trigger"
     header:
       enable: " "
-      service: "Service"
-      contractName: "Contract"
+      title: "Title"
       createdAt: "Created at"
 </i18n>
 
@@ -53,11 +52,13 @@
   import TableListing from '@/components/layouts/TableListing'
   import TriggerSwitch from '@/components/triggers/Switch'
   import QuotaWarning from '@/components/QuotaWarning'
+  import TriggerTitle from '@/components/triggers/Title'
   export default {
     components: {
       TableListing,
       QuotaWarning,
-      TriggerSwitch
+      TriggerSwitch,
+      TriggerTitle
     },
     mixins: [
       withCurrentProject,
@@ -78,7 +79,7 @@
       headers () {
         return [
           { text: this.$t('header.enable'), align: 'left', sortable: false },
-          { text: this.$t('header.service'), align: 'left', sortable: false, value: 'service.name' },
+          { text: this.$t('header.title'), align: 'left', sortable: false, value: 'title' },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
         ]
       }
