@@ -10,14 +10,6 @@
           <Date :value="quotaLimitTo"></Date>
         )
       </v-toolbar-title>
-      <!--<v-spacer></v-spacer>
-       <PopupPageButton
-        success dark
-        :modalWidth="1024"
-        :title="$t('upgrade')"
-        :to="{ name: 'Plans' }">
-        <PlansList></PlansList>
-      </PopupPageButton>-->
     </v-toolbar>
     <v-card-text>
       <Quotas
@@ -42,14 +34,12 @@
   import Price from '@/components/Price'
   import PlansList from '@/components/plans/List'
   import Quotas from '@/components/Quotas'
-  import PopupPageButton from '@/components/PopupPageButton'
   export default {
     components: {
       Date,
       Price,
       PlansList,
-      Quotas,
-      PopupPageButton
+      Quotas
     },
     mixins: [
       quotasInterval,

@@ -10,13 +10,12 @@
     searchable
     withMenu>
     <template slot="toolbar">
-      <PopupPageButton
+      <v-btn
         :to="{ name: 'NewTrigger' }"
-        success dark icon="add"
-        :title="$t('create')"
-        v-model="popup">
-        <NewTrigger @saved="popup = false"></NewTrigger>
-      </PopupPageButton>
+        success dark>
+        <v-icon>add</v-icon>
+        {{ $t('create') }}
+      </v-btn>
     </template>
     <template slot="extension">
       <QuotaWarning feature="executions"></QuotaWarning>
@@ -52,15 +51,11 @@
   import collection from '@/mixins/collection'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import TableListing from '@/components/layouts/TableListing'
-  import PopupPageButton from '@/components/PopupPageButton'
-  import NewTrigger from '@/components/triggers/Create'
   import TriggerSwitch from '@/components/triggers/Switch'
   import QuotaWarning from '@/components/QuotaWarning'
   export default {
     components: {
       TableListing,
-      PopupPageButton,
-      NewTrigger,
       QuotaWarning,
       TriggerSwitch
     },
@@ -71,11 +66,6 @@
     metaInfo () {
       return {
         title: this.$t('title')
-      }
-    },
-    data () {
-      return {
-        popup: false
       }
     },
     computed: {

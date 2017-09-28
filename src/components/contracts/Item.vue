@@ -6,17 +6,11 @@
         {{ contract.name }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <PopupPageButton
+      <v-btn
         primary dark outline
-        :to="{ name: 'EditContract', params: { id: contract.id } }"
-        :title="$t('update')"
-        v-model="popup">
-        <ContractForm
-          :title="$t('edit')"
-          :contract="contract"
-          @saved="popup = false">
-        </ContractForm>
-      </PopupPageButton>
+        :to="{ name: 'EditContract', params: { id: contract.id } }">
+        {{ $t('update') }}
+      </v-btn>
     </v-toolbar>
     <v-list two-line>
       <v-list-tile v-for="item in items" :key="item.key">
@@ -59,15 +53,11 @@
 <script>
   import item from '@/mixins/item'
   import Abi from '@/components/ABI'
-  import PopupPageButton from '@/components/PopupPageButton'
   import MenuToggle from '@/components/MenuToggle'
-  import ContractForm from './Form'
   export default {
     components: {
       Abi,
-      MenuToggle,
-      PopupPageButton,
-      ContractForm
+      MenuToggle
     },
     mixins: [
       item('contract')
@@ -81,11 +71,6 @@
     metaInfo () {
       return {
         title: this.$t('title', this.contract)
-      }
-    },
-    data () {
-      return {
-        popup: false
       }
     },
     computed: {

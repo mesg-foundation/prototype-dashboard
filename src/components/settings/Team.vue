@@ -11,12 +11,12 @@
       @pageChanged="usersChangePage"
       transparent>
       <template slot="toolbar">
-        <PopupPageButton
-          primary dark outline
-          :title="$t('invite')"
-          v-model="popup">
+        <v-dialog v-model="popup" width="640">
+          <v-btn slot="activator" primary dark outline>
+            {{ $t('invite') }}
+          </v-btn>
           <InvitationForm @saved="popup = false"></InvitationForm>
-        </PopupPageButton>
+        </v-dialog>
       </template>
       <template scope="user">
         <td>{{ user.email }}</td>
@@ -42,14 +42,12 @@
   import collection from '@/mixins/collection'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import TableListing from '@/components/layouts/TableListing'
-  import PopupPageButton from '@/components/PopupPageButton'
   import InvitationForm from '@/components/invitations/Form'
   import InvitationList from '@/components/invitations/List'
   import QuotaWarning from '@/components/QuotaWarning'
   export default {
     components: {
       TableListing,
-      PopupPageButton,
       InvitationForm,
       InvitationList,
       QuotaWarning

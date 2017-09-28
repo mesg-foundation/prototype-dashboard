@@ -10,13 +10,12 @@
     searchable
     withMenu>
     <template slot="toolbar">
-      <PopupPageButton
+      <v-btn
         :to="{ name: 'NewContract' }"
-        success dark icon="add"
-        :title="$t('create')"
-        v-model="popup">
-        <NewContract @saved="popup = false"></NewContract>
-      </PopupPageButton>
+        success dark>
+        <v-icon>add</v-icon>
+        {{ $t('create') }}
+      </v-btn>
     </template>
     <template slot="extension">
       <QuotaWarning feature="contracts"></QuotaWarning>
@@ -56,14 +55,10 @@
   import collection from '@/mixins/collection'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import TableListing from '@/components/layouts/TableListing'
-  import PopupPageButton from '@/components/PopupPageButton'
-  import NewContract from '@/components/contracts/Create'
   import QuotaWarning from '@/components/QuotaWarning'
   export default {
     components: {
       TableListing,
-      NewContract,
-      PopupPageButton,
       QuotaWarning
     },
     mixins: [
@@ -73,11 +68,6 @@
     metaInfo () {
       return {
         title: this.$t('title')
-      }
-    },
-    data () {
-      return {
-        popup: false
       }
     },
     computed: {
