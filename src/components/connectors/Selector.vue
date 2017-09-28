@@ -81,10 +81,10 @@ export default {
   data () {
     return {
       step: '1',
-      connectorType: null,
+      connectorType: this.value.connectorType,
       connectorData: process.env.CONNECTORS.reduce((acc, connector) => ({
         ...acc,
-        [connector.id]: {}
+        [connector.id]: this.value[connector.fieldName]
       }), {})
     }
   },
@@ -129,6 +129,14 @@ export default {
         [this.fieldName]: this.currentData
       })
     }
+  },
+  mounted () {
+    // If the id already exisits it means we are editing,
+    // in this case we need to notify again the parent form that it should
+    // display the specific components for the data we want to edit so we submit
+    // the data again like that the field and component are sent because
+    // from the api we cannot retrive those informations
+    if (this.value.id) { this.submit() }
   }
 }
 </script>

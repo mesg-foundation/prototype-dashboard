@@ -77,7 +77,7 @@
       actionVariables () {
         return {
           projectId: this.currentProjectId,
-          ...this.action
+          ...Utils.flattenGraphQlData(this.action, ['data'])
         }
       }
     },
@@ -93,6 +93,7 @@
             this.action = { ...this.action, ...action }
             return this.updateOrCreateTrigger({
               id: this.trigger.id,
+              enable: this.trigger.enable, // required to avoid bug with graphcool / https://github.com/graphcool/graphcool/issues/607
               projectId: this.currentProjectId,
               connectorId: connector.id,
               actionId: action.id
@@ -102,7 +103,10 @@
             this.saving = false
             this.$emit('saved', trigger)
           })
-          .catch(() => (this.saving = false))
+          .catch(e => {
+            this.saving = false
+            throw e
+          })
       }
     }
   }
