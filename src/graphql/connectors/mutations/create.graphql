@@ -4,11 +4,13 @@ mutation(
   $projectId: ID!
   $connectorType: CONNECTOR_TYPE!
   $ethereumContract: ConnectorethereumContractEthereumContractConnector
+  $ethereumTransaction: ConnectorethereumTransactionEthereumTransactionConnector
 ) {
   createConnector(
     projectId: $projectId
     connectorType: $connectorType
     ethereumContract: $ethereumContract
+    ethereumTransaction: $ethereumTransaction
 	) {
     ...connectorFields
   }

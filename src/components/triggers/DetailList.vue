@@ -21,6 +21,7 @@
     service: "Service"
     connectorType:
       ETHEREUM_CONTRACT: "Ethereum Contract"
+      ETHEREUM_TRANSACTION: "Ethereum Transaction"
 </i18n>
 
 <script>
