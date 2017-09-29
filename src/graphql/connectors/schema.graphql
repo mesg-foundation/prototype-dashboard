@@ -1,11 +1,15 @@
 fragment connectorFields on Connector {
-  id
-  connectorType
-  createdAt
+  id,
+  connectorType,
+  createdAt,
   ethereumContract {
     eventName,
     contract {
       id
     }
+  },
+  ethereumTransaction {
+    address,
+    chain
   }
 }

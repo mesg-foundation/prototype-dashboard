@@ -3,12 +3,14 @@
 mutation(
   $id: ID!
   $connectorType: CONNECTOR_TYPE!
-  $ethereumContract: ConnectorethereumContractEthereumContractConnector
+  $ethereumContract: ConnectorethereumContractEthereumContractConnector,
+  $ethereumTransaction: ConnectorethereumTransactionEthereumTransactionConnector,
 ) {
   updateConnector(
     id: $id
     connectorType: $connectorType
     ethereumContract: $ethereumContract
+    ethereumTransaction: $ethereumTransaction
 	) {
     ...connectorFields
   }
