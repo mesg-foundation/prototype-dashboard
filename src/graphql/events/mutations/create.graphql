@@ -7,8 +7,8 @@ mutation(
   $blockId: String!,
   $from: String!,
   $to: String!,
-  $value: Float!
-  $fees: Float!
+  $value: String!
+  $fees: String!
 
 ) {
   createEvent(

@@ -90,8 +90,8 @@
           blockId: '0000000',
           from: '0x1111111111111111111111111111111111111111',
           to: '0x2222222222222222222222222222222222222222',
-          value: 0,
-          fees: 0,
+          value: '0',
+          fees: '0',
           payload: {}
         }
       }
@@ -112,8 +112,8 @@
           { key: 'blockId', type: 'text' },
           { key: 'from', type: 'text' },
           { key: 'to', type: 'text' },
-          { key: 'value', type: 'number' },
-          { key: 'fees', type: 'number' },
+          { key: 'value', type: 'text' },
+          { key: 'fees', type: 'text' },
           this.ethereumContractConnector
             ? { key: 'payload', type: 'payload' }
             : null

@@ -6,7 +6,7 @@ mutation(
   $name: String!,
   $abi: Json!,
   $description: String,
-  $chain: CHAIN,
+  $chain: ETHEREUM_BLOCKCHAIN,
   $public: Boolean
 ) {
   updateContract(
