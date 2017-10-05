@@ -2,8 +2,8 @@ module.exports = {
   NODE_ENV: '"production"',
   AUTH_COOKIE_NAME_TOKEN: '"AUTH_TOKEN"',
   AUTH_COOKIE_NAME_PROJECT: '"PROJECT_ID"',
-  GRAPHQL_ENDPOINT: '"https://api.graph.cool/simple/v1/cj7r0r8d10gk801492n12dv4a"',
-  GRAPHQL_SOCKET: '"wss://subscriptions.ap-northeast-1.graph.cool/v1/cj7r0r8d10gk801492n12dv4a"',
+  GRAPHQL_ENDPOINT: '"https://api.graph.cool/simple/v1/cj7ri5z8d0x5m0149sskbwe15"',
+  GRAPHQL_SOCKET: '"wss://subscriptions.us-west-2.graph.cool/v1/cj7ri5z8d0x5m0149sskbwe15"',
   CONTRACT_ADDRESS_LENGTH: '42',
   CHAINS: JSON.stringify([
     { key: 'KOVAN', name: 'Kovan' },
