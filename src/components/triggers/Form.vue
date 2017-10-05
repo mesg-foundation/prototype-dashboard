@@ -21,9 +21,13 @@
               multi-line auto-grow :rows="1">
             </v-text-field>
             <v-layout row wrap justify-center align-center>
-              <FormConnector v-model="connector"></FormConnector>
+              <FormConnector v-model="connector">
+                <span v-for="error in errors.connector" :key="error" class="error--text">{{ error }}</span>
+              </FormConnector>
               <v-icon large class="ma-3">keyboard_arrow_right</v-icon>
-              <FormAction v-model="action"></FormAction>
+              <FormAction v-model="action">
+                <span v-for="error in errors.action" :key="error" class="error--text">{{ error }}</span>
+              </FormAction>
             </v-layout>
           </v-card-text>
           <v-card-actions>
@@ -95,12 +99,6 @@
         saving: false
       }
     },
-    validations: {
-      title: {
-        required,
-        minLength: minLength(3)
-      }
-    },
     computed: {
       connectorVariables () {
         return {
@@ -115,6 +113,18 @@
           projectId: this.currentProjectId,
           ...Utils.flattenGraphQlData(this.action, ['data'])
         }
+      }
+    },
+    validations: {
+      title: {
+        required,
+        minLength: minLength(3)
+      },
+      connector: {
+        required
+      },
+      action: {
+        required
       }
     },
     methods: {

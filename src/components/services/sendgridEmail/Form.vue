@@ -9,6 +9,7 @@
         :label="$t('labels.secret')"
         :hint="$t('hints.secret')"
         persistent-hint
+        :rules="rules.secret"
         v-model="secret"
         single-line
         type="password">
@@ -16,24 +17,28 @@
       <v-text-field
         :label="$t('labels.from')"
         :hint="$t('hints.email')"
+        :rules="rules.from"
         v-model="from"
         type="text">
       </v-text-field>
       <v-text-field
         :label="$t('labels.to')"
         :hint="$t('hints.email')"
+        :rules="rules.to"
         v-model="to"
         type="text">
       </v-text-field>
       <v-text-field
         :label="$t('labels.subject')"
         :hint="$t('hints.content')"
+        :rules="rules.subject"
         v-model="subject"
         type="text">
       </v-text-field>
       <v-text-field
         :label="$t('labels.body')"
         :hint="$t('hints.content')"
+        :rules="rules.body"
         v-model="body"
         multi-line
         auto-grow

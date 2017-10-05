@@ -3,7 +3,8 @@ const errorLabels = {
     required: 'Is required',
     minLength: 'Is too short',
     maxLength: 'Is too long',
-    alphaNum: 'Is invalid',
+    regex: 'Is not valid',
+    alphaNum: 'Is not valid',
     includedIn: 'Is not in the list',
     jsonValid: 'Cannot parse it',
     validEvents: 'Events are invalid',
@@ -22,6 +23,13 @@ export default {
         .reduce((acc, x) => ({
           ...acc,
           [x]: this.errorsFor(x)
+        }), {})
+    },
+    rules () {
+      return Object.keys(this.errors)
+        .reduce((acc, x) => ({
+          ...acc,
+          [x]: this.errors[x].map(x => () => x)
         }), {})
     },
     errorsCount () {

@@ -5,7 +5,11 @@
     </v-card-title>
     <v-card-text>
       <slot name="errors"></slot>
-      <CodeEditor :title="$t('labels.code')" v-model="code"></CodeEditor>
+      <CodeEditor
+        :title="$t('labels.code')"
+        :rules="rules.code"
+        v-model="code">
+      </CodeEditor>
     </v-card-text>
   </v-card>
 </template>

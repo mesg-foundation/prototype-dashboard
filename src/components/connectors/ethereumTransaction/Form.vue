@@ -4,10 +4,12 @@
       <ChainSelector
         v-model="chain"
         @input="emit"
+        :rules="rules.chain"
         :label="$t('labels.chain')">
       </ChainSelector>
       <v-text-field
         v-model="address"
+        :rules="rules.address"
         @input="emit"
         :label="$t('labels.address')">
       </v-text-field>
@@ -23,11 +25,16 @@
 </i18n>
 
 <script>
+import { required, minLength, maxLength } from '@/validators'
+import withValidation from '@/mixins/withValidation'
 import ChainSelector from '@/components/ChainSelector'
 export default {
   components: {
     ChainSelector
   },
+  mixins: [
+    withValidation
+  ],
   props: {
     value: {
       type: Object,
@@ -40,8 +47,19 @@ export default {
       chain: this.value.chain
     }
   },
+  validations: {
+    chain: {
+      required
+    },
+    address: {
+      required,
+      minLength: minLength(42),
+      maxLength: maxLength(42)
+    }
+  },
   methods: {
     emit () {
+      if (!this.validate()) { return this.$emit('input', null) }
       this.$emit('input', {
         chain: this.chain,
         address: this.address

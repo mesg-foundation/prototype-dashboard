@@ -12,6 +12,7 @@
           </component>
         </v-card-text>
         <v-icon v-else x-large class="ma-4">schedule</v-icon>
+        <slot></slot>
       </v-layout>
     </v-card>
     <ConnectorSelector

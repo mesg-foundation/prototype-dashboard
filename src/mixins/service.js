@@ -1,3 +1,5 @@
+import { required, includedIn, regex } from '@/validators'
+import withValidation from '@/mixins/withValidation'
 export default {
   props: {
     service: {
@@ -9,33 +11,37 @@ export default {
       default: () => ({})
     }
   },
+  mixins: [
+    withValidation
+  ],
   data () {
     return this.service.data.reduce((acc, data) => ({
       ...acc,
       [data.name]: (this.value || {})[data.name] || data.default
     }), {})
   },
-  computed: {
-    dataValid () {
-      return [
-        /* required */ { filter: x => x.required, test: x => !!this[x.name] },
-        /* included */ { filter: x => x.values, test: x => x.values.indexOf(this[x.name]) >= 0 },
-        /* regexp   */ { filter: x => x.regexp, test: x => this[x.name].match(new RegExp(x.regexp)) }
-      ].every(validation => this.service.data
-        .filter(validation.filter)
-        .every(validation.test)
-      )
-    }
+  validations () {
+    return this.service.data
+      .reduce((acc, x) => ({
+        ...acc,
+        [x.name]: this.createValidationsFor(x)
+      }), {})
   },
   methods: {
     emit () {
-      if (!this.dataValid) {
-        return this.$emit('input', null)
-      }
+      if (!this.validate()) { return this.$emit('input', null) }
       this.$emit('input', this.service.data.reduce((acc, data) => ({
         ...acc,
         [data.name]: this[data.name]
       }), {}))
+    },
+    createValidationsFor (data) {
+      const validation = {}
+      if (data.required) { validation.required = required }
+      if (data.values) { validation.includedIn = includedIn(data.values) }
+      debugger
+      if (data.regexp) { validation.regex = regex(data.name, new RegExp(data.regexp)) }
+      return validation
     }
   },
   mounted () {

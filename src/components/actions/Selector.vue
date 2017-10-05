@@ -14,15 +14,19 @@
         <v-stepper-step
           step="1"
           editable
+          :rules="rules.selectedService"
           :complete="!!serviceId">
           {{ $t('service') }}
+          <small>{{ (errors.selectedService || [])[0] }}</small>
         </v-stepper-step>
         <v-divider></v-divider>
         <v-stepper-step
           step="2"
+          :rules="rules.data"
           :editable="!!serviceId"
           :complete="!!data">
           {{ $t('configuration') }}
+          <small>{{ (errors.data || [])[0] }}</small>
         </v-stepper-step>
         <v-divider></v-divider>
       </v-stepper-header>
@@ -68,12 +72,15 @@
 
 <script>
 import Service from '@/components/services/Item.vue'
+import { required } from '@/validators'
+import withValidation from '@/mixins/withValidation'
 import collection from '@/mixins/collection'
 export default {
   components: {
     Service
   },
   mixins: [
+    withValidation,
     collection('services')
   ],
   props: {
@@ -104,8 +111,17 @@ export default {
       }[this.selectedService.key]
     }
   },
+  validations: {
+    selectedService: {
+      required
+    },
+    data: {
+      required
+    }
+  },
   methods: {
     submit () {
+      if (!this.validate()) { return }
       this.$emit('input', {
         serviceId: this.serviceId,
         service: this.selectedService,

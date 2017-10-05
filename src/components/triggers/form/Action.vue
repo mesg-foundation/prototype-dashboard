@@ -9,6 +9,7 @@
           <span class="subheading">{{ value.service.name }}</span>
         </v-card-text>
         <v-icon v-else x-large class="ma-4">extension</v-icon>
+        <slot></slot>
       </v-layout>
     </v-card>
     <ActionSelector
