@@ -20,6 +20,7 @@ export default (item, idGetter = component => component.id) => {
         [fetchFunc]: `${collection}/fetch`
       }),
       [reloadFunc] () {
+        if (!idGetter(this)) { return }
         return this.commitLoading(() => this[fetchFunc]({ variables: { id: idGetter(this) } }))
       }
     },
