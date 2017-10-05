@@ -115,16 +115,14 @@ export default {
       if (!this.connectorType) { return null }
       return {
         ETHEREUM_CONTRACT: () => import('@/components/connectors/ethereumContract/Form'),
-        ETHEREUM_TRANSACTION: () => import('@/components/connectors/ethereumTransaction/Form'),
-        BITCOIN_TRANSACTION: () => import('@/components/connectors/bitcoinTransaction/Form')
+        ETHEREUM_TRANSACTION: () => import('@/components/connectors/ethereumTransaction/Form')
       }[this.connectorType]
     },
     itemComponent () {
       if (!this.connectorType) { return null }
       return {
         ETHEREUM_CONTRACT: () => import('@/components/connectors/ethereumContract/Item'),
-        ETHEREUM_TRANSACTION: () => import('@/components/connectors/ethereumTransaction/Item'),
-        BITCOIN_TRANSACTION: () => import('@/components/connectors/bitcoinTransaction/Item')
+        ETHEREUM_TRANSACTION: () => import('@/components/connectors/ethereumTransaction/Item')
       }[this.connectorType]
     }
   },
