@@ -53,8 +53,8 @@ export default {
     },
     address: {
       required,
-      minLength: minLength(42),
-      maxLength: maxLength(42)
+      minLength: minLength(process.env.CONTRACT_ADDRESS_LENGTH),
+      maxLength: maxLength(process.env.CONTRACT_ADDRESS_LENGTH)
     }
   },
   methods: {
