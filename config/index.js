@@ -1,9 +1,17 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
+var merge = require('webpack-merge')
+
+const overrideEnv = env => Object.keys(env)
+  .reduce((acc, x) => Object.assign({},
+    acc,
+    { [x]: process.env[x] ? JSON.stringify(process.env[x]) : env[x] }
+  ), {})
+
 
 module.exports = {
   build: {
-    env: require('./prod.env'),
+    env: overrideEnv(require('./prod.env')),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
@@ -22,7 +30,7 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   },
   dev: {
-    env: require('./dev.env'),
+    env: overrideEnv(require('./dev.env')),
     port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
