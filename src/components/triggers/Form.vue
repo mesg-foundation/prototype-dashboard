@@ -21,7 +21,6 @@
               multi-line auto-grow :rows="1">
             </v-text-field>
             <v-layout row wrap justify-center align-center>
-              {{errors}}
               <FormConnector v-model="connector">
                 <span v-for="error in errors.connector" :key="error" class="error--text">{{ error }}</span>
               </FormConnector>
