@@ -24,6 +24,13 @@ export default {
           [x]: this.errorsFor(x)
         }), {})
     },
+    rules () {
+      return Object.keys(this.errors)
+        .reduce((acc, x) => ({
+          ...acc,
+          [x]: this.errors[x].map(x => () => x)
+        }), {})
+    },
     errorsCount () {
       return Object.keys(this.errors)
         .reduce((sum, x) => sum + this.errors[x].length, 0)

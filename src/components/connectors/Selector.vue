@@ -14,15 +14,19 @@
         <v-stepper-step
           step="1"
           editable
+          :rules="rules.connectorType"
           :complete="!!connectorType">
           {{ $t('connector') }}
+          <small>{{ (errors.connectorType || [])[0] }}</small>
         </v-stepper-step>
         <v-divider></v-divider>
         <v-stepper-step
           step="2"
+          :rules="rules.currentData"
           :editable="!!connectorType"
           :complete="!!currentData">
           {{ $t('configuration') }}
+          <small>{{ (errors.currentData || [])[0] }}</small>
         </v-stepper-step>
         <v-divider></v-divider>
       </v-stepper-header>
@@ -68,10 +72,15 @@
 
 <script>
 import Connector from './Item'
+import { required } from '@/validators'
+import withValidation from '@/mixins/withValidation'
 export default {
   components: {
     Connector
   },
+  mixins: [
+    withValidation
+  ],
   props: {
     value: {
       type: Object,
@@ -119,11 +128,20 @@ export default {
       }[this.connectorType]
     }
   },
+  validations: {
+    connectorType: {
+      required
+    },
+    currentData: {
+      required
+    }
+  },
   methods: {
     updateCurrentData (data) {
       this.connectorData[this.connectorType] = { ...data }
     },
     submit () {
+      if (!this.validate()) { return }
       this.$emit('input', {
         field: this.fieldName,
         connectorType: this.connectorType,
