@@ -26,6 +26,7 @@
           :label="$t('labels.event')"
           :contract="contract"
           v-model="eventName"
+          :rules="rules.eventName"
           required>
         </EventSelector>
       </v-card-text>
@@ -42,6 +43,8 @@
 </i18n>
 
 <script>
+import { required } from '@/validators'
+import withValidation from '@/mixins/withValidation'
 import item from '@/mixins/item'
 import EventSelector from '@/components/EventSelector'
 import ContractSelector from '@/components/contracts/Selector'
@@ -51,6 +54,7 @@ export default {
     ContractSelector
   },
   mixins: [
+    withValidation,
     item('contract', x => x.contractId)
   ],
   props: {
@@ -65,8 +69,14 @@ export default {
       eventName: this.value.eventName
     }
   },
+  validations: {
+    eventName: {
+      required
+    }
+  },
   watch: {
     eventName () {
+      if (!this.validate()) { return this.$emit('input', null) }
       this.$emit('input', {
         contractId: this.contract.id,
         eventName: this.eventName
