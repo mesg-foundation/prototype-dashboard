@@ -117,6 +117,12 @@
         }
       }
     },
+    validations: {
+      title: {
+        required,
+        minLength: minLength(3)
+      }
+    },
     methods: {
       submit () {
         if (!this.validate()) { return }
