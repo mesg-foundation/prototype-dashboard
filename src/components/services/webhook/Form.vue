@@ -8,12 +8,14 @@
       <v-text-field
         :label="$t('labels.endpoint')"
         :hint="$t('hints.endpoint')"
+        :rules="rules.endpoint"
         v-model="endpoint"
         type="url">
       </v-text-field>
       <v-select
         :label="$t('labels.method')"
         :items="methodValues"
+        :rules="rules.method"
         persistent-hint
         :hint="method === 'GET' ? $t('hints.get') : ''"
         v-model="method">

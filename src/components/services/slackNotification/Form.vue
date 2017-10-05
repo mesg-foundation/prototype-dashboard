@@ -7,6 +7,7 @@
       <slot name="errors"></slot>
       <v-text-field
         :label="$t('labels.webhookUrl')"
+        :rules="rules.webhookUrl"
         v-model="webhookUrl"
         type="url">
       </v-text-field>
