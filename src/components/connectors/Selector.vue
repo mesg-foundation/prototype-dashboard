@@ -79,13 +79,15 @@ export default {
     }
   },
   data () {
-    return {
-      step: '1',
-      connectorType: this.value.connectorType,
-      connectorData: process.env.CONNECTORS.reduce((acc, connector) => ({
+    const connectorData = process.env.CONNECTORS
+      .reduce((acc, connector) => ({
         ...acc,
         [connector.id]: this.value[connector.fieldName]
       }), {})
+    return {
+      step: connectorData[this.value.connectorType] ? '2' : '1',
+      connectorType: this.value.connectorType,
+      connectorData
     }
   },
   computed: {
