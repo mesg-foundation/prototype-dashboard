@@ -2,22 +2,32 @@
   <div>
     <ContractSelector
       v-if="!contract"
-      @selected="x => contract = x">
+      @selected="x => contractId = x.id">
     </ContractSelector>
 
     <v-card flat v-else>
       <v-card-text>
+        <v-card class="mb-4">
+          <v-card-text>
+            <h2 class="subheading black--text">
+              {{ contract.name }} - {{ contract.chain }}
+            </h2>
+            <span class="md-caption">{{ contract.address }}</span>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn flat @click.stop="contractId = null">
+              {{ $t('change') }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
         <p>{{ $t('selectEventText') }}</p>
         <EventSelector
-          v-if="contract"
           :label="$t('labels.event')"
           :contract="contract"
           v-model="eventName"
           required>
         </EventSelector>
-        <v-btn flat @click.stop="contract = null">
-          {{ $t('change') }}
-        </v-btn>
       </v-card-text>
     </v-card>
   </div>
@@ -32,6 +42,7 @@
 </i18n>
 
 <script>
+import item from '@/mixins/item'
 import EventSelector from '@/components/EventSelector'
 import ContractSelector from '@/components/contracts/Selector'
 export default {
@@ -39,10 +50,19 @@ export default {
     EventSelector,
     ContractSelector
   },
+  mixins: [
+    item('contract', x => x.contractId)
+  ],
+  props: {
+    value: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data () {
     return {
-      contract: null,
-      eventName: null
+      contractId: (this.value.contract || {}).id || this.value.contractId,
+      eventName: this.value.eventName
     }
   },
   watch: {
