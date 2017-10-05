@@ -6,30 +6,43 @@
       </TriggerFormHeader>
       <v-divider></v-divider>
       <QuotaWarning feature="executions"></QuotaWarning>
-      <v-card-text>
-        <v-text-field
-          :label="$t('title')"
-          v-model="title">
-        </v-text-field>
-        <v-text-field
-          :label="$t('description')"
-          v-model="description"
-          multi-line>
-        </v-text-field>
-        <v-layout row justify-center align-center>
-          <FormConnector v-model="connector"></FormConnector>
-          <v-icon large class="ma-3">keyboard_arrow_right</v-icon>
-          <FormAction v-model="action"></FormAction>
-        </v-layout>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          primary dark block
-          :loading="saving"
-          type="submit">
-          {{ $t('submit') }}
-        </v-btn>
-      </v-card-actions>
+      <v-layout>
+        <v-flex lg8 offset-lg2>
+          <v-card-text class="mt-4">
+            <v-text-field
+              :label="$t('title')"
+              required
+              :error-messages="errors.title"
+              v-model="title">
+            </v-text-field>
+            <v-text-field
+              :label="$t('description')"
+              v-model="description"
+              multi-line auto-grow :rows="1">
+            </v-text-field>
+            <v-layout row wrap justify-center align-center>
+              <FormConnector v-model="connector"></FormConnector>
+              <v-icon large class="ma-3">keyboard_arrow_right</v-icon>
+              <FormAction v-model="action"></FormAction>
+            </v-layout>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              primary dark block
+              :loading="saving"
+              type="submit">
+              {{ $t('submit') }}
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn
+              block flat v-if="trigger.id"
+              :to="{ name: 'Trigger', params: trigger }">
+              {{ $t('cancel') }}
+            </v-btn>
+          </v-card-actions>
+        </v-flex>
+      </v-layout>
     </v-card>
   </form>
 </template>
@@ -37,12 +50,15 @@
 <i18n>
   en:
     submit: "Save"
+    cancel: "Cancel"
     title: "Title of your trigger"
     description: "Describe your trigger"
 </i18n>
 
 <script>
   import Utils from '@/utils'
+  import { required, minLength } from '@/validators'
+  import withValidation from '@/mixins/withValidation'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import updateOrCreate from '@/mixins/updateOrCreate'
   import TriggerFormHeader from '@/components/triggers/FormHeader.vue'
@@ -58,6 +74,7 @@
       FormConnector
     },
     mixins: [
+      withValidation,
       withCurrentProject,
       updateOrCreate('Connector'),
       updateOrCreate('Action'),
@@ -78,6 +95,12 @@
         saving: false
       }
     },
+    validations: {
+      title: {
+        required,
+        minLength: minLength(3)
+      }
+    },
     computed: {
       connectorVariables () {
         return {
@@ -96,6 +119,7 @@
     },
     methods: {
       submit () {
+        if (!this.validate()) { return }
         this.saving = true
         Promise.all([
           this.updateOrCreateConnector(this.connectorVariables),

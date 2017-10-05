@@ -4,7 +4,7 @@
     <br/>
     <span class="subheading">
       <strong>{{ config.address }}</strong> <br/>
-      receive a transaction on <br/>
+      wallet balance changes on <br/>
       <strong>{{ config.chain }}</strong> <br/>
     </span>
   </div>

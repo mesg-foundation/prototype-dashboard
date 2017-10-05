@@ -77,13 +77,16 @@ export default {
     collection('services')
   ],
   props: {
-
+    value: {
+      type: Object,
+      default: () => ({})
+    }
   },
   data () {
     return {
-      step: '1',
-      data: null,
-      serviceId: null
+      step: this.value.data ? '2' : '1',
+      data: this.value.data,
+      serviceId: (this.value.service || {}).id || this.value.serviceId
     }
   },
   computed: {
