@@ -11,6 +11,8 @@
           <v-card-text class="mt-4">
             <v-text-field
               :label="$t('title')"
+              required
+              :error-messages="errors.title"
               v-model="title">
             </v-text-field>
             <v-text-field
@@ -55,6 +57,8 @@
 
 <script>
   import Utils from '@/utils'
+  import { required, minLength } from '@/validators'
+  import withValidation from '@/mixins/withValidation'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import updateOrCreate from '@/mixins/updateOrCreate'
   import TriggerFormHeader from '@/components/triggers/FormHeader.vue'
@@ -70,6 +74,7 @@
       FormConnector
     },
     mixins: [
+      withValidation,
       withCurrentProject,
       updateOrCreate('Connector'),
       updateOrCreate('Action'),
@@ -90,6 +95,12 @@
         saving: false
       }
     },
+    validations: {
+      title: {
+        required,
+        minLength: minLength(3)
+      }
+    },
     computed: {
       connectorVariables () {
         return {
@@ -108,6 +119,7 @@
     },
     methods: {
       submit () {
+        if (!this.validate()) { return }
         this.saving = true
         Promise.all([
           this.updateOrCreateConnector(this.connectorVariables),
