@@ -28,10 +28,16 @@ export default {
   components: {
     ChainSelector
   },
+  props: {
+    value: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data () {
     return {
-      address: null,
-      chain: null
+      address: this.value.address,
+      chain: this.value.chain
     }
   },
   methods: {
