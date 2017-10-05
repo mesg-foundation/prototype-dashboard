@@ -3,10 +3,10 @@ var path = require('path')
 var merge = require('webpack-merge')
 
 const overrideEnv = env => Object.keys(env)
-  .reduce((acc, x) => ({
-    ...acc,
-    [x]: process.env[x] ? JSON.stringify(process.env[x]) : env[x]
-  }), {})
+  .reduce((acc, x) => Object.assign({},
+    acc,
+    { [x]: process.env[x] ? JSON.stringify(process.env[x]) : env[x] }
+  ), {})
 
 
 module.exports = {
