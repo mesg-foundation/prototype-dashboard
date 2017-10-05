@@ -39,7 +39,6 @@ export default {
       const validation = {}
       if (data.required) { validation.required = required }
       if (data.values) { validation.includedIn = includedIn(data.values) }
-      debugger
       if (data.regexp) { validation.regex = regex(data.name, new RegExp(data.regexp)) }
       return validation
     }
