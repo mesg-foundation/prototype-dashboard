@@ -7,3 +7,7 @@ export default ({ commit, dispatch, rootGetters }, gqlConfig) => client()
     ...gqlConfig
   })
   .then(({ data }) => dispatch('signin', gqlConfig))
+  .then(() => dispatch('projects/createAndSelect', { variables: {
+    name: 'Default Project',
+    userId: rootGetters['session/currentUserId']
+  } }, { root: true }))

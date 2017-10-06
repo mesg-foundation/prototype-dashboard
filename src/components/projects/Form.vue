@@ -49,7 +49,7 @@
     ],
     data () {
       return {
-        name: 'Test project'
+        name: ''
       }
     },
     computed: mapGetters({
