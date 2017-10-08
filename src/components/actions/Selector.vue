@@ -30,33 +30,35 @@
         </v-stepper-step>
         <v-divider></v-divider>
       </v-stepper-header>
-      <v-stepper-content step="1">
-        <v-layout row wrap justify-center align-center>
-          <Service
-            v-for="service in services" :key="service.id"
-            class="ma-2 service-item"
-            :service="service"
-            v-model="serviceId"
-            @input="step = '2'">
-          </Service>
-          </v-flex>
-        </v-layout>
-      </v-stepper-content>
-      <v-stepper-content step="2">
-        <v-card flat>
-          <v-card-title class="headline">
-            {{ selectedService.name }}
-          </v-card-title>
-          <v-card-text>
-            <p v-if="selectedService.description">{{ selectedService.description }}</p>
-            <ServiceForm
-              v-if="selectedService"
-              :service="selectedService"
-              v-model="data">
-            </ServiceForm>
-          </v-card-text>
-        </v-card>
-      </v-stepper-content>
+      <v-stepper-items>
+        <v-stepper-content step="1">
+          <v-layout row wrap justify-center align-center>
+            <Service
+              v-for="service in services" :key="service.id"
+              class="ma-2 service-item"
+              :service="service"
+              v-model="serviceId"
+              @input="step = '2'">
+            </Service>
+            </v-flex>
+          </v-layout>
+        </v-stepper-content>
+        <v-stepper-content step="2">
+          <v-card flat>
+            <v-card-title class="headline">
+              {{ selectedService.name }}
+            </v-card-title>
+            <v-card-text>
+              <p v-if="selectedService.description">{{ selectedService.description }}</p>
+              <ServiceForm
+                v-if="selectedService"
+                :service="selectedService"
+                v-model="data">
+              </ServiceForm>
+            </v-card-text>
+          </v-card>
+        </v-stepper-content>
+      </v-stepper-items>
     </v-stepper>
     <v-divider></v-divider>
     <v-card-actions>

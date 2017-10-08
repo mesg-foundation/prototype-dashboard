@@ -30,26 +30,28 @@
         </v-stepper-step>
         <v-divider></v-divider>
       </v-stepper-header>
-      <v-stepper-content step="1">
-        <v-layout row wrap justify-center align-center>
-          <Connector
-            v-for="connector in connectors" :key="connector.id"
-            class="ma-2 connector-item"
-            :connector="connector"
-            v-model="connectorType"
-            @input="step = '2'">
-          </Connector>
-          </v-flex>
-        </v-layout>
-      </v-stepper-content>
-      <v-stepper-content step="2" class="pa-0">
-        <component
-          v-if="connectorComponent"
-          :value="currentData"
-          @input="updateCurrentData"
-          :is="connectorComponent">
-        </component>
-      </v-stepper-content>
+      <v-stepper-items>
+        <v-stepper-content step="1">
+          <v-layout row wrap justify-center align-center>
+            <Connector
+              v-for="connector in connectors" :key="connector.id"
+              class="ma-2 connector-item"
+              :connector="connector"
+              v-model="connectorType"
+              @input="step = '2'">
+            </Connector>
+            </v-flex>
+          </v-layout>
+        </v-stepper-content>
+        <v-stepper-content step="2" class="pa-0">
+          <component
+            v-if="connectorComponent"
+            :value="currentData"
+            @input="updateCurrentData"
+            :is="connectorComponent">
+          </component>
+        </v-stepper-content>
+      </v-stepper-items>
     </v-stepper>
     <v-divider></v-divider>
     <v-card-actions>
