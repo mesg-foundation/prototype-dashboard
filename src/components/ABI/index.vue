@@ -1,6 +1,6 @@
 <template>
   <v-tabs centered grow light scrollable>
-    <v-tabs-bar slot="activators" class="transparent">
+    <v-tabs-bar class="transparent">
       <v-tabs-item
         v-for="item in items" :key="item.key"
         :href="`#${item.key}`"
@@ -11,26 +11,27 @@
       <v-tabs-item href="#raw" ripple>{{ $t('titles.raw') }}</v-tabs-item>
       <v-tabs-slider></v-tabs-slider>
     </v-tabs-bar>
-    <v-tabs-content
-      v-for="item in items" :key="item.key"
-      :id="item.key"
-      class="secondary">
+    <v-tabs-items>
       <v-divider></v-divider>
-      <v-list two-line dense class="pa-0">
-        <template v-for="(entry, i) in item.entries">
-          <v-divider v-if="i !== 0" :key="entry.name"></v-divider>
-          <component
-            :key="entry.name"
-            :is="item.component"
-            :value="entry"
-            :contract="contract">
-          </component>
-        </template>
-      </v-list>
-    </v-tabs-content>
-    <v-tabs-content :id="'raw'">
-      <code class="pa-3">{{ value }}</code>
-    </v-tabs-content>
+      <v-tabs-content
+        v-for="item in items" :key="item.key"
+        :id="item.key">
+        <v-list two-line dense class="pa-0">
+          <template v-for="(entry, i) in item.entries">
+            <v-divider v-if="i !== 0" :key="entry.name"></v-divider>
+            <component
+              :key="entry.name"
+              :is="item.component"
+              :value="entry"
+              :contract="contract">
+            </component>
+          </template>
+        </v-list>
+      </v-tabs-content>
+      <v-tabs-content :id="'raw'">
+        <code class="pa-3">{{ value }}</code>
+      </v-tabs-content>
+    </v-tabs-items>
   </v-tabs>
 </template>
 
