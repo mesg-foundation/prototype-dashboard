@@ -43,12 +43,19 @@
         </v-layout>
       </v-stepper-content>
       <v-stepper-content step="2">
-        <component
-          v-if="serviceForm"
-          :is="serviceForm"
-          :service="selectedService"
-          v-model="data">
-        </component>
+        <v-card flat>
+          <v-card-title class="headline">
+            {{ selectedService.name }}
+          </v-card-title>
+          <v-card-text>
+            <p v-if="selectedService.description">{{ selectedService.description }}</p>
+            <ServiceForm
+              v-if="selectedService"
+              :service="selectedService"
+              v-model="data">
+            </ServiceForm>
+          </v-card-text>
+        </v-card>
       </v-stepper-content>
     </v-stepper>
     <v-divider></v-divider>
@@ -72,12 +79,14 @@
 
 <script>
 import Service from '@/components/services/Item.vue'
+import ServiceForm from '@/components/services/Form'
 import { required } from '@/validators'
 import withValidation from '@/mixins/withValidation'
 import collection from '@/mixins/collection'
 export default {
   components: {
-    Service
+    Service,
+    ServiceForm
   },
   mixins: [
     withValidation,
@@ -100,15 +109,6 @@ export default {
     selectedService () {
       if (!this.serviceId) { return false }
       return this.services.find(x => x.id === this.serviceId)
-    },
-    serviceForm () {
-      if (!this.selectedService) { return null }
-      return {
-        Webhook: () => import('@/components/services/webhook/Form'),
-        SendgridEmail: () => import('@/components/services/sendgridEmail/Form'),
-        ServerlessFunction: () => import('@/components/services/serverlessFunction/Form'),
-        SlackNotification: () => import('@/components/services/slackNotification/Form')
-      }[this.selectedService.key]
     }
   },
   validations: {
