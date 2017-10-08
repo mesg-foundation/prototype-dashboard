@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+    app
     persistent enable-resize-watcher
     :value="menu"
     @input="value => updateMenu(value)"

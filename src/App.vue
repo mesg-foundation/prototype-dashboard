@@ -3,9 +3,11 @@
     <template v-if="connected && currentProjectId">
       <application-menu></application-menu>
       <main>
-        <v-container fluid class="pa-0">
-          <router-view></router-view>
-        </v-container>
+        <v-content>
+          <v-container fluid class="pa-0">
+            <router-view></router-view>
+          </v-container>
+        </v-content>
       </main>
     </template>
     <template v-else>
