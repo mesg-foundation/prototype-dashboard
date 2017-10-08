@@ -7,7 +7,7 @@
     </v-list-tile-content>
     <v-list-tile-action>
       <v-btn
-        success dark
+        color="success" dark
         :to="{ name: 'NewTrigger', query }">
         {{ $t('connect') }}
       </v-btn>

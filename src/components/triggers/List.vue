@@ -12,7 +12,7 @@
     <template slot="toolbar">
       <v-btn
         :to="{ name: 'NewTrigger' }"
-        success dark>
+        color="success" dark>
         <v-icon>add</v-icon>
         {{ $t('create') }}
       </v-btn>

@@ -61,7 +61,7 @@
     <v-divider></v-divider>
     <v-card-actions>
       <v-btn
-        primary block
+        color="primary" block
         @click.stop="submit">
         {{ $t('submit') }}
       </v-btn>

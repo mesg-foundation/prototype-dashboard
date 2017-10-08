@@ -12,7 +12,7 @@
     <template slot="toolbar">
       <v-btn
         :to="{ name: 'NewContract' }"
-        success dark>
+        color="success" light>
         <v-icon>add</v-icon>
         {{ $t('create') }}
       </v-btn>

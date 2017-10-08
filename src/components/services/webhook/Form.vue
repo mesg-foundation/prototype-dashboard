@@ -57,7 +57,7 @@
               </v-text-field>
             </v-card-text>
             <v-card-actions>
-              <v-btn primary block @click="addHeader">{{ $t('addHeader') }}</v-btn>
+              <v-btn color="primary" block @click="addHeader">{{ $t('addHeader') }}</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>

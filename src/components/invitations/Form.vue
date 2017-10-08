@@ -18,7 +18,7 @@
       </v-card-text>
       <v-card-actions>
         <v-btn
-          primary dark block
+          color="primary" dark block
           type="submit">
           {{ $t('submit') }}
         </v-btn>

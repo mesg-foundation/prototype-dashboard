@@ -14,7 +14,7 @@
         </v-text-field>
       </v-card-text>
       <v-card-actions>
-        <v-btn primary @click.stop="save()">
+        <v-btn color="primary" @click.stop="save()">
           {{ $t('save') }}
         </v-btn>
       </v-card-actions>
