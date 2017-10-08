@@ -127,6 +127,10 @@
     padding: .5em;
   }
 
+  .CodeMirror pre {
+    padding-left: 1em;
+  }
+
   .fullscreen .divider {
     flex: none;
   }
