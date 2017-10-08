@@ -12,6 +12,7 @@
       @input="x => $emit('input', x)"
       :options="options">
     </codemirror>
+    <p class="caption ma-1">{{ hint }}</p>
   </v-card>
 </template>
 
@@ -75,6 +76,10 @@
       theme: {
         type: String,
         default: 'monokai'
+      },
+      hint: {
+        type: String,
+        default: ''
       }
     },
     data () {
