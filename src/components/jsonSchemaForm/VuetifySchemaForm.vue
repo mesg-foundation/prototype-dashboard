@@ -34,7 +34,7 @@
       <CodeEditor v-else-if="isCode(field)"
         :title="field.label"
         :value="field.value"
-        @change="field.onUpdate"
+        @input="field.onUpdate"
         :hint="field.description"
         persistent-hint
         :rules="field.validations">

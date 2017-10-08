@@ -1,7 +1,7 @@
 <template>
   <VuetifySchemaForm
     :schema="service.data"
-    :input="value"
+    :value="value"
     @input="x => $emit('input', x)">
   </VuetifySchemaForm>
 </template>
