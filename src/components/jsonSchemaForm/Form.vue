@@ -1,5 +1,6 @@
 <script>
 import fieldExtractor from './mixins/field-extractor'
+import { validate } from 'jsonschema'
 export default {
   mixins: [
     fieldExtractor
@@ -28,6 +29,18 @@ export default {
       return Object.keys(this.form)
         .map(x => this.form[x])
         .sort((a, b) => b.validations.length - a.validations.length)
+    },
+    returnValue () {
+      return this.fields.reduce((acc, field) => ({
+        ...acc,
+        [field.key]: field.value
+      }), {})
+    },
+    validation () {
+      return validate(this.returnValue, this.schema)
+    },
+    errors () {
+      return this.validation.errors
     }
   },
   methods: {
@@ -37,7 +50,10 @@ export default {
           ...this.form,
           [key]: {
             ...this.form[key],
-            value
+            value,
+            validations: this.errors
+              .filter(x => x.property === `instance.${key}`)
+              .map(x => x.message)
           }
         }
       }
@@ -52,17 +68,16 @@ export default {
         }), {})
     },
     form () {
-      this.$emit('input', this.fields.reduce((acc, field) => ({
-        ...acc,
-        [field.key]: field.value
-      }), {}))
+      this.$emit('input', this.returnValue)
     }
   },
   render (createComponent) {
     if (!this.$scopedSlots.default) {
       throw new Error('Scope to display input not present, please add <template slot="string" scope="field"></template>')
     }
-    return createComponent('div', this.fields.map(field => this.$scopedSlots.default(field)))
+    return createComponent('div', [
+      ...this.fields.map(field => this.$scopedSlots.default(field))
+    ])
   }
 }
 </script>
