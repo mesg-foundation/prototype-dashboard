@@ -10,6 +10,8 @@
         :label="field.label"
         :value="field.value"
         @input="field.onUpdate"
+        :hint="field.description"
+        persistent-hint
         :rules="field.validations">
       </v-text-field>
       <v-select v-else-if="isCollection(field)"
@@ -17,24 +19,32 @@
         :value="field.value"
         @input="field.onUpdate"
         :items="field.values"
+        :hint="field.description"
+        persistent-hint
         :rules="field.validations">
       </v-select>
       <v-switch v-else-if="isBoolean(field)"
         :label="field.label"
         :value="field.value"
         @change="field.onUpdate"
+        :hint="field.description"
+        persistent-hint
         :rules="field.validations">
       </v-switch>
       <CodeEditor v-else-if="isCode(field)"
         :title="field.label"
         :value="field.value"
         @change="field.onUpdate"
+        :hint="field.description"
+        persistent-hint
         :rules="field.validations">
       </CodeEditor>
       <v-text-field v-else :label="field.label"
         :value="field.value"
         @input="field.onUpdate"
         :rules="field.validations"
+        :hint="field.description"
+        persistent-hint
         :type="type(field)">
       </v-text-field>
     </template>

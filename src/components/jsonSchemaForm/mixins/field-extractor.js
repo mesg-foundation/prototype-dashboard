@@ -8,7 +8,7 @@ export default {
         return {
           key,
           schema: schemaDefinition,
-          label: schemaDefinition.name || key,
+          label: schemaDefinition.title || key,
           description: schemaDefinition.description || '',
           default: schemaDefinition.default || '',
           type: schemaDefinition.type || 'string',
