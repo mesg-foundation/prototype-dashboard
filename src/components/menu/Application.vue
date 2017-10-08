@@ -26,7 +26,7 @@
           </v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-btn icon dark @click.stop="updateShowProjects(!showProjects)">
+          <v-btn icon @click.stop="updateShowProjects(!showProjects)">
             <v-icon v-if="showProjects">arrow_drop_up</v-icon>
             <v-icon v-else>arrow_drop_down</v-icon>
           </v-btn>
@@ -36,7 +36,7 @@
         :to="{ name: 'Settings' }"
         v-if="showProjects">
         <v-list-tile-action>
-          <v-icon dark>settings</v-icon>
+          <v-icon>settings</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>
@@ -48,7 +48,7 @@
         :to="{ name: 'Logout' }"
         v-if="showProjects">
         <v-list-tile-action>
-          <v-icon dark>exit_to_app</v-icon>
+          <v-icon>exit_to_app</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>
@@ -64,7 +64,7 @@
         v-for="item in items" :key="item.key"
         :to="item.to">
         <v-list-tile-action>
-          <v-icon dark>{{ item.icon }}</v-icon>
+          <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>
@@ -77,7 +77,7 @@
       </v-list-tile>
     </v-list>
     <v-bottom-nav :value="true">
-      <v-btn dark block target="_blank"
+      <v-btn block target="_blank"
         href="mailto:incoming+etherstellar/support@gitlab.com">
         <span>{{ $t('contact') }}</span>
         <v-icon>mail_outline</v-icon>
@@ -131,16 +131,13 @@
 <style lang="stylus" scoped>
   @import "../../variables"
 
-  img {
+  .list__tile--avatar .avatar img {
     position: fixed;
     top: 0;
     left: 0;
     height: 64px;
     width: 64px;
     border-radius: 0;
-  }
-  .subheader {
-    text-transform: uppercase;
   }
 </style>
 
@@ -185,6 +182,12 @@
     .header {
       background-color: $blue.darken-2;
     }
+  }
+
+  .navigation-drawer > .list .list__tile--active .list__tile__title,
+  .navigation-drawer > .list .list__tile--active .list__tile__action,
+  .navigation-drawer > .list .list__tile--active > *:first-child .icon {
+    color: white;
   }
 </style>
 
