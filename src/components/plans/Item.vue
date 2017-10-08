@@ -39,7 +39,7 @@
     <v-divider></v-divider>
     <v-card-actions>
       <v-btn v-if="isCurrentPlan" block flat disabled>{{ $t('current') }}</v-btn>
-      <v-btn v-else color="success" block>{{ $t('choose') }}</v-btn>
+      <v-btn v-else color="success" dark block>{{ $t('choose') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
