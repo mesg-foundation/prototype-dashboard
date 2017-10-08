@@ -164,6 +164,6 @@ export default {
 <style scoped>
   .connector-item {
     text-align: center;
-    width: 320px;
+    width: 318px;
   }
 </style>
