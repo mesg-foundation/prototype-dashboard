@@ -43,7 +43,7 @@
             </v-flex>
           </v-layout>
         </v-stepper-content>
-        <v-stepper-content step="2">
+        <v-stepper-content step="2" class="pa-0">
           <v-card flat>
             <v-card-title class="headline">
               {{ selectedService.name }}
