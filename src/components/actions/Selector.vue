@@ -53,7 +53,8 @@
               <ServiceForm
                 v-if="selectedService"
                 :service="selectedService"
-                v-model="data">
+                v-model="data"
+                :displayAllErrors="displayAllErrors">
               </ServiceForm>
             </v-card-text>
           </v-card>
@@ -104,7 +105,8 @@ export default {
     return {
       step: this.value.data ? '2' : '1',
       data: this.value.data,
-      serviceId: (this.value.service || {}).id || this.value.serviceId
+      serviceId: (this.value.service || {}).id || this.value.serviceId,
+      displayAllErrors: false
     }
   },
   computed: {
@@ -123,7 +125,10 @@ export default {
   },
   methods: {
     submit () {
-      if (!this.validate()) { return }
+      if (!this.validate()) {
+        this.displayAllErrors = true
+        return
+      }
       this.$emit('input', {
         serviceId: this.serviceId,
         service: this.selectedService,

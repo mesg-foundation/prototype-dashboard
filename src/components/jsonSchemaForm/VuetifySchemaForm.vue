@@ -1,54 +1,56 @@
 <template>
-  <JsonSchemaForm
-    v-bind="$attrs"
-    :schema="schema"
-    :value="value"
-    @input="x => $emit('input', x)">
-    <template scope="field">
-      <v-text-field v-if="isLargeText(field)"
-        multi-line auto-grow textarea
-        :label="field.label"
-        :value="field.value"
-        @input="field.onUpdate"
-        :hint="field.description"
-        persistent-hint
-        :rules="field.validations">
-      </v-text-field>
-      <v-select v-else-if="isCollection(field)"
-        :label="field.label"
-        :value="field.value"
-        @input="field.onUpdate"
-        :items="field.values"
-        :hint="field.description"
-        persistent-hint
-        :rules="field.validations">
-      </v-select>
-      <v-switch v-else-if="isBoolean(field)"
-        :label="field.label"
-        :value="field.value"
-        @change="field.onUpdate"
-        :hint="field.description"
-        persistent-hint
-        :rules="field.validations">
-      </v-switch>
-      <CodeEditor v-else-if="isCode(field)"
-        :title="field.label"
-        :value="field.value"
-        @input="field.onUpdate"
-        :hint="field.description"
-        persistent-hint
-        :rules="field.validations">
-      </CodeEditor>
-      <v-text-field v-else :label="field.label"
-        :value="field.value"
-        @input="field.onUpdate"
-        :rules="field.validations"
-        :hint="field.description"
-        persistent-hint
-        :type="type(field)">
-      </v-text-field>
-    </template>
-  </JsonSchemaForm>
+  <v-form ref="form" v-model="valid">
+    <JsonSchemaForm
+      v-bind="$attrs"
+      :schema="schema"
+      :value="value"
+      @input="onUpdate">
+      <template scope="field">
+        <v-text-field v-if="isLargeText(field)"
+          multi-line auto-grow textarea
+          :label="field.label"
+          :value="field.value"
+          @input="field.onUpdate"
+          :hint="field.description"
+          persistent-hint
+          :rules="errors[field.key]">
+        </v-text-field>
+        <v-select v-else-if="isCollection(field)"
+          :label="field.label"
+          :value="field.value"
+          @input="field.onUpdate"
+          :items="field.values"
+          :hint="field.description"
+          persistent-hint
+          :rules="errors[field.key]">
+        </v-select>
+        <v-switch v-else-if="isBoolean(field)"
+          :label="field.label"
+          :value="field.value"
+          @change="field.onUpdate"
+          :hint="field.description"
+          persistent-hint
+          :rules="errors[field.key]">
+        </v-switch>
+        <CodeEditor v-else-if="isCode(field)"
+          :title="field.label"
+          :value="field.value"
+          @input="field.onUpdate"
+          :hint="field.description"
+          persistent-hint
+          :rules="errors[field.key]">
+        </CodeEditor>
+        <v-text-field v-else :label="field.label"
+          :value="field.value"
+          @input="field.onUpdate"
+          :rules="errors[field.key]"
+          :hint="field.description"
+          persistent-hint
+          :type="type(field)">
+        </v-text-field>
+      </template>
+    </JsonSchemaForm>
+  </v-form>
 </template>
 
 <script>
@@ -67,9 +69,49 @@ export default {
     value: {
       type: Object,
       default: () => ({})
+    },
+    displayAllErrors: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      errors: {},
+      valid: true
+    }
+  },
+  watch: {
+    schema () {
+      this.$refs.form.reset()
+    },
+    displayAllErrors () {
+      if (this.displayAllErrors) {
+        this.$refs.form.validate()
+      }
     }
   },
   methods: {
+    onUpdate (x) {
+      if (!x.errors) {
+        this.valid = true
+        this.errors = {}
+        this.$emit('input', x)
+        return
+      }
+      this.valid = false
+      const key = error => error.name === 'required'
+        ? error.argument
+        : error.property.replace('instance.', '')
+      this.errors = x.errors
+        .reduce((acc, error) => ({
+          ...acc,
+          [key(error)]: [
+            ...(acc[key(error)] || []),
+            error.message
+          ]
+        }), {})
+    },
     type (field) {
       return [
         { type: 'number', test: x => x.type === 'integer' || x.type === 'number' },

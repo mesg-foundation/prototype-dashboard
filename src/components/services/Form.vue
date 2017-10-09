@@ -1,5 +1,6 @@
 <template>
   <VuetifySchemaForm
+    v-bind="$attrs"
     :schema="service.data"
     :value="value"
     @input="x => $emit('input', x)">

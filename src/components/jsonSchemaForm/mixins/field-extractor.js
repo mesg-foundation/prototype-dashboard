@@ -12,10 +12,9 @@ export default {
           description: schemaDefinition.description || '',
           default: schemaDefinition.default || '',
           type: schemaDefinition.type || 'string',
-          value: this.value[key] || schemaDefinition.default || '',
+          value: this.value[key] || schemaDefinition.default || undefined,
           onUpdate: this.onUpdate(key),
-          values: schemaDefinition.enum || [],
-          validations: []
+          values: schemaDefinition.enum || []
         }
       })
     }

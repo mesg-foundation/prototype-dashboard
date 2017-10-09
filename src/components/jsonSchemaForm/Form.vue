@@ -28,7 +28,6 @@ export default {
     fields () {
       return Object.keys(this.form)
         .map(x => this.form[x])
-        .sort((a, b) => b.validations.length - a.validations.length)
     },
     returnValue () {
       return this.fields.reduce((acc, field) => ({
@@ -50,10 +49,7 @@ export default {
           ...this.form,
           [key]: {
             ...this.form[key],
-            value,
-            validations: this.errors
-              .filter(x => x.property === `instance.${key}`)
-              .map(x => x.message)
+            value
           }
         }
       }
@@ -68,7 +64,9 @@ export default {
         }), {})
     },
     form () {
-      this.$emit('input', this.returnValue)
+      this.errors.length === 0
+        ? this.$emit('input', this.returnValue)
+        : this.$emit('input', { errors: this.errors })
     }
   },
   render (createComponent) {
