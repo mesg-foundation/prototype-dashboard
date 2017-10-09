@@ -12,7 +12,7 @@
       transparent>
       <template slot="toolbar">
         <v-dialog v-model="popup" width="640">
-          <v-btn slot="activator" primary dark outline>
+          <v-btn slot="activator" color="primary" dark outline>
             {{ $t('invite') }}
           </v-btn>
           <InvitationForm @saved="popup = false"></InvitationForm>

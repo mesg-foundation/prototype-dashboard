@@ -26,11 +26,18 @@ $material-light := {
   app-bar: #F5F5F5,
   background: #FFFFFF,
   cards: #FFFFFF,
+  chips: {
+    background: $grey.lighten-2,
+    color: rgba(#000, .87)
+  },
   dividers: rgba(#000, .12),
   text: {
+    theme: #fff,
     primary: rgba(#000, .87),
     secondary: rgba(#000, .54),
-    disabled: rgba(#000, .38)
+    disabled: rgba(#000, .38),
+    link: $theme.primary,
+    link-hover: $grey.darken-3
   },
   icons: {
     active: rgba(#000, .54),
@@ -41,6 +48,9 @@ $material-light := {
     focused: rgba(#000, .12),
     focused-alt: rgba(#fff, .6),
     pressed: rgba(#999, .4)
+  },
+  expansion-panels: {
+    focus: #EEEEEE
   },
   selection-controls: {
     active: $teal.base,
@@ -73,8 +83,13 @@ $material-light := {
     active: $grey.lighten-4
     hover: $grey.lighten-3
   },
-
-
+  picker: {
+    buttons: #fff,
+    date: $theme.primary,
+    title: $theme.primary,
+    body: #fff,
+    clock: $grey.lighten-2
+  },
   bg-color: #fff
   fg-color: #000
   text-color: #000
@@ -93,11 +108,18 @@ $material-dark := {
   app-bar: #172a3a,
   background: #08131B,
   cards: #0f202e,
-  dividers: rgba(#000, .2),
+  chips: {
+    background: #FFF,
+    color: $material-light.text.primary
+  },
+  dividers: rgba(#fff, .12),
   text: {
+    theme: #fff,
     primary: #fff,
     secondary: rgba(#fff, .70),
-    disabled: rgba(#fff, .50)
+    disabled: rgba(#fff, .50),
+    link: $theme.accent,
+    link-hover: $grey.lighten-3
   },
   icons: {
     active: #fff,
@@ -108,6 +130,9 @@ $material-dark := {
     focused: rgba(#fff, .12),
     focused-alt: rgba(#fff, .1),
     pressed: rgba(#ccc, .25)
+  },
+  expansion-panels: {
+    focus: rgba(#000, .70)
   },
   selection-controls: {
     active: $teal.lighten-3,
@@ -141,7 +166,13 @@ $material-dark := {
     active: $grey.darken-1
     hover: $grey.darken-2
   },
-
+  picker: {
+    date: $theme.accent,
+    title: $grey.darken-2,
+    body: #424242,
+    clock: $grey.darken-2,
+    buttons: rgba(#000, .87)
+  },
   bg-color: #303030
   fg-color: #fff
   text-color: #fff

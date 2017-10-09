@@ -3814,6 +3814,10 @@ jsonpointer@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/jsonpointer/-/jsonpointer-4.0.1.tgz#4fd92cb34e0e9db3c89c8622ecf51f9b978c6cb9"
 
+jsonschema:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/jsonschema/-/jsonschema-1.2.0.tgz#d6ebaf70798db7b3a20c544f6c9ef9319b077de2"
+
 jsprim@^1.2.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jsprim/-/jsprim-1.4.1.tgz#313e66bc1e5cc06e438bc1b7499c2e5c56acb6a2"
@@ -6752,9 +6756,9 @@ vuelidate@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.5.0.tgz#c315659a023e760d0fb11b6b42b6c3cdf08306c3"
 
-vuetify@^0.14.11:
-  version "0.14.11"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-0.14.11.tgz#757760664373ba7a51d70d41a4b527595bbfed36"
+vuetify:
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-0.16.3.tgz#50b81256adc56765f4446d14a68dc9ff30e51a5f"
 
 vuex-persistedstate@^2.0.0:
   version "2.0.0"

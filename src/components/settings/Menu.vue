@@ -8,7 +8,7 @@
     </v-toolbar>
     <v-divider></v-divider>
     <v-tabs light v-model="activeTab">
-      <v-tabs-bar class="secondary" slot="activators">
+      <v-tabs-bar class="secondary">
         <v-tabs-item
           v-for="tab in tabs" :key="tab.key"
           :to="tab.to"

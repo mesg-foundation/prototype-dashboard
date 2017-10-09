@@ -29,7 +29,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn
-            primary dark block
+            color="primary" dark block
             :loading="loading"
             type="submit">
             {{ $t('submit') }}
@@ -39,7 +39,7 @@
     </v-card>
     <v-btn
       class="ma-0 mt-2"
-      secondary flat dark block
+      color="secondary" flat dark block
       :to="{ name: 'Signup' }">
       {{ $t('signup') }}
     </v-btn>

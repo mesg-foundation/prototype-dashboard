@@ -30,31 +30,41 @@
         </v-stepper-step>
         <v-divider></v-divider>
       </v-stepper-header>
-      <v-stepper-content step="1">
-        <v-layout row wrap justify-center align-center>
-          <Service
-            v-for="service in services" :key="service.id"
-            class="ma-2 service-item"
-            :service="service"
-            v-model="serviceId"
-            @input="step = '2'">
-          </Service>
-          </v-flex>
-        </v-layout>
-      </v-stepper-content>
-      <v-stepper-content step="2">
-        <component
-          v-if="serviceForm"
-          :is="serviceForm"
-          :service="selectedService"
-          v-model="data">
-        </component>
-      </v-stepper-content>
+      <v-stepper-items>
+        <v-stepper-content step="1">
+          <v-layout row wrap justify-center align-center>
+            <Service
+              v-for="service in services" :key="service.id"
+              class="ma-2 service-item"
+              :service="service"
+              v-model="serviceId"
+              @input="step = '2'">
+            </Service>
+            </v-flex>
+          </v-layout>
+        </v-stepper-content>
+        <v-stepper-content step="2" class="pa-0">
+          <v-card flat>
+            <v-card-title class="headline">
+              {{ selectedService.name }}
+            </v-card-title>
+            <v-card-text>
+              <p v-if="selectedService.description">{{ selectedService.description }}</p>
+              <ServiceForm
+                v-if="selectedService"
+                :service="selectedService"
+                v-model="data"
+                :displayAllErrors="displayAllErrors">
+              </ServiceForm>
+            </v-card-text>
+          </v-card>
+        </v-stepper-content>
+      </v-stepper-items>
     </v-stepper>
     <v-divider></v-divider>
     <v-card-actions>
       <v-btn
-        primary block
+        color="primary" block
         @click.stop="submit">
         {{ $t('submit') }}
       </v-btn>
@@ -72,12 +82,14 @@
 
 <script>
 import Service from '@/components/services/Item.vue'
+import ServiceForm from '@/components/services/Form'
 import { required } from '@/validators'
 import withValidation from '@/mixins/withValidation'
 import collection from '@/mixins/collection'
 export default {
   components: {
-    Service
+    Service,
+    ServiceForm
   },
   mixins: [
     withValidation,
@@ -93,22 +105,14 @@ export default {
     return {
       step: this.value.data ? '2' : '1',
       data: this.value.data,
-      serviceId: (this.value.service || {}).id || this.value.serviceId
+      serviceId: (this.value.service || {}).id || this.value.serviceId,
+      displayAllErrors: false
     }
   },
   computed: {
     selectedService () {
       if (!this.serviceId) { return false }
       return this.services.find(x => x.id === this.serviceId)
-    },
-    serviceForm () {
-      if (!this.selectedService) { return null }
-      return {
-        Webhook: () => import('@/components/services/webhook/Form'),
-        SendgridEmail: () => import('@/components/services/sendgridEmail/Form'),
-        ServerlessFunction: () => import('@/components/services/serverlessFunction/Form'),
-        SlackNotification: () => import('@/components/services/slackNotification/Form')
-      }[this.selectedService.key]
     }
   },
   validations: {
@@ -121,7 +125,10 @@ export default {
   },
   methods: {
     submit () {
-      if (!this.validate()) { return }
+      if (!this.validate()) {
+        this.displayAllErrors = true
+        return
+      }
       this.$emit('input', {
         serviceId: this.serviceId,
         service: this.selectedService,
@@ -135,6 +142,6 @@ export default {
 <style scoped>
   .service-item {
     text-align: center;
-    width: 320px;
+    width: 318px;
   }
 </style>

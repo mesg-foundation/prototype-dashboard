@@ -32,7 +32,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn
-              primary dark block
+              color="primary" dark block
               :loading="saving"
               type="submit">
               {{ $t('submit') }}

@@ -9,6 +9,10 @@ table.table tbody td {
   text-decoration: none;
 }
 
+.application--light .toolbar .btn:not(.btn--disabled) {
+  color: white;
+}
+
 .input-group.input-group--selection-controls.switch .input-group--selection-controls__container .input-group--selection-controls__toggle {
   height: 20px;
   border-radius: 10px;
@@ -38,12 +42,12 @@ table.table tbody td {
   box-shadow: none;
 }
 
-.stepper__content {
+.stepper__items {
   height: calc(100% - 73px); // 73 => 72 (size of the .stepper__header) + 1 (size of the border)
   overflow: scroll;
 }
 
-@media $display-breakpoints.md-and-up {
+@media $display-breakpoints.lg-and-up {
   .toolbar__side-icon {
     display: none;
   }
@@ -73,3 +77,8 @@ table.table tbody td {
 .selector-card .servicePicture {
   height: 2em;
 }
+
+.application--light .pagination__item--active { background-color: $theme.accent; }
+.application--light .pagination__item--active:hover,
+.application--light .pagination__item--active:active,
+.application--light .pagination__item--active:focus { color: white; }

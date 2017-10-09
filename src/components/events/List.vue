@@ -14,12 +14,12 @@
     <template v-if="trigger" slot="toolbar">
       <v-btn
         :to="{ name: 'EditTrigger', params: { id: trigger.id } }"
-        primary outline>
+        color="primary" outline>
         {{ $t('update') }}
       </v-btn>
       <v-btn
         :to="{ name: 'ExecuteTrigger', params: { triggerId: trigger.id } }"
-        primary outline
+        color="primary" outline
         v-model="testModal">
         {{ $t('test') }}
       </v-btn>

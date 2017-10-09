@@ -7,7 +7,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
-        primary dark outline
+        color="primary" dark outline
         :to="{ name: 'EditContract', params: { id: contract.id } }">
         {{ $t('update') }}
       </v-btn>

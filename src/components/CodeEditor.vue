@@ -12,6 +12,8 @@
       @input="x => $emit('input', x)"
       :options="options">
     </codemirror>
+    <p class="caption pa-1">{{ hint }}</p>
+    <p v-for="(error, i) in rules" :key="i" class="caption error white--text pa-1">{{ error }}</p>
   </v-card>
 </template>
 
@@ -75,6 +77,14 @@
       theme: {
         type: String,
         default: 'monokai'
+      },
+      hint: {
+        type: String,
+        default: ''
+      },
+      rules: {
+        type: Array,
+        default: () => []
       }
     },
     data () {
@@ -120,6 +130,10 @@
 
   .CodeMirror {
     padding: .5em;
+  }
+
+  .CodeMirror pre {
+    padding-left: 1em;
   }
 
   .fullscreen .divider {

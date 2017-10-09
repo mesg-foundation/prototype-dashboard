@@ -7,7 +7,7 @@
     </v-card-title>
     <v-card-text style="min-height:150px" v-html="service.description"></v-card-text>
     <v-card-actions>
-      <v-btn block flat primary @click.stop="select">
+      <v-btn block flat color="primary" @click.stop="select">
         <v-icon
           v-if="isSelected"
           class="success--text mr-2">

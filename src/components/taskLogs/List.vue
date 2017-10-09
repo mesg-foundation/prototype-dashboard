@@ -12,7 +12,7 @@
     <template slot="toolbar">
       <v-btn
         v-if="event"
-        primary outline
+        color="primary" outline
         :to="{ name: 'Trigger', params: { id: event.trigger.id } }">
         {{ $t('action') }}
       </v-btn>
