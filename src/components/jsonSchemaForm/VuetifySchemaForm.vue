@@ -99,6 +99,7 @@ export default {
         this.$emit('input', x)
         return
       }
+      this.$emit('input', {})
       this.valid = false
       const key = error => error.name === 'required'
         ? error.argument
