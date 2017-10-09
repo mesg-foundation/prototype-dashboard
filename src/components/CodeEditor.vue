@@ -12,7 +12,8 @@
       @input="x => $emit('input', x)"
       :options="options">
     </codemirror>
-    <p class="caption ma-1">{{ hint }}</p>
+    <p class="caption pa-1">{{ hint }}</p>
+    <p v-for="(error, i) in rules" :key="i" class="caption error white--text pa-1">{{ error }}</p>
   </v-card>
 </template>
 
@@ -80,6 +81,10 @@
       hint: {
         type: String,
         default: ''
+      },
+      rules: {
+        type: Array,
+        default: () => []
       }
     },
     data () {
