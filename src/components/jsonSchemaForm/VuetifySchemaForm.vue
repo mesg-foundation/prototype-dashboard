@@ -6,7 +6,16 @@
       :value="value"
       @input="onUpdate">
       <template scope="field">
-        <v-text-field v-if="isLargeText(field)"
+        <ArrayField v-if="isArray(field)"
+          :class="inputClass"
+          :field="field"
+          :value="field.value"
+          @input="field.onUpdate"
+          :hint="field.description"
+          :rules="errors[field.key]">
+        </ArrayField>
+        <v-text-field v-else-if="isLargeText(field)"
+          :class="inputClass"
           multi-line auto-grow textarea
           :label="field.label"
           :value="field.value"
@@ -16,6 +25,7 @@
           :rules="errors[field.key]">
         </v-text-field>
         <v-select v-else-if="isCollection(field)"
+          :class="inputClass"
           :label="field.label"
           :value="field.value"
           @input="field.onUpdate"
@@ -25,6 +35,7 @@
           :rules="errors[field.key]">
         </v-select>
         <v-switch v-else-if="isBoolean(field)"
+          :class="inputClass"
           :label="field.label"
           :value="field.value"
           @change="field.onUpdate"
@@ -33,6 +44,7 @@
           :rules="errors[field.key]">
         </v-switch>
         <CodeEditor v-else-if="isCode(field)"
+          :class="inputClass"
           :title="field.label"
           :value="field.value"
           @input="field.onUpdate"
@@ -41,6 +53,7 @@
           :rules="errors[field.key]">
         </CodeEditor>
         <v-text-field v-else :label="field.label"
+          :class="inputClass"
           :value="field.value"
           @input="field.onUpdate"
           :rules="errors[field.key]"
@@ -55,10 +68,14 @@
 
 <script>
 import JsonSchemaForm from './Form'
+import ArrayField from './ArrayField'
 import CodeEditor from '@/components/CodeEditor'
 export default {
+  name: 'vuetify-schema-form',
+
   components: {
     JsonSchemaForm,
+    ArrayField,
     CodeEditor
   },
   props: {
@@ -73,6 +90,10 @@ export default {
     displayAllErrors: {
       type: Boolean,
       default: false
+    },
+    inputClass: {
+      type: [Array, Object, String],
+      default: ''
     }
   },
   data () {
@@ -133,6 +154,9 @@ export default {
     },
     isCode (field) {
       return ['code', 'function'].indexOf(field.key) >= 0
+    },
+    isArray (field) {
+      return field.type === 'array'
     }
   }
 }
