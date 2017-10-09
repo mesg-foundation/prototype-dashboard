@@ -1,6 +1,7 @@
 <template>
   <v-switch
-    v-model="enable">
+    v-model="enable"
+    hide-details>
   </v-switch>
 </template>
 
