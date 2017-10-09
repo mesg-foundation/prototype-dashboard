@@ -13,6 +13,10 @@ export default {
     value: {
       type: Object,
       default: () => ({})
+    },
+    inline: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -73,7 +77,11 @@ export default {
     if (!this.$scopedSlots.default) {
       throw new Error('Scope to display input not present, please add <template slot="string" scope="field"></template>')
     }
-    return createComponent('div', [
+    const style = {
+      display: 'flex',
+      flexDirection: this.inline ? 'row' : 'column'
+    }
+    return createComponent('div', { style }, [
       ...this.fields.map(field => this.$scopedSlots.default(field))
     ])
   }
