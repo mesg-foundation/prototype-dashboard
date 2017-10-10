@@ -46,7 +46,7 @@
         <v-stepper-content step="2" class="pa-0">
           <component
             v-if="connectorComponent"
-            :value="currentData"
+            :value="currentData || {}"
             @input="updateCurrentData"
             :is="connectorComponent">
           </component>
