@@ -1,6 +1,6 @@
 <template>
   <div class="truncate">
-    <img class="mb-4" src="https://www.ethereum.org/images/logos/ETHEREUM-ICON_Black.png" alt="Ethereum">
+    <img class="mb-4" src="https://bitcoin.org/img/icons/opengraph.png" alt="Ethereum">
     <br/>
     <span class="subheading">
       there is a transaction with <br/>
