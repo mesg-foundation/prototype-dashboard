@@ -38,11 +38,19 @@
               {{ $t('submit') }}
             </v-btn>
           </v-card-actions>
-          <v-card-actions>
+          <v-card-actions v-if="trigger.id">
             <v-btn
-              block flat v-if="trigger.id"
+              block flat
               :to="{ name: 'Trigger', params: trigger }">
               {{ $t('cancel') }}
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-if="trigger.id">
+            <v-btn
+              :loading="removing"
+              color="error" block flat
+              @click.stop="remove()">
+              {{ $t('delete') }}
             </v-btn>
           </v-card-actions>
         </v-flex>
@@ -55,11 +63,14 @@
   en:
     submit: "Save"
     cancel: "Cancel"
+    delete: "Delete"
     title: "Title of your trigger"
     description: "Describe your trigger"
+    confirmation: "Are you sure to want to delete this trigger ?"
 </i18n>
 
 <script>
+  import { mapActions } from 'vuex'
   import Utils from '@/utils'
   import { required, minLength } from '@/validators'
   import withValidation from '@/mixins/withValidation'
@@ -96,7 +107,8 @@
         action: this.trigger.action || {},
         title: this.trigger.title,
         description: this.trigger.description,
-        saving: false
+        saving: false,
+        removing: false
       }
     },
     computed: {
@@ -128,6 +140,9 @@
       }
     },
     methods: {
+      ...mapActions({
+        deleteTrigger: 'triggers/delete'
+      }),
       submit () {
         if (!this.validate()) { return }
         this.saving = true
@@ -153,6 +168,19 @@
           })
           .catch(e => {
             this.saving = false
+            throw e
+          })
+      },
+      remove () {
+        this.removing = true
+        if (!confirm(this.$t('confirmation'))) { return }
+        this.deleteTrigger({ variables: { id: this.trigger.id } })
+          .then(trigger => {
+            this.removing = false
+            this.$emit('saved', null)
+          })
+          .catch(e => {
+            this.removing = false
             throw e
           })
       }

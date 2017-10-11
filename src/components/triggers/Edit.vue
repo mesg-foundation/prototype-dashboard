@@ -35,7 +35,9 @@
     },
     methods: {
       triggerSaved (trigger) {
-        this.$router.push({ name: 'Trigger', params: { id: trigger.id } })
+        trigger
+          ? this.$router.push({ name: 'Trigger', params: { id: trigger.id } })
+          : this.$router.push({ name: 'Triggers' })
       }
     }
   }
