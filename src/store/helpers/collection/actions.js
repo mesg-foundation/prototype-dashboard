@@ -29,14 +29,16 @@ const generateAction = (name, queries) => {
     fetchPolicy: 'network-only',
     ...gqlConfig
   }))
-    .then(({ data }) => [data[resource], (data[`_${resource}Meta`] || {}).count])
+    .then(({ data }) => {
+      return [data[resource], (data[`_${resource}Meta`] || {}).count]
+    })
     .then(([data, total]) => {
       if (Array.isArray(data)) {
         commit('updateCollection', { variables: gqlConfig.variables, data, total })
       } else {
-        if (!isDeletion(name)) {
-          commit('replaceItem', { item: data })
-        }
+        isDeletion(name)
+          ? commit('deleteItem', data.id)
+          : commit('replaceItem', { item: data })
       }
       return data
     })
