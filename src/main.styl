@@ -32,9 +32,20 @@ table.table tbody td {
   z-index: 1;
 }
 
-.list__tile .chip .avatar {
-  min-width: initial;
-  justify-content: center;
+.list__tile .list__tile__title { overflow: visible; }
+
+.list__tile .chip {
+  &.chip--small {
+    height: 22px;
+    margin-top: 1px;
+  }
+
+  .avatar {
+    min-width: initial;
+    justify-content: center;
+    width: 28px!important;
+    height: 28px!important;
+  }
 }
 
 .stepper__header {
