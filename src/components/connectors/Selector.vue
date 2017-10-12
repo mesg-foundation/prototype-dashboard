@@ -153,12 +153,10 @@ export default {
     }
   },
   mounted () {
-    // If the id already exisits it means we are editing,
-    // in this case we need to notify again the parent form that it should
-    // display the specific components for the data we want to edit so we submit
-    // the data again like that the field and component are sent because
-    // from the api we cannot retrive those informations
-    if (this.value.id) { this.submit() }
+    // Submit again like that if the data are valide (from an already created trigger or
+    // from data from the UI) we will like that send back the fieldName and the componenent
+    // necessary to render the item component
+    this.submit()
   }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
   <TriggerForm
+    :trigger="trigger"
     @saved="triggerSaved">
   </TriggerForm>
 </template>
@@ -22,7 +23,9 @@
     },
     data () {
       return {
-        contract: null
+        trigger: this.$route.query.trigger
+          ? JSON.parse(decodeURIComponent(this.$route.query.trigger))
+          : {}
       }
     },
     methods: {
