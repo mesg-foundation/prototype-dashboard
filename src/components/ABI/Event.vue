@@ -28,8 +28,13 @@
       query () {
         if (this.$route.name !== 'Contract') { return null }
         return {
-          contractId: this.$route.params.id,
-          event: this.value.name
+          connector: {
+            connectorType: 'ETHEREUM_CONTRACT',
+            ethereumContract: {
+              contractId: this.$route.params.id,
+              eventName: this.value.name
+            }
+          }
         }
       }
     }

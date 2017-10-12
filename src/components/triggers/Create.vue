@@ -1,5 +1,6 @@
 <template>
   <TriggerForm
+    :trigger="trigger"
     @saved="triggerSaved">
   </TriggerForm>
 </template>
@@ -22,7 +23,7 @@
     },
     data () {
       return {
-        contract: null
+        trigger: this.$route.query
       }
     },
     methods: {

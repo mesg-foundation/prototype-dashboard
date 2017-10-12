@@ -98,7 +98,7 @@
     props: {
       trigger: {
         type: Object,
-        default: () => ({})
+        required: true
       }
     },
     data () {
