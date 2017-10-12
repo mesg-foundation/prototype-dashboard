@@ -23,7 +23,9 @@
     },
     data () {
       return {
-        trigger: this.$route.query
+        trigger: this.$route.query.trigger
+          ? JSON.parse(decodeURIComponent(this.$route.query.trigger))
+          : {}
       }
     },
     methods: {
