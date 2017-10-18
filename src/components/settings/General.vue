@@ -28,7 +28,7 @@
         <p>{{ $t('warning') }}</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click.stop="deleteProjectWithConfirmation" error>{{ $t('deleteAction') }}</v-btn>
+        <v-btn color="error" @click.stop="deleteProjectWithConfirmation">{{ $t('deleteAction') }}</v-btn>
       </v-card-actions>
     </v-card>
   </div>
