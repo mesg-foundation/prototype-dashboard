@@ -1,37 +1,35 @@
 <template>
-  <div>
-    <ContractSelector
-      v-if="!contract"
-      @selected="x => contractId = x.id">
-    </ContractSelector>
+  <ContractSelector
+    v-if="!contract"
+    @selected="x => contractId = x.id">
+  </ContractSelector>
 
-    <v-card flat v-else>
-      <v-card-text>
-        <v-card class="mb-4">
-          <v-card-text>
-            <h2 class="subheading black--text">
-              {{ contract.name }} - {{ contract.chain }}
-            </h2>
-            <span class="md-caption">{{ contract.address }}</span>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn flat @click.stop="contractId = null">
-              {{ $t('change') }}
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-        <p>{{ $t('selectEventText') }}</p>
-        <EventSelector
-          :label="$t('labels.event')"
-          :contract="contract"
-          v-model="eventName"
-          :rules="rules.eventName"
-          required>
-        </EventSelector>
-      </v-card-text>
-    </v-card>
-  </div>
+  <v-card flat v-else>
+    <v-card-text>
+      <v-card class="mb-4">
+        <v-card-text>
+          <h2 class="subheading black--text">
+            {{ contract.name }} - {{ contract.chain }}
+          </h2>
+          <span class="md-caption">{{ contract.address }}</span>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn flat @click.stop="contractId = null">
+            {{ $t('change') }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+      <p>{{ $t('selectEventText') }}</p>
+      <EventSelector
+        :label="$t('labels.event')"
+        :contract="contract"
+        v-model="eventName"
+        :rules="rules.eventName"
+        required>
+      </EventSelector>
+    </v-card-text>
+  </v-card>
 </template>
 
 <i18n>
