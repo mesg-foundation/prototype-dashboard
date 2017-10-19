@@ -32,24 +32,16 @@
 </i18n>
 
 <script>
-  import withCurrentProject from '@/mixins/withCurrentProject'
-  import collection from '@/mixins/collection'
   export default {
-    mixins: [
-      withCurrentProject,
-      collection('contracts', { pagination: true })
-    ],
+    props: {
+      contracts: {
+        type: Array,
+        required: true
+      }
+    },
     data () {
       return {
         contractId: null
-      }
-    },
-    computed: {
-      contractsParams () {
-        return {
-          projectId: this.currentProjectId,
-          ...this.contractsPagination
-        }
       }
     },
     methods: {

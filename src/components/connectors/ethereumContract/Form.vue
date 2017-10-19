@@ -1,6 +1,7 @@
 <template>
   <ContractSelector
     v-if="!contract"
+    :contracts="contracts"
     @selected="x => contractId = x.id">
   </ContractSelector>
 
@@ -43,6 +44,8 @@
 <script>
 import { required } from '@/validators'
 import withValidation from '@/mixins/withValidation'
+import withCurrentProject from '@/mixins/withCurrentProject'
+import collection from '@/mixins/collection'
 import item from '@/mixins/item'
 import EventSelector from '@/components/EventSelector'
 import ContractSelector from '@/components/contracts/Selector'
@@ -53,6 +56,8 @@ export default {
   },
   mixins: [
     withValidation,
+    withCurrentProject,
+    collection('contracts', { pagination: true }),
     item('contract', x => x.contractId)
   ],
   props: {
@@ -65,6 +70,14 @@ export default {
     return {
       contractId: (this.value.contract || {}).id || this.value.contractId,
       eventName: this.value.eventName
+    }
+  },
+  computed: {
+    contractsParams () {
+      return {
+        projectId: this.currentProjectId,
+        ...this.contractsPagination
+      }
     }
   },
   validations: {
