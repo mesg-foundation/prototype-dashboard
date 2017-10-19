@@ -6,8 +6,8 @@ module.exports = {
   GRAPHQL_SOCKET: '"wss://subscriptions.us-west-2.graph.cool/v1/cj7ri5z8d0x5m0149sskbwe15"',
   CONTRACT_ADDRESS_LENGTH: '42',
   CHAINS: JSON.stringify([
-    { key: 'KOVAN', name: 'Kovan' },
-    { key: 'MAINNET', name: 'Mainnet' },
+    { key: 'TESTNET', name: 'Testnet (Kovan)' },
+    { key: 'MAINNET', name: 'Mainnet (Foundation)' },
   ]),
   CONNECTORS: JSON.stringify([
     { id: 'ETHEREUM_CONTRACT', fieldName: 'ethereumContract', name: 'Ethereum Contract', picture: 'https://www.ethereum.org/images/logos/ETHEREUM-ICON_Black.png', description: 'Execute an action in Real Time every time this event is triggers from your contract' },
