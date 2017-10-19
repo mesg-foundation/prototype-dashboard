@@ -8,6 +8,12 @@ fragment connectorFields on Connector {
       id
     }
   },
+  ethereumToken {
+    eventName,
+    contract {
+      id
+    }
+  },
   ethereumTransaction {
     address,
     chain
