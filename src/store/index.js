@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import triggers from './triggers'
 import contracts from './contracts'
+import ethTokens from './ethTokens'
 import projects from './projects'
 import events from './events'
 import taskLogs from './taskLogs'
@@ -21,6 +22,7 @@ export default new Vuex.Store({
   modules: {
     triggers,
     contracts,
+    ethTokens,
     projects,
     events,
     taskLogs,

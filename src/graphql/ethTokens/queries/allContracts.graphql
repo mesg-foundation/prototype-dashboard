@@ -1,0 +1,27 @@
+#import "@/graphql/contracts/schema.graphql"
+
+query(
+  $first: Int
+  $skip: Int
+  $projectId: ID
+) {
+  allContracts(
+    orderBy: createdAt_DESC,
+    first: $first,
+    skip: $skip,
+    filter: {
+      public: true,
+      category: "ERC20Token",
+      project: { id: $projectId }
+    }
+  ) {
+    ...contractFields
+  }
+  _allContractsMeta(filter: {
+    public: true,
+    category: "ERC20Token",
+    project: { id: $projectId }
+  }) {
+    count
+  }
+}
