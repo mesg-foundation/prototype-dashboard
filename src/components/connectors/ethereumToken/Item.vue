@@ -1,9 +1,9 @@
 <template>
   <div class="truncate">
-    <img class="mb-4" src="https://www.ethereum.org/images/logos/ETHEREUM-ICON_Black.png" alt="Ethereum">
+    <img class="mb-4" :src="ethToken.picture" alt="Ethereum">
     <br/>
     <span class="subheading">
-      Contract <strong>{{ contract.name }}</strong> <br/>
+      <strong>{{ ethToken.name }}</strong> <br/>
       emits <strong>{{ config.eventName }}</strong>
     </span>
   </div>
@@ -19,14 +19,14 @@ export default {
     }
   },
   mixins: [
-    item('contract', x => x.config.contractId || (x.config.contract || {}).id)
+    item('ethToken', x => x.config.contractId || (x.config.contract || {}).id)
   ]
 }
 </script>
 
 <style scoped>
   img {
-    width: 3em;
+    width: 28px;
     vertical-align: middle;
   }
 </style>
