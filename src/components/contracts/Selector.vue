@@ -3,13 +3,16 @@
     <v-list-tile
       v-for="contract in contracts" :key="contract.id"
       @click.stop="submit(contract)">
+      <v-list-tile-avatar v-if="contract.picture" class="contract-image">
+        <img :src="contract.picture">
+      </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title>
           {{ contract.name }}
-          <span class="caption"> - {{ contract.chain }}</span>
+          <span class="caption" v-if="!blockchainHidden"> - {{ contract.chain }}</span>
         </v-list-tile-title>
         <v-list-tile-sub-title>
-          {{ contract.address }}
+          {{ contract.description || contract.address }}
         </v-list-tile-sub-title>
       </v-list-tile-content>
     </v-list-tile>
@@ -37,6 +40,10 @@
       contracts: {
         type: Array,
         required: true
+      },
+      blockchainHidden: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -51,3 +58,11 @@
     }
   }
 </script>
+
+<style scoped>
+  .contract-image {
+    width: 28px!important;
+    height: 28px!important;
+    justify-content: center;
+  }
+</style>
