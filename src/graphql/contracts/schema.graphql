@@ -7,4 +7,6 @@ fragment contractFields on Contract {
   chain
   public
   createdAt
+  category
+  picture
 }
