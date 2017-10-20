@@ -12,6 +12,7 @@
         {{ $t('update') }}
       </v-btn>
     </v-toolbar>
+    <v-divider></v-divider>
     <v-list two-line>
       <v-list-tile v-for="item in items" :key="item.key">
         <v-list-tile-content>
