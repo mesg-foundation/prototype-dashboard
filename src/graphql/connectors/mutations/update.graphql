@@ -1,16 +1,18 @@
 #import "@/graphql/connectors/schema.graphql"
 
 mutation(
-  $id: ID!
-  $connectorType: CONNECTOR_TYPE!
+  $id: ID!,
+  $connectorType: CONNECTOR_TYPE!,
   $ethereumContract: ConnectorethereumContractEthereumContractConnector,
   $ethereumTransaction: ConnectorethereumTransactionEthereumTransactionConnector,
+  $ethereumToken: ConnectorethereumTokenEthereumTokenConnector,
 ) {
   updateConnector(
     id: $id
     connectorType: $connectorType
     ethereumContract: $ethereumContract
     ethereumTransaction: $ethereumTransaction
+    ethereumToken: $ethereumToken
 	) {
     ...connectorFields
   }

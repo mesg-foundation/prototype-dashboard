@@ -1,7 +1,8 @@
 <template>
   <ContractSelector
-    v-if="!contract"
-    :contracts="contracts"
+    v-if="!ethToken"
+    :contracts="ethTokens"
+    blockchainHidden
     @selected="x => contractId = x.id">
   </ContractSelector>
 
@@ -10,9 +11,10 @@
       <v-card class="mb-4">
         <v-card-text>
           <h2 class="subheading black--text">
-            {{ contract.name }} - {{ contract.chain }}
+            <img :src="ethToken.picture" class="mr-2">
+            {{ ethToken.name }}
           </h2>
-          <span class="md-caption">{{ contract.address }}</span>
+          <span class="md-caption">{{ ethToken.description || ethToken.address }}</span>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -24,7 +26,7 @@
       <p>{{ $t('selectEventText') }}</p>
       <EventSelector
         :label="$t('labels.event')"
-        :contract="contract"
+        :contract="ethToken"
         v-model="eventName"
         :rules="rules.eventName"
         required>
@@ -35,18 +37,17 @@
 
 <i18n>
   en:
-    change: "Change contract"
+    change: "Select another ERC20 Token"
     selectEventText: "Select the event you want to get notified. This event will be emited directly from the contract you've selected"
     labels:
-      event: "Contract's event"
+      event: "Token event"
 </i18n>
 
 <script>
 import { required } from '@/validators'
 import withValidation from '@/mixins/withValidation'
-import withCurrentProject from '@/mixins/withCurrentProject'
-import collection from '@/mixins/collection'
 import item from '@/mixins/item'
+import collection from '@/mixins/collection'
 import EventSelector from '@/components/EventSelector'
 import ContractSelector from '@/components/contracts/Selector'
 export default {
@@ -56,9 +57,8 @@ export default {
   },
   mixins: [
     withValidation,
-    withCurrentProject,
-    collection('contracts', { pagination: true }),
-    item('contract', x => x.contractId)
+    collection('ethTokens', { pagination: true }),
+    item('ethToken', x => x.contractId)
   ],
   props: {
     value: {
@@ -68,16 +68,8 @@ export default {
   },
   data () {
     return {
-      contractId: (this.value.contract || {}).id || this.value.contractId,
+      contractId: (this.value.ethToken || {}).id || this.value.contractId,
       eventName: this.value.eventName
-    }
-  },
-  computed: {
-    contractsParams () {
-      return {
-        projectId: this.currentProjectId,
-        ...this.contractsPagination
-      }
     }
   },
   validations: {
@@ -85,11 +77,18 @@ export default {
       required
     }
   },
+  computed: {
+    ethTokensParams () {
+      return {
+        ...this.ethTokensPagination
+      }
+    }
+  },
   watch: {
     eventName () {
       if (!this.validate()) { return this.$emit('input', null) }
       this.$emit('input', {
-        contractId: this.contract.id,
+        contractId: this.ethToken.id,
         eventName: this.eventName
       })
     }
