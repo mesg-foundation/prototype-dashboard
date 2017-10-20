@@ -3,24 +3,21 @@
 query(
   $first: Int
   $skip: Int
-  $projectId: ID
 ) {
   allContracts(
-    orderBy: createdAt_DESC,
+    orderBy: createdAt_ASC,
     first: $first,
     skip: $skip,
     filter: {
       public: true,
-      category: "ERC20Token",
-      project: { id: $projectId }
+      category: "Erc20Token"
     }
   ) {
     ...contractFields
   }
   _allContractsMeta(filter: {
     public: true,
-    category: "ERC20Token",
-    project: { id: $projectId }
+    category: "Erc20Token"
   }) {
     count
   }
