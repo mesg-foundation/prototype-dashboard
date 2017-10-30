@@ -54,6 +54,7 @@ export default {
   getters: {
     connected: (state, getters) => !!getters.currentUserId && !!state.token,
     currentUserId: state => id(state.currentUser),
+    currentUser: state => state.currentUser,
     currentProjectId: state => state.currentProjectId,
     quotas: state => state.quotas
   }

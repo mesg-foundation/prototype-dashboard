@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <template v-if="connected && currentProjectId">
+    <template v-if="connected && currentProjectId && currentUser.betaUser">
       <application-menu></application-menu>
       <main>
         <v-content>
@@ -35,7 +35,8 @@
       }
     },
     computed: mapGetters({
-      connected: 'session/connected'
+      connected: 'session/connected',
+      currentUser: 'session/currentUser'
     })
   }
 </script>

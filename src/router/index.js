@@ -20,6 +20,7 @@ import SettingsTeam from '@/components/settings/Team'
 import SettingsBilling from '@/components/settings/Billing'
 import Plans from '@/components/plans/List'
 import Logout from '@/components/Logout'
+import Beta from '@/components/Beta'
 
 Vue.use(Router)
 
@@ -170,6 +171,12 @@ export default new Router({
       name: 'Plans',
       component: Plans,
       meta: { auth: true, project: true }
+    },
+    {
+      path: '/beta',
+      name: 'Beta',
+      component: Beta,
+      meta: { auth: true }
     }
   ]
 })

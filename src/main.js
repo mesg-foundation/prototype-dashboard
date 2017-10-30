@@ -7,7 +7,6 @@ import router from './router'
 import { loggedIn, withProject } from './router/guards'
 import i18n from './i18n'
 import store from './store'
-import BetaAccess from './utils/betaAccess'
 
 Vue.config.productionTip = false
 
@@ -19,15 +18,19 @@ router.beforeEach(loggedIn(store))
 router.beforeEach(withProject(store))
 router.afterEach(x => store.commit('updateShowProjects', false))
 
-const initializeApp = () => BetaAccess.check()
-  .then(() => new Vue({
+const initializeApp = () => {
+  const currentUser = store.getters['session/currentUser']
+  if (currentUser && !currentUser.betaUser) {
+    router.replace('/beta')
+  }
+  return new Vue({
     el: '#app',
     router,
     i18n,
     store,
     render: h => h(App)
-  }))
-  .catch(error => alert(error))
+  })
+}
 
 store.dispatch('session/refresh')
   .then(initializeApp)
