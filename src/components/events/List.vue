@@ -120,7 +120,7 @@
     },
     methods: {
       validEvent ({ taskLogs }) {
-        if (!taskLogs) { return null }
+        if ((taskLogs || []).length === 0) { return null }
         return taskLogs
           .some(x => x.code.startsWith('20'))
       }
