@@ -2,7 +2,7 @@ import { mapGetters, mapActions } from 'vuex'
 import Utils from '@/utils'
 import loading from '@/mixins/loading'
 
-export default (collection, { payloadFunction, pagination } = {}) => {
+export default (collection, { payloadFunction, pagination, syncUrl } = {}) => {
   payloadFunction = payloadFunction || `${collection}Params`
   const fetchFunction = `fetchAll${collection}`
   const reloadFunction = `reload${collection}`
@@ -16,7 +16,7 @@ export default (collection, { payloadFunction, pagination } = {}) => {
       return {
         [collectionPagination]: {
           itemPerPage: 15,
-          page: 1
+          page: syncUrl ? this.$route.query.page || 1 : 1
         }
       }
     },
@@ -50,6 +50,15 @@ export default (collection, { payloadFunction, pagination } = {}) => {
         this[collectionPagination] = {
           ...this[collectionPagination],
           page
+        }
+        if (syncUrl) {
+          this.$router.push({
+            ...this.$route,
+            query: {
+              ...this.$route.query,
+              page
+            }
+          })
         }
       }
     },
