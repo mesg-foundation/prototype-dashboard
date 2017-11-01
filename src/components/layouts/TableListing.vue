@@ -42,7 +42,7 @@
         :length="paginationLength"
         :value="pagination.page"
         @input="x => this.$emit('pageChanged', x)"
-        total-visible="3">
+        total-visible="9">
       </v-pagination>
     </v-layout>
   </v-card>
