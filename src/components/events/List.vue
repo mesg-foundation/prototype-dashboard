@@ -19,8 +19,7 @@
       </v-btn>
       <v-btn
         :to="{ name: 'ExecuteTrigger', params: { triggerId: trigger.id } }"
-        color="primary" outline
-        v-model="testModal">
+        color="primary" outline>
         {{ $t('test') }}
       </v-btn>
     </template>
@@ -78,7 +77,7 @@
     },
     mixins: [
       item('trigger'),
-      collection('events', { pagination: true })
+      collection('events', { pagination: true, syncUrl: true })
     ],
     props: {
       id: {
@@ -89,11 +88,6 @@
     metaInfo () {
       return {
         title: this.$t('title', this.trigger)
-      }
-    },
-    data () {
-      return {
-        testModal: false
       }
     },
     computed: {

@@ -66,7 +66,7 @@
     },
     mixins: [
       item('event'),
-      collection('taskLogs', { pagination: true })
+      collection('taskLogs', { pagination: true, syncUrl: true })
     ],
     metaInfo () {
       return {

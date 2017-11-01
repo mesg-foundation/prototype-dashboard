@@ -63,7 +63,7 @@
     },
     mixins: [
       withCurrentProject,
-      collection('contracts', { pagination: true })
+      collection('contracts', { pagination: true, syncUrl: true })
     ],
     metaInfo () {
       return {

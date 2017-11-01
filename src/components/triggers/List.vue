@@ -62,7 +62,7 @@
     },
     mixins: [
       withCurrentProject,
-      collection('triggers', { pagination: true })
+      collection('triggers', { pagination: true, syncUrl: true })
     ],
     metaInfo () {
       return {
