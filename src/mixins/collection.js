@@ -16,7 +16,7 @@ export default (collection, { payloadFunction, pagination, syncUrl } = {}) => {
       return {
         [collectionPagination]: {
           itemPerPage: 15,
-          page: syncUrl ? this.$route.query.page || 1 : 1
+          page: syncUrl ? parseInt(this.$route.query.page || 1, 10) : 1
         }
       }
     },
