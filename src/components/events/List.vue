@@ -43,8 +43,10 @@
         {{ event.transactionId }}
       </td>
       <td class="text-xs-right">
-        <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
-        <v-icon v-else class="error--text">close</v-icon>
+        <template v-if="validEvents[event.id] !== null">
+          <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
+          <v-icon v-else class="error--text">close</v-icon>
+        </template>
       </td>
     </template>
   </table-listing>
