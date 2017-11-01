@@ -112,8 +112,15 @@
       validEvents () {
         return this.events.reduce((acc, event) => ({
           ...acc,
-          [event.id]: event.taskLogs.some(x => x.code.startsWith('20'))
+          [event.id]: this.validEvent(event)
         }), {})
+      }
+    },
+    methods: {
+      validEvent ({ taskLogs }) {
+        if (!taskLogs) { return null }
+        return taskLogs
+          .some(x => x.code.startsWith('20'))
       }
     }
   }
