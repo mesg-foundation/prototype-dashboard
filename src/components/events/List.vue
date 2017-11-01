@@ -37,13 +37,14 @@
         </router-link>
       </td>
       <td>
+        {{ event.blockId }}
+      </td>
+      <td>
         {{ event.transactionId }}
       </td>
-      <td>
-        {{ event.payload }}
-      </td>
-      <td>
-        {{ event._taskLogsMeta.count }}
+      <td class="text-xs-right">
+        <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
+        <v-icon v-else class="error--text">close</v-icon>
       </td>
     </template>
   </table-listing>
@@ -56,9 +57,9 @@
     update: "Update"
     header:
       createdAt: "Created At"
+      blockId: "Block"
       transactionId: "Transaction ID"
-      payload: "Data"
-      attempts: "Attempts"
+      status: " "
 </i18n>
 
 <script>
@@ -103,10 +104,16 @@
       headers () {
         return [
           { text: this.$t('header.createdAt'), align: 'left', sortable: false, value: 'createdAt' },
+          { text: this.$t('header.blockId'), align: 'left', sortable: false, value: 'block' },
           { text: this.$t('header.transactionId'), align: 'left', sortable: false, value: 'transactionId' },
-          { text: this.$t('header.payload'), align: 'left', sortable: false, value: 'payload' },
-          { text: this.$t('header.attempts'), align: 'left', sortable: false, value: '_taskLogsMeta' }
+          { text: this.$t('header.status'), align: 'right', sortable: false }
         ]
+      },
+      validEvents () {
+        return this.events.reduce((acc, event) => ({
+          ...acc,
+          [event.id]: event.taskLogs.some(x => x.code.startsWith('20'))
+        }), {})
       }
     }
   }

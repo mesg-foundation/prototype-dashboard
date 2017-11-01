@@ -1,12 +1,12 @@
 fragment eventFields on Event {
   id
   createdAt
-  payload
+  blockId
   transactionId
   trigger {
     id
   }
-  _taskLogsMeta {
-    count
+  taskLogs(orderBy: createdAt_ASC) {
+    code
   }
 }
