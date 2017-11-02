@@ -5,21 +5,36 @@ const GROUP_BY = {
   min: 60 * 1000
 }
 
+const METHODS = {
+  count: list => list.length,
+  sum: list => list.reduce((prev, val) => prev + val, 0),
+  avg: list => list.length === 0
+    ? 0
+    : list.reduce((prev, val) => prev + val, 0) / list.length
+}
+
 const resultSize = (from, to, interval) => Math.ceil((+to - from) / interval)
 
 export default (data, {
   groupBy = 'day',
+  dateAttribute = 'createdAt',
+  method = 'count',
   attribute = 'createdAt',
-  from = new Date(data[0][attribute]),
-  to = new Date(data[data.length - 1][attribute])
+  from = new Date(data[0][dateAttribute]),
+  to = new Date(data[data.length - 1][dateAttribute])
 } = {}) => {
   const interval = GROUP_BY[groupBy]
-  const res = [...new Array(resultSize(from, to, interval))]
-    .map((_, i) => [new Date(+from + i * interval), 0])
+  const size = resultSize(from, to, interval)
+  const labels = [...new Array(size)]
+    .map((_, i) => new Date(+from + i * interval))
+  const res = [...new Array(size)]
+    .map(() => [])
   data.forEach(x => {
-    const index = Math.trunc((+new Date(x[attribute]) - from) / interval)
-    if (!res[index]) debugger
-    res[index][1]++
+    const index = Math.trunc((+new Date(x[dateAttribute]) - from) / interval)
+    res[index].push(x[attribute])
   })
-  return res
+  return {
+    labels,
+    data: res.map(METHODS[method] || method)
+  }
 }
