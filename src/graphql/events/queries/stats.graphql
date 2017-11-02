@@ -1,0 +1,20 @@
+query(
+  $projectId: ID!
+  $from: DateTime
+  $to: DateTime
+) {
+  allEvents(
+    orderBy: createdAt_ASC,
+    filter: {
+      createdAt_gte: $from,
+      createdAt_lt: $to,
+      trigger: {
+        project: {
+          id: $projectId
+        }
+      }
+    }
+  ) {
+    createdAt
+  }
+}
