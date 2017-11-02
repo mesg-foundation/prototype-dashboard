@@ -18,7 +18,6 @@ export default (data, {
     .map((_, i) => [new Date(+from + i * interval), 0])
   data.forEach(x => {
     const index = Math.trunc((+new Date(x[attribute]) - from) / interval)
-    console.log(index)
     if (!res[index]) debugger
     res[index][1]++
   })
