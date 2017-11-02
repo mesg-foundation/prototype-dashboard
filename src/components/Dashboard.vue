@@ -11,13 +11,13 @@
     <v-layout fill-height>
       <v-flex sm9 style="border-right: solid 1px rgba(0,0,0,0.12)">
         <v-layout column>
-          <v-layout row wrap>
+          <v-layout row wrap v-if="logs">
             <v-flex md6>
               <div>
                 <v-card-title class="subheading">Events per day</v-card-title>
                 <v-card-text>
                   <EventChart
-                    v-if="totalPerDay"
+                    :interval="interval"
                     :height="200"
                     :labels="totalPerDay.labels"
                     :data="totalPerDay.data">
@@ -30,7 +30,7 @@
                 <v-card-title class="subheading">Average time execution (ms)</v-card-title>
                 <v-card-text>
                   <EventChart
-                    v-if="durationAverage"
+                    :interval="interval"
                     :height="200"
                     :labels="durationAverage.labels"
                     :data="durationAverage.data">
@@ -43,7 +43,7 @@
                 <v-card-title class="subheading">Error per day</v-card-title>
                 <v-card-text>
                   <EventChart
-                    v-if="errorsPerDay"
+                    :interval="interval"
                     :height="200"
                     :labels="errorsPerDay.labels"
                     :data="errorsPerDay.data">
@@ -97,11 +97,15 @@ export default {
     withCurrentProject,
     collection('notifications', { pagination: true })
   ],
+  props: {
+    interval: {
+      type: String,
+      default: 'hour'
+    }
+  },
   data () {
     return {
-      totalPerDay: null,
-      durationAverage: null,
-      errorsPerDay: null
+      logs: null
     }
   },
   computed: {
@@ -113,11 +117,38 @@ export default {
     },
     from () {
       const now = new Date()
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 14)
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate())
     },
     to () {
       const now = new Date()
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
+    },
+    totalPerDay () {
+      debugger
+      return groupDataByTime(this.logs, {
+        from: this.from,
+        to: this.to,
+        groupBy: this.interval,
+        method: 'count'
+      })
+    },
+    durationAverage () {
+      return groupDataByTime(this.logs, {
+        from: this.from,
+        to: this.to,
+        attribute: 'duration',
+        groupBy: this.interval,
+        method: 'avg'
+      })
+    },
+    errorsPerDay () {
+      return groupDataByTime(this.logs, {
+        from: this.from,
+        to: this.to,
+        groupBy: this.interval,
+        attribute: 'code',
+        method: list => list.filter(x => !x.startsWith('20')).length
+      })
     },
     notificationsParams () {
       return {
@@ -135,25 +166,7 @@ export default {
         to: this.to
       }
     })
-      .then(({ data }) => {
-        this.totalPerDay = groupDataByTime(data.allTaskLogs, {
-          from: this.from,
-          to: this.to,
-          method: 'count'
-        })
-        this.durationAverage = groupDataByTime(data.allTaskLogs, {
-          from: this.from,
-          to: this.to,
-          attribute: 'duration',
-          method: 'avg'
-        })
-        this.errorsPerDay = groupDataByTime(data.allTaskLogs, {
-          from: this.from,
-          to: this.to,
-          attribute: 'code',
-          method: list => list.filter(x => !x.startsWith('20')).length
-        })
-      })
+      .then(({ data }) => (this.logs = data.allTaskLogs))
   }
 }
 </script>
