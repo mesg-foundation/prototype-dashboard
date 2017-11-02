@@ -17,21 +17,23 @@
                 <v-card-title class="subheading">Events per day</v-card-title>
                 <v-card-text>
                   <EventChart
-                    v-if="data"
+                    v-if="totalPerDay"
                     :height="200"
-                    :data="data">
+                    :labels="totalPerDay.labels"
+                    :data="totalPerDay.data">
                   </EventChart>
                 </v-card-text>
               </div>
             </v-flex>
             <v-flex md6>
               <div>
-                <v-card-title class="subheading">Average time execution</v-card-title>
+                <v-card-title class="subheading">Average time execution (ms)</v-card-title>
                 <v-card-text>
                   <EventChart
-                    v-if="data"
+                    v-if="durationAverage"
                     :height="200"
-                    :data="data">
+                    :labels="durationAverage.labels"
+                    :data="durationAverage.data">
                   </EventChart>
                 </v-card-text>
               </div>
@@ -41,21 +43,10 @@
                 <v-card-title class="subheading">Error per day</v-card-title>
                 <v-card-text>
                   <EventChart
-                    v-if="data"
+                    v-if="errorsPerDay"
                     :height="200"
-                    :data="data">
-                  </EventChart>
-                </v-card-text>
-              </div>
-            </v-flex>
-            <v-flex md6>
-              <div>
-                <v-card-title class="subheading">Min/Max time execution</v-card-title>
-                <v-card-text>
-                  <EventChart
-                    v-if="data"
-                    :height="200"
-                    :data="data">
+                    :labels="errorsPerDay.labels"
+                    :data="errorsPerDay.data">
                   </EventChart>
                 </v-card-text>
               </div>
@@ -92,7 +83,7 @@
 import MenuToggle from '@/components/MenuToggle'
 import EventChart from '@/components/charts/events'
 import client from '@/graphql'
-import allEvents from '@/graphql/events/queries/stats.graphql'
+import allLogs from '@/graphql/stats/events.graphql'
 import collection from '@/mixins/collection'
 import withCurrentProject from '@/mixins/withCurrentProject'
 import groupDataByTime from '@/utils/groupDataByTime'
@@ -108,7 +99,9 @@ export default {
   ],
   data () {
     return {
-      data: null
+      totalPerDay: null,
+      durationAverage: null,
+      errorsPerDay: null
     }
   },
   computed: {
@@ -135,7 +128,7 @@ export default {
   },
   mounted () {
     client().query({
-      query: allEvents,
+      query: allLogs,
       variables: {
         projectId: this.currentProjectId,
         from: this.from,
@@ -143,9 +136,22 @@ export default {
       }
     })
       .then(({ data }) => {
-        this.data = groupDataByTime(data.allEvents, {
+        this.totalPerDay = groupDataByTime(data.allTaskLogs, {
           from: this.from,
-          to: this.to
+          to: this.to,
+          method: 'count'
+        })
+        this.durationAverage = groupDataByTime(data.allTaskLogs, {
+          from: this.from,
+          to: this.to,
+          attribute: 'duration',
+          method: 'avg'
+        })
+        this.errorsPerDay = groupDataByTime(data.allTaskLogs, {
+          from: this.from,
+          to: this.to,
+          attribute: 'code',
+          method: list => list.filter(x => !x.startsWith('20')).length
         })
       })
   }
