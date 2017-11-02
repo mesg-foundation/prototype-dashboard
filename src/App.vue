@@ -4,9 +4,7 @@
       <application-menu></application-menu>
       <main>
         <v-content>
-          <v-container fluid class="pa-0">
-            <router-view></router-view>
-          </v-container>
+          <router-view></router-view>
         </v-content>
       </main>
     </template>
