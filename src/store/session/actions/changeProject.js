@@ -6,7 +6,8 @@ const PROJECT_SUBSCRIBERS = [
   'taskLogs',
   'invitations',
   'connectors',
-  'actions'
+  'actions',
+  'notifications'
 ]
 
 export default async ({ commit, dispatch, rootGetters }, { project }) => {

@@ -1,0 +1,27 @@
+#import "@/graphql/notifications/schema.graphql"
+
+query(
+  $projectId: ID!
+  $first: Int
+  $skip: Int
+) {
+  allNotifications(
+    orderBy: createdAt_DESC,
+    first: $first,
+    skip: $skip,
+    filter: {
+      project: {
+        id: $projectId
+      }
+    }
+  ) {
+    ...notificationFields
+  }
+  _allNotificationsMeta(filter: {
+    project: {
+      id: $projectId
+    }
+  }) {
+    count
+  }
+}
