@@ -11,6 +11,10 @@ const tooltipFormatter = {
 export default {
   extends: Line,
   props: {
+    labels: {
+      type: Array,
+      required: true
+    },
     data: {
       type: Array,
       required: true
@@ -21,12 +25,9 @@ export default {
     }
   },
   computed: {
-    labels () {
-      return this.data.map(x => x[0])
-    },
     datasets () {
       return [
-        { data: this.data.map(x => x[1]) }
+        { data: this.data }
       ]
     }
   },
