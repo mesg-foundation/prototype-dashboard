@@ -3,7 +3,7 @@ query(
   $from: DateTime
   $to: DateTime
 ) {
-  allTaskLogs(
+  _allTaskLogsMeta(
     orderBy: createdAt_ASC,
     filter: {
       createdAt_gte: $from,
@@ -15,8 +15,6 @@ query(
       }
     }
   ) {
-    createdAt
-    code
-    duration
+    count
   }
 }

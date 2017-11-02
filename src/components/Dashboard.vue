@@ -83,7 +83,8 @@
 import MenuToggle from '@/components/MenuToggle'
 import EventChart from '@/components/charts/events'
 import client from '@/graphql'
-import allLogs from '@/graphql/stats/events.graphql'
+import allLogs from '@/graphql/stats/logs.graphql'
+import allLogsMeta from '@/graphql/stats/logsMeta.graphql'
 import collection from '@/mixins/collection'
 import withCurrentProject from '@/mixins/withCurrentProject'
 import groupDataByTime from '@/utils/groupDataByTime'
@@ -124,7 +125,6 @@ export default {
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
     },
     totalPerDay () {
-      debugger
       return groupDataByTime(this.logs, {
         from: this.from,
         to: this.to,
@@ -157,16 +157,33 @@ export default {
       }
     }
   },
-  mounted () {
-    client().query({
-      query: allLogs,
-      variables: {
-        projectId: this.currentProjectId,
-        from: this.from,
-        to: this.to
-      }
+  async mounted () {
+    const variables = {
+      projectId: this.currentProjectId,
+      from: this.from,
+      to: this.to
+    }
+    const { data: { _allTaskLogsMeta: { count } } } = await client().query({
+      query: allLogsMeta,
+      variables
     })
-      .then(({ data }) => (this.logs = data.allTaskLogs))
+    const perPage = 500
+    let logs = []
+    for (let i = 0; i < Math.ceil(count / perPage); i++) {
+      const res = await client().query({
+        query: allLogs,
+        variables: {
+          ...variables,
+          first: perPage,
+          skip: i * perPage
+        }
+      })
+      logs = [
+        ...logs,
+        ...res.data.allTaskLogs
+      ]
+    }
+    this.logs = logs
   }
 }
 </script>
