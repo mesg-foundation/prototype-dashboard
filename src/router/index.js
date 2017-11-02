@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import RouteDelegate from './RouteDelegate'
+import Dashboard from '@/components/Dashboard'
 import Triggers from '@/components/triggers/List'
 import NewTrigger from '@/components/triggers/Create'
 import EditTrigger from '@/components/triggers/Edit'
@@ -36,7 +37,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/contracts'
+      component: Dashboard,
+      name: 'Dashboard',
+      meta: { auth: true, project: true }
     },
     {
       path: '/triggers',
