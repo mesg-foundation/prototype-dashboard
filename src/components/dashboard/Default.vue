@@ -1,6 +1,6 @@
 <template>
   <v-layout column fill-height>
-    <v-toolbar card class="secondary">
+    <v-toolbar card class="white">
       <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">
         Dashboard
@@ -8,12 +8,12 @@
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-divider></v-divider>
-    <v-layout fill-height>
+    <v-layout fill-height row wrap>
       <v-flex sm9 style="border-right: solid 1px rgba(0,0,0,0.12)">
         <v-layout column>
           <Metrics :chartSize="250" :data="logs"></Metrics>
           <v-divider></v-divider>
-          <v-card-text>
+          <v-card-text class="hidden-sm-and-down">
             News
           </v-card-text>
         </v-layout>

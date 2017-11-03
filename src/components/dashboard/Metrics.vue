@@ -1,13 +1,13 @@
 <template>
   <v-layout row wrap>
-    <v-flex md6>
+    <v-flex xs12 md6>
       <Chart
         title="Events per day"
         v-bind="chartConfig"
         :filter="totalPerDay">
       </Chart>
     </v-flex>
-    <v-flex md6>
+    <v-flex xs12 md6>
       <Chart
         title="Average time execution (ms)"
         v-bind="chartConfig"
@@ -15,7 +15,7 @@
       </Chart>
       </v-card>
     </v-flex>
-    <v-flex md6>
+    <v-flex xs12 md6>
       <Chart
         title="Error per day"
         v-bind="chartConfig"
