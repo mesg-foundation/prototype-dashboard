@@ -33,18 +33,6 @@
         </v-list-tile-action>
       </v-list-tile>
       <v-list-tile
-        :to="{ name: 'Settings' }"
-        v-if="showProjects">
-        <v-list-tile-action>
-          <v-icon>settings</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>
-            {{ $t('settings') }}
-          </v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile
         :to="{ name: 'Logout' }"
         v-if="showProjects">
         <v-list-tile-action>
@@ -89,12 +77,13 @@
 <i18n>
   en:
     members: "Members"
-    settings: "Settings"
     logout: "Logout"
     contact: "Contact us / Report a bug"
     menu:
       triggers: "Triggers"
       contracts: "Contracts"
+      settings: "Settings"
+      dashboard: "Dashboard"
 </i18n>
 
 <script>
@@ -113,8 +102,10 @@
       }),
       items () {
         return [
+          { key: 'dashboard', to: { name: 'Dashboard' }, icon: 'dashboard' },
           { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },
-          { key: 'triggers', to: { name: 'Triggers' }, icon: 'http', count: this.currentProject._triggersMeta.count }
+          { key: 'triggers', to: { name: 'Triggers' }, icon: 'http', count: this.currentProject._triggersMeta.count },
+          { key: 'settings', to: { name: 'Settings' }, icon: 'settings' }
         ].map(e => ({
           ...e,
           title: this.$t(`menu.${e.key}`)
