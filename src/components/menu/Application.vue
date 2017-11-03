@@ -50,6 +50,7 @@
     <v-list v-else>
       <v-list-tile
         v-for="item in items" :key="item.key"
+        router :exact="!!item.exact"
         :to="item.to">
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
@@ -102,9 +103,9 @@
       }),
       items () {
         return [
-          { key: 'dashboard', to: { name: 'Dashboard' }, icon: 'dashboard' },
-          { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },
+          { key: 'dashboard', to: { name: 'Dashboard' }, exact: true, icon: 'dashboard' },
           { key: 'triggers', to: { name: 'Triggers' }, icon: 'http', count: this.currentProject._triggersMeta.count },
+          { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },
           { key: 'settings', to: { name: 'Settings' }, icon: 'settings' }
         ].map(e => ({
           ...e,
