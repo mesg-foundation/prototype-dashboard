@@ -1,29 +1,22 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12 md6>
+    <v-flex xs12 md6 v-for="(chart, i) in charts" :key="i">
       <Chart
-        title="Events per day"
+        :title="chart.title"
         v-bind="chartConfig"
-        :filter="totalPerDay">
-      </Chart>
-    </v-flex>
-    <v-flex xs12 md6>
-      <Chart
-        title="Average time execution (ms)"
-        v-bind="chartConfig"
-        :filter="durationAverage">
-      </Chart>
-      </v-card>
-    </v-flex>
-    <v-flex xs12 md6>
-      <Chart
-        title="Error per day"
-        v-bind="chartConfig"
-        :filter="errorsPerDay">
+        :filter="chart.filter">
       </Chart>
     </v-flex>
   </v-layout>
 </template>
+
+<i18n>
+  en:
+    charts:
+      events: "Events per day"
+      duration: "Average time execution (ms)"
+      errors: "Errors per day"
+</i18n>
 
 <script>
 import Chart from '@/components/charts/Chart'
@@ -57,25 +50,28 @@ export default {
         groupBy: 'day'
       }
     },
-    totalPerDay () {
-      return {
-        ...this.defaultFilter,
-        method: 'count'
-      }
-    },
-    durationAverage () {
-      return {
-        ...this.defaultFilter,
-        attribute: 'duration',
-        method: 'avg'
-      }
-    },
-    errorsPerDay () {
-      return {
-        ...this.defaultFilter,
-        attribute: 'code',
-        method: list => list.filter(x => !x.startsWith('20')).length
-      }
+    charts () {
+      return [{
+        title: this.$t('charts.events'),
+        filter: {
+          ...this.defaultFilter,
+          method: 'count'
+        }
+      }, {
+        title: this.$t('charts.duration'),
+        filter: {
+          ...this.defaultFilter,
+          attribute: 'duration',
+          method: 'count'
+        }
+      }, {
+        title: this.$t('charts.errors'),
+        filter: {
+          ...this.defaultFilter,
+          attribute: 'code',
+          method: list => list.filter(x => !x.startsWith('20')).length
+        }
+      }]
     }
   }
 }
