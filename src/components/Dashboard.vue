@@ -59,37 +59,12 @@
       </v-flex>
       <v-flex sm3>
         <v-layout fill-height column>
-          <v-list two-line>
-            <template v-for="(notification, i) in notifications">
-              <v-divider v-if="i !== 0" :key="notification.id"></v-divider>
-              <v-list-tile :key="notification.id" router :to="{ name: 'Trigger', params: notification.trigger }">
-                <v-list-tile-avatar>
-                  <v-icon :class="`${error[notification.kind].level}--text`">{{ error[notification.kind].icon }}</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ notification.trigger.title }}</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ $t(`notification.${notification.kind}`) }}</v-list-tile-sub-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-list-tile-action-text>
-                    <timeago :since="notification.createdAt" :auto-update="10"></timeago>
-                  </v-list-tile-action-text>
-                </v-list-tile-action>
-              </v-list-tile>
-            </template>
-          </v-list>
+          <notification-list :notifications="notifications"></notification-list>
         </v-layout>
       </v-flex>
     </v-layout>
   </v-layout>
 </template>
-
-<i18n>
-  en:
-    notification:
-      TRIGGER_ERROR: "Error on your trigger"
-      TRIGGER_DISABLED: "Trigger disabled"
-</i18n>
 
 <script>
 import MenuToggle from '@/components/MenuToggle'
@@ -100,11 +75,14 @@ import allLogsMeta from '@/graphql/stats/logsMeta.graphql'
 import collection from '@/mixins/collection'
 import withCurrentProject from '@/mixins/withCurrentProject'
 import groupDataByTime from '@/utils/groupDataByTime'
+import fetchAllPages from '@/utils/fetchAllPages'
+import NotificationList from '@/components/notifications/List'
 
 export default {
   components: {
     MenuToggle,
-    EventChart
+    EventChart,
+    NotificationList
   },
   mixins: [
     withCurrentProject,
@@ -113,7 +91,7 @@ export default {
   props: {
     interval: {
       type: String,
-      default: 'hour'
+      default: 'day'
     }
   },
   data () {
@@ -122,15 +100,9 @@ export default {
     }
   },
   computed: {
-    error () {
-      return {
-        TRIGGER_ERROR: { level: 'warning', icon: 'warning' },
-        TRIGGER_DISABLED: { level: 'error', icon: 'error' }
-      }
-    },
     from () {
       const now = new Date()
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30)
     },
     to () {
       const now = new Date()
@@ -179,23 +151,8 @@ export default {
       query: allLogsMeta,
       variables
     })
-    const perPage = 500
-    let logs = []
-    for (let i = 0; i < Math.ceil(count / perPage); i++) {
-      const res = await client().query({
-        query: allLogs,
-        variables: {
-          ...variables,
-          first: perPage,
-          skip: i * perPage
-        }
-      })
-      logs = [
-        ...logs,
-        ...res.data.allTaskLogs
-      ]
-    }
-    this.logs = logs
+    const fetch = fetchAllPages(client(), { total: count })
+    this.logs = await fetch(allLogs, variables)
   }
 }
 </script>
