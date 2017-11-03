@@ -1,5 +1,5 @@
 <template>
-  <v-layout fill-height column>
+  <v-layout column fill-height>
     <v-toolbar card class="secondary">
       <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">
@@ -11,16 +11,15 @@
     <v-layout fill-height>
       <v-flex sm9 style="border-right: solid 1px rgba(0,0,0,0.12)">
         <v-layout column>
-          <Metrics v-if="logs" :data="logs"></Metrics>
-          <v-card-text style="height:200px; border-top: solid 1px rgba(0,0,0,0.12)">
+          <Metrics :chartSize="250" :data="logs"></Metrics>
+          <v-divider></v-divider>
+          <v-card-text>
             News
           </v-card-text>
         </v-layout>
       </v-flex>
       <v-flex sm3>
-        <v-layout fill-height column>
-          <notification-list :notifications="notifications"></notification-list>
-        </v-layout>
+        <notification-list fill-height :notifications="notifications"></notification-list>
       </v-flex>
     </v-layout>
   </v-layout>

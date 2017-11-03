@@ -2,7 +2,10 @@
   <v-card flat>
     <v-card-title v-if="title" class="subheading">{{ title }}</v-card-title>
     <v-card-text>
-      <component :is="chart" v-bind="$attrs"></component>
+      <component v-if="$attrs.rawData || $attrs.data" :is="chart" v-bind="$attrs"></component>
+      <v-layout v-else :style="`height:${$attrs.height}px`" justify-center align-center>
+        <v-progress-circular indeterminate class="primary--text"></v-progress-circular>
+      </v-layout>
     </v-card-text>
   </v-card>
 </template>

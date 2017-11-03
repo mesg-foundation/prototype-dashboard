@@ -34,14 +34,18 @@ export default {
   props: {
     data: {
       type: Array,
-      required: true
+      default: null
+    },
+    chartSize: {
+      type: Number,
+      default: 250
     }
   },
   computed: {
     chartConfig () {
       return {
         interval: this.interval,
-        height: 250,
+        height: this.chartSize,
         rawData: this.data
       }
     },

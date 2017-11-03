@@ -37,7 +37,7 @@ export default interval => ({
   },
   elements: {
     point: {
-      radius: 1.75,
+      radius: 1,
       borderWidth: 0,
       backgroundColor: '#1976d2'
     },
