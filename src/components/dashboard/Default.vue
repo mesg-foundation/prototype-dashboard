@@ -11,7 +11,10 @@
     <v-layout fill-height row wrap>
       <v-flex sm9 style="border-right: solid 1px rgba(0,0,0,0.12)">
         <v-layout column>
-          <Metrics :chartSize="250" :data="logs"></Metrics>
+          <Metrics
+            :chartSize="250"
+            :data="logs"
+            :defaultFilter="filter"></Metrics>
           <v-divider></v-divider>
           <v-card-text class="hidden-sm-and-down">
             News
@@ -52,6 +55,14 @@ export default {
     }
   },
   computed: {
+    filter () {
+      const now = new Date()
+      return {
+        from: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+        to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+        groupBy: 'hour'
+      }
+    },
     notificationsParams () {
       return {
         projectId: this.currentProjectId,
@@ -62,8 +73,8 @@ export default {
   async mounted () {
     const variables = {
       projectId: this.currentProjectId,
-      from: this.from,
-      to: this.to
+      from: this.filter.from,
+      to: this.filter.to
     }
     const { data: { _allTaskLogsMeta: { count } } } = await client().query({
       query: allLogsMeta,

@@ -29,6 +29,10 @@ export default {
       type: Array,
       default: null
     },
+    defaultFilter: {
+      type: Object,
+      required: true
+    },
     chartSize: {
       type: Number,
       default: 250
@@ -40,14 +44,6 @@ export default {
         interval: this.interval,
         height: this.chartSize,
         rawData: this.data
-      }
-    },
-    defaultFilter () {
-      const now = new Date()
-      return {
-        from: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30),
-        to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1),
-        groupBy: 'day'
       }
     },
     charts () {
