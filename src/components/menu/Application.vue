@@ -104,8 +104,8 @@
       items () {
         return [
           { key: 'dashboard', to: { name: 'Dashboard' }, exact: true, icon: 'dashboard' },
-          { key: 'triggers', to: { name: 'Triggers' }, icon: 'http', count: this.currentProject._triggersMeta.count },
-          { key: 'contracts', to: { name: 'Contracts' }, icon: 'functions', count: this.currentProject._contractsMeta.count },
+          { key: 'triggers', to: { name: 'Triggers' }, icon: 'device_hub', count: this.currentProject._triggersMeta.count },
+          { key: 'contracts', to: { name: 'Contracts' }, icon: 'code', count: this.currentProject._contractsMeta.count },
           { key: 'settings', to: { name: 'Settings' }, icon: 'settings' }
         ].map(e => ({
           ...e,

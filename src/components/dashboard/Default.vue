@@ -28,6 +28,11 @@
   </v-layout>
 </template>
 
+<i18n>
+  en:
+    title: "Dashboard"
+</i18n>
+
 <script>
 import MenuToggle from '@/components/MenuToggle'
 import client from '@/graphql'
@@ -49,6 +54,11 @@ export default {
     withCurrentProject,
     collection('notifications', { pagination: true })
   ],
+  metaInfo () {
+    return {
+      title: this.$t('title')
+    }
+  },
   data () {
     return {
       logs: null
