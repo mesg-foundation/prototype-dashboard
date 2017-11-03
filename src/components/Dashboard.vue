@@ -18,7 +18,7 @@
                 <v-card-text>
                   <EventChart
                     :interval="interval"
-                    :height="200"
+                    :height="250"
                     :labels="totalPerDay.labels"
                     :data="totalPerDay.data">
                   </EventChart>
@@ -31,7 +31,7 @@
                 <v-card-text>
                   <EventChart
                     :interval="interval"
-                    :height="200"
+                    :height="250"
                     :labels="durationAverage.labels"
                     :data="durationAverage.data">
                   </EventChart>
@@ -44,7 +44,7 @@
                 <v-card-text>
                   <EventChart
                     :interval="interval"
-                    :height="200"
+                    :height="250"
                     :labels="errorsPerDay.labels"
                     :data="errorsPerDay.data">
                   </EventChart>
@@ -62,14 +62,19 @@
           <v-list two-line>
             <template v-for="(notification, i) in notifications">
               <v-divider v-if="i !== 0" :key="notification.id"></v-divider>
-              <v-list-tile :key="notification.id">
+              <v-list-tile :key="notification.id" router :to="{ name: 'Trigger', params: notification.trigger }">
                 <v-list-tile-avatar>
                   <v-icon :class="`${error[notification.kind].level}--text`">{{ error[notification.kind].icon }}</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ notification.kind }}</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ notification.trigger.title }}</v-list-tile-sub-title>
+                  <v-list-tile-title>{{ notification.trigger.title }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ $t(`notification.${notification.kind}`) }}</v-list-tile-sub-title>
                 </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-list-tile-action-text>
+                    <timeago :since="notification.createdAt" :auto-update="10"></timeago>
+                  </v-list-tile-action-text>
+                </v-list-tile-action>
               </v-list-tile>
             </template>
           </v-list>
@@ -78,6 +83,13 @@
     </v-layout>
   </v-layout>
 </template>
+
+<i18n>
+  en:
+    notification:
+      TRIGGER_ERROR: "Error on your trigger"
+      TRIGGER_DISABLED: "Trigger disabled"
+</i18n>
 
 <script>
 import MenuToggle from '@/components/MenuToggle'
