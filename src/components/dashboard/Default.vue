@@ -10,19 +10,14 @@
     <v-divider></v-divider>
     <v-layout fill-height row wrap>
       <v-flex sm9 style="border-right: solid 1px rgba(0,0,0,0.12)">
-        <v-layout column>
-          <Metrics
-            :chartSize="250"
-            :data="logs"
-            :defaultFilter="filter"></Metrics>
-          <v-divider></v-divider>
-          <v-card-text class="hidden-sm-and-down">
-            News
-          </v-card-text>
-        </v-layout>
+        <Metrics
+          :chartSize="250"
+          :data="logs"
+          :defaultFilter="filter">
+        </Metrics>
       </v-flex>
-      <v-flex sm3>
-        <notification-list fill-height :notifications="notifications"></notification-list>
+      <v-flex sm3 class="scrollable full-content-height">
+        <notification-list :notifications="notifications"></notification-list>
       </v-flex>
     </v-layout>
   </v-layout>
