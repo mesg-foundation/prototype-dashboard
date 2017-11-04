@@ -1,11 +1,20 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 md6 v-for="(chart, i) in charts" :key="i">
-      <Chart
-        :title="chart.title"
-        v-bind="chartConfig"
-        :filter="chart.filter">
-      </Chart>
+      <v-card flat>
+        <v-card-title class="subheading">{{ chart.title }}</v-card-title>
+        <v-card-text>
+          <v-layout v-if="loading" :style="`height:${chartSize}px`" justify-center align-center>
+            <v-progress-circular indeterminate class="primary--text"></v-progress-circular>
+          </v-layout>
+          <TimeChart v-else
+            :interval="interval"
+            :height="chartSize"
+            :rawData="data"
+            :filter="chart.filter">
+          </TimeChart>
+        </v-card-text>
+      </v-card>
     </v-flex>
   </v-layout>
 </template>
@@ -19,10 +28,10 @@
 </i18n>
 
 <script>
-import Chart from '@/components/charts/Chart'
+import TimeChart from '@/components/charts/timeChart'
 export default {
   components: {
-    Chart
+    TimeChart
   },
   props: {
     data: {
@@ -39,12 +48,18 @@ export default {
     }
   },
   computed: {
+    loading () {
+      return !this.data
+    },
     chartConfig () {
       return {
         interval: this.interval,
         height: this.chartSize,
         rawData: this.data
       }
+    },
+    interval () {
+      return this.defaultFilter.groupBy || 'day'
     },
     charts () {
       return [{
