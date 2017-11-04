@@ -58,7 +58,7 @@ export default {
         filter: {
           ...this.defaultFilter,
           attribute: 'duration',
-          method: 'count'
+          method: 'avg'
         }
       }, {
         title: this.$t('charts.errors'),
