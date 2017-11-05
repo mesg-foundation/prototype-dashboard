@@ -42,7 +42,7 @@
 <i18n>
   en:
     title: "{name}"
-    update: "Update"
+    update: "Edit"
     edit: "Edit contract"
     labels:
       name: "Name"

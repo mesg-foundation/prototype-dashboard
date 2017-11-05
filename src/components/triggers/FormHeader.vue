@@ -19,7 +19,7 @@
 <i18n>
   en:
     title: "Add a trigger"
-    update: "Update trigger"
+    update: "Edit trigger"
 </i18n>
 
 <script>
