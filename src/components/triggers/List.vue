@@ -41,7 +41,7 @@
     title: "Triggers"
     create: "New Trigger"
     header:
-      enable: " "
+      enable: "Active"
       title: "Title"
       createdAt: "Created at"
 </i18n>
