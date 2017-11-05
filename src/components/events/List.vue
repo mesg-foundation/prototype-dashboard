@@ -36,10 +36,14 @@
         </router-link>
       </td>
       <td>
-        {{ event.blockId }}
+        <a :href="blockLink(event)" target="_blank" :title="$t('etherscan')">
+          {{ event.blockId }}
+        </a>
       </td>
       <td>
-        {{ event.transactionId }}
+        <a :href="transactionLink(event)" target="_blank" :title="$t('etherscan')">
+          {{ event.transactionId }}
+        </a>
       </td>
       <td class="text-xs-right">
         <template v-if="validEvents[event.id] !== null">
@@ -56,6 +60,7 @@
     title: "Trigger"
     test: "Test"
     update: "Update"
+    etherscan: "Look on Etherscan"
     header:
       createdAt: "Created At"
       blockId: "Block"
@@ -64,6 +69,7 @@
 </i18n>
 
 <script>
+  import chain from '@/utils/extractBlockchainInfo'
   import item from '@/mixins/item'
   import collection from '@/mixins/collection'
   import TableListing from '@/components/layouts/TableListing'
@@ -110,6 +116,11 @@
           ...acc,
           [event.id]: this.validEvent(event)
         }), {})
+      },
+      etherscanLink () {
+        return chain(this.trigger).toLowerCase() === 'testnet'
+          ? `https://kovan.etherscan.io`
+          : `https://etherscan.io`
       }
     },
     methods: {
@@ -117,6 +128,12 @@
         if ((taskLogs || []).length === 0) { return null }
         return taskLogs
           .some(x => x.code.startsWith('20'))
+      },
+      blockLink (event) {
+        return `${this.etherscanLink}/block/${event.blockId}`
+      },
+      transactionLink (event) {
+        return `${this.etherscanLink}/tx/${event.transactionId}`
       }
     }
   }

@@ -5,13 +5,15 @@ fragment connectorFields on Connector {
   ethereumContract {
     eventName,
     contract {
-      id
+      id,
+      chain
     }
   },
   ethereumToken {
     eventName,
     contract {
-      id
+      id,
+      chain
     }
   },
   ethereumTransaction {
