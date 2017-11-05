@@ -4,7 +4,9 @@
       <application-menu></application-menu>
       <main>
         <v-content>
-          <router-view></router-view>
+          <v-container fill-height fluid class="pa-0">
+            <router-view></router-view>
+          </v-container>
         </v-content>
       </main>
     </template>

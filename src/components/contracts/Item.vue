@@ -1,18 +1,20 @@
 <template>
-  <v-card flat>
-    <v-toolbar card>
-      <MenuToggle></MenuToggle>
-      <v-toolbar-title class="headline">
-        {{ contract.name }}
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        color="primary" dark outline
-        :to="{ name: 'EditContract', params: { id: contract.id } }">
-        {{ $t('update') }}
-      </v-btn>
-    </v-toolbar>
-    <v-divider></v-divider>
+  <v-layout column>
+    <div>
+      <v-toolbar card>
+        <MenuToggle></MenuToggle>
+        <v-toolbar-title class="headline">
+          {{ contract.name }}
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn
+          color="primary" dark outline
+          :to="{ name: 'EditContract', params: { id: contract.id } }">
+          {{ $t('update') }}
+        </v-btn>
+      </v-toolbar>
+      <v-divider></v-divider>
+    </div>
     <v-list two-line>
       <v-list-tile v-for="item in items" :key="item.key">
         <v-list-tile-content>
@@ -36,7 +38,7 @@
       </v-list-tile>
     </v-list>
     <Abi :contract="contract" :value="abi"></Abi>
-  </v-card>
+  </v-layout>
 </template>
 
 <i18n>

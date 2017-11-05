@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-layout column>
     <v-card flat>
       <v-toolbar card class="transparent">
         <v-toolbar-title class="headline">
@@ -31,7 +31,7 @@
         <v-btn color="error" @click.stop="deleteProjectWithConfirmation">{{ $t('deleteAction') }}</v-btn>
       </v-card-actions>
     </v-card>
-  </div>
+  </v-layout>
 </template>
 
 <i18n>

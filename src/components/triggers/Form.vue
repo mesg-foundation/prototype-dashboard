@@ -1,6 +1,6 @@
 <template>
-  <form novalidate @submit.prevent="submit()">
-    <v-card flat>
+  <v-layout column>
+    <form novalidate @submit.prevent="submit()">
       <TriggerFormHeader
         :trigger="trigger">
       </TriggerFormHeader>
@@ -55,8 +55,8 @@
           </v-card-actions>
         </v-flex>
       </v-layout>
-    </v-card>
-  </form>
+    </form>
+  </v-layout>
 </template>
 
 <i18n>

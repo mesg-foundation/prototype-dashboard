@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-layout column>
     <form novalidate @submit.prevent="submit()">
       <v-toolbar card class="secondary">
         <MenuToggle></MenuToggle>
@@ -24,7 +24,7 @@
         </v-btn>
       </v-card-actions>
     </form>
-  </v-card>
+  </v-layout>
 </template>
 
 <i18n>

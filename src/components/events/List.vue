@@ -25,10 +25,9 @@
       </v-btn>
     </template>
     <div v-if="trigger" slot="extension">
-      <v-divider></v-divider>
       <TriggerDetailList :trigger="trigger"></TriggerDetailList>
       <v-divider></v-divider>
-      <v-card class="secondary" flat>
+      <v-card flat>
         <v-card-title class="subheading">
           {{ $t('events') }}
         </v-card-title>
