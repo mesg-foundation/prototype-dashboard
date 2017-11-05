@@ -24,12 +24,16 @@
         {{ $t('test') }}
       </v-btn>
     </template>
-    <TriggerDetailList
-      slot="extension"
-      class="secondary"
-      v-if="trigger"
-      :trigger="trigger">
-    </TriggerDetailList>
+    <div v-if="trigger" slot="extension">
+      <v-divider></v-divider>
+      <TriggerDetailList :trigger="trigger"></TriggerDetailList>
+      <v-divider></v-divider>
+      <v-card class="secondary" flat>
+        <v-card-title class="subheading">
+          {{ $t('events') }}
+        </v-card-title>
+      </v-card>
+    </div>
     <template scope="event">
       <td>
         <router-link :to="{ name: 'Event', params: { id: event.id, triggerId: trigger.id } }">
@@ -60,8 +64,9 @@
   en:
     title: "Trigger"
     test: "Test"
-    update: "Update"
+    update: "Edit"
     etherscan: "Look on Etherscan"
+    events: "Events for this trigger"
     header:
       createdAt: "Created At"
       blockId: "Block"
