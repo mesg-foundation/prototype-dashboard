@@ -39,7 +39,7 @@
 <i18n>
   en:
     title: "Triggers"
-    create: "New Trigger"
+    create: "Add Trigger"
     header:
       enable: "Active"
       title: "Title"

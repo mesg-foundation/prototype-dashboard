@@ -18,7 +18,7 @@
 
 <i18n>
   en:
-    title: "Create a trigger"
+    title: "Add a trigger"
     update: "Update trigger"
 </i18n>
 
