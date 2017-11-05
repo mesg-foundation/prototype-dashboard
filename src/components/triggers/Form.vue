@@ -1,60 +1,64 @@
 <template>
   <v-layout column>
     <form novalidate @submit.prevent="submit()">
-      <TriggerFormHeader
-        :trigger="trigger">
-      </TriggerFormHeader>
-      <v-divider></v-divider>
-      <QuotaWarning feature="executions"></QuotaWarning>
-      <v-layout>
-        <v-flex lg8 offset-lg2>
-          <v-card-text class="mt-4">
-            <v-text-field
-              :label="$t('title')"
-              required
-              :error-messages="errors.title"
-              v-model="title">
-            </v-text-field>
-            <v-text-field
-              :label="$t('description')"
-              v-model="description"
-              multi-line auto-grow :rows="1">
-            </v-text-field>
-            <v-layout row wrap justify-center align-center>
-              <FormConnector v-model="connector">
-                <span v-for="error in errors.connector" :key="error" class="error--text">{{ error }}</span>
-              </FormConnector>
-              <v-icon large class="ma-3">keyboard_arrow_right</v-icon>
-              <FormAction v-model="action">
-                <span v-for="error in errors.action" :key="error" class="error--text">{{ error }}</span>
-              </FormAction>
-            </v-layout>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              color="primary" dark block
-              :loading="saving"
-              type="submit">
-              {{ $t('submit') }}
-            </v-btn>
-          </v-card-actions>
-          <v-card-actions v-if="trigger.id">
-            <v-btn
-              block flat
-              :to="{ name: 'Trigger', params: trigger }">
-              {{ $t('cancel') }}
-            </v-btn>
-          </v-card-actions>
-          <v-card-actions v-if="trigger.id">
-            <v-btn
-              :loading="removing"
-              color="error" block flat
-              @click.stop="remove()">
-              {{ $t('delete') }}
-            </v-btn>
-          </v-card-actions>
-        </v-flex>
-      </v-layout>
+      <div>
+        <TriggerFormHeader
+          :trigger="trigger">
+        </TriggerFormHeader>
+        <v-divider></v-divider>
+      </div>
+      <div class="full-content-height scrollable">
+        <QuotaWarning feature="executions"></QuotaWarning>
+        <v-layout>
+          <v-flex lg8 offset-lg2>
+            <v-card-text class="mt-4">
+              <v-text-field
+                :label="$t('title')"
+                required
+                :error-messages="errors.title"
+                v-model="title">
+              </v-text-field>
+              <v-text-field
+                :label="$t('description')"
+                v-model="description"
+                multi-line auto-grow :rows="1">
+              </v-text-field>
+              <v-layout row wrap justify-center align-center>
+                <FormConnector v-model="connector">
+                  <span v-for="error in errors.connector" :key="error" class="error--text">{{ error }}</span>
+                </FormConnector>
+                <v-icon large class="ma-3">keyboard_arrow_right</v-icon>
+                <FormAction v-model="action">
+                  <span v-for="error in errors.action" :key="error" class="error--text">{{ error }}</span>
+                </FormAction>
+              </v-layout>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                color="primary" dark block
+                :loading="saving"
+                type="submit">
+                {{ $t('submit') }}
+              </v-btn>
+            </v-card-actions>
+            <v-card-actions v-if="trigger.id">
+              <v-btn
+                block flat
+                :to="{ name: 'Trigger', params: trigger }">
+                {{ $t('cancel') }}
+              </v-btn>
+            </v-card-actions>
+            <v-card-actions v-if="trigger.id">
+              <v-btn
+                :loading="removing"
+                color="error" block flat
+                @click.stop="remove()">
+                {{ $t('delete') }}
+              </v-btn>
+            </v-card-actions>
+          </v-flex>
+        </v-layout>
+      </div>
     </form>
   </v-layout>
 </template>

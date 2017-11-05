@@ -1,57 +1,61 @@
 <template>
   <v-layout column>
     <form novalidate @submit.prevent="submit()">
-      <v-toolbar card class="secondary">
-        <MenuToggle></MenuToggle>
-        <v-toolbar-title class="headline">{{ title || $t('title') }}</v-toolbar-title>
-      </v-toolbar>
-      <v-divider></v-divider>
-      <QuotaWarning feature="contracts"></QuotaWarning>
-      <v-card-text>
-        <v-text-field
-          :label="$t('labels.name')"
-          :error-messages="errors.name"
-          v-model="name"
-          @input="$v.name.$touch()"
-          placeholder="Set a name for your contract"
-          autofocus
-          required>
-        </v-text-field>
+      <div>
+        <v-toolbar card class="secondary">
+          <MenuToggle></MenuToggle>
+          <v-toolbar-title class="headline">{{ title || $t('title') }}</v-toolbar-title>
+        </v-toolbar>
+        <v-divider></v-divider>
+      </div>
+      <div class="full-content-height scrollable">
+        <QuotaWarning feature="contracts"></QuotaWarning>
+        <v-card-text>
+          <v-text-field
+            :label="$t('labels.name')"
+            :error-messages="errors.name"
+            v-model="name"
+            @input="$v.name.$touch()"
+            placeholder="Set a name for your contract"
+            autofocus
+            required>
+          </v-text-field>
 
-        <v-text-field
-          :label="$t('labels.address')"
-          :error-messages="errors.address"
-          v-model="address"
-          @input="$v.address.$touch()"
-          placeholder="0x12345678901234567890123456789012"
-          required>
-        </v-text-field>
+          <v-text-field
+            :label="$t('labels.address')"
+            :error-messages="errors.address"
+            v-model="address"
+            @input="$v.address.$touch()"
+            placeholder="0x12345678901234567890123456789012"
+            required>
+          </v-text-field>
 
-        <ChainSelector
-          :label="$t('labels.chain')"
-          :error-messages="errors.chain"
-          v-model="chain"
-          @input="$v.chain.$touch()"
-          required>
-        </ChainSelector>
+          <ChainSelector
+            :label="$t('labels.chain')"
+            :error-messages="errors.chain"
+            v-model="chain"
+            @input="$v.chain.$touch()"
+            required>
+          </ChainSelector>
 
-        <v-text-field
-          :label="$t('labels.abi')"
-          :error-messages="errors.abi"
-          v-model="abi"
-          @input="$v.abi.$touch()"
-          :rows="6"
-          multi-line
-          required>
-        </v-text-field>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          color="primary" dark block
-          type="submit">
-          {{ submitLabel || $t('submit') }}
-        </v-btn>
-      </v-card-actions>
+          <v-text-field
+            :label="$t('labels.abi')"
+            :error-messages="errors.abi"
+            v-model="abi"
+            @input="$v.abi.$touch()"
+            :rows="6"
+            multi-line
+            required>
+          </v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            color="primary" dark block
+            type="submit">
+            {{ submitLabel || $t('submit') }}
+          </v-btn>
+        </v-card-actions>
+      </div>
     </form>
   </v-layout>
 </template>

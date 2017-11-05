@@ -23,7 +23,7 @@
       </v-toolbar>
       <v-divider></v-divider>
     </div>
-    <div>
+    <div class="full-content-height scrollable">
       <slot name="extension"></slot>
       <v-data-table
         :search="search"
@@ -38,16 +38,16 @@
           </tr>
         </template>
       </v-data-table>
-      <v-layout
+      <div
         v-if="displayPagination"
-        justify-center align-center class="pa-3">
+        class="pa-3 text-sm-center">
         <v-pagination
           :length="paginationLength"
           :value="pagination.page"
           @input="x => this.$emit('pageChanged', x)"
           :total-visible="9">
         </v-pagination>
-      </v-layout>
+      </div>
     </div>
   </v-layout>
 </template>

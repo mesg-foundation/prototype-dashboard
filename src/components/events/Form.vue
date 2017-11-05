@@ -1,50 +1,54 @@
 <template>
   <v-layout column>
     <form novalidate @submit.prevent="submit()">
-      <v-toolbar card class="secondary">
-        <MenuToggle></MenuToggle>
-        <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
-      </v-toolbar>
-      <v-divider></v-divider>
-      <TriggerDetailList
-        :trigger="trigger">
-      </TriggerDetailList>
-      <v-divider></v-divider>
-      <v-data-table
-        :headers="headers"
-        :items="items"
-        :custom-sort="a => a"
-        hide-actions>
-        <template slot="items" scope="props">
-          <td>
-            <strong>{{ $t(`keys.${props.item.key}`) }}</strong>
-          </td>
-          <td>
-            <PayloadViewer
-              v-if="props.item.type === 'payload'"
-              :ethereumContractConnector="ethereumContractConnector"
-              v-model="params[props.item.key]"
-              editable>
-            </PayloadViewer>
-            <v-text-field
-              v-else
-              class="ma-0 pl-0"
-              placeholder="..."
-              hide-details
-              full-width
-              v-model="params[props.item.key]"
-              :type="props.item.type">
-            </v-text-field>
-          </td>
-        </template>
-      </v-data-table>
-      <v-card-actions>
-        <v-btn
-          color="primary" dark block
-          type="submit">
-          {{ $t('submit') }}
-        </v-btn>
-      </v-card-actions>
+      <div>
+        <v-toolbar card class="secondary">
+          <MenuToggle></MenuToggle>
+          <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
+        </v-toolbar>
+        <v-divider></v-divider>
+      </div>
+      <div class="full-content-height scrollable">
+        <TriggerDetailList
+          :trigger="trigger">
+        </TriggerDetailList>
+        <v-divider></v-divider>
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          :custom-sort="a => a"
+          hide-actions>
+          <template slot="items" scope="props">
+            <td>
+              <strong>{{ $t(`keys.${props.item.key}`) }}</strong>
+            </td>
+            <td>
+              <PayloadViewer
+                v-if="props.item.type === 'payload'"
+                :ethereumContractConnector="ethereumContractConnector"
+                v-model="params[props.item.key]"
+                editable>
+              </PayloadViewer>
+              <v-text-field
+                v-else
+                class="ma-0 pl-0"
+                placeholder="..."
+                hide-details
+                full-width
+                v-model="params[props.item.key]"
+                :type="props.item.type">
+              </v-text-field>
+            </td>
+          </template>
+        </v-data-table>
+        <v-card-actions>
+          <v-btn
+            color="primary" dark block
+            type="submit">
+            {{ $t('submit') }}
+          </v-btn>
+        </v-card-actions>
+      </div>
     </form>
   </v-layout>
 </template>

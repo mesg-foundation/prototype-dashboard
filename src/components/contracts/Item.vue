@@ -15,29 +15,31 @@
       </v-toolbar>
       <v-divider></v-divider>
     </div>
-    <v-list two-line>
-      <v-list-tile v-for="item in items" :key="item.key">
-        <v-list-tile-content>
-          <v-list-tile-title>
-            {{ item.title }}
-          </v-list-tile-title>
-          <v-list-tile-sub-title>
-            {{ item.value }}
-          </v-list-tile-sub-title>
-        </v-list-tile-content>
-        <v-list-tile-action v-if="item.action">
-          <v-btn
-            :icon="!!item.action.icon"
-            :to="item.action.to"
-            :href="item.action.href"
-            :target="item.action.href ? '_blank' : 'none'">
-            <v-icon v-if="item.action.icon">{{ item.action.icon }}</v-icon>
-            {{ item.action.text }}
-          </v-btn>
-        </v-list-tile-action>
-      </v-list-tile>
-    </v-list>
-    <Abi :contract="contract" :value="abi"></Abi>
+    <div class="full-content-height scrollable">
+      <v-list two-line>
+        <v-list-tile v-for="item in items" :key="item.key">
+          <v-list-tile-content>
+            <v-list-tile-title>
+              {{ item.title }}
+            </v-list-tile-title>
+            <v-list-tile-sub-title>
+              {{ item.value }}
+            </v-list-tile-sub-title>
+          </v-list-tile-content>
+          <v-list-tile-action v-if="item.action">
+            <v-btn
+              :icon="!!item.action.icon"
+              :to="item.action.to"
+              :href="item.action.href"
+              :target="item.action.href ? '_blank' : 'none'">
+              <v-icon v-if="item.action.icon">{{ item.action.icon }}</v-icon>
+              {{ item.action.text }}
+            </v-btn>
+          </v-list-tile-action>
+        </v-list-tile>
+      </v-list>
+      <Abi :contract="contract" :value="abi"></Abi>
+    </div>
   </v-layout>
 </template>
 

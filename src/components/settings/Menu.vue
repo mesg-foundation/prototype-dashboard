@@ -9,7 +9,7 @@
       </v-toolbar>
       <v-divider></v-divider>
     </div>
-    <div>
+    <div class="full-content-height scrollable">
       <v-tabs light v-model="activeTab">
         <v-tabs-bar class="secondary">
           <v-tabs-item
