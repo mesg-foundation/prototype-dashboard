@@ -8,8 +8,9 @@
     @pageChanged="eventsChangePage"
     extended
     withMenu>
-    <template slot="title">
-      <TriggerTitle v-if="trigger" :trigger="trigger"></TriggerTitle>
+    <template slot="title" v-if="trigger">
+      <TriggerSwitch class="trigger-switch" :trigger="trigger"></TriggerSwitch>
+      <TriggerTitle :trigger="trigger"></TriggerTitle>
     </template>
     <template v-if="trigger" slot="toolbar">
       <v-btn
@@ -75,11 +76,13 @@
   import TableListing from '@/components/layouts/TableListing'
   import TriggerDetailList from '@/components/triggers/DetailList'
   import TriggerTitle from '@/components/triggers/Title'
+  import TriggerSwitch from '@/components/triggers/Switch'
   export default {
     components: {
       TableListing,
       TriggerDetailList,
-      TriggerTitle
+      TriggerTitle,
+      TriggerSwitch
     },
     mixins: [
       item('trigger'),
@@ -138,3 +141,12 @@
     }
   }
 </script>
+
+<style scoped>
+  .trigger-switch {
+    float: left;
+    width: 36px;
+    margin-right: .5em;
+    margin-left: .25em;
+  }
+</style>
