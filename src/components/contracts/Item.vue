@@ -17,10 +17,10 @@
       <v-list-tile v-for="item in items" :key="item.key">
         <v-list-tile-content>
           <v-list-tile-title>
-            {{ item.value }}
+            {{ item.title }}
           </v-list-tile-title>
           <v-list-tile-sub-title>
-            {{ item.title }}
+            {{ item.value }}
           </v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action v-if="item.action">
