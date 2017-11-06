@@ -1,6 +1,11 @@
 <template>
   <v-layout column>
-    <v-card flat v-for="log in taskLogs" :key="log.id">
+    <v-card v-if="loadingTaskLogs">
+      <v-layout row justify-center align-center>
+        <v-progress-circular color="primary" class="ma-3" indeterminate></v-progress-circular>
+      </v-layout>
+    </v-card>
+    <v-card v-else flat v-for="log in taskLogs" :key="log.id">
       <v-card-title class="subheading">
         <StatusCode class="mr-3" :code="log.code"></StatusCode>
         {{ log.createdAt }}
