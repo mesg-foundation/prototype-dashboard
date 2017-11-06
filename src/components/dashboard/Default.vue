@@ -9,12 +9,13 @@
     </v-toolbar>
     <v-divider></v-divider>
     <v-layout fill-height row wrap>
-      <v-flex sm9 style="border-right: solid 1px rgba(0,0,0,0.12)">
+      <v-flex sm9 class="scrollable full-content-height" style="border-right: solid 1px rgba(0,0,0,0.12)">
         <Metrics
           :chartSize="250"
           :data="logs"
           :defaultFilter="filter">
         </Metrics>
+        <p class="text-xs-right caption grey--text pr-3">{{ $t('interval') }}</p>
       </v-flex>
       <v-flex sm3 class="scrollable full-content-height">
         <notification-list :notifications="notifications"></notification-list>
@@ -26,6 +27,7 @@
 <i18n>
   en:
     title: "Dashboard"
+    interval: "Statistics for the last 24 hours"
 </i18n>
 
 <script>
@@ -63,8 +65,8 @@ export default {
     filter () {
       const now = new Date()
       return {
-        from: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-        to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+        from: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, now.getHours()),
+        to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1),
         groupBy: 'hour'
       }
     },
