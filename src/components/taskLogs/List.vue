@@ -80,7 +80,7 @@
       }
     },
     mixins: [
-      collection('taskLogs', { pagination: true, syncUrl: true })
+      collection('taskLogs', { pagination: true })
     ],
     computed: {
       taskLogsParams () {
