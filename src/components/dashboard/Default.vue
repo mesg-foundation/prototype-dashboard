@@ -3,7 +3,7 @@
     <v-toolbar card class="white">
       <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">
-        Dashboard
+        {{ $t('title') }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
