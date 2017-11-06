@@ -4,7 +4,11 @@ const type = {
   ETHEREUM_TOKEN: 'ethereumToken'
 }
 
-export default ({ connector }) => {
-  const data = connector[type[connector.connectorType]]
-  return data.chain || data.contract.chain
+export default data => {
+  if (data.chain) { return data.chain }
+  if (data.connector) {
+    const connector = data.connector[type[data.connector.connectorType]]
+    return connector.chain || connector.contract.chain
+  }
+  throw new Error('This kind of object is not supported')
 }

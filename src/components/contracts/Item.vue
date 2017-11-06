@@ -56,6 +56,7 @@
 </i18n>
 
 <script>
+  import etherscan from '@/utils/etherscan'
   import item from '@/mixins/item'
   import Abi from '@/components/ABI'
   import MenuToggle from '@/components/MenuToggle'
@@ -91,7 +92,7 @@
           value: this.contract.address,
           action: {
             icon: 'open_in_new',
-            href: `https://etherscan.io/address/${this.contract.address}`
+            href: etherscan(this.contract).address(this.contract.address)
           }
         }, {
           key: 'chain',
