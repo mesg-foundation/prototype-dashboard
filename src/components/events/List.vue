@@ -35,9 +35,7 @@
     </div>
     <template scope="event">
       <td>
-        <router-link :to="{ name: 'Event', params: { id: event.id, triggerId: trigger.id } }">
-          <timeago :since="event.createdAt" :auto-update="10"></timeago>
-        </router-link>
+        <timeago :since="event.createdAt" :auto-update="10"></timeago>
       </td>
       <td>
         <a :href="blockLink(event)" target="_blank" :title="$t('etherscan')">
@@ -51,8 +49,13 @@
       </td>
       <td class="text-xs-right">
         <template v-if="validEvents[event.id] !== null">
-          <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
-          <v-icon v-else class="error--text">close</v-icon>
+          <v-dialog v-model="event.displayLog" :width="640" lazy>
+            <v-btn icon slot="activator">
+              <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
+              <v-icon v-else class="error--text">close</v-icon>
+            </v-btn>
+            <TaskLogList :event="event" :trigger="trigger"></TaskLogList>
+          </v-dialog>
         </template>
       </td>
     </template>
@@ -74,19 +77,21 @@
 </i18n>
 
 <script>
-  import chain from '@/utils/extractBlockchainInfo'
+  import etherscan from '@/utils/etherscan'
   import item from '@/mixins/item'
   import collection from '@/mixins/collection'
   import TableListing from '@/components/layouts/TableListing'
   import TriggerDetailList from '@/components/triggers/DetailList'
   import TriggerTitle from '@/components/triggers/Title'
   import TriggerSwitch from '@/components/triggers/Switch'
+  import TaskLogList from '@/components/taskLogs/List'
   export default {
     components: {
       TableListing,
       TriggerDetailList,
       TriggerTitle,
-      TriggerSwitch
+      TriggerSwitch,
+      TaskLogList
     },
     mixins: [
       item('trigger'),
@@ -124,10 +129,8 @@
           [event.id]: this.validEvent(event)
         }), {})
       },
-      etherscanLink () {
-        return chain(this.trigger).toLowerCase() === 'testnet'
-          ? `https://kovan.etherscan.io`
-          : `https://etherscan.io`
+      etherscanInfo () {
+        return etherscan(this.trigger)
       }
     },
     methods: {
@@ -137,10 +140,10 @@
           .some(x => x.code.startsWith('20'))
       },
       blockLink (event) {
-        return `${this.etherscanLink}/block/${event.blockId}`
+        return this.etherscanInfo.block(event.blockId)
       },
       transactionLink (event) {
-        return `${this.etherscanLink}/tx/${event.transactionId}`
+        return this.etherscanInfo.transaction(event.transactionId)
       }
     }
   }

@@ -1,92 +1,110 @@
 <template>
-  <table-listing
-    :headers="headers"
-    :items="taskLogs"
-    :title="$t('title')"
-    :loading="loadingTaskLogs"
-    :pagination="taskLogsPagination"
-    :total="taskLogsTotal"
-    @pageChanged="taskLogsChangePage"
-    searchable
-    withMenu>
-    <template slot="toolbar">
-      <v-btn
-        v-if="event"
-        color="primary" outline
-        :to="{ name: 'Trigger', params: { id: event.trigger.id } }">
-        {{ $t('action') }}
-      </v-btn>
-    </template>
-    <template scope="result">
-      <td>
-        <StatusCode :code="result.code"></StatusCode>
-      </td>
-      <td>{{ result.body || $t('empty') }}</td>
-      <td class="text-xs-right">
-        {{ result.duration || '- ' }}ms
-      </td>
-      <td class="text-xs-right">
-        <timeago :since="result.createdAt" :auto-update="10"></timeago>
-      </td>
-    </template>
-  </table-listing>
+  <v-layout column>
+    <v-card flat v-for="log in taskLogs" :key="log.id">
+      <v-card-title class="subheading">
+        <StatusCode class="mr-3" :code="log.code"></StatusCode>
+        {{ log.createdAt }}
+        <v-spacer></v-spacer>
+        <v-icon class="mr-2">timer</v-icon>
+        {{ log.duration }}ms
+      </v-card-title>
+      <v-divider></v-divider>
+      <v-card-text class="grey lighten-3">
+        <h4 class="subheading">{{ $t('response') }}</h4>
+        <code>
+{{ JSON.stringify(body(log), null, 2) }}
+        </code>
+        <h4 class="mt-3 subheading">{{ $t('event') }}</h4>
+        <v-list class="secondary">
+          <v-list-tile v-for="(item, i) in eventItems" :key="i">
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ item.value }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+            <v-list-tile-action v-if="item.url">
+              <v-btn icon :href="item.url" target="_blank">
+                <v-icon>open_in_new</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ $t('payload') }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+        <code>
+{{ JSON.stringify(event.payload, null, 2) }}<br/>
+        </code>
+      </v-card-text>
+    </v-card>
+  </v-layout>
 </template>
 
 <i18n>
   en:
-    title: "Trigger Event Results"
-    action: "Go to trigger"
-    empty: "Empty"
-    header:
-      code: "HTTP Status Code"
-      body: "Body Result"
-      duration: "Duration"
-      createdAt: "Created at"
+    title: "Event's logs"
+    response: "Response body"
+    event: "Event details"
+    block: "Block"
+    transaction: "Transaction"
+    from: "From"
+    to: "To"
+    fees: "Fees"
+    value: "Value"
+    executedAt: "Executed at"
+    payload: "Arguments"
 </i18n>
 
 <script>
+  import etherscan from '@/utils/etherscan'
   import collection from '@/mixins/collection'
-  import item from '@/mixins/item'
-  import TableListing from '@/components/layouts/TableListing.vue'
   import StatusCode from '@/components/StatusCode.vue'
   export default {
     components: {
-      TableListing,
       StatusCode
     },
     props: {
-      triggerId: {
-        type: String,
+      trigger: {
+        type: Object,
         required: true
       },
-      id: {
-        type: String,
+      event: {
+        type: Object,
         required: true
       }
     },
     mixins: [
-      item('event'),
       collection('taskLogs', { pagination: true, syncUrl: true })
     ],
-    metaInfo () {
-      return {
-        title: this.$t('title')
-      }
-    },
     computed: {
       taskLogsParams () {
         return {
-          eventId: this.id,
+          eventId: this.event.id,
           ...this.taskLogsPagination
         }
       },
-      headers () {
+      externalLink () {
+        return etherscan(this.trigger)
+      },
+      eventItems () {
         return [
-          { text: this.$t('header.code'), align: 'left', sortable: false, value: 'code' },
-          { text: this.$t('header.body'), align: 'left', sortable: false, value: 'body' },
-          { text: this.$t('header.duration'), align: 'right', sortable: false, value: 'duration' },
-          { text: this.$t('header.createdAt'), align: 'right', sortable: false, value: 'createdAt' }
+          { title: this.$t('block'), value: this.event.blockId, url: this.externalLink.block(this.event.blockId) },
+          { title: this.$t('transaction'), value: this.event.transactionId, url: this.externalLink.transaction(this.event.transactionId) },
+          { title: this.$t('from'), value: this.event.from, url: this.externalLink.address(this.event.from) },
+          { title: this.$t('to'), value: this.event.to, url: this.externalLink.address(this.event.to) },
+          { title: this.$t('value'), value: this.event.value },
+          { title: this.$t('fees'), value: this.event.fees }
         ]
+      }
+    },
+    methods: {
+      body (log) {
+        try {
+          return JSON.parse(log.body)
+        } catch (e) {
+          return log.body
+        }
       }
     }
   }
