@@ -3,6 +3,12 @@ fragment eventFields on Event {
   createdAt
   blockId
   transactionId
+  executedAt
+  payload
+  from
+  to
+  value
+  fees
   trigger {
     id
   }
