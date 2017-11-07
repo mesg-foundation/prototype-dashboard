@@ -89,6 +89,7 @@ export default {
         title: this.$t('charts.events'),
         filter: {
           ...this.defaultFilter,
+          dateAttribute: x => x.event.executedAt,
           method: 'count'
         }
       }, {
@@ -96,6 +97,7 @@ export default {
         filter: {
           ...this.defaultFilter,
           attribute: 'duration',
+          dateAttribute: x => x.event.executedAt,
           method: 'avg'
         }
       }, {
@@ -103,6 +105,7 @@ export default {
         filter: {
           ...this.defaultFilter,
           attribute: 'code',
+          dateAttribute: x => x.event.executedAt,
           method: list => list.filter(x => !x.startsWith('20')).length
         }
       }]

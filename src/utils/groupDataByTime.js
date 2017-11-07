@@ -17,11 +17,11 @@ const resultSize = (from, to, interval) => Math.ceil((+to - from) / interval)
 
 export default (data, {
   groupBy = 'day',
-  dateAttribute = 'createdAt',
+  dateAttribute = x => x.createdAt,
   method = 'count',
   attribute = 'createdAt',
-  from = new Date(data[0][dateAttribute]),
-  to = new Date(data[data.length - 1][dateAttribute])
+  from = new Date(dateAttribute(data[0])),
+  to = new Date(dateAttribute(data[data.length - 1]))
 } = {}) => {
   const interval = GROUP_BY[groupBy]
   const size = resultSize(from, to, interval)
@@ -30,7 +30,7 @@ export default (data, {
   const res = [...new Array(size)]
     .map(() => [])
   data.forEach(x => {
-    const index = Math.trunc((+new Date(x[dateAttribute]) - from) / interval)
+    const index = Math.trunc((+new Date(dateAttribute(x)) - from) / interval)
     res[index].push(x[attribute])
   })
   return {
