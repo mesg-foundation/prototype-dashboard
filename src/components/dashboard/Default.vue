@@ -75,20 +75,31 @@ export default {
         projectId: this.currentProjectId,
         ...this.notificationsPagination
       }
+    },
+    statsParams () {
+      return {
+        projectId: this.currentProjectId,
+        from: this.filter.from,
+        to: this.filter.to
+      }
     }
   },
-  async mounted () {
-    const variables = {
-      projectId: this.currentProjectId,
-      from: this.filter.from,
-      to: this.filter.to
+  methods: {
+    async reloadStats () {
+      this.logs = null
+      const { data: { _allTaskLogsMeta: { count } } } = await client().query({
+        query: allLogsMeta,
+        variables: this.statsParams
+      })
+      const fetch = fetchAllPages(client(), { total: count })
+      this.logs = await fetch(allLogs, this.statsParams)
     }
-    const { data: { _allTaskLogsMeta: { count } } } = await client().query({
-      query: allLogsMeta,
-      variables
-    })
-    const fetch = fetchAllPages(client(), { total: count })
-    this.logs = await fetch(allLogs, variables)
+  },
+  watch: {
+    statsParams () { this.reloadStats() }
+  },
+  mounted () {
+    this.reloadStats()
   }
 }
 </script>
