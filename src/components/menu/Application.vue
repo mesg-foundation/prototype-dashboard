@@ -16,8 +16,8 @@
           <v-list-tile-title>
             {{ currentProject.name }}
           </v-list-tile-title>
-          <v-list-tile-sub-title>
-            <v-icon>supervisor_account</v-icon>
+          <v-list-tile-sub-title class="grey--text">
+            <v-icon class="grey--text">supervisor_account</v-icon>
             <span class="caption">
               {{ currentProject._usersMeta.count }}
               {{ $t('members') }}
