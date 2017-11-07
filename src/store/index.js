@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
+// import createPersistedState from 'vuex-persistedstate'
 import triggers from './triggers'
 import contracts from './contracts'
 import ethTokens from './ethTokens'
@@ -36,11 +36,11 @@ export default new Vuex.Store({
     connectors,
     actions
   },
-  plugins: [
-    createPersistedState({
-      key: 'eth-hook'
-    })
-  ],
+  // plugins: [
+  //   createPersistedState({
+  //     key: 'eth-hook'
+  //   })
+  // ],
   state: {
     menu: true,
     showProjects: false
