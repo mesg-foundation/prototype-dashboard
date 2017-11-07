@@ -15,8 +15,21 @@
         <router-view></router-view>
       </FullHeightCenter>
     </template>
+    <v-tooltip left>
+      <v-btn fab fixed bottom right
+        slot="activator"
+        target="_blank" href="mailto:incoming+etherstellar/support@gitlab.com">
+        <v-icon>mail_outline</v-icon>
+      </v-btn>
+      <span>{{ $t('contact') }}</span>
+    </v-tooltip>
   </v-app>
 </template>
+
+<i18n>
+  en:
+    contact: "Contact us / Report a bug"
+</i18n>
 
 <script>
   import { mapGetters } from 'vuex'
