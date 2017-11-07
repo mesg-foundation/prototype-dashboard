@@ -1,0 +1,29 @@
+query(
+  $projectId: ID!
+  $from: DateTime
+  $to: DateTime
+  $first: Int
+  $skip: Int
+) {
+  allTaskLogs(
+    orderBy: createdAt_ASC,
+    first: $first,
+    skip: $skip,
+    filter: {
+      createdAt_gte: $from,
+      createdAt_lt: $to,
+      trigger: {
+        project: {
+          id: $projectId
+        }
+      }
+    }
+  ) {
+    createdAt
+    code
+    duration
+    event {
+      executedAt
+    }
+  }
+}

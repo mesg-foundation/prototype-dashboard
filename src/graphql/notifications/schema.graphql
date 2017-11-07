@@ -1,0 +1,9 @@
+fragment notificationFields on Notification {
+  id
+  createdAt
+  kind
+  trigger {
+    id
+    title
+  }
+}

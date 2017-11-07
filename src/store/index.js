@@ -11,6 +11,7 @@ import session from './session'
 import users from './users'
 import plans from './plans'
 import invitations from './invitations'
+import notifications from './notifications'
 import services from './services'
 import connectors from './connectors'
 import actions from './actions'
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     plans,
     session,
     invitations,
+    notifications,
     services,
     connectors,
     actions

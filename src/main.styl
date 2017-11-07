@@ -67,7 +67,14 @@ table.table tbody td {
 .dialog > .card > .card__text,
 .dialog > .card > .scrollable {
   height: 500px;
+}
+
+.scrollable {
   overflow: scroll;
+}
+
+.full-content-height {
+  height: "calc(100vh - %s)" % $toolbar-prominent-height;
 }
 
 .truncate {
