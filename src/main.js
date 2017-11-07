@@ -20,7 +20,7 @@ router.afterEach(x => store.commit('updateShowProjects', false))
 
 const initializeApp = () => {
   const currentUser = store.getters['session/currentUser']
-  if (currentUser && !currentUser.betaUser) {
+  if (currentUser && currentUser.id && !currentUser.betaUser) {
     router.replace('/beta')
   }
   return new Vue({
