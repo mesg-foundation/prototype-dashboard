@@ -35,7 +35,7 @@
     </div>
     <template scope="event">
       <td>
-        <timeago :since="event.createdAt" :auto-update="10"></timeago>
+        <DateTime :value="event.createdAt" advanced></DateTime>
       </td>
       <td>
         <a :href="blockLink(event)" target="_blank" :title="$t('etherscan')">
@@ -85,13 +85,15 @@
   import TriggerTitle from '@/components/triggers/Title'
   import TriggerSwitch from '@/components/triggers/Switch'
   import TaskLogList from '@/components/taskLogs/List'
+  import DateTime from '@/components/DateTime'
   export default {
     components: {
       TableListing,
       TriggerDetailList,
       TriggerTitle,
       TriggerSwitch,
-      TaskLogList
+      TaskLogList,
+      DateTime
     },
     mixins: [
       item('trigger'),

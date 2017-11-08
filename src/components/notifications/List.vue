@@ -12,7 +12,7 @@
         </v-list-tile-content>
         <v-list-tile-action>
           <v-list-tile-action-text>
-            <timeago :since="notification.createdAt" :auto-update="10"></timeago>
+            <DateTime :value="notification.createdAt"></DateTime>
           </v-list-tile-action-text>
         </v-list-tile-action>
       </v-list-tile>
@@ -28,7 +28,11 @@
 </i18n>
 
 <script>
+import DateTime from '@/components/DateTime'
 export default {
+  components: {
+    DateTime
+  },
   props: {
     notifications: {
       type: Array,

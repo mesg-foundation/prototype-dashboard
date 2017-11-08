@@ -13,7 +13,7 @@
         {{ invitation.email }}
       </td>
       <td class="text-xs-right">
-        <timeago :since="invitation.createdAt" :auto-update="10"></timeago>
+        <DateTime :value="invitation.createdAt"></DateTime>
       </td>
     </template>
   </table-listing>
@@ -31,9 +31,11 @@
   import collection from '@/mixins/collection'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import TableListing from '@/components/layouts/TableListing'
+  import DateTime from '@/components/DateTime'
   export default {
     components: {
-      TableListing
+      TableListing,
+      DateTime
     },
     mixins: [
       withCurrentProject,

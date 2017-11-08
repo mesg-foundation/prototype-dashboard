@@ -8,7 +8,7 @@
     <v-card v-else flat v-for="log in taskLogs" :key="log.id">
       <v-card-title class="subheading">
         <StatusCode class="mr-3" :error="log.error"></StatusCode>
-        {{ log.createdAt }}
+        <DateTime :value="log.createdAt" advanced></DateTime>
         <v-spacer></v-spacer>
         <v-icon class="mr-2">timer</v-icon>
         {{ log.duration }}ms
@@ -65,9 +65,11 @@
   import etherscan from '@/utils/etherscan'
   import collection from '@/mixins/collection'
   import StatusCode from '@/components/StatusCode.vue'
+  import DateTime from '@/components/DateTime'
   export default {
     components: {
-      StatusCode
+      StatusCode,
+      DateTime
     },
     props: {
       trigger: {
