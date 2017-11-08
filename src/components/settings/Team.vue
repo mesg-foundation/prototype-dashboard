@@ -21,7 +21,7 @@
       <template scope="user">
         <td>{{ user.email }}</td>
         <td class="text-xs-right">
-          <timeago :since="user.createdAt" :auto-update="10"></timeago>
+          <DateTime :value="user.createdAt"></DateTime>
         </td>
       </template>
     </table-listing>
@@ -45,12 +45,14 @@
   import InvitationForm from '@/components/invitations/Form'
   import InvitationList from '@/components/invitations/List'
   import QuotaWarning from '@/components/QuotaWarning'
+  import DateTime from '@/components/DateTime'
   export default {
     components: {
       TableListing,
       InvitationForm,
       InvitationList,
-      QuotaWarning
+      QuotaWarning,
+      DateTime
     },
     mixins: [
       withCurrentProject,

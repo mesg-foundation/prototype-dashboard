@@ -30,7 +30,7 @@
         </router-link>
       </td>
       <td class="text-xs-right">
-        <timeago :since="trigger.createdAt" :auto-update="10"></timeago>
+        <DateTime :value="trigger.createdAt"></DateTime>
       </td>
     </template>
   </table-listing>
@@ -53,12 +53,14 @@
   import TriggerSwitch from '@/components/triggers/Switch'
   import QuotaWarning from '@/components/QuotaWarning'
   import TriggerTitle from '@/components/triggers/Title'
+  import DateTime from '@/components/DateTime'
   export default {
     components: {
       TableListing,
       QuotaWarning,
       TriggerSwitch,
-      TriggerTitle
+      TriggerTitle,
+      DateTime
     },
     mixins: [
       withCurrentProject,

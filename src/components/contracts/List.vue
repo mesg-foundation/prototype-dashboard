@@ -34,7 +34,7 @@
         {{ contract.chain }}
       </td>
       <td class="text-xs-right">
-        <timeago :since="contract.createdAt" :auto-update="10"></timeago>
+        <DateTime :value="contract.createdAt"></DateTime>
       </td>
     </template>
   </table-listing>
@@ -56,10 +56,12 @@
   import withCurrentProject from '@/mixins/withCurrentProject'
   import TableListing from '@/components/layouts/TableListing'
   import QuotaWarning from '@/components/QuotaWarning'
+  import DateTime from '@/components/DateTime'
   export default {
     components: {
       TableListing,
-      QuotaWarning
+      QuotaWarning,
+      DateTime
     },
     mixins: [
       withCurrentProject,
