@@ -45,7 +45,7 @@
         </v-list-tile-action>
       </v-list-tile>
     </v-list>
-    <v-bottom-nav :value="true">
+    <v-bottom-nav absolute :value="true">
       <v-btn dark @click.stop="updateShowProjects(true)">
         <span>{{ $t('switch') }}</span>
         <v-icon>swap_horiz</v-icon>
