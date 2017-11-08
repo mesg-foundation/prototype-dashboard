@@ -132,7 +132,8 @@
       submit () {
         this.createEvent({ variables: {
           triggerId: this.trigger.id,
-          ...this.params
+          ...this.params,
+          executedAt: new Date()
         } })
           .then(event => this.$emit('saved', event))
       }
