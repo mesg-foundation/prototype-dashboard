@@ -10,8 +10,10 @@ query(
     first: $first,
     skip: $skip,
     filter: {
-      createdAt_gte: $from,
-      createdAt_lt: $to,
+      event: {
+        executedAt_gte: $from,
+        executedAt_lt: $to
+      },
       trigger: {
         project: {
           id: $projectId
@@ -20,7 +22,7 @@ query(
     }
   ) {
     createdAt
-    code
+    error
     duration
     event {
       executedAt

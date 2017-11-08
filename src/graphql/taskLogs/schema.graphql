@@ -1,8 +1,8 @@
 fragment taskLogsFields on TaskLog {
   id
   createdAt
-  body
-  code
+  result
+  error
   duration
   trigger {
     id

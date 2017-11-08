@@ -8,7 +8,6 @@ import EditTrigger from '@/components/triggers/Edit'
 import NewProject from '@/components/projects/Create'
 import Events from '@/components/events/List'
 import NewEvents from '@/components/events/Create'
-import TaskLogs from '@/components/taskLogs/List'
 import Contracts from '@/components/contracts/List'
 import NewContract from '@/components/contracts/Create'
 import EditContract from '@/components/contracts/Edit'
@@ -73,12 +72,6 @@ export default new Router({
           path: ':triggerId/execute',
           name: 'ExecuteTrigger',
           component: NewEvents,
-          props: true
-        },
-        {
-          path: ':triggerId/:id',
-          name: 'Event',
-          component: TaskLogs,
           props: true
         }
       ]

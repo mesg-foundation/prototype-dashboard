@@ -1,51 +1,55 @@
 <template>
-  <v-card flat>
-    <v-toolbar card :class="{ secondary: !transparent, transparent }">
-      <MenuToggle v-if="withMenu"></MenuToggle>
-      <v-toolbar-title class="headline">
-        {{ title }}
-        <slot name="title"></slot>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <template v-if="searchable">
-        <v-text-field
-          class="hidden-sm-and-down"
-          append-icon="search"
-          label="Search"
-          single-line
-          hide-details
-          v-model="search">
-        </v-text-field>
+  <v-layout column>
+    <div>
+      <v-toolbar card :class="{ secondary: !transparent, transparent }">
+        <MenuToggle v-if="withMenu"></MenuToggle>
+        <v-toolbar-title class="headline">
+          {{ title }}
+          <slot name="title"></slot>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
-      </template>
-      <slot name="toolbar"></slot>
-    </v-toolbar>
-    <slot name="extension"></slot>
-    <v-data-table
-      :class="{ 'secondary--header': !transparent }"
-      :search="search"
-      :headers="headers"
-      :items="items"
-      :loading="loading"
-      :custom-sort="a => a"
-      hideActions>
-      <template slot="items" scope="props">
-        <tr>
-          <slot v-bind="props.item"></slot>
-        </tr>
-      </template>
-    </v-data-table>
-    <v-layout
-      v-if="displayPagination"
-      justify-center align-center class="pa-3">
-      <v-pagination
-        :length="paginationLength"
-        :value="pagination.page"
-        @input="x => this.$emit('pageChanged', x)"
-        :total-visible="9">
-      </v-pagination>
-    </v-layout>
-  </v-card>
+        <template v-if="searchable">
+          <v-text-field
+            class="hidden-sm-and-down"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+            v-model="search">
+          </v-text-field>
+          <v-spacer></v-spacer>
+        </template>
+        <slot name="toolbar"></slot>
+      </v-toolbar>
+      <v-divider></v-divider>
+    </div>
+    <div class="full-content-height scrollable">
+      <slot name="extension"></slot>
+      <v-data-table
+        :search="search"
+        :headers="headers"
+        :items="items"
+        :loading="loading"
+        :custom-sort="a => a"
+        hideActions>
+        <template slot="items" scope="props">
+          <tr>
+            <slot v-bind="props.item"></slot>
+          </tr>
+        </template>
+      </v-data-table>
+      <div
+        v-if="displayPagination"
+        class="pa-3 text-sm-center">
+        <v-pagination
+          :length="paginationLength"
+          :value="pagination.page"
+          @input="x => this.$emit('pageChanged', x)"
+          :total-visible="9">
+        </v-pagination>
+      </div>
+    </div>
+  </v-layout>
 </template>
 
 <i18n>

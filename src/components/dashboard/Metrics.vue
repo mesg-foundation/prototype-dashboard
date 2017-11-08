@@ -3,7 +3,7 @@
     <v-flex xs12 md4 v-for="(metric, i) in metrics" :key="i">
       <v-card class="ma-3 stat">
         <v-card-title>{{ metric.title }}</v-card-title>
-        <v-card-text class="headline">{{ metric.value }}</v-card-text>
+        <v-card-text class="headline">{{ metric.value || '-' }}</v-card-text>
       </v-card>
     </v-flex>
     <v-flex xs12 md6 v-for="(chart, i) in charts" :key="i">
@@ -72,16 +72,15 @@ export default {
       return this.defaultFilter.groupBy || 'day'
     },
     metrics () {
-      if (!this.data) { return [] }
       return [{
         title: this.$t('metrics.events'),
-        value: this.data.length
+        value: this.data ? this.data.length : null
       }, {
         title: this.$t('metrics.duration'),
-        value: Math.floor(this.data.reduce((sum, { duration }) => sum + duration, 0) / this.data.length)
+        value: this.data ? Math.floor(this.data.reduce((sum, { duration }) => sum + duration, 0) / this.data.length) : null
       }, {
         title: this.$t('metrics.errors'),
-        value: this.data.filter(({ code }) => !code.startsWith('20')).length
+        value: this.data ? this.data.filter(({ error }) => error).length : null
       }]
     },
     charts () {
@@ -104,9 +103,9 @@ export default {
         title: this.$t('charts.errors'),
         filter: {
           ...this.defaultFilter,
-          attribute: 'code',
+          attribute: 'error',
           dateAttribute: x => x.event.executedAt,
-          method: list => list.filter(x => !x.startsWith('20')).length
+          method: list => list.filter(x => x).length
         }
       }]
     }

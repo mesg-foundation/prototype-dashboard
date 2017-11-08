@@ -8,8 +8,9 @@
     @pageChanged="eventsChangePage"
     extended
     withMenu>
-    <template slot="title">
-      <TriggerTitle v-if="trigger" :trigger="trigger"></TriggerTitle>
+    <template slot="title" v-if="trigger">
+      <TriggerSwitch class="trigger-switch" :trigger="trigger"></TriggerSwitch>
+      <TriggerTitle :trigger="trigger"></TriggerTitle>
     </template>
     <template v-if="trigger" slot="toolbar">
       <v-btn
@@ -23,28 +24,38 @@
         {{ $t('test') }}
       </v-btn>
     </template>
-    <TriggerDetailList
-      slot="extension"
-      class="secondary"
-      v-if="trigger"
-      :trigger="trigger">
-    </TriggerDetailList>
+    <div v-if="trigger" slot="extension">
+      <TriggerDetailList :trigger="trigger"></TriggerDetailList>
+      <v-divider></v-divider>
+      <v-card flat>
+        <v-card-title class="subheading">
+          {{ $t('events') }}
+        </v-card-title>
+      </v-card>
+    </div>
     <template scope="event">
       <td>
-        <router-link :to="{ name: 'Event', params: { id: event.id, triggerId: trigger.id } }">
-          <timeago :since="event.createdAt" :auto-update="10"></timeago>
-        </router-link>
+        <timeago :since="event.createdAt" :auto-update="10"></timeago>
       </td>
       <td>
-        {{ event.blockId }}
+        <a :href="blockLink(event)" target="_blank" :title="$t('etherscan')">
+          {{ event.blockId }}
+        </a>
       </td>
       <td>
-        {{ event.transactionId }}
+        <a :href="transactionLink(event)" target="_blank" :title="$t('etherscan')">
+          {{ event.transactionId }}
+        </a>
       </td>
       <td class="text-xs-right">
         <template v-if="validEvents[event.id] !== null">
-          <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
-          <v-icon v-else class="error--text">close</v-icon>
+          <v-dialog v-model="event.displayLog" :width="640" lazy>
+            <v-btn icon slot="activator">
+              <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
+              <v-icon v-else class="error--text">close</v-icon>
+            </v-btn>
+            <TaskLogList :event="event" :trigger="trigger"></TaskLogList>
+          </v-dialog>
         </template>
       </td>
     </template>
@@ -55,7 +66,9 @@
   en:
     title: "Trigger"
     test: "Test"
-    update: "Update"
+    update: "Edit"
+    etherscan: "Look on Etherscan"
+    events: "Events for this trigger"
     header:
       createdAt: "Created At"
       blockId: "Block"
@@ -64,16 +77,21 @@
 </i18n>
 
 <script>
+  import etherscan from '@/utils/etherscan'
   import item from '@/mixins/item'
   import collection from '@/mixins/collection'
   import TableListing from '@/components/layouts/TableListing'
   import TriggerDetailList from '@/components/triggers/DetailList'
   import TriggerTitle from '@/components/triggers/Title'
+  import TriggerSwitch from '@/components/triggers/Switch'
+  import TaskLogList from '@/components/taskLogs/List'
   export default {
     components: {
       TableListing,
       TriggerDetailList,
-      TriggerTitle
+      TriggerTitle,
+      TriggerSwitch,
+      TaskLogList
     },
     mixins: [
       item('trigger'),
@@ -110,14 +128,32 @@
           ...acc,
           [event.id]: this.validEvent(event)
         }), {})
+      },
+      etherscanInfo () {
+        return etherscan(this.trigger)
       }
     },
     methods: {
       validEvent ({ taskLogs }) {
         if ((taskLogs || []).length === 0) { return null }
         return taskLogs
-          .some(x => x.code.startsWith('20'))
+          .some(({ error }) => !error)
+      },
+      blockLink (event) {
+        return this.etherscanInfo.block(event.blockId)
+      },
+      transactionLink (event) {
+        return this.etherscanInfo.transaction(event.transactionId)
       }
     }
   }
 </script>
+
+<style scoped>
+  .trigger-switch {
+    float: left;
+    width: 36px;
+    margin-right: .5em;
+    margin-left: .25em;
+  }
+</style>

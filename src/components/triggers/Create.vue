@@ -7,7 +7,7 @@
 
 <i18n>
   en:
-    title: "New Trigger"
+    title: "Add Trigger"
 </i18n>
 
 <script>

@@ -9,7 +9,7 @@ mutation(
   $to: String!,
   $value: String!
   $fees: String!
-
+  $executedAt: DateTime
 ) {
   createEvent(
     triggerId: $triggerId,
@@ -19,7 +19,8 @@ mutation(
     from: $from,
     to: $to,
     value: $value,
-    fees: $fees
+    fees: $fees,
+    executedAt: $executedAt
 	) {
     ...eventFields
   }

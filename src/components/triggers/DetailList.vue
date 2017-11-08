@@ -1,5 +1,5 @@
 <template>
-  <v-list>
+  <v-list two-line>
     <v-list-tile v-for="(item, i) in items" :key="i">
       <v-list-tile-content>
         <v-list-tile-title>

@@ -4,8 +4,7 @@
     persistent enable-resize-watcher
     :value="menu"
     @input="value => updateMenu(value)"
-    dark
-    :class="{ 'alternate': showProjects }">
+    dark>
     <v-list class="pa-1 header">
       <v-list-tile :ripple="false" avatar tag="div" v-if="currentProject">
         <v-list-tile-avatar>
@@ -17,37 +16,18 @@
           <v-list-tile-title>
             {{ currentProject.name }}
           </v-list-tile-title>
-          <v-list-tile-sub-title :class="{ 'grey--text': !showProjects }">
-            <v-icon :class="{ 'grey--text': !showProjects }">supervisor_account</v-icon>
+          <v-list-tile-sub-title class="grey--text">
+            <v-icon class="grey--text">supervisor_account</v-icon>
             <span class="caption">
               {{ currentProject._usersMeta.count }}
               {{ $t('members') }}
             </span>
           </v-list-tile-sub-title>
         </v-list-tile-content>
-        <v-list-tile-action>
-          <v-btn icon @click.stop="updateShowProjects(!showProjects)">
-            <v-icon v-if="showProjects">arrow_drop_up</v-icon>
-            <v-icon v-else>arrow_drop_down</v-icon>
-          </v-btn>
-        </v-list-tile-action>
-      </v-list-tile>
-      <v-list-tile
-        :to="{ name: 'Logout' }"
-        v-if="showProjects">
-        <v-list-tile-action>
-          <v-icon>exit_to_app</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>
-            {{ $t('logout') }}
-          </v-list-tile-title>
-        </v-list-tile-content>
       </v-list-tile>
     </v-list>
     <v-divider></v-divider>
-    <ProjectsMenu v-if="showProjects"></ProjectsMenu>
-    <v-list v-else>
+    <v-list>
       <v-list-tile
         v-for="item in items" :key="item.key"
         router :exact="!!item.exact"
@@ -66,12 +46,20 @@
       </v-list-tile>
     </v-list>
     <v-bottom-nav :value="true">
-      <v-btn block target="_blank"
-        href="mailto:incoming+etherstellar/support@gitlab.com">
-        <span>{{ $t('contact') }}</span>
-        <v-icon>mail_outline</v-icon>
+      <v-btn dark @click.stop="updateShowProjects(true)">
+        <span>{{ $t('switch') }}</span>
+        <v-icon>swap_horiz</v-icon>
+      </v-btn>
+      <v-btn dark router :to="{ name: 'Logout' }">
+        <span>{{ $t('logout') }}</span>
+        <v-icon>exit_to_app</v-icon>
       </v-btn>
     </v-bottom-nav>
+    <v-dialog
+      :width="640"
+      :value="showProjects" @input="x => updateShowProjects(x)">
+      <ProjectsMenu></ProjectsMenu>
+    </v-dialog>
   </v-navigation-drawer>
 </template>
 
@@ -79,7 +67,7 @@
   en:
     members: "Members"
     logout: "Logout"
-    contact: "Contact us / Report a bug"
+    switch: "Switch project"
     menu:
       triggers: "Triggers"
       contracts: "Contracts"
@@ -165,15 +153,6 @@
   .navigation-drawer li.active > .list__tile::before {
     width: 6px;
     background-color: white;
-  }
-
-  .application .theme--dark.navigation-drawer.alternate {
-    &, .list, .divider {
-      background-color: $blue.darken-3;
-    }
-    .header {
-      background-color: $blue.darken-2;
-    }
   }
 
   .navigation-drawer > .list .list__tile--active .list__tile__title,

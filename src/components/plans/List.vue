@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-layout column>
     <v-toolbar card>
       <MenuToggle></MenuToggle>
       <v-toolbar-title class="headline">
@@ -30,7 +30,7 @@
         </v-card-text>
       </v-card>
     </v-card-text>
-  </v-card>
+  </v-layout>
 </template>
 
 <i18n>

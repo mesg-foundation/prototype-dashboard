@@ -1,30 +1,34 @@
 <template>
-  <v-card flat>
+  <v-layout column>
     <form novalidate @submit.prevent="submit()">
-      <v-toolbar card class="secondary">
-        <MenuToggle></MenuToggle>
-        <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
-      </v-toolbar>
-      <v-divider></v-divider>
-      <v-card-text>
-        <v-text-field
-          :label="$t('labels.name')"
-          :error-messages="errors.name"
-          v-model="name"
-          @input="$v.name.$touch()"
-          autofocus
-          required>
-        </v-text-field>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          color="primary" dark
-          type="submit">
-          {{ $t('submit') }}
-        </v-btn>
-      </v-card-actions>
+      <div>
+        <v-toolbar card class="secondary">
+          <MenuToggle></MenuToggle>
+          <v-toolbar-title class="headline">{{ $t('title') }}</v-toolbar-title>
+        </v-toolbar>
+        <v-divider></v-divider>
+      </div>
+      <div class="full-content-height scrollable">
+        <v-card-text>
+          <v-text-field
+            :label="$t('labels.name')"
+            :error-messages="errors.name"
+            v-model="name"
+            @input="$v.name.$touch()"
+            autofocus
+            required>
+          </v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            color="primary" dark
+            type="submit">
+            {{ $t('submit') }}
+          </v-btn>
+        </v-card-actions>
+      </div>
     </form>
-  </v-card>
+  </v-layout>
 </template>
 
 <i18n>

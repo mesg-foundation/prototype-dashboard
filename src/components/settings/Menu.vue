@@ -1,26 +1,30 @@
 <template>
-  <v-card flat>
-    <v-toolbar card>
-      <MenuToggle></MenuToggle>
-      <v-toolbar-title class="headline">
-        {{ $t('title') }}
-      </v-toolbar-title>
-    </v-toolbar>
-    <v-divider></v-divider>
-    <v-tabs light v-model="activeTab">
-      <v-tabs-bar class="secondary">
-        <v-tabs-item
-          v-for="tab in tabs" :key="tab.key"
-          :to="tab.to"
-          ripple>
-          {{ tab.title }}
-        </v-tabs-item>
-        <v-tabs-slider></v-tabs-slider>
-      </v-tabs-bar>
-    </v-tabs>
-    <v-divider></v-divider>
-    <router-view></router-view>
-  </v-card>
+  <v-layout column>
+    <div>
+      <v-toolbar card>
+        <MenuToggle></MenuToggle>
+        <v-toolbar-title class="headline">
+          {{ $t('title') }}
+        </v-toolbar-title>
+      </v-toolbar>
+      <v-divider></v-divider>
+    </div>
+    <div class="full-content-height scrollable">
+      <v-tabs light v-model="activeTab">
+        <v-tabs-bar class="secondary">
+          <v-tabs-item
+            v-for="tab in tabs" :key="tab.key"
+            :to="tab.to"
+            ripple>
+            {{ tab.title }}
+          </v-tabs-item>
+          <v-tabs-slider></v-tabs-slider>
+        </v-tabs-bar>
+      </v-tabs>
+      <v-divider></v-divider>
+      <router-view></router-view>
+    </div>
+  </v-layout>
 </template>
 
 <i18n>

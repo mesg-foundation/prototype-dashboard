@@ -39,9 +39,9 @@
 <i18n>
   en:
     title: "Triggers"
-    create: "New Trigger"
+    create: "Add Trigger"
     header:
-      enable: " "
+      enable: "Active"
       title: "Title"
       createdAt: "Created at"
 </i18n>
