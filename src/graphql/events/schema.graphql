@@ -13,6 +13,6 @@ fragment eventFields on Event {
     id
   }
   taskLogs(orderBy: createdAt_ASC) {
-    code
+    error
   }
 }

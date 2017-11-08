@@ -7,7 +7,7 @@
     </v-card>
     <v-card v-else flat v-for="log in taskLogs" :key="log.id">
       <v-card-title class="subheading">
-        <StatusCode class="mr-3" :code="log.code"></StatusCode>
+        <StatusCode class="mr-3" :error="log.error"></StatusCode>
         {{ log.createdAt }}
         <v-spacer></v-spacer>
         <v-icon class="mr-2">timer</v-icon>
@@ -15,9 +15,9 @@
       </v-card-title>
       <v-divider></v-divider>
       <v-card-text class="grey lighten-3">
-        <h4 class="subheading">{{ $t('response') }}</h4>
+        <h4 class="subheading">{{ $t('result') }}</h4>
         <code>
-{{ JSON.stringify(body(log), null, 2) }}
+{{ JSON.stringify(result(log), null, 2) }}
         </code>
         <h4 class="mt-3 subheading">{{ $t('event') }}</h4>
         <v-list class="secondary">
@@ -49,7 +49,7 @@
 <i18n>
   en:
     title: "Event's logs"
-    response: "Response body"
+    result: "Result"
     event: "Event details"
     block: "Block"
     transaction: "Transaction"
@@ -104,11 +104,11 @@
       }
     },
     methods: {
-      body (log) {
+      result (log) {
         try {
-          return JSON.parse(log.body)
+          return JSON.parse(log.result)
         } catch (e) {
-          return log.body
+          return log.result
         }
       }
     }

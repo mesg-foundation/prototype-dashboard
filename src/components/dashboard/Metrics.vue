@@ -80,7 +80,7 @@ export default {
         value: this.data ? Math.floor(this.data.reduce((sum, { duration }) => sum + duration, 0) / this.data.length) : null
       }, {
         title: this.$t('metrics.errors'),
-        value: this.data ? this.data.filter(({ code }) => !code.startsWith('20')).length : null
+        value: this.data ? this.data.filter(({ error }) => error).length : null
       }]
     },
     charts () {
@@ -103,9 +103,9 @@ export default {
         title: this.$t('charts.errors'),
         filter: {
           ...this.defaultFilter,
-          attribute: 'code',
+          attribute: 'error',
           dateAttribute: x => x.event.executedAt,
-          method: list => list.filter(x => !x.startsWith('20')).length
+          method: list => list.filter(x => x).length
         }
       }]
     }

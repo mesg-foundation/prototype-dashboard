@@ -22,7 +22,7 @@ query(
     }
   ) {
     createdAt
-    code
+    error
     duration
     event {
       executedAt

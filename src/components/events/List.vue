@@ -137,7 +137,7 @@
       validEvent ({ taskLogs }) {
         if ((taskLogs || []).length === 0) { return null }
         return taskLogs
-          .some(x => x.code.startsWith('20'))
+          .some(({ error }) => !error)
       },
       blockLink (event) {
         return this.etherscanInfo.block(event.blockId)
