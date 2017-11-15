@@ -32,6 +32,7 @@
     title: "Settings"
     tabs:
       general: "General"
+      keys: "Keys"
       team: "Team"
       billing: "Billing"
 </i18n>
@@ -41,6 +42,7 @@
   import MenuToggle from '@/components/MenuToggle'
   const TABS = [
     'general',
+    'keys',
     'team',
     'billing'
   ]

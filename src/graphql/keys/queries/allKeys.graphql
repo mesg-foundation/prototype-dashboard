@@ -1,0 +1,27 @@
+#import "@/graphql/keys/schema.graphql"
+
+query(
+  $projectId: ID!
+  $first: Int
+  $skip: Int
+) {
+  allKeys(
+    orderBy: createdAt_DESC,
+    first: $first,
+    skip: $skip,
+    filter: {
+      project: {
+        id: $projectId
+      }
+    }
+  ) {
+    ...keyFields
+  }
+  _allKeysMeta(filter: {
+    project: {
+      id: $projectId
+    }
+  }) {
+    count
+  }
+}
