@@ -126,7 +126,6 @@
         createKey: 'keys/create'
       }),
       async submit () {
-        debugger
         await this.createKey({ variables: {
           public: this.publicKey,
           private: this.privateKey,
