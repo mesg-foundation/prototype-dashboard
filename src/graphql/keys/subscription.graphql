@@ -1,0 +1,22 @@
+#import "@/graphql/keys/schema.graphql"
+
+subscription(
+  $projectId: ID!
+) {
+  Key(filter: {
+    mutation_in: [CREATED, UPDATED, DELETED],
+    node: {
+      project: {
+        id: $projectId
+      }
+    }
+  }) {
+    mutation
+    previousValues {
+      id
+    }
+    node {
+      ...keyFields
+    }
+  }
+}

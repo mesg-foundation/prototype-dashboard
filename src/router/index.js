@@ -16,6 +16,7 @@ import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import Settings from '@/components/settings/Menu'
 import SettingsGeneral from '@/components/settings/General'
+import SettingsKeys from '@/components/settings/Keys'
 import SettingsTeam from '@/components/settings/Team'
 import SettingsBilling from '@/components/settings/Billing'
 import Plans from '@/components/plans/List'
@@ -131,6 +132,11 @@ export default new Router({
           path: 'general',
           name: 'SettingsGeneral',
           component: SettingsGeneral
+        },
+        {
+          path: 'keys',
+          name: 'SettingsKeys',
+          component: SettingsKeys
         },
         {
           path: 'team',
