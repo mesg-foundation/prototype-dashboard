@@ -65,7 +65,7 @@
         return [
           { text: this.$t('header.address'), align: 'left', sortable: false },
           { text: this.$t('header.chain'), align: 'left', sortable: false },
-          { text: this.$t('header.amount'), align: 'right', sortable: false },
+          { text: this.$t('header.balance'), align: 'right', sortable: false },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false }
         ]
       }
