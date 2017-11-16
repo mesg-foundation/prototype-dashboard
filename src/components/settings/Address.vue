@@ -11,7 +11,7 @@
     <template scope="address">
       <td>{{ address.address }}</td>
       <td>{{ address.chain }}</td>
-      <td>{{ address.publicKey }}</td>
+      <td class="text-xs-right">{{ balance[address.id] }} ETH</td>
       <td class="text-xs-right">
         <DateTime :value="address.createdAt"></DateTime>
       </td>
@@ -25,12 +25,13 @@
     header:
       chain: "Blockchain"
       address: "Address"
-      public: "Public key"
+      balance: "Balance"
       createdAt: "Created at"
 </i18n>
 
 <script>
   import collection from '@/mixins/collection'
+  import client from '@/blockchain/client'
   import withCurrentProject from '@/mixins/withCurrentProject'
   import TableListing from '@/components/layouts/TableListing'
   import DateTime from '@/components/DateTime'
@@ -43,6 +44,11 @@
       withCurrentProject,
       collection('addresses', { pagination: true })
     ],
+    data () {
+      return {
+        balance: {}
+      }
+    },
     metaInfo () {
       return {
         title: this.$t('title')
@@ -59,9 +65,21 @@
         return [
           { text: this.$t('header.address'), align: 'left', sortable: false },
           { text: this.$t('header.chain'), align: 'left', sortable: false },
-          { text: this.$t('header.public'), align: 'left', sortable: false },
+          { text: this.$t('header.amount'), align: 'right', sortable: false },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false }
         ]
+      }
+    },
+    watch: {
+      async addresses () {
+        for (const { chain, address, id } of this.addresses) {
+          const api = await client(chain)
+          const balance = await api.eth.getBalance(address)
+          this.balance = {
+            ...this.balance,
+            [id]: parseFloat(api.fromWei(balance, 'ether'))
+          }
+        }
       }
     }
   }
