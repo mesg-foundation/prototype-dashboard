@@ -1,7 +1,0 @@
-fragment keyFields on Key {
-  id
-  createdAt
-  name
-  public
-  chain
-}

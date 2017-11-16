@@ -1,9 +1,9 @@
-#import "@/graphql/keys/schema.graphql"
+#import "@/graphql/addresses/schema.graphql"
 
 subscription(
   $projectId: ID!
 ) {
-  Key(filter: {
+  Address(filter: {
     mutation_in: [CREATED, UPDATED, DELETED],
     node: {
       project: {
@@ -16,7 +16,7 @@ subscription(
       id
     }
     node {
-      ...keyFields
+      ...addressFields
     }
   }
 }

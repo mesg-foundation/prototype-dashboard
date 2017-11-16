@@ -1,0 +1,7 @@
+fragment addressFields on Address {
+  id
+  createdAt
+  address
+  publicKey
+  chain
+}

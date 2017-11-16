@@ -1,11 +1,11 @@
-#import "@/graphql/keys/schema.graphql"
+#import "@/graphql/addresses/schema.graphql"
 
 query(
   $projectId: ID!
   $first: Int
   $skip: Int
 ) {
-  allKeys(
+  allAddresses(
     orderBy: createdAt_DESC,
     first: $first,
     skip: $skip,
@@ -15,9 +15,9 @@ query(
       }
     }
   ) {
-    ...keyFields
+    ...addressFields
   }
-  _allKeysMeta(filter: {
+  _allAddressesMeta(filter: {
     project: {
       id: $projectId
     }

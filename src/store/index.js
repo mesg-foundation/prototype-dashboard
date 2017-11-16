@@ -15,7 +15,7 @@ import notifications from './notifications'
 import services from './services'
 import connectors from './connectors'
 import actions from './actions'
-import keys from './keys'
+import addresses from './addresses'
 
 Vue.use(Vuex)
 
@@ -36,7 +36,7 @@ export default new Vuex.Store({
     services,
     connectors,
     actions,
-    keys
+    addresses
   },
   // plugins: [
   //   createPersistedState({
