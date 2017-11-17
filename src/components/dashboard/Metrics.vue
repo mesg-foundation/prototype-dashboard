@@ -6,6 +6,7 @@
         <v-card-text class="headline">{{ metric.value || '-' }}</v-card-text>
       </v-card>
     </v-flex>
+    <slot></slot>
     <v-flex xs12 md6 v-for="(chart, i) in charts" :key="i">
       <v-card flat>
         <v-card-title class="subheading">{{ chart.title }}</v-card-title>
