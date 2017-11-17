@@ -36,7 +36,6 @@
             </v-card>
           </v-flex>
         </Metrics>
-        <p class="text-xs-right caption grey--text pr-3">{{ $t('interval') }}</p>
       </v-flex>
       <v-flex sm3 class="scrollable full-content-height">
         <notification-list :notifications="notifications"></notification-list>
@@ -49,7 +48,6 @@
   en:
     title: "Dashboard"
     wallets: "Wallets"
-    interval: "Statistics for the last 24 hours"
 </i18n>
 
 <script>
