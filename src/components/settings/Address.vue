@@ -4,14 +4,18 @@
     :items="addresses"
     :title="$t('title')"
     :loading="loadingAddresses"
-    :pagination="addressesPagination"
     :total="addressesTotal"
     @pageChanged="addressesChangePage"
     transparent>
     <template scope="address">
       <td>{{ address.address }}</td>
       <td>{{ address.chain }}</td>
-      <td class="text-xs-right">{{ balance[address.id] }} ETH</td>
+      <td class="text-xs-right">
+        <span v-if="balance[address.id] !== undefined">
+          {{ balance[address.id].amount }} {{ balance[address.id].unit }}
+        </span>
+        <v-progress-circular v-else indeterminate size="20"></v-progress-circular>
+      </td>
       <td class="text-xs-right">
         <DateTime :value="address.createdAt"></DateTime>
       </td>
@@ -30,9 +34,7 @@
 </i18n>
 
 <script>
-  import collection from '@/mixins/collection'
-  import client from '@/blockchain/client'
-  import withCurrentProject from '@/mixins/withCurrentProject'
+  import wallets from '@/mixins/wallets'
   import TableListing from '@/components/layouts/TableListing'
   import DateTime from '@/components/DateTime'
   export default {
@@ -41,26 +43,14 @@
       DateTime
     },
     mixins: [
-      withCurrentProject,
-      collection('addresses', { pagination: true })
+      wallets
     ],
-    data () {
-      return {
-        balance: {}
-      }
-    },
     metaInfo () {
       return {
         title: this.$t('title')
       }
     },
     computed: {
-      addressesParams () {
-        return {
-          projectId: this.currentProjectId,
-          ...this.addressesPagination
-        }
-      },
       headers () {
         return [
           { text: this.$t('header.address'), align: 'left', sortable: false },
@@ -68,18 +58,6 @@
           { text: this.$t('header.balance'), align: 'right', sortable: false },
           { text: this.$t('header.createdAt'), align: 'right', sortable: false }
         ]
-      }
-    },
-    watch: {
-      async addresses () {
-        for (const { chain, address, id } of this.addresses) {
-          const api = await client(chain)
-          const balance = await api.eth.getBalance(address)
-          this.balance = {
-            ...this.balance,
-            [id]: parseFloat(api.fromWei(balance, 'ether'))
-          }
-        }
       }
     }
   }
