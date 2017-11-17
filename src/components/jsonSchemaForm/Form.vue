@@ -47,13 +47,18 @@ export default {
     }
   },
   methods: {
+    processValue (value, type) {
+      if (type === 'number') { return parseFloat(value) }
+      return value
+    },
     onUpdate (key) {
       return value => {
+        const type = this.fields.find(input => input.key === key).type
         this.form = {
           ...this.form,
           [key]: {
             ...this.form[key],
-            value
+            value: this.processValue(value, type)
           }
         }
       }
