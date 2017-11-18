@@ -18,6 +18,7 @@ fragment connectorFields on Connector {
   },
   ethereumTransaction {
     address,
-    chain
+    chain,
+    matchType
   }
 }

@@ -44,14 +44,13 @@
           </v-layout>
         </v-stepper-content>
         <v-stepper-content step="2" class="pa-0">
-          <v-card flat>
+          <v-card flat v-if="selectedService">
             <v-card-title class="headline">
               {{ selectedService.name }}
             </v-card-title>
             <v-card-text>
               <p v-if="selectedService.description">{{ selectedService.description }}</p>
               <ServiceForm
-                v-if="selectedService"
                 :service="selectedService"
                 v-model="data"
                 :displayAllErrors="displayAllErrors">

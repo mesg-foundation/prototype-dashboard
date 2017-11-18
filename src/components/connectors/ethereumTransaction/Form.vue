@@ -7,6 +7,13 @@
         :rules="rules.chain"
         :label="$t('labels.chain')">
       </ChainSelector>
+      <v-select
+        v-model="matchType"
+        :items="matchTypes"
+        :rules="rules.matchType"
+        @input="emit"
+        :label="$t('labels.matchType')">
+      </v-select>
       <v-text-field
         v-model="address"
         :rules="rules.address"
@@ -21,7 +28,12 @@
   en:
     labels:
       chain: "Select the blockchain you want to connect to"
+      matchType: "Filter on the address"
       address: "Address you want to listen for transactions"
+    matchTypes:
+      ANY: "Receiver or sender"
+      FROM: "Sender"
+      TO: "Receiver"
 </i18n>
 
 <script>
@@ -44,7 +56,17 @@ export default {
   data () {
     return {
       address: this.value.address,
-      chain: this.value.chain
+      chain: this.value.chain,
+      matchType: this.value.matchType
+    }
+  },
+  computed: {
+    matchTypes () {
+      return ['ANY', 'FROM', 'TO']
+        .map(value => ({
+          value,
+          text: this.$t(`matchTypes.${value}`)
+        }))
     }
   },
   validations: {
@@ -62,7 +84,8 @@ export default {
       if (!this.validate()) { return this.$emit('input', null) }
       this.$emit('input', {
         chain: this.chain,
-        address: this.address
+        address: this.address,
+        matchType: this.matchType
       })
     }
   }
