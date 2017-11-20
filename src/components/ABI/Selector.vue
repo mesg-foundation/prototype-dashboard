@@ -31,6 +31,10 @@
       contract: {
         type: Object,
         required: true
+      },
+      type: {
+        type: String,
+        default: 'event'
       }
     },
     data () {
@@ -41,7 +45,7 @@
     computed: {
       events () {
         return this.contract.abi
-          .filter(event => event.type === 'event')
+          .filter(event => event.type === this.type)
       }
     },
     methods: {
