@@ -66,8 +66,6 @@ export default {
     }
   },
   data () {
-    console.log(this.value)
-    debugger
     return {
       contractId: this.value.contractId,
       method: (this.value.abi || {}).name,
