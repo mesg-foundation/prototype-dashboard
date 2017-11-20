@@ -63,7 +63,9 @@
     },
     data () {
       return {
-        payload: {}
+        payload: typeof this.value === 'string'
+          ? JSON.parse(this.value || null) || {}
+          : this.value || {}
       }
     },
     computed: {
