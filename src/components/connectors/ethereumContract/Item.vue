@@ -2,7 +2,7 @@
   <div class="truncate">
     <img class="mb-4" src="https://www.ethereum.org/images/logos/ETHEREUM-ICON_Black.png" alt="Ethereum">
     <br/>
-    <span class="subheading">
+    <span class="subheading" v-if="contract">
       Contract <strong>{{ contract.name }}</strong> <br/>
       emits <strong>{{ config.eventName }}</strong>
     </span>

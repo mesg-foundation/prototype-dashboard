@@ -42,7 +42,7 @@ import withCurrentProject from '@/mixins/withCurrentProject'
 import collection from '@/mixins/collection'
 import item from '@/mixins/item'
 import ContractSelector from '@/components/contracts/Selector'
-import AbiSelector from '@/components/abi/Selector'
+import AbiSelector from '@/components/ABI/Selector'
 import PayloadViewer from '@/components/PayloadViewer'
 export default {
   components: {

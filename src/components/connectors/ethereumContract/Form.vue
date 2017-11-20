@@ -48,7 +48,7 @@ import withValidation from '@/mixins/withValidation'
 import withCurrentProject from '@/mixins/withCurrentProject'
 import collection from '@/mixins/collection'
 import item from '@/mixins/item'
-import AbiSelector from '@/components/abi/Selector'
+import AbiSelector from '@/components/ABI/Selector'
 import ContractSelector from '@/components/contracts/Selector'
 export default {
   components: {
