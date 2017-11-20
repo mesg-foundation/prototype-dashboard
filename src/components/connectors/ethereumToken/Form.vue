@@ -24,13 +24,14 @@
         </v-card-actions>
       </v-card>
       <p>{{ $t('selectEventText') }}</p>
-      <EventSelector
+      <AbiSelector
+        type="event"
         :label="$t('labels.event')"
         :contract="ethToken"
         v-model="eventName"
         :rules="rules.eventName"
         required>
-      </EventSelector>
+      </AbiSelector>
     </v-card-text>
   </v-card>
 </template>
@@ -48,11 +49,11 @@ import { required } from '@/validators'
 import withValidation from '@/mixins/withValidation'
 import item from '@/mixins/item'
 import collection from '@/mixins/collection'
-import EventSelector from '@/components/EventSelector'
+import AbiSelector from '@/components/abi/Selector'
 import ContractSelector from '@/components/contracts/Selector'
 export default {
   components: {
-    EventSelector,
+    AbiSelector,
     ContractSelector
   },
   mixins: [

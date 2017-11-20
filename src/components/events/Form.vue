@@ -25,7 +25,9 @@
             <td>
               <PayloadViewer
                 v-if="props.item.type === 'payload'"
-                :ethereumContractConnector="ethereumContractConnector"
+                :contractId="ethereumContractConnector.contract.id"
+                type="event"
+                :name="ethereumContractConnector.eventName"
                 v-model="params[props.item.key]"
                 editable>
               </PayloadViewer>

@@ -44,9 +44,17 @@
       item('contract', x => x.contractId)
     ],
     props: {
-      ethereumContractConnector: {
-        type: Object,
+      contractId: {
+        type: String,
         required: true
+      },
+      name: {
+        type: String,
+        required: true
+      },
+      type: {
+        type: String,
+        default: 'event'
       },
       editable: {
         type: Boolean,
@@ -55,18 +63,17 @@
     },
     data () {
       return {
-        payload: {}
+        payload: typeof this.value === 'string'
+          ? JSON.parse(this.value || null) || {}
+          : this.value || {}
       }
     },
     computed: {
-      contractId () {
-        return this.ethereumContractConnector.contract.id
-      },
       signature () {
         if (!this.contract) { return [] }
         const event = this.contract.abi
-          .filter(e => e.type === 'event')
-          .filter(e => e.name === this.ethereumContractConnector.eventName)[0]
+          .filter(e => e.type === this.type)
+          .filter(e => e.name === this.name)[0]
         if (!event) { return [] }
         return event.inputs
       },

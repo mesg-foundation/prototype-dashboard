@@ -1,18 +1,17 @@
 <template>
-  <VuetifySchemaForm
+  <component
     v-bind="$attrs"
+    :is="component"
     :schema="service.data"
     :value="value"
     @input="x => $emit('input', x)">
-  </VuetifySchemaForm>
+  </component>
 </template>
 
 <script>
 import VuetifySchemaForm from '@/components/jsonSchemaForm/VuetifySchemaForm'
+import EthereumContract from '@/components/services/advanced/EthereumContract'
 export default {
-  components: {
-    VuetifySchemaForm
-  },
   props: {
     service: {
       type: Object,
@@ -21,6 +20,13 @@ export default {
     value: {
       type: Object,
       default: () => ({})
+    }
+  },
+  computed: {
+    component () {
+      return {
+        EthereumContract
+      }[this.service.key] || VuetifySchemaForm
     }
   }
 }
