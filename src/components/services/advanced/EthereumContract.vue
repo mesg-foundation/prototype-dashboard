@@ -23,9 +23,16 @@
         type="function"
         :name="method"
         v-model="payload"
-        @input="submit"
         editable>
       </PayloadViewer>
+      <v-text-field
+        v-if="selectedAbi.payable"
+        prefix="Ξ"
+        v-model.number="amount"
+        :type="schema.properties.amount.type"
+        :label="schema.properties.amount.title"
+        :hint="schema.properties.amount.description">
+      </v-text-field>
     </template>
   </section>
 </template>
@@ -69,7 +76,8 @@ export default {
     return {
       contractId: this.value.contractId,
       method: (this.value.abi || {}).name,
-      payload: this.value.payload
+      payload: this.value.payload,
+      amount: this.value.amount
     }
   },
   computed: {
@@ -91,7 +99,8 @@ export default {
       return {
         contractId: this.contractId,
         abi: this.selectedAbi,
-        payload: this.payload
+        payload: this.payload,
+        amount: this.amount
       }
     }
   },
@@ -104,7 +113,8 @@ export default {
   watch: {
     contractId () { this.submit() },
     method () { this.submit() },
-    payload () { this.submit() }
+    payload () { this.submit() },
+    amount () { this.submit() }
   }
 }
 </script>
