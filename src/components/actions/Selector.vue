@@ -29,6 +29,12 @@
           <small>{{ (errors.data || [])[0] }}</small>
         </v-stepper-step>
         <v-divider></v-divider>
+        <v-stepper-step
+          step="3"
+          :editable="!!serviceId">
+          {{ $t('advanced') }}
+        </v-stepper-step>
+        <v-divider></v-divider>
       </v-stepper-header>
       <v-stepper-items>
         <v-stepper-content step="1">
@@ -58,6 +64,35 @@
             </v-card-text>
           </v-card>
         </v-stepper-content>
+        <v-stepper-content step="3" class="pa-0">
+          <v-card flat v-if="selectedService">
+            <v-card-text>
+              <v-layout row wrap>
+                <v-flex xs12 md5>
+                  <p>{{ $t('advancedText') }}</p>
+                  <v-switch v-model="advanced" class="mt-3" :label="$t('advancedSwitch')"></v-switch>
+                </v-flex>
+                <v-flex xs12 md1></v-flex>
+                <v-flex xs12 md6>
+                  <v-text-field
+                    v-for="meta in Object.keys(value.service.data.properties)" :key="meta"
+                    :label="meta"
+                    disabled
+                    hide-details
+                    :value="data[meta]">
+                  </v-text-field>
+                </v-flex>
+              </v-layout>
+              <template v-if="advanced">
+                <CodeEditor
+                  v-if="advanced"
+                  :title="$t('preProcessing')"
+                  v-model="preProcessing">
+                </CodeEditor>
+              </template>
+            </v-card-text>
+          </v-card>
+        </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
     <v-divider></v-divider>
@@ -77,18 +112,24 @@
     submit: "Select this action"
     service: "Select your service"
     configuration: "Configure your action"
+    preProcessing: "Configuration function"
+    advanced: "Advanced mode"
+    advancedSwitch: "Activate advanced mode"
+    advancedText: "You can add a dynamic configuration based on the data of the event. You can use Promises and so call a specific service if you need to. You just have to return an object with the definition configuration needed to configure the service. If a configuration is not present it will fallback to the static configuration you set previously"
 </i18n>
 
 <script>
-import Service from '@/components/services/Item.vue'
-import ServiceForm from '@/components/services/Form'
 import { required } from '@/validators'
 import withValidation from '@/mixins/withValidation'
 import collection from '@/mixins/collection'
+import Service from '@/components/services/Item.vue'
+import ServiceForm from '@/components/services/Form'
+import CodeEditor from '@/components/CodeEditor'
 export default {
   components: {
     Service,
-    ServiceForm
+    ServiceForm,
+    CodeEditor
   },
   mixins: [
     withValidation,
@@ -105,7 +146,13 @@ export default {
       step: this.value.data ? '2' : '1',
       data: this.value.data,
       serviceId: (this.value.service || {}).id || this.value.serviceId,
-      displayAllErrors: false
+      displayAllErrors: false,
+      advanced: !!this.value.metaPreProcessing,
+      preProcessing: this.value.metaPreProcessing || `module.exports = function (event) {
+  return {
+    ${Object.keys(this.value.service.data.properties).map(x => `${x}: "..."`).join(',\n\t\t')}
+  }
+}`
     }
   },
   computed: {
@@ -131,7 +178,8 @@ export default {
       this.$emit('input', {
         serviceId: this.serviceId,
         service: this.selectedService,
-        data: this.data
+        data: this.data,
+        metaPreProcessing: this.advanced ? this.preProcessing : null
       })
     }
   }

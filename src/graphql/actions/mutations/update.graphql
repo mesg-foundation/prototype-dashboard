@@ -4,11 +4,13 @@ mutation(
   $id: ID!
   $data: Json!
   $serviceId: ID!
+  $metaPreProcessing: String
 ) {
   updateAction(
     id: $id
     data: $data
     serviceId: $serviceId
+    metaPreProcessing: $metaPreProcessing
 	) {
     ...actionFields
   }
