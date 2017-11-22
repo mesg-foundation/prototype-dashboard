@@ -33,10 +33,9 @@
               </PayloadViewer>
               <v-text-field
                 v-else
-                class="ma-0 pl-0"
+                class="ma-0 pl-0 elevation-0"
                 placeholder="..."
-                hide-details
-                full-width
+                solo
                 v-model="params[props.item.key]"
                 :type="props.item.type">
               </v-text-field>

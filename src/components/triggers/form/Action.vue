@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="700" v-model="popup">
+  <v-dialog width="960" v-model="popup">
     <v-card slot="activator" hover class="selector-card">
       <v-layout column align-center justify-center>
         <span class="headline">{{ $t('then') }}</span>

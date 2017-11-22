@@ -14,10 +14,9 @@
       </td>
       <td v-if="editable">
         <v-text-field
-          class="ma-0 pl-0"
+          class="ma-0 pl-0 elevation-0"
           placeholder="..."
-          hide-details
-          full-width
+          solo
           :value="payload[props.item.name]"
           @input="e => updateValue(props.item.name, e)">
         </v-text-field>
