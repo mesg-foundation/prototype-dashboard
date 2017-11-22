@@ -4,6 +4,7 @@ fragment actionFields on Action {
   id
   createdAt
   data
+  metaPreProcessing
   service {
     ...serviceFields
   }
