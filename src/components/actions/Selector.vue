@@ -158,7 +158,6 @@ export default {
       return this.services.find(x => x.id === this.serviceId)
     },
     serviceMetas () {
-      debugger
       if (!this.selectedService) { return [] }
       return Object.keys(this.selectedService.data.properties)
     },
