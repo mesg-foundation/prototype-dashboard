@@ -75,11 +75,11 @@
                 <v-flex xs12 md1></v-flex>
                 <v-flex xs12 md6>
                   <v-text-field
-                    v-for="meta in Object.keys(value.service.data.properties)" :key="meta"
+                    v-for="meta in serviceMetas" :key="meta"
                     :label="meta"
                     disabled
                     hide-details
-                    :value="data[meta]">
+                    :value="(data || {})[meta]">
                   </v-text-field>
                 </v-flex>
               </v-layout>
@@ -87,7 +87,8 @@
                 <CodeEditor
                   v-if="advanced"
                   :title="$t('preProcessing')"
-                  v-model="preProcessing">
+                  :value="preProcessing || defaultPreProcessing"
+                  @input="x => preProcessing = x">
                 </CodeEditor>
               </template>
             </v-card-text>
@@ -148,17 +149,25 @@ export default {
       serviceId: (this.value.service || {}).id || this.value.serviceId,
       displayAllErrors: false,
       advanced: !!this.value.metaPreProcessing,
-      preProcessing: this.value.metaPreProcessing || `module.exports = function (event) {
-  return {
-    ${Object.keys(this.value.service.data.properties).map(x => `${x}: "..."`).join(',\n\t\t')}
-  }
-}`
+      preProcessing: this.value.metaPreProcessing
     }
   },
   computed: {
     selectedService () {
       if (!this.serviceId) { return false }
       return this.services.find(x => x.id === this.serviceId)
+    },
+    serviceMetas () {
+      debugger
+      if (!this.selectedService) { return [] }
+      return Object.keys(this.selectedService.data.properties)
+    },
+    defaultPreProcessing () {
+      return `module.exports = function (event) {
+  return {
+    ${this.serviceMetas.map(x => `${x}: "..."`).join(',\n\t\t')}
+  }
+}`
     }
   },
   validations: {
