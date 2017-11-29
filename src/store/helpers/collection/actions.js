@@ -14,8 +14,12 @@ const paginate = gqlConfig => ({
   ...gqlConfig,
   variables: {
     ...gqlConfig.variables,
-    first: (gqlConfig.variables || {}).itemPerPage,
-    skip: (gqlConfig.variables || {}).itemPerPage * ((gqlConfig.variables || {}).page - 1)
+    ...(gqlConfig.variables || {}).itemPerPage
+      ? {
+        first: (gqlConfig.variables || {}).itemPerPage,
+        skip: (gqlConfig.variables || {}).itemPerPage * ((gqlConfig.variables || {}).page - 1)
+      }
+      : null
   }
 })
 
