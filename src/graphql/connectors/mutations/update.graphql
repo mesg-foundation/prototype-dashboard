@@ -6,6 +6,7 @@ mutation(
   $ethereumContract: ConnectorethereumContractEthereumContractConnector,
   $ethereumTransaction: ConnectorethereumTransactionEthereumTransactionConnector,
   $ethereumToken: ConnectorethereumTokenEthereumTokenConnector,
+  $webhook: ConnectorwebhookWebhookConnector,
 ) {
   updateConnector(
     id: $id
@@ -13,6 +14,7 @@ mutation(
     ethereumContract: $ethereumContract
     ethereumTransaction: $ethereumTransaction
     ethereumToken: $ethereumToken
+    webhook: $webhook
 	) {
     ...connectorFields
   }

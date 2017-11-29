@@ -21,4 +21,7 @@ fragment connectorFields on Connector {
     chain,
     matchType
   }
+  webhook {
+    key
+  }
 }
