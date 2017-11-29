@@ -1,8 +1,8 @@
 import client from '@/graphql'
 
-const isDeletion = name => !!name.match(/delete/)
+const isDeletion = name => !!name.match(/[Dd]elete/)
 
-const isMutation = name => !!name.match(/create|update/) || isDeletion(name)
+const isMutation = name => !!name.match(/[Cc]reate|[Uu]pdate/) || isDeletion(name)
 
 const generateGraphQlMethod = name => client()[isMutation(name) ? 'mutate' : 'query']
 
