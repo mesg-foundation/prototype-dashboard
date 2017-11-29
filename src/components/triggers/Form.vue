@@ -120,7 +120,10 @@
         return {
           projectId: this.currentProjectId,
           connectorType: this.connector.connectorType,
-          [this.connector.field]: Utils.flattenGraphQlData(this.connector[this.connector.field]),
+          [this.connector.field]: {
+            ...Utils.flattenGraphQlData(this.connector[this.connector.field]),
+            id: ((this.trigger.connector || {})[this.connector.field] || {}).id
+          },
           id: (this.trigger.connector || {}).id
         }
       },
