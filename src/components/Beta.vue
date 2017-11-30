@@ -21,3 +21,18 @@
     </v-card>
   </v-layout>
 </template>
+
+<i18n>
+  en:
+    title: "Beta"
+</i18n>
+
+<script>
+export default {
+  metaInfo () {
+    return {
+      title: this.$t('title')
+    }
+  }
+}
+</script>

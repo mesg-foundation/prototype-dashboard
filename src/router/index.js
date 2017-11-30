@@ -39,12 +39,12 @@ export default new Router({
       path: '/',
       component: Dashboard,
       name: 'Dashboard',
-      meta: { auth: true, project: true }
+      meta: { auth: true, project: true, beta: true }
     },
     {
       path: '/triggers',
       component: RouteDelegate,
-      meta: { auth: true, project: true },
+      meta: { auth: true, project: true, beta: true },
       children: [
         {
           path: '',
@@ -80,7 +80,7 @@ export default new Router({
     {
       path: '/contracts',
       component: RouteDelegate,
-      meta: { auth: true, project: true },
+      meta: { auth: true, project: true, beta: true },
       children: [
         {
           path: '',
@@ -109,7 +109,7 @@ export default new Router({
     {
       path: '/projects',
       component: RouteDelegate,
-      meta: { auth: true },
+      meta: { auth: true, beta: true },
       children: [
         {
           path: 'create',
@@ -121,7 +121,7 @@ export default new Router({
     {
       path: '/settings',
       component: Settings,
-      meta: { auth: true, project: true },
+      meta: { auth: true, project: true, beta: true },
       children: [
         {
           path: '',
@@ -172,13 +172,13 @@ export default new Router({
       path: '/plans',
       name: 'Plans',
       component: Plans,
-      meta: { auth: true, project: true }
+      meta: { auth: true, project: true, beta: true }
     },
     {
       path: '/beta',
       name: 'Beta',
       component: Beta,
-      meta: { auth: true }
+      meta: { auth: true, beta: false }
     }
   ]
 })
