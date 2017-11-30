@@ -1,5 +1,5 @@
 
-https://dashboard-etherstellar.netlify.com/
+https://dashboard.mesg.tech/
 
 # Dashboard
 

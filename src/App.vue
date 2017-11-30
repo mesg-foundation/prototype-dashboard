@@ -44,7 +44,7 @@
     mixins: [withCurrentProject],
     metaInfo () {
       return {
-        titleTemplate: '%s - Etherstellar'
+        titleTemplate: '%s - MESG'
       }
     },
     computed: mapGetters({
