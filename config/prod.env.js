@@ -16,5 +16,5 @@ module.exports = {
     { id: 'WEBHOOK', fieldName: 'webhook', name: 'Webhook', picture: 'https://files.graph.cool/cj7ri5z8d0x5m0149sskbwe15/cja9uv49u03th0133knbxq9uz', description: 'Execute an action every time the endpoint is reached' },
     // { id: 'BITCOIN_TRANSACTION', fieldName: 'bitcoinTransaction', name: 'Bitcoin Transaction', picture: 'https://bitcoin.org/img/icons/opengraph.png', description: 'Execute an action in Real Time every time you receive a transaction on Bitcoin' }
   ]),
-  WEBHOOK_BASE_ADDRESS: '"http://128.199.202.104:3000/triggers"'
+  WEBHOOK_BASE_ADDRESS: '"http://webhook.mesg.tech/triggers"'
 }
