@@ -1,0 +1,24 @@
+mutation (
+  $id: ID!
+  $eventName: String!
+  $contractId: ID!
+) {
+  updateOrCreateEthereumTokenConnector(
+    update: {
+      id: $id,
+      eventName: $eventName
+      contractId: $contractId
+    },
+    create: {
+      eventName: $eventName
+      contractId: $contractId
+    }
+  ) {
+    id
+    eventName
+    contract {
+      id
+      chain
+    }
+  }
+}

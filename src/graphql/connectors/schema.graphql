@@ -3,6 +3,7 @@ fragment connectorFields on Connector {
   connectorType,
   createdAt,
   ethereumContract {
+    id
     eventName,
     contract {
       id,
@@ -10,6 +11,7 @@ fragment connectorFields on Connector {
     }
   },
   ethereumToken {
+    id
     eventName,
     contract {
       id,
@@ -17,8 +19,13 @@ fragment connectorFields on Connector {
     }
   },
   ethereumTransaction {
+    id
     address,
     chain,
     matchType
+  }
+  webhook {
+    id
+    key
   }
 }

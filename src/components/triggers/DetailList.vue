@@ -23,6 +23,7 @@
       ETHEREUM_CONTRACT: "Ethereum Contract"
       ETHEREUM_TRANSACTION: "Ethereum Transaction"
       ETHEREUM_TOKEN: "ERC20 Token"
+      WEBHOOK: "Webhook"
 </i18n>
 
 <script>

@@ -92,7 +92,11 @@
         }
       },
       externalLink () {
-        return etherscan(this.trigger)
+        return etherscan(this.trigger) || {
+          address: x => null,
+          transaction: x => null,
+          block: x => null
+        }
       },
       eventItems () {
         return [

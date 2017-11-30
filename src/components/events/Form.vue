@@ -73,6 +73,7 @@
 
 <script>
   import { mapActions } from 'vuex'
+  import uuidv4 from 'uuid/v4'
   import TriggerDetailList from '@/components/triggers/DetailList'
   import PayloadViewer from '@/components/PayloadViewer'
   import MenuToggle from '@/components/MenuToggle'
@@ -91,6 +92,7 @@
     data () {
       return {
         params: {
+          key: uuidv4(),
           transactionId: '0x0000000000000000000000000000000000000000',
           blockId: '0000000',
           from: '0x1111111111111111111111111111111111111111',

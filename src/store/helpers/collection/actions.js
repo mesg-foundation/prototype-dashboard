@@ -1,8 +1,8 @@
 import client from '@/graphql'
 
-const isDeletion = name => !!name.match(/delete/)
+const isDeletion = name => !!name.match(/[Dd]elete/)
 
-const isMutation = name => !!name.match(/create|update/) || isDeletion(name)
+const isMutation = name => !!name.match(/[Cc]reate|[Uu]pdate/) || isDeletion(name)
 
 const generateGraphQlMethod = name => client()[isMutation(name) ? 'mutate' : 'query']
 
@@ -14,8 +14,12 @@ const paginate = gqlConfig => ({
   ...gqlConfig,
   variables: {
     ...gqlConfig.variables,
-    first: (gqlConfig.variables || {}).itemPerPage,
-    skip: (gqlConfig.variables || {}).itemPerPage * ((gqlConfig.variables || {}).page - 1)
+    ...(gqlConfig.variables || {}).itemPerPage
+      ? {
+        first: (gqlConfig.variables || {}).itemPerPage,
+        skip: (gqlConfig.variables || {}).itemPerPage * ((gqlConfig.variables || {}).page - 1)
+      }
+      : null
   }
 })
 

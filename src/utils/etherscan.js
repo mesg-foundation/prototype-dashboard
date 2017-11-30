@@ -1,7 +1,9 @@
 import chain from '@/utils/extractBlockchainInfo'
 
 export default data => {
-  const blockchain = chain(data).toLowerCase()
+  const dataChain = chain(data)
+  if (!dataChain) { return null }
+  const blockchain = dataChain.toLowerCase()
   const url = blockchain === 'testnet'
     ? `https://kovan.etherscan.io`
     : `https://etherscan.io`

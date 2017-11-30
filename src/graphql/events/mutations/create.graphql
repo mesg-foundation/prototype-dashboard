@@ -10,8 +10,10 @@ mutation(
   $value: String!
   $fees: String!
   $executedAt: DateTime
+  $key: String!
 ) {
   createEvent(
+    key: $key,
     triggerId: $triggerId,
     payload: $payload,
     transactionId: $transactionId,

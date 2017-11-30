@@ -2,17 +2,19 @@
 
 mutation(
   $id: ID!,
-  $connectorType: CONNECTOR_TYPE!,
-  $ethereumContract: ConnectorethereumContractEthereumContractConnector,
-  $ethereumTransaction: ConnectorethereumTransactionEthereumTransactionConnector,
-  $ethereumToken: ConnectorethereumTokenEthereumTokenConnector,
+  $connectorType: CONNECTOR_TYPE!
+  $ethereumContractId: ID
+  $ethereumTokenId: ID
+  $ethereumTransactionId: ID
+  $webhookId: ID
 ) {
   updateConnector(
     id: $id
     connectorType: $connectorType
-    ethereumContract: $ethereumContract
-    ethereumTransaction: $ethereumTransaction
-    ethereumToken: $ethereumToken
+    ethereumContractId: $ethereumContractId
+    ethereumTokenId: $ethereumTokenId
+    ethereumTransactionId: $ethereumTransactionId
+    webhookId: $webhookId
 	) {
     ...connectorFields
   }
