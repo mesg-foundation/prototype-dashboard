@@ -1,0 +1,17 @@
+mutation (
+  $id: ID!
+  $key: String!
+) {
+  updateOrCreateWebhookConnector(
+    update: {
+      id: $id,
+      key: $key
+    },
+    create: {
+      key: $key
+    }
+  ) {
+    id
+    key
+  }
+}
