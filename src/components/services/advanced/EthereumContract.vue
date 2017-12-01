@@ -26,7 +26,7 @@
         editable>
       </PayloadViewer>
       <v-text-field
-        v-if="selectedAbi.payable"
+        v-if="selectedAbi && selectedAbi.payable"
         prefix="Ξ"
         v-model.number="amount"
         :type="schema.properties.amount.type"
