@@ -191,7 +191,7 @@
           ...this.$route,
           query: {
             ...this.$route.query,
-            id: eventOrStatus ? eventOrStatus.id : null
+            id: eventOrStatus ? eventOrStatus.id : ''
           }
         })
       },
