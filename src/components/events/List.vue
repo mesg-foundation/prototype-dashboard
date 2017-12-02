@@ -27,15 +27,29 @@
     <div v-if="trigger" slot="extension">
       <TriggerDetailList :trigger="trigger"></TriggerDetailList>
       <v-divider></v-divider>
-      <v-card flat>
-        <v-card-title class="subheading">
+      <v-toolbar flat class="transparent">
+        <v-toolbar-title class="subheading">
           {{ $t('events') }}
-        </v-card-title>
-      </v-card>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+          <v-select
+            solo auto
+            v-model="eventType"
+            :items="eventTypes"
+            :label="$t('labels.eventType')"
+            class="elevation-0">
+          </v-select>
+        </v-toolbar-items>
+      </v-toolbar>
+      <v-divider></v-divider>
+      <v-dialog :value="selectedEvent" @input="selectEvent" :width="640" lazy>
+        <TaskLogList v-if="trigger && selectedEvent" :event="selectedEvent" :trigger="trigger"></TaskLogList>
+      </v-dialog>
     </div>
     <template scope="event">
       <td>
-        <DateTime :value="event.createdAt" advanced></DateTime>
+        <DateTime :value="event.executedAt" advanced></DateTime>
       </td>
       <td>
         <a :href="blockLink(event)" target="_blank" :title="$t('etherscan')">
@@ -49,13 +63,10 @@
       </td>
       <td class="text-xs-right">
         <template v-if="validEvents[event.id] !== null">
-          <v-dialog v-model="event.displayLog" :width="640" lazy>
-            <v-btn icon slot="activator">
-              <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
-              <v-icon v-else class="error--text">close</v-icon>
-            </v-btn>
-            <TaskLogList :event="event" :trigger="trigger"></TaskLogList>
-          </v-dialog>
+          <v-btn icon @click.stop="selectEvent(event)">
+            <v-icon v-if="validEvents[event.id]" class="success--text">check</v-icon>
+            <v-icon v-else class="error--text">close</v-icon>
+          </v-btn>
         </template>
       </td>
     </template>
@@ -69,11 +80,17 @@
     update: "Edit"
     etherscan: "Look on Etherscan"
     events: "Events for this trigger"
+    labels:
+      eventType: "Type of event"
     header:
-      createdAt: "Created At"
+      executedAt: "Created At"
       blockId: "Block"
       transactionId: "Transaction ID"
       status: " "
+    eventTypes:
+      ALL: "All"
+      VALID: "Valid"
+      ERROR: "With error"
 </i18n>
 
 <script>
@@ -105,21 +122,45 @@
         required: true
       }
     },
+    data () {
+      return {
+        eventType: this.$route.query.eventType || 'ALL'
+      }
+    },
     metaInfo () {
       return {
         title: this.$t('title', this.trigger)
       }
     },
     computed: {
+      eventTypes () {
+        return ['ALL', 'VALID', 'ERROR']
+          .map(x => ({ value: x, text: this.$t(`eventTypes.${x}`) }))
+      },
+      eventsFilter () {
+        return {
+          trigger: {
+            id: this.id
+          },
+          ...(this.eventType === 'ERROR'
+            ? { taskLogs_some: { error: true } }
+            : {}),
+          ...(this.eventType === 'VALID'
+            ? { taskLogs_some: { error: false } }
+            : {})
+        }
+      },
       eventsParams () {
         return {
-          triggerId: this.id,
+          filter: {
+            ...this.eventsFilter
+          },
           ...this.eventsPagination
         }
       },
       headers () {
         return [
-          { text: this.$t('header.createdAt'), align: 'left', sortable: false, value: 'createdAt' },
+          { text: this.$t('header.executedAt'), align: 'left', sortable: false, value: 'executedAt' },
           { text: this.$t('header.blockId'), align: 'left', sortable: false, value: 'block' },
           { text: this.$t('header.transactionId'), align: 'left', sortable: false, value: 'transactionId' },
           { text: this.$t('header.status'), align: 'right', sortable: false }
@@ -137,9 +178,23 @@
           transaction: x => null,
           block: x => null
         }
+      },
+      selectedEvent () {
+        return this.events
+          .find(x => x.id === this.$route.query.id)
       }
     },
     methods: {
+      selectEvent (eventOrStatus) {
+        if (eventOrStatus === true) { return }
+        this.$router.replace({
+          ...this.$route,
+          query: {
+            ...this.$route.query,
+            id: eventOrStatus ? eventOrStatus.id : ''
+          }
+        })
+      },
       validEvent ({ taskLogs }) {
         if ((taskLogs || []).length === 0) { return null }
         return taskLogs
@@ -150,6 +205,17 @@
       },
       transactionLink (event) {
         return this.etherscanInfo.transaction(event.transactionId)
+      }
+    },
+    watch: {
+      eventType () {
+        this.$router.replace({
+          ...this.$route,
+          query: {
+            ...this.$route.query,
+            eventType: this.eventType
+          }
+        })
       }
     }
   }
