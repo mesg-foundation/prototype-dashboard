@@ -1,27 +1,19 @@
 #import "@/graphql/events/schema.graphql"
 
 query(
-  $triggerId: ID!
   $first: Int
   $skip: Int
+  $filter: EventFilter
 ) {
   allEvents(
     orderBy: createdAt_DESC,
     first: $first,
     skip: $skip
-    filter: {
-      trigger: {
-        id: $triggerId
-      }
-    }
+    filter: $filter
   ) {
     ...eventFields
   }
-  _allEventsMeta(filter: {
-    trigger: {
-      id: $triggerId
-    }
-  }) {
+  _allEventsMeta(filter: $filter) {
     count
   }
 }
