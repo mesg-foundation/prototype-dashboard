@@ -2,7 +2,7 @@
   <v-list two-line>
     <template v-for="(notification, i) in notifications">
       <v-divider v-if="i !== 0" :key="notification.id"></v-divider>
-      <v-list-tile :key="notification.id" router :to="{ name: 'Trigger', params: notification.trigger }">
+      <v-list-tile :key="notification.id" router :to="{ name: 'Trigger', params: notification.trigger, query: { eventType: 'ERROR' } }">
         <v-list-tile-avatar>
           <v-icon :class="`${error[notification.kind].level}--text`">{{ error[notification.kind].icon }}</v-icon>
         </v-list-tile-avatar>
