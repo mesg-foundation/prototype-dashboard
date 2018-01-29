@@ -1,8 +1,0 @@
-fragment userFields on User {
-  id
-  email
-  createdAt
-  _projectsMeta {
-    count
-  }
-}

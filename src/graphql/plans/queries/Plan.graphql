@@ -1,9 +1,0 @@
-#import "@/graphql/plans/schema.graphql"
-
-query(
-  $id: ID!
-) {
-  Plan(id: $id) {
-    ...planFields
-  }
-}

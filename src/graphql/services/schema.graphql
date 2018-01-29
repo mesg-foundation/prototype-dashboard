@@ -1,8 +1,0 @@
-fragment serviceFields on Service {
-  id
-  name
-  description
-  data
-  key
-  picture
-}

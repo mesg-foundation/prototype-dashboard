@@ -1,9 +1,0 @@
-#import "@/graphql/triggers/schema.graphql"
-
-query(
-  $id: ID!
-) {
-  Trigger(id: $id) {
-    ...triggerFields
-  }
-}

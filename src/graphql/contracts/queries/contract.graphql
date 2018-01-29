@@ -1,9 +1,0 @@
-#import "@/graphql/contracts/schema.graphql"
-
-query(
-  $id: ID!
-) {
-  Contract(id: $id) {
-    ...contractFields
-  }
-}

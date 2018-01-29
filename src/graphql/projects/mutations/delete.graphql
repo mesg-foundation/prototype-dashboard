@@ -1,7 +1,0 @@
-mutation(
-  $id: ID!
-) {
-  deleteProject(id: $id) {
-    id
-  }
-}

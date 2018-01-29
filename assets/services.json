@@ -1,0 +1,194 @@
+{
+  "data": {
+    "allservices": [
+      {
+        "id": "cjcufjvpp000v016084m8rp51",
+        "title": "Ethereum",
+        "description": "Connect to Ethereum blockchain",
+        "events": [
+          {
+            "id": "cjcufjvqm000w0160vzhya7tl",
+            "title": "onTransaction",
+            "description": "Everytime a new transaction occurs",
+            "data": [
+              {
+                "id": "cjcufjvqo000x01607723exj3",
+                "title": "Transaction Hash",
+                "description": null,
+                "type": "STRING",
+                "required": true
+              },
+              {
+                "id": "cjcufjvqp000y01606w87ggym",
+                "title": "Fees",
+                "description": null,
+                "type": "INTEGER",
+                "required": true
+              },
+              {
+                "id": "cjcufjvqp000z0160y5dpvqob",
+                "title": "From",
+                "description": null,
+                "type": "STRING",
+                "required": true
+              },
+              {
+                "id": "cjcufjvqp00100160z490dfah",
+                "title": "To",
+                "description": null,
+                "type": "STRING",
+                "required": true
+              }
+            ]
+          },
+          {
+            "id": "cjcufjvqp00110160qz09gzhm",
+            "title": "onEvent",
+            "description": "Everytime an event occurs",
+            "data": [
+              {
+                "id": "cjcufjvqp00120160tovopi2s",
+                "title": "Transaction Hash",
+                "description": null,
+                "type": "STRING",
+                "required": true
+              },
+              {
+                "id": "cjcufjvqq001301602ijxbwvw",
+                "title": "Fees",
+                "description": null,
+                "type": "INTEGER",
+                "required": true
+              },
+              {
+                "id": "cjcufjvqr00140160c077112x",
+                "title": "Payload",
+                "description": null,
+                "type": "OBJECT",
+                "required": true
+              }
+            ]
+          }
+        ],
+        "tasks": [
+          {
+            "id": "cjcufjvqr00150160amxvdgob",
+            "title": "sendSignedTransaction",
+            "description": "Send a transaction that has been already signed",
+            "arguments": [
+              {
+                "id": "cjcufjvqs00160160mmkbn21w",
+                "title": "signature",
+                "description": "Signature of the transaction",
+                "type": "STRING",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cjcufjvtv001j0160y1dh0v9h",
+        "title": "Webhook",
+        "description": "Call a webhook",
+        "events": [
+          {
+            "id": "cjcufjvtv001k0160iczjxbzc",
+            "title": "response",
+            "description": "Webhook response",
+            "data": [
+              {
+                "id": "cjcufjvtv001l0160ws7raalv",
+                "title": "status",
+                "description": null,
+                "type": "INTEGER",
+                "required": true
+              },
+              {
+                "id": "cjcufjvtv001m01603lm5ebpt",
+                "title": "data",
+                "description": null,
+                "type": "OBJECT",
+                "required": true
+              }
+            ]
+          }
+        ],
+        "tasks": [
+          {
+            "id": "cjcufjvtv001n0160jnl194jl",
+            "title": "send",
+            "description": "Send a webhook to a specify url",
+            "arguments": [
+              {
+                "id": "cjcufjvtv001o0160lk71rlz8",
+                "title": "url",
+                "description": "URL to send the request",
+                "type": "STRING",
+                "required": true
+              },
+              {
+                "id": "cjcufjvtv001p01608n78ro7j",
+                "title": "payload",
+                "description": "Data that needs to be send",
+                "type": "OBJECT",
+                "required": true
+              },
+              {
+                "id": "cjcufjvtw001q0160luwcjgr1",
+                "title": "headers",
+                "description": "Specific headers for the request",
+                "type": "OBJECT",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cjcufjvv4001z0160enyajovw",
+        "title": "Function",
+        "description": "Execute a function",
+        "events": [
+          {
+            "id": "cjcufjvv4002001609oihk3d4",
+            "title": "onResult",
+            "description": "Function result",
+            "data": [
+              {
+                "id": "cjcufjvv40021016093m5kslb",
+                "title": "data",
+                "description": null,
+                "type": "OBJECT",
+                "required": true
+              }
+            ]
+          }
+        ],
+        "tasks": [
+          {
+            "id": "cjcufjvv400220160xhkv582f",
+            "title": "executeJavascript",
+            "description": "Execute a function",
+            "arguments": [
+              {
+                "id": "cjcufjvv400230160m84opwcr",
+                "title": "code",
+                "description": "Code for the function in javascript",
+                "type": "STRING",
+                "required": true
+              },
+              {
+                "id": "cjcufjvv400240160jtj00chb",
+                "title": "payload",
+                "description": "Data that needs to be passed to the function",
+                "type": "OBJECT",
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,9 +1,0 @@
-#import "@/graphql/events/schema.graphql"
-
-query(
-  $id: ID!
-) {
-  Event(id: $id) {
-    ...eventFields
-  }
-}
