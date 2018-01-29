@@ -11,7 +11,8 @@
     "generate": "nuxt generate"
   },
   "engines" : {
-    "node" : ">=8.4.0"
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0"
   },
   "dependencies": {
     "chart.js": "^2.7.1",
