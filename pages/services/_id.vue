@@ -11,12 +11,18 @@
         <v-card-text>
           {{ service.description }}
         </v-card-text>
+      </v-card>
+      <v-card class="ma-4">
+        <v-card-title class="subheading">Events</v-card-title>
+        <v-divider></v-divider>
         <v-card-text>
-          <h4 class="subheading">Events</h4>
           <ActionsDetail :actions="service.events" paramKey="data"></ActionsDetail>
         </v-card-text>
+      </v-card>
+      <v-card class="ma-4">
+        <v-card-title class="subheading">Events</v-card-title>
+        <v-divider></v-divider>
         <v-card-text>
-          <h4 class="subheading">Tasks</h4>
           <ActionsDetail include-price :actions="service.tasks" paramKey="arguments"></ActionsDetail>
         </v-card-text>
       </v-card>
