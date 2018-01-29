@@ -19,13 +19,13 @@
             :items="params(action)"
             hide-actions
             class="elevation-1 mt-4">
-          <template slot="items" slot-scope="props">
-            <td><strong>{{ props.item.title }}</strong></td>
-            <td>{{ props.item.description }}</td>
-            <td><code>{{ props.item.type }}</code></td>
-            <td><code>{{ props.item.required }}</code></td>
-          </template>
-        </v-data-table>
+            <template slot="items" slot-scope="props">
+              <td><strong>{{ props.item.title }}</strong></td>
+              <td>{{ props.item.description }}</td>
+              <td><code>{{ props.item.type }}</code></td>
+              <td><code>{{ props.item.required }}</code></td>
+            </template>
+          </v-data-table>
         </v-card-text>
       </v-card>
     </v-expansion-panel-content>
