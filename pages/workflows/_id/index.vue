@@ -30,7 +30,7 @@
 
       <v-flex xs12 md4>
         <v-card class="ma-2">
-          <v-card-title class="heading">Executions over time</v-card-title>
+          <v-card-title class="subheading">Executions over time</v-card-title>
           <v-card-text>
             <WorkflowTimeChart :height="200" title="executions"></WorkflowTimeChart>
           </v-card-text>
@@ -38,7 +38,7 @@
       </v-flex>
       <v-flex xs12 md4>
         <v-card class="ma-2">
-          <v-card-title class="heading">Price</v-card-title>
+          <v-card-title class="subheading">Price</v-card-title>
           <v-card-text>
             <WorkflowTimeChart :height="200" title="price (MESG)"></WorkflowTimeChart>
           </v-card-text>
@@ -46,7 +46,7 @@
       </v-flex>
       <v-flex xs12 md4>
         <v-card class="ma-2">
-          <v-card-title class="heading">Tasks / minutes</v-card-title>
+          <v-card-title class="subheading">Tasks / minutes</v-card-title>
           <v-card-text>
             <WorkflowTimeChart :height="200" title="tasks/min"></WorkflowTimeChart>
           </v-card-text>
