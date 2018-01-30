@@ -1,0 +1,200 @@
+{
+  "data": {
+    "workflows": [
+      {
+        "id": "cjcufwh5p00hl0160bg02qn6a",
+        "title": "Super workflow",
+        "description": "bla bla bla",
+        "source": {
+          "event": {
+            "service": {
+              "title": "Ethereum"
+            },
+            "title": "onTransaction",
+            "data": [
+              {
+                "title": "Transaction Hash",
+                "type": "STRING"
+              },
+              {
+                "title": "Fees",
+                "type": "INTEGER"
+              },
+              {
+                "title": "From",
+                "type": "STRING"
+              },
+              {
+                "title": "To",
+                "type": "STRING"
+              }
+            ]
+          },
+          "filters": [
+            {
+              "parameter": {
+                "title": "Transaction Hash",
+                "type": "STRING"
+              },
+              "predicate": "EQ",
+              "value": "0x134324r2482549824598425"
+            },
+            {
+              "parameter": {
+                "title": "Fees",
+                "type": "INTEGER"
+              },
+              "predicate": "GTEQ",
+              "value": "45000"
+            }
+          ],
+          "whitelist": [
+            {
+              "publicKey": "publickey#1"
+            }
+          ],
+          "blacklist": []
+        },
+        "tasks": [
+          {
+            "task": {
+              "service": {
+                "title": "Webhook"
+              },
+              "title": "send",
+              "arguments": [
+                {
+                  "title": "url",
+                  "type": "STRING"
+                },
+                {
+                  "title": "payload",
+                  "type": "OBJECT"
+                },
+                {
+                  "title": "headers",
+                  "type": "OBJECT"
+                }
+              ]
+            },
+            "parameters": [
+              {
+                "reference": {
+                  "title": "url",
+                  "type": "STRING"
+                },
+                "value": "https://webhook.com"
+              },
+              {
+                "reference": {
+                  "title": "payload",
+                  "type": "OBJECT"
+                },
+                "value": "{ foo: 'bar' }"
+              }
+            ],
+            "whitelist": [],
+            "blacklist": []
+          }
+        ]
+      },
+      {
+        "id": "cjcvelc8i0gf00160hvbo31fv",
+        "title": "Super workflow",
+        "description": "bla bla bla",
+        "source": {
+          "event": {
+            "service": {
+              "title": "Ethereum"
+            },
+            "title": "onTransaction",
+            "data": [
+              {
+                "title": "Transaction Hash",
+                "type": "STRING"
+              },
+              {
+                "title": "Fees",
+                "type": "INTEGER"
+              },
+              {
+                "title": "From",
+                "type": "STRING"
+              },
+              {
+                "title": "To",
+                "type": "STRING"
+              }
+            ]
+          },
+          "filters": [
+            {
+              "parameter": {
+                "title": "Transaction Hash",
+                "type": "STRING"
+              },
+              "predicate": "EQ",
+              "value": "0x134324r2482549824598425"
+            },
+            {
+              "parameter": {
+                "title": "Fees",
+                "type": "INTEGER"
+              },
+              "predicate": "GTEQ",
+              "value": "45000"
+            }
+          ],
+          "whitelist": [
+            {
+              "publicKey": "publickey#1"
+            }
+          ],
+          "blacklist": []
+        },
+        "tasks": [
+          {
+            "task": {
+              "service": {
+                "title": "Webhook"
+              },
+              "title": "send",
+              "arguments": [
+                {
+                  "title": "url",
+                  "type": "STRING"
+                },
+                {
+                  "title": "payload",
+                  "type": "OBJECT"
+                },
+                {
+                  "title": "headers",
+                  "type": "OBJECT"
+                }
+              ]
+            },
+            "parameters": [
+              {
+                "reference": {
+                  "title": "url",
+                  "type": "STRING"
+                },
+                "value": "https://webhook.com"
+              },
+              {
+                "reference": {
+                  "title": "payload",
+                  "type": "OBJECT"
+                },
+                "value": "{ foo: 'bar' }"
+              }
+            ],
+            "whitelist": [],
+            "blacklist": []
+          }
+        ]
+      }
+    ]
+  }
+}

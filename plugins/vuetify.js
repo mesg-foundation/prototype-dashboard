@@ -16,7 +16,9 @@ import {
   VDivider,
   VTextField,
   VExpansionPanel,
-  VDataTable
+  VDataTable,
+  VTabs,
+  VProgressLinear
 } from 'vuetify'
 
 Vue.use(Vuetify, {
@@ -45,6 +47,8 @@ Vue.use(Vuetify, {
     VDivider,
     VTextField,
     VExpansionPanel,
-    VDataTable
+    VDataTable,
+    VTabs,
+    VProgressLinear
   }
 })

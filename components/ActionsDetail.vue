@@ -5,11 +5,11 @@
         {{ action.title }}
         <span class="ml-3 caption" v-if="includePrice">
           Average price: 
-          {{ Math.random() * 100 }} MESG
+          {{ parseInt(Math.random() * 100, 10) }} MESG
         </span>
       </div>
       <v-divider></v-divider>
-      <v-card class="grey lighten-5">
+      <v-card class="grey lighten-4">
         <v-card-text>
           <h4 class="subheading mb-4">Description</h4>
           <p class="mb-4">{{ action.description }}</p>

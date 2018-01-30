@@ -20,7 +20,7 @@
         </v-card-text>
       </v-card>
       <v-card class="ma-4">
-        <v-card-title class="subheading">Events</v-card-title>
+        <v-card-title class="subheading">Tasks</v-card-title>
         <v-divider></v-divider>
         <v-card-text>
           <ActionsDetail include-price :actions="service.tasks" paramKey="arguments"></ActionsDetail>
