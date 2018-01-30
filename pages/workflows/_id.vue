@@ -9,14 +9,14 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <v-tabs v-model="active">
+    <v-tabs>
       <v-tabs-bar color="white">
         <v-tabs-item
           v-for="tab in tabs"
-          :key="tab"
-          nuxt :to="`/workflows/${workflow.id}/${tab}`"
+          :key="tab.title"
+          nuxt :to="tab.to"
           ripple>
-          {{ tab }}
+          {{ tab.title }}
         </v-tabs-item>
         <v-tabs-slider></v-tabs-slider>
       </v-tabs-bar>
@@ -30,16 +30,20 @@
 
 <script>
   export default {
-    data () {
-      return {
-        tabs: ['overview', 'executions', 'details', 'settings'],
-        active: 'overview'
-      }
-    },
     computed: {
       workflow () {
         return require('~/assets/workflows.json').data.workflows
           .find(x => x.id === this.$route.params.id)
+      },
+      tabs () {
+        const url = x => `/workflows/${this.workflow.id}/${x}`
+        if (!this.workflow) { return [] }
+        return [
+          { title: 'overview', to: url('') },
+          { title: 'executions', to: url('executions') },
+          { title: 'details', to: url('details') },
+          { title: 'settings', to: url('settings') }
+        ]
       }
     }
   }
