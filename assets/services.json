@@ -83,6 +83,43 @@
                 "type": "STRING",
                 "required": true
               }
+            ],
+            "events": [
+              {
+                "id": "cjcufjvqm000w0160vzhya7tl",
+                "title": "onTransaction",
+                "description": "Everytime a new transaction occurs",
+                "data": [
+                  {
+                    "id": "cjcufjvqo000x01607723exj3",
+                    "title": "Transaction Hash",
+                    "description": null,
+                    "type": "STRING",
+                    "required": true
+                  },
+                  {
+                    "id": "cjcufjvqp000y01606w87ggym",
+                    "title": "Fees",
+                    "description": null,
+                    "type": "INTEGER",
+                    "required": true
+                  },
+                  {
+                    "id": "cjcufjvqp000z0160y5dpvqob",
+                    "title": "From",
+                    "description": null,
+                    "type": "STRING",
+                    "required": true
+                  },
+                  {
+                    "id": "cjcufjvqp00100160z490dfah",
+                    "title": "To",
+                    "description": null,
+                    "type": "STRING",
+                    "required": true
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -141,6 +178,29 @@
                 "type": "OBJECT",
                 "required": false
               }
+            ],
+            "events": [
+              {
+                "id": "cjcufjvtv001k0160iczjxbzc",
+                "title": "response",
+                "description": "Webhook response",
+                "data": [
+                  {
+                    "id": "cjcufjvtv001l0160ws7raalv",
+                    "title": "status",
+                    "description": null,
+                    "type": "INTEGER",
+                    "required": true
+                  },
+                  {
+                    "id": "cjcufjvtv001m01603lm5ebpt",
+                    "title": "data",
+                    "description": null,
+                    "type": "OBJECT",
+                    "required": true
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -184,6 +244,22 @@
                 "description": "Data that needs to be passed to the function",
                 "type": "OBJECT",
                 "required": true
+              }
+            ],
+            "events": [
+              {
+                "id": "cjcufjvv4002001609oihk3d4",
+                "title": "onResult",
+                "description": "Function result",
+                "data": [
+                  {
+                    "id": "cjcufjvv40021016093m5kslb",
+                    "title": "data",
+                    "description": null,
+                    "type": "OBJECT",
+                    "required": true
+                  }
+                ]
               }
             ]
           }

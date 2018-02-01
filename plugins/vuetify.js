@@ -15,10 +15,13 @@ import {
   VMenu,
   VDivider,
   VTextField,
+  VSelect,
   VExpansionPanel,
   VDataTable,
   VTabs,
-  VProgressLinear
+  VProgressLinear,
+  VStepper,
+  VSubheader
 } from 'vuetify'
 
 Vue.use(Vuetify, {
@@ -46,9 +49,12 @@ Vue.use(Vuetify, {
     VMenu,
     VDivider,
     VTextField,
+    VSelect,
     VExpansionPanel,
     VDataTable,
     VTabs,
-    VProgressLinear
+    VProgressLinear,
+    VStepper,
+    VSubheader
   }
 })

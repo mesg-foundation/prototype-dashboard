@@ -43,7 +43,7 @@
         </v-list>
       </v-menu>
     </v-toolbar>
-    <v-content>
+    <v-content style="z-index: 1;">
       <nuxt />
     </v-content>
     <v-footer app fixed dark>
